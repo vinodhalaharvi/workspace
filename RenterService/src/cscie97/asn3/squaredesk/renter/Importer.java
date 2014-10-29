@@ -30,7 +30,7 @@ public class Importer {
 	 */
 	public void ImportTripleFile(String filename) throws ImportExecption{
 		File file = new File(filename); 
-		KnowledgeGraph kg = KnowledgeGraph.getInstance(); 
+		//KnowledgeGraph.getInstance(); 
 		List<Triple> triples = new ArrayList<Triple>(); 
 		try {
 			FileReader fr = new FileReader(file);
@@ -43,7 +43,7 @@ public class Importer {
 					line = line.replace('.', ' '); 
 					triples.add(new Triple(line.trim()));
 				}
-				kg.importTriples(triples); 
+				KnowledgeGraph.importTriples(triples); 
 				input.close();
 			} catch (IOException e) {
 				e.printStackTrace();

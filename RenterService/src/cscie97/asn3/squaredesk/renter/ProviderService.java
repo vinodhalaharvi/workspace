@@ -9,12 +9,23 @@ import java.util.UUID;
  *
  * @author Vinod Halaharvi
  */
-public class ProviderService {
+public final class ProviderService {
 
 	/** The provider service. */
 	private static ProviderService providerService;  
 	/** The providers. */
 	private static Map<String, Provider> providers = new HashMap<String, Provider>();
+	
+	private static Map<String, OfficeSpace> officeSpaces = new HashMap<String, OfficeSpace>();
+
+	public static Collection<OfficeSpace> getOfficeSpaces() {
+		return officeSpaces.values();
+	}
+
+
+	public static void setOfficeSpaces(Map<String, OfficeSpace> officeSpaces) {
+		ProviderService.officeSpaces = officeSpaces;
+	}
 
 	/** The features. */
 	private static Map<String, Feature> features = new HashMap<String, Feature>(); 
@@ -58,7 +69,7 @@ public class ProviderService {
 	 * @param name the name
 	 * @return the feature
 	 */
-	public Feature getFeature(String name) {
+	public static Feature getFeature(String name) {
 		String uuidName = getUUIDFromString(name); 
 		if (features.containsKey(uuidName)){ 
 			return features.get(uuidName); 
@@ -75,7 +86,7 @@ public class ProviderService {
 	 * @param name the name
 	 * @return the category
 	 */
-	public Category getCategory(String name) {
+	public static Category getCategory(String name) {
 		String uuidName = getUUIDFromString(name); 
 		if (categories.containsKey(uuidName)){ 
 			return categories.get(uuidName); 
@@ -92,7 +103,7 @@ public class ProviderService {
 	 * @param type the type
 	 * @return the facility type
 	 */
-	public FacilityType getFacilityType(String type) {
+	public static FacilityType getFacilityType(String type) {
 		String uuidName = getUUIDFromString(type); 
 		if (facilityTypes.containsKey(uuidName)){ 
 			return facilityTypes.get(uuidName); 
@@ -115,7 +126,7 @@ public class ProviderService {
 	 * @throws ProviderAlreadyExistException the provider already exist exception
 	 * @throws AccessException the access exception
 	 */
-	public Provider createProvider(String authToken, String name, 
+	public static Provider createProvider(String authToken, String name, 
 			ContactInfo contactInfo, Image picture
 			) throws ProviderAlreadyExistException, AccessException{ 
 		//Assumption is that provider name is unique in the system
@@ -140,7 +151,7 @@ public class ProviderService {
 	 * @throws ProviderNotFoundException the provider not found exception
 	 * @throws AccessException the access exception
 	 */
-	public Provider getProvider(String authToken, String providerId) 
+	public static Provider getProvider(String authToken, String providerId) 
 			throws ProviderNotFoundException, AccessException {
 		return getProvider(providerId); 
 	}
@@ -153,7 +164,7 @@ public class ProviderService {
 	 * @return the provider list
 	 * @throws AccessException the access exception
 	 */
-	public Collection<Provider> getProviderList(String authToken)
+	public static Collection<Provider> getProviderList(String authToken)
 			throws AccessException{
 		return providers.values();  
 	}
@@ -165,7 +176,7 @@ public class ProviderService {
 	 * @return the provider
 	 * @throws ProviderNotFoundException the provider not found exception
 	 */
-	private Provider getProvider(String providerId) 
+	private static Provider getProvider(String providerId) 
 			throws ProviderNotFoundException {
 		if (!providers.containsKey(providerId)){
 			throw new ProviderNotFoundException("This Provider Already Exists"); 
@@ -185,7 +196,7 @@ public class ProviderService {
 	 * @throws ProviderNotFoundException the provider not found exception
 	 * @throws AccessException the access exception
 	 */
-	public Provider updateProviderName(String authToken, String providerId, String name) 
+	public static Provider updateProviderName(String authToken, String providerId, String name) 
 			throws ProviderNotFoundException, AccessException{
 		Provider providerObj = getProvider(providerId);
 		String providerOldName = providerObj.getName(); 
@@ -209,7 +220,7 @@ public class ProviderService {
 	 * @throws ProviderNotFoundException the provider not found exception
 	 * @throws AccessException the access exception
 	 */
-	public Provider updateProviderContactInfo(String authToken, String providerId, 
+	public static Provider updateProviderContactInfo(String authToken, String providerId, 
 			ContactInfo contactInfo) throws ProviderNotFoundException, AccessException{
 		Provider providerObj = getProvider(providerId); 
 		providerObj.setContactInfo(contactInfo);
@@ -227,7 +238,7 @@ public class ProviderService {
 	 * @throws ProviderNotFoundException the provider not found exception
 	 * @throws AccessException the access exception
 	 */
-	public Provider updateProviderPicture(String authToken, String providerId, 
+	public static Provider updateProviderPicture(String authToken, String providerId, 
 			Image picture) throws ProviderNotFoundException, AccessException{
 		Provider providerObj = getProvider(providerId); 
 		providerObj.setImage(picture);  
@@ -242,8 +253,13 @@ public class ProviderService {
 	 * @throws ProviderNotFoundException the provider not found exception
 	 * @throws AccessException the access exception
 	 */
-	public void deleteProvider(String authToken, String providerId) 
+	public static void deleteProvider(String authToken, String providerId) 
 			throws ProviderNotFoundException, AccessException{
+		Provider provider = getProvider(providerId); 
+		//first remove all office space mappings
+		for(OfficeSpace officeSpace : provider.getOfficeSpaces()){
+			officeSpaces.remove(officeSpace.getOffId());
+		}
 		providers.remove(providerId);
 	}
 
@@ -256,7 +272,7 @@ public class ProviderService {
 	 * @return the rating
 	 * @throws ProviderNotFoundException the provider not found exception
 	 */
-	public Rating addRatingToProvider(String authToken, String providerId, Rating rating)
+	public static Rating addRatingToProvider(String authToken, String providerId, Rating rating)
 			throws ProviderNotFoundException{
 		Provider providerObj = getProvider(providerId); 
 		providerObj.addRatingToList(rating); 
@@ -272,7 +288,7 @@ public class ProviderService {
 	 * @throws ProviderNotFoundException the provider not found exception
 	 * @throws RatingNotFoundException the rating not found exception
 	 */
-	public void removeRatingFromProvider(String authToken, String providerId, String ratingId) 
+	public static void removeRatingFromProvider(String authToken, String providerId, String ratingId) 
 			throws ProviderNotFoundException, RatingNotFoundException{
 		Provider providerObj = getProvider(providerId); 
 		providerObj.removeRatingfromList(ratingId); 
@@ -286,7 +302,7 @@ public class ProviderService {
 	 * @return the rating list for provider
 	 * @throws ProviderNotFoundException the provider not found exception
 	 */
-	public Collection<Rating> getRatingListForProvider(String authToken, String providerId)
+	public static Collection<Rating> getRatingListForProvider(String authToken, String providerId)
 			throws ProviderNotFoundException{
 		Provider providerObj = getProvider(providerId); 
 		return providerObj.getRatings();
@@ -301,10 +317,13 @@ public class ProviderService {
 	 * @return the office space
 	 * @throws ProviderNotFoundException the provider not found exception
 	 */
-	public OfficeSpace addOfficeSpaceToProvider(String authToken, String providerId, 
+	public static OfficeSpace addOfficeSpaceToProvider(String authToken, String providerId, 
 			OfficeSpace officeSpace) throws ProviderNotFoundException {
 		Provider providerObj = getProvider(providerId); 
 		providerObj.addOfficeSpaceToList(officeSpace); 
+		System.out.println("ADDING office space ");
+		System.out.println(officeSpace.getOffId());
+		officeSpaces.put(officeSpace.getOffId(), officeSpace); 
 		return officeSpace;
 	}
 
@@ -317,11 +336,11 @@ public class ProviderService {
 	 * @throws ProviderNotFoundException the provider not found exception
 	 * @throws OfficeSpaceNotFoundException the office space not found exception
 	 */
-	public void  removeOfficeSpaceFromProvider(String authToken, String providerId, 
+	public static void  removeOfficeSpaceFromProvider(String authToken, String providerId, 
 			String officeSpaceId) throws ProviderNotFoundException, OfficeSpaceNotFoundException {
 		Provider providerObj = getProvider(providerId); 
-		providerObj.removeOfficeSpaceFromList(officeSpaceId); 
-
+		providerObj.removeOfficeSpaceFromList(officeSpaceId);
+		officeSpaces.remove(officeSpaceId);
 	}
 
 	/**
@@ -332,16 +351,21 @@ public class ProviderService {
 	 * @return the office space list for provider
 	 * @throws ProviderNotFoundException the provider not found exception
 	 */
-	public Collection<OfficeSpace> getOfficeSpaceListForProvider (String authToken, String providerId) 
+	public static Collection<OfficeSpace> getOfficeSpaceListForProvider(String authToken, String providerId) 
 			throws ProviderNotFoundException {
 		Provider providerObj = getProvider(providerId); 
 		return providerObj.getOfficeSpaces(); 	
 	}
 
+	
+	public static OfficeSpace getOfficeSpace(String offId){
+		return officeSpaces.get(offId); 
+	}
+
 	/**
 	 * Instantiates a new provider service.
 	 */
-	public ProviderService() {
+	private ProviderService() {
 	}
 
 }

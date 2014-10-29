@@ -36,7 +36,6 @@ public class Provider extends Profile {
 	/** The ratings. */
 	private Map<String, Rating> ratings; 
 
-	private KnowledgeGraph kg; 
 	/**
 	 * Instantiates a new provider.
 	 *
@@ -45,7 +44,6 @@ public class Provider extends Profile {
 	 * @param picture the picture
 	 */
 	public Provider(String name, ContactInfo contactInfo, Image picture) {
-		kg = KnowledgeGraph.getInstance(); 
 		officeSpaces = new HashMap<String, OfficeSpace>(); 
 		ratings = new HashMap<String, Rating>(); 
 		this.name = name; 
@@ -269,21 +267,21 @@ public class Provider extends Profile {
 	
 	public OfficeSpace addOfficeSpaceToKnowledgeGraph(OfficeSpace officeSpace) {
 		if (officeSpace.getFacility().getCategory() == ""){
-			kg.addTriple(new Triple(officeSpace.getOffId() + " has_facility_type_category " +
+			KnowledgeGraph.addTriple(new Triple(officeSpace.getOffId() + " has_facility_type_category " +
 					officeSpace.getFacility().getType()));
 		} else {
-			kg.addTriple(new Triple(officeSpace.getOffId() + " has_facility_type_category " +
-					officeSpace.getFacility().getType() + "_" + officeSpace.getFacility().getCategory()));
+			KnowledgeGraph.addTriple(new Triple(officeSpace.getOffId() + " has_facility_type_category " +
+					officeSpace.getFacility().getType() + "_" + officeSpace.getFacility().getCategory().replace(' ', '_')));
 		}
-		kg.addTriple(new Triple(
+		KnowledgeGraph.addTriple(new Triple(
 				officeSpace.getOffId() + " has_lat_long " + (int)Math.floor(officeSpace.getLocation().getLat()) + "_"
 						+ (int)Math.floor(officeSpace.getLocation().getlng())));
 		for(Feature feature : officeSpace.getFeatures()){
-			kg.addTriple(new Triple(officeSpace.getOffId() + " has_feature " + feature.getName()));
+			KnowledgeGraph.addTriple(new Triple(officeSpace.getOffId() + " has_feature " + feature.getName()));
 		}
 
 		for(Rating rating : officeSpace.getRatings()){
-			kg.addTriple(new Triple(officeSpace.getOffId() + " has_rating " + rating));
+			KnowledgeGraph.addTriple(new Triple(officeSpace.getOffId() + " has_rating " + rating.getStars()));
 		}
 		officeSpace.setSearchable(true); 
 		return officeSpace;
@@ -294,21 +292,21 @@ public class Provider extends Profile {
 		if (!officeSpace.isSearchable())
 			return officeSpace; 
 		if (officeSpace.getFacility().getCategory() == ""){
-			kg.removeTriple(new Triple(officeSpace.getOffId() + " has_facility_type_category " +
+			KnowledgeGraph.removeTriple(new Triple(officeSpace.getOffId() + " has_facility_type_category " +
 					officeSpace.getFacility().getType()));
 		} else {
-			kg.removeTriple(new Triple(officeSpace.getOffId() + " has_facility_type_category " +
+			KnowledgeGraph.removeTriple(new Triple(officeSpace.getOffId() + " has_facility_type_category " +
 					officeSpace.getFacility().getType() + "_" + officeSpace.getFacility().getCategory()));
 		}
-		kg.removeTriple(new Triple(
+		KnowledgeGraph.removeTriple(new Triple(
 				officeSpace.getOffId() + " has_lat_long " + (int)Math.floor(officeSpace.getLocation().getLat()) + "_"
 						+ (int)Math.floor(officeSpace.getLocation().getlng())));
 		for(Feature feature : officeSpace.getFeatures()){
-			kg.removeTriple(new Triple(officeSpace.getOffId() + " has_feature " + feature.getName()));
+			KnowledgeGraph.removeTriple(new Triple(officeSpace.getOffId() + " has_feature " + feature.getName()));
 		}
 
 		for(Rating rating : officeSpace.getRatings()){
-			kg.removeTriple(new Triple(officeSpace.getOffId() + " has_rating " + rating));
+			KnowledgeGraph.removeTriple(new Triple(officeSpace.getOffId() + " has_rating " + rating));
 		}
 		return officeSpace;
 	}

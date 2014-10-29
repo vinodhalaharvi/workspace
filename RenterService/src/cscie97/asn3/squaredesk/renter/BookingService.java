@@ -1,13 +1,14 @@
 package cscie97.asn3.squaredesk.renter;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.UUID;
 
 /**
  * The Class BookingService.
  *
  * @author Vinod Halaharvi
  */
-public class BookingService {
+public final class BookingService {
 
 	/** The booking service. */
 	private static BookingService bookingService;  
@@ -38,13 +39,25 @@ public class BookingService {
 			return bookingService;
 		}
 	}
+	
+	
+	/**
+	 * Gets the UUID from string.
+	 *
+	 * @param name the name
+	 * @return the UUID from string
+	 */
+	public static String getUUIDFromString(String name) {
+		String uuidStr = UUID.nameUUIDFromBytes(name.getBytes()).toString(); 
+		return uuidStr; 	
+	}
 
 
-	public Booking createBooking(Renter renter, 
+	public static Booking createBooking(Renter renter, 
 			OfficeSpace officeSpace, String period, Rate rate, Date startDate, Date endDate, 
-			String paymentStatus, String bookingId
-			) throws BookingAlreadyExistException, AccessException{ 
-		Booking bookingObj = new Booking(renter, officeSpace, period, rate, startDate, endDate, paymentStatus);
+			String paymentStatus) throws BookingAlreadyExistException, AccessException{
+		String bookingId = getUUIDFromString(renter.getRenterId() + officeSpace.getOffId()); 
+		Booking bookingObj = new Booking(bookingId, renter, officeSpace, period, rate, startDate, endDate, paymentStatus);
 		if (bookings.contains(bookingObj)){
 			throw new BookingAlreadyExistException("This Booking Already Exists");
 		} else {
@@ -54,28 +67,24 @@ public class BookingService {
 	}
 
 	
-	public boolean checkAvailability(OfficeSpace officeSpace, Date startDate, Date endDate){
-		//for all bookings
-		//check if that office space is present
-		//if those dates are already taken then error 
-		//else book
+	public static boolean checkAvailability(OfficeSpace officeSpace, Date startDate, Date endDate){
 		for (Booking booking : getBookings()){
 			OfficeSpace thisOfficeSpace = booking.getOfficeSpace(); 
 			if (thisOfficeSpace.equals(officeSpace)){
 				if ((startDate.before(booking.getEndDate()) && endDate.after(booking.getEndDate())) || 
 						(startDate.before(booking.getStartDate())  && endDate.before(booking.getEndDate()))){
-					return true;
+					return false;
 				}
 			}
 		}
-		return false; 
+		return true; 
 	}
 	
-	public void removeBooking(Booking booking){
+	public static void removeBooking(Booking booking){
 		bookings.remove(booking);
 	}
 	
-	public void listBookings(){
+	public static void listBookings(){
 		for(Booking booking : bookings){
 			System.out.println(booking);
 		}
@@ -84,7 +93,7 @@ public class BookingService {
 	/**
 	 * Instantiates a new booking service.
 	 */
-	public BookingService() {
+	private BookingService() {
 	}
 
 }

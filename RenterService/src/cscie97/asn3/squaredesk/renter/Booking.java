@@ -1,6 +1,5 @@
 package cscie97.asn3.squaredesk.renter;
 
-import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -20,7 +19,6 @@ public class Booking {
 	public OfficeSpace getOfficeSpace() {
 		return officeSpace;
 	}
-
 	
 	
 	@Override
@@ -85,8 +83,9 @@ public class Booking {
 		this.paymentStatus = paymentStatus;
 	}
 
-	public Booking(Renter renter, OfficeSpace officeSpace, String period,
+	public Booking(String bookingId, Renter renter, OfficeSpace officeSpace, String period,
 			Rate rate, Date startDate, Date endDate, String paymentStatus) {
+		this.bookingId = bookingId; 
 		this.renter = renter;
 		this.officeSpace = officeSpace;
 		this.period = period;
@@ -104,6 +103,8 @@ public class Booking {
 	private Date endDate;
 	private String paymentStatus;
 	private String bookingId;
+	
+	
 	public String getBookingId() {
 		return bookingId;
 	}
@@ -111,22 +112,4 @@ public class Booking {
 	public void setBookingId(String bookingId) {
 		this.bookingId = bookingId;
 	} 
-	
-	public void createBooking(String authToken, Renter renter, Collection<OfficeSpace> officeSpaces, Criteria criteria){
-		return; 
-	}
-	
-	public void checkAvailability(OfficeSpace officeSpace, Date startDate, Date endDate){
-		
-	}
-	
-	public void deleteBooking(String bookingId){
-		
-	}
-	
-	public Collection<Booking> listBookings(){
-		return null;
-	}
-	
-
 }

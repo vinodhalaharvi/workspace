@@ -13,7 +13,6 @@ import cscie97.asn3.squaredesk.renter.ContactInfo;
 import cscie97.asn3.squaredesk.renter.Image;
 import cscie97.asn3.squaredesk.renter.OfficeSpaceNotFoundException;
 import cscie97.asn3.squaredesk.renter.RatingNotFoundException;
-import cscie97.asn3.squaredesk.renter.Renter;
 import cscie97.asn3.squaredesk.renter.RenterAlreadyExistException;
 import cscie97.asn3.squaredesk.renter.RenterNotFoundException;
 import cscie97.asn3.squaredesk.renter.RenterService;
@@ -23,8 +22,6 @@ import cscie97.asn3.squaredesk.renter.RenterService;
  *
  */
 public class RenterTestDriver extends TestDriverBase { 
-	private RenterService RenterService;
-	private Renter Renter;
 	/**
 	 * @throws ParseException 
 	 * @throws FileNotFoundException 
@@ -32,19 +29,17 @@ public class RenterTestDriver extends TestDriverBase {
 	 */
 	public RenterTestDriver() 
 			throws FileNotFoundException, ParseException { 
-		RenterService = new RenterService(); 
+		//RenterService = new RenterService(); 
 	}
 
 	@Override
 	public void createTest() 
 			throws RenterAlreadyExistException, AccessException, URISyntaxException {
-		Renter = RenterService.createRenter(ContextRenter.getAuthToken(), "Vinod Halaharvi", 
+		RenterService.createRenter(ContextRenter.getAuthToken(), "Vinod Halaharvi", 
 				new ContactInfo("vinod.halaharvi@gmail.com"), 
 				new Image("Amazing Picture", new URI("https://images.google.com"))
 				);		
 		beginTest("createTest");
-		// TEST CASE 1
-		// VERIFY CREATE AND READ OF THE "CRUD" OPERATIONS ON OfficeSpaceRenter and officeSpace
 		//USING RenterService
 		//First create a Singleton RenterService object
 		//Add OfficeSpace to Renter
@@ -62,7 +57,7 @@ public class RenterTestDriver extends TestDriverBase {
 
 	@Override
 	public void init() {
-		RenterService = RenterService.getInstance();
+		//RenterService.getInstance();
 	}
 
 	@Override

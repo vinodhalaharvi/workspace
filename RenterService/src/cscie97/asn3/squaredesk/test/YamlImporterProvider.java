@@ -243,7 +243,6 @@ public class YamlImporterProvider {
 		}
 	}
 
-
 	/**
 	 * Import images.
 	 *
@@ -255,11 +254,10 @@ public class YamlImporterProvider {
 		for(Map<Object, Object> imageYaml: imagesYaml){ 
 			@SuppressWarnings("unchecked")
 			Map<Object, Object> imageYamlItem = ((Map<Object, Object>) imageYaml.get("image")); 
-			images.add(new Image(
-					"Amazing Officespace", 
-					new URI("https://images.google.com")
-					));    
-		}   
+				images.add(new Image((String)imageYamlItem.get("name"), 
+						new URI((String)imageYamlItem.get("uri"))
+				));  
+		}  
 		return images; 
 	}
 

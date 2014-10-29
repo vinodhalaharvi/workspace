@@ -15,7 +15,7 @@ import java.util.Set;
  * @author vinodhalaharvi
  *
  */
-public class KnowledgeGraph { 
+public final class KnowledgeGraph { 
 	private static Map<String, Node> nodeMap; 
 	private static Map<String, Predicate> predicateMap; 
 	private static Map<String, Triple> tripleMap; 
@@ -26,7 +26,7 @@ public class KnowledgeGraph {
 	/**
 	 * Initialize static fields of this class
 	 */
-	public KnowledgeGraph() {
+	private KnowledgeGraph() {
 		nodeMap = new HashMap<String, Node>();
 		predicateMap = new HashMap<String, Predicate>();
 		tripleMap = new HashMap<String, Triple>();
@@ -37,7 +37,7 @@ public class KnowledgeGraph {
 	 * Helper function (NOT in the design document) to get the triples
 	 * associated with a query line like "Joe ? ?"
 	 */
-	public Set<Triple> getTripleSet(Set<Triple> ts, Triple t){ 
+	public static Set<Triple> getTripleSet(Set<Triple> ts, Triple t){ 
 		String [] b = t.getIdentifier().split(" "); 
 		List<ArrayList<Integer>> c = new ArrayList<ArrayList<Integer>>(); 
 		//Get the permutation indices
@@ -61,7 +61,7 @@ public class KnowledgeGraph {
 		return ts; 
 	}
 
-	public void addTriple(Triple t) {
+	public static void addTriple(Triple t) {
 		String [] tokens = t.getIdentifier().split(" ");
 		Node n = new Node(tokens[0]);
 		Predicate p = new Predicate(tokens[1]);
@@ -96,7 +96,7 @@ public class KnowledgeGraph {
 	}
 
 
-	public void removeTriple(Triple t) {
+	public static void removeTriple(Triple t) {
 		Set<Triple> ts = new HashSet<Triple>();
 		getTripleSet(ts, t);
 		if (!queryMapSet.containsKey(t.getIdentifier())){
@@ -115,7 +115,7 @@ public class KnowledgeGraph {
 	/**
 	 * imoprtTriples, called by QueryEngine class
 	 */
-	public void importTriples(List<Triple> tripleList) {
+	public static void importTriples(List<Triple> tripleList) {
 		/*
 		 * Get the tripleList from Importer 
 		 * Iterate over each Triple
@@ -152,7 +152,7 @@ public class KnowledgeGraph {
 	 * execute the query. A Triple set is already formed for this query to get O(1) performance
 	 * this methods just's returns that entry from queryMapSet
 	 */
-	public Set<Triple> executeQuery(Triple query) {
+	public static Set<Triple> executeQuery(Triple query) {
 		if (queryMapSet.containsKey(query.getIdentifier())){ 			
 			return  queryMapSet.get(query.getIdentifier());  
 		} else { 
@@ -175,7 +175,7 @@ public class KnowledgeGraph {
 	/**
 	 * Get node using pre calculated nodeMap
 	 */
-	public Node getNode(String identifier) {
+	public static Node getNode(String identifier) {
 		if (nodeMap.containsKey(identifier)){ 
 			return nodeMap.get(identifier);   
 		} else { 
@@ -187,7 +187,7 @@ public class KnowledgeGraph {
 	/**
 	 * Get predicate using pre calculated predicateMap 
 	 */
-	public Predicate getPredicate(String identifier) {
+	public static Predicate getPredicate(String identifier) {
 		if (predicateMap.containsKey(identifier)){ 
 			return predicateMap.get(identifier);
 		} else {
@@ -198,7 +198,7 @@ public class KnowledgeGraph {
 	/**
 	 * Get triple using pre calculated tripleMap
 	 */
-	public Triple getTriple(String identifier) {
+	public static Triple getTriple(String identifier) {
 		return tripleMap.get(identifier); 
 	}
 }

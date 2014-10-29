@@ -20,9 +20,6 @@ public class ProviderServiceTestDriver extends TestDriverBase {
 	/** The provider. */
 	private Provider provider;
 	
-	/** The provider service. */
-	private ProviderService providerService; 
-
 	/**
 	 * Instantiates a new provider service test driver.
 	 */
@@ -42,14 +39,15 @@ public class ProviderServiceTestDriver extends TestDriverBase {
 		//DELETE PROVIDER, THIS DELETES ALL THE REFERENCES HELD BY PROVIDER AND 
 		//THE CORRESPONDING COMPOSITION OBJECTS
 		//features, category and facilityType objects are not composition, so are not deleted
-		provider = providerService.createProvider(ContextProvider.getAuthToken(), "Vinod Halaharvi", 
+		ProviderService.getInstance();
+		provider = ProviderService.createProvider(ContextProvider.getAuthToken(), "Vinod Halaharvi", 
 				new ContactInfo("vinod.halaharvi@gmail.com"), 
 				new Image("Amazing Picture", new URI("https://images.google.com"))
 				);	
 		String providerGUID = provider.getProviderId(); 
-		providerService.deleteProvider(ContextProvider.getAuthToken(), providerGUID);
+		ProviderService.deleteProvider(ContextProvider.getAuthToken(), providerGUID);
 		try {
-			provider = providerService.getProvider(ContextProvider.getAuthToken(), providerGUID);	
+			provider = ProviderService.getProvider(ContextProvider.getAuthToken(), providerGUID);	
 		} catch (ProviderNotFoundException e) {
 			System.out.println("Successfully deleted the provider !!");
 		} 		

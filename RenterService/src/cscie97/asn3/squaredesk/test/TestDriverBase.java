@@ -3,7 +3,9 @@
  */
 package cscie97.asn3.squaredesk.test;
 
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 
 import cscie97.asn3.squaredesk.renter.AccessException;
 import cscie97.asn3.squaredesk.renter.OfficeSpaceNotFoundException;
@@ -43,10 +45,14 @@ public abstract class TestDriverBase {
 	 * @throws ProviderNotFoundException 
 	 * @throws RenterNotFoundException 
 	 * @throws RenterAlreadyExistException 
+	 * @throws ParseException 
+	 * @throws FileNotFoundException 
 	 */
 	public void createTest() 
 			throws ProviderAlreadyExistException, AccessException, 
-			URISyntaxException, ProviderNotFoundException, RenterAlreadyExistException, RenterNotFoundException{
+			URISyntaxException, ProviderNotFoundException, 
+			RenterAlreadyExistException, 
+			RenterNotFoundException, FileNotFoundException, ParseException{
 	}
 	
 	/**

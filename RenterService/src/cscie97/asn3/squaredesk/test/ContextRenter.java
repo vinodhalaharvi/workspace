@@ -4,16 +4,15 @@
 package cscie97.asn3.squaredesk.test;
 
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import cscie97.asn3.squaredesk.renter.Facility;
 import cscie97.asn3.squaredesk.renter.Feature;
-import cscie97.asn3.squaredesk.renter.KnowledgeGraph;
+import cscie97.asn3.squaredesk.renter.Image;
 import cscie97.asn3.squaredesk.renter.Location;
-import cscie97.asn3.squaredesk.renter.QueryEngine;
-import cscie97.asn3.squaredesk.renter.Rate;
 import cscie97.asn3.squaredesk.renter.Rating;
 
 /**
@@ -22,7 +21,26 @@ import cscie97.asn3.squaredesk.renter.Rating;
  */
 public class ContextRenter extends Context {
 
-	private static ContextRenter context; 
+	private static ContextRenter context;
+	private static Image image;
+	
+	public static Image getImage() {
+		return image;
+	}
+
+	public static void setImage(Image image) {
+		ContextRenter.image = image;
+	}
+
+	private static String name; 
+	public static String getName() {
+		return name;
+	}
+
+	public static void setName(String name) {
+		ContextRenter.name = name;
+	}
+
 	/**
 	 * generate Instance and return to the client
 	 * @throws ParseException 
@@ -52,17 +70,18 @@ public class ContextRenter extends Context {
 			throws FileNotFoundException, ParseException{
 		@SuppressWarnings("unused")
 		YamlImporterRenter yaml = YamlImporterRenter.getInstance(); 
-		//Zeroth argument is the YAML file to create objects
 		YamlImporterRenter.init(inputfilepath);
-		//IMPORT YAML DATA FROM INPUT FILE
-		//AND CREATE JAVA OBJECTS OUT OF THEM
+		name = YamlImporterRenter.importName();
+		try {
+			image = YamlImporterRenter.importImage();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} 
 		ratings = YamlImporterRenter.importRatings();
 		facility  = YamlImporterRenter.importFacility();
 		location = YamlImporterRenter.importLocation();
 		features = YamlImporterRenter.importFeatures();
 		authToken = UUID.randomUUID().toString();
-		qe = new QueryEngine();
-		kg = KnowledgeGraph.getInstance(); 
 	}
 
 
@@ -72,10 +91,6 @@ public class ContextRenter extends Context {
 
 	public static ArrayList<Rating> getRatings() {
 		return ratings;
-	}
-
-	public static ArrayList<Rate> getRates() {
-		return rates;
 	}
 
 	public static Facility getFacility() {
@@ -94,21 +109,9 @@ public class ContextRenter extends Context {
 		return authToken;
 	}
 
-	public static KnowledgeGraph getKg() {
-		return kg;
-	}
-
-	public static QueryEngine getQe() {
-		return qe;
-	}
-
-
 	private static ArrayList<Rating> ratings;
-	private static ArrayList<Rate> rates;
 	private static Facility facility;
 	private static Location location;
 	private static ArrayList<Feature> features;
 	private static String authToken;
-	private static KnowledgeGraph kg; 
-	private static QueryEngine qe; 
 }

@@ -8,7 +8,6 @@ import java.net.URISyntaxException;
 import cscie97.asn3.squaredesk.renter.AccessException;
 import cscie97.asn3.squaredesk.renter.ContactInfo;
 import cscie97.asn3.squaredesk.renter.Image;
-import cscie97.asn3.squaredesk.renter.OfficeSpace;
 import cscie97.asn3.squaredesk.renter.OfficeSpaceNotFoundException;
 import cscie97.asn3.squaredesk.renter.ProviderNotFoundException;
 import cscie97.asn3.squaredesk.renter.RatingNotFoundException;
@@ -21,12 +20,6 @@ import cscie97.asn3.squaredesk.renter.RenterService;
  * The Class RenterServiceTestDriver.
  */
 public class RenterServiceTestDriver extends TestDriverBase {
-
-	/** The Renter. */
-	private Renter renter;
-	
-	/** The Renter service. */
-	private RenterService RenterService; 
 
 	/**
 	 * Instantiates a new Renter service test driver.
@@ -53,8 +46,6 @@ public class RenterServiceTestDriver extends TestDriverBase {
 		} catch (RenterNotFoundException e) {
 			System.out.println("Successfully deleted the Renter !!");
 		} 		
-		
-		OfficeSpace officeSpace; 
 		
 		/*Booking booking = new Booking(renter, officeSpace, rate, startDate, new Date(), "paid");
 		BookingService bookingService = new BookingService();

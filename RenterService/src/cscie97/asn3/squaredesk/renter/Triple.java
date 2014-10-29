@@ -8,6 +8,40 @@ package cscie97.asn3.squaredesk.renter;
  *
  */
 public class Triple {
+	public Node getSubject() {
+		return subject;
+	}
+
+
+	public void setSubject(Node subject) {
+		this.subject = subject;
+	}
+
+
+	public Predicate getPredicate() {
+		return predicate;
+	}
+
+
+	public void setPredicate(Predicate predicate) {
+		this.predicate = predicate;
+	}
+
+
+	public Node getObject() {
+		return object;
+	}
+
+
+	public void setObject(Node object) {
+		this.object = object;
+	}
+
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
 	private Node subject; 
 	private Predicate predicate; 
 	private Node object;
@@ -46,8 +80,8 @@ public class Triple {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return subject.toString() +
-				predicate.toString() + 
+		return subject.toString() + " " + 
+				predicate.toString() + " " + 
 				object.toString();
 	}
 	

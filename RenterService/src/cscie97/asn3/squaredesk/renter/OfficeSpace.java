@@ -22,9 +22,6 @@ public class OfficeSpace {
 		return name;
 	}
 
-
-	private KnowledgeGraph kg; 
-
 	/**
 	 * Sets the name.
 	 *
@@ -70,12 +67,12 @@ public class OfficeSpace {
 	public void setLocation(Location location) {
 
 		if(isSearchable()){
-			kg.removeTriple(new Triple(
+			KnowledgeGraph.removeTriple(new Triple(
 					offId + " has_lat_long " + (int)Math.floor(this.location.getLat()) + "_"
 							+ (int)Math.floor(this.location.getlng())));
 			this.location = location;
 			//now go ahead and add the new one
-			kg.addTriple(new Triple(
+			KnowledgeGraph.addTriple(new Triple(
 					offId + " has_lat_long " + (int)Math.floor(location.getLat()) + "_"
 							+ (int)Math.floor(location.getlng())));
 		} else {
@@ -138,19 +135,19 @@ public class OfficeSpace {
 	public void setFacility(Facility facility) {
 		if(isSearchable()){
 			if (facility.getCategory() == ""){
-				kg.removeTriple(new Triple(offId + " has_facility_type_category " +
+				KnowledgeGraph.addTriple(new Triple(offId + " has_facility_type_category " +
 						facility.getType()));
 			} else {
-				kg.removeTriple(new Triple(offId + " has_facility_type_category " +
-						facility.getType() + "_" + facility.getCategory()));
+				KnowledgeGraph.addTriple(new Triple(offId + " has_facility_type_category " +
+						facility.getType() + "_" + facility.getCategory().replace(' ', '_')));
 			}
 			this.facility = facility;
 			if (facility.getCategory() == ""){
-				kg.addTriple(new Triple(offId + " has_facility_type_category " +
+				KnowledgeGraph.addTriple(new Triple(offId + " has_facility_type_category " +
 						facility.getType()));
 			} else {
-				kg.addTriple(new Triple(offId + " has_facility_type_category " +
-						facility.getType() + "_" + facility.getCategory()));
+				KnowledgeGraph.addTriple(new Triple(offId + " has_facility_type_category " +
+						facility.getType() + "_" + facility.getCategory().replace(' ', '_')));
 			}
 		} else {
 			this.facility = facility;
@@ -196,6 +193,13 @@ public class OfficeSpace {
 
 	/** The ratings. */
 	private List<Rating> ratings; 
+	
+	private Double avgRating; 
+	
+
+	public Double getAvgRating() {
+		return avgRating;
+	}
 
 	/**
 	 * Instantiates a new office space.
@@ -208,7 +212,7 @@ public class OfficeSpace {
 	 */
 	public OfficeSpace(String name, Location location, Capacity capacity,
 			Facility facility, Rate rate) {
-		kg = KnowledgeGraph.getInstance(); 
+		KnowledgeGraph.getInstance(); 
 		this.rates = new ArrayList<Rate>();
 		setName(name);
 		setLocation(location);
@@ -221,7 +225,9 @@ public class OfficeSpace {
 		this.images = new ArrayList<Image>(); 
 		this.ratings = new ArrayList<Rating>(); 
 	}
+	
 
+	
 	/**
 	 * Adds the feature.
 	 *
@@ -230,11 +236,11 @@ public class OfficeSpace {
 	 * @return the feature
 	 */
 	public Feature addFeature(String authToken,  String feature){
-		ProviderService providerService = ProviderService.getInstance(); 
-		Feature featureObj = providerService.getFeature(feature);
+		//ProviderService.getInstance(); 
+		Feature featureObj = ProviderService.getFeature(feature);
 		features.add(featureObj);
 		if(isSearchable()){ 
-			kg.addTriple(new Triple(offId + " has_feature " + feature));
+			KnowledgeGraph.addTriple(new Triple(offId + " has_feature " + feature));
 		}
 		return featureObj;
 	}
@@ -246,11 +252,11 @@ public class OfficeSpace {
 	 * @param feature the feature
 	 */
 	public void removeFeature(String authToken, String feature){
-		ProviderService providerService = ProviderService.getInstance(); 
-		Feature featureObj = providerService.getFeature(feature);
+		//ProviderService providerService = ProviderService.getInstance(); 
+		Feature featureObj = ProviderService.getFeature(feature);
 		features.remove(featureObj); 
 		if(isSearchable()){ 
-			kg.removeTriple(new Triple(offId + " has_feature " + featureObj.getName()));
+			KnowledgeGraph.removeTriple(new Triple(offId + " has_feature " + featureObj.getName()));
 		}
 	}
 
@@ -262,8 +268,8 @@ public class OfficeSpace {
 	 * @return the feature
 	 */
 	public Feature getFeature(String authToken, String feature){ 
-		ProviderService providerService = ProviderService.getInstance(); 
-		Feature featureObj = providerService.getFeature(feature);
+		//ProviderService.getInstance(); 
+		Feature featureObj = ProviderService.getFeature(feature);
 		return featureObj; 
 	}
 
@@ -378,8 +384,13 @@ public class OfficeSpace {
 	 */
 	public Rating addRating(String authToken,  Rating rating){
 		ratings.add(rating);
+		Double sum = 0.0; 
+		for(Rating iterRating : getRatings()){
+			sum += iterRating.getStars(); 
+		}
+		avgRating = (sum*1.0)/getRatings().size(); 
 		if(isSearchable()){
-			kg.addTriple(new Triple(offId + " has_rating " + rating.getStars()));	
+			KnowledgeGraph.addTriple(new Triple(offId + " has_rating " + rating.getStars()));	
 		}
 		return rating;
 	}
@@ -392,8 +403,13 @@ public class OfficeSpace {
 	 */
 	public void removeRating(String authToken, Rating rating){
 		ratings.remove(rating);
+		Double sum = 0.0; 
+		for(Rating iterRating : getRatings()){
+			sum += iterRating.getStars(); 
+		}
+		avgRating = (sum*1.0)/getRatings().size(); 
 		if(isSearchable()){
-			kg.removeTriple(new Triple(offId + " has_rating " + rating.getStars()));	
+			KnowledgeGraph.removeTriple(new Triple(offId + " has_rating " + rating.getStars()));	
 		}
 	}
 

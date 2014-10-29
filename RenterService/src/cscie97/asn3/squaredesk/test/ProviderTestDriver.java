@@ -12,6 +12,7 @@ import cscie97.asn3.squaredesk.renter.AccessException;
 import cscie97.asn3.squaredesk.renter.ContactInfo;
 import cscie97.asn3.squaredesk.renter.Feature;
 import cscie97.asn3.squaredesk.renter.Image;
+import cscie97.asn3.squaredesk.renter.KnowledgeGraph;
 import cscie97.asn3.squaredesk.renter.OfficeSpace;
 import cscie97.asn3.squaredesk.renter.OfficeSpaceNotFoundException;
 import cscie97.asn3.squaredesk.renter.Provider;
@@ -27,7 +28,6 @@ import cscie97.asn3.squaredesk.renter.Triple;
  *
  */
 public class ProviderTestDriver extends TestDriverBase { 
-	private ProviderService providerService;
 	private OfficeSpace officeSpace; 
 	private Provider provider;
 	/**
@@ -37,41 +37,28 @@ public class ProviderTestDriver extends TestDriverBase {
 	 */
 	public ProviderTestDriver() 
 			throws FileNotFoundException, ParseException { 
-		providerService = new ProviderService(); 
+		//providerService = new ProviderService(); 
 	}
 
 	@Override
 	public void createTest() 
-			throws ProviderAlreadyExistException, AccessException, URISyntaxException {
-		provider = providerService.createProvider(ContextProvider.getAuthToken(), "Vinod Halaharvi", 
+			throws ProviderAlreadyExistException, AccessException, URISyntaxException, 
+			FileNotFoundException, ParseException {
+		beginTest("createTest");
+		ContextProvider.getInstance();
+		provider = ProviderService.createProvider(ContextProvider.getAuthToken(), "Vinod Halaharvi", 
 				new ContactInfo("vinod.halaharvi@gmail.com"), 
 				new Image("Amazing Picture", new URI("https://images.google.com"))
 				);		
-		beginTest("createTest");
-		// TEST CASE 1
-		// VERIFY CREATE AND READ OF THE "CRUD" OPERATIONS ON OfficeSpaceProvider and officeSpace
-		//USING ProviderService
-		//First create a Singleton ProviderService object
-		//Add OfficeSpace to provider
-		//get OfficeSpace object from provider object (and verify by printing to stdout) 
-		//add rates to the OfficeSpace of this provider  (and verify by printing to stdout)
-		//Mandatory fields are, location, capacity, facility, rate (at least one rate)
 		officeSpace = new OfficeSpace("Amazon OfficeSpace!", 
-				ContextProvider.getLocation(), ContextProvider.getCapacity(), ContextProvider.getFacility(), ContextProvider.getRates().get(0));
-		//Now add more rates if available
+				ContextProvider.getLocation(), ContextProvider.getCapacity(), ContextProvider.getFacility(), 
+				ContextProvider.getRates().get(0));
 		officeSpace.addRate(ContextProvider.getAuthToken(), ContextProvider.getRates().get(1));
-		//add this officeSpace to provider
 		officeSpace = provider.addOfficeSpaceToList(officeSpace);
-		//Add features to office space. 
 		for(Feature feature : ContextProvider.getFeatures()){
 			officeSpace.addFeature(ContextProvider.getAuthToken(), feature.getName());
 		}
-		//Add officeSpace to KnowledgeGraph and make 
-		//is searchable
-		System.out.println();
-		System.out.println("Adding officeSpace to KnowledgeGraph");
 		officeSpace = provider.addOfficeSpaceToKnowledgeGraph(officeSpace);
-		System.out.println("Ending ProviderTestDriver creatTest()");
 		endTest("createTest");
 	}
 
@@ -82,14 +69,14 @@ public class ProviderTestDriver extends TestDriverBase {
 		System.out.println("Query after adding officeSpace");
 		System.out.println("Features");
 		String tempString = "?" + " has_feature " + "?";
-		for (Triple foundTriple : ContextProvider.getKg().executeQuery(new Triple(tempString))){
+		for (Triple foundTriple : KnowledgeGraph.executeQuery(new Triple(tempString))){
 			System.out.println(foundTriple.getIdentifier());
 		}
 
 		System.out.println();
 		System.out.println("Location");
 		tempString = "?" + " has_lat_long " + "?";
-		for (Triple foundTriple : ContextProvider.getKg().executeQuery(new Triple(tempString))){
+		for (Triple foundTriple : KnowledgeGraph.executeQuery(new Triple(tempString))){
 			System.out.println(foundTriple.getIdentifier());
 		}
 		for(Feature feature : ContextProvider.getFeatures()){
@@ -100,7 +87,7 @@ public class ProviderTestDriver extends TestDriverBase {
 
 	@Override
 	public void init() {
-		providerService = ProviderService.getInstance();
+		//providerService = ProviderService.getInstance();
 	}
 
 	@Override
@@ -110,12 +97,12 @@ public class ProviderTestDriver extends TestDriverBase {
 		System.out.println();
 		System.out.println("Query after deleting all features");
 		String tempString = "?" + " has_feature " + "?";
-		for (Triple foundTriple : ContextProvider.getKg().executeQuery(new Triple(tempString))){
+		for (Triple foundTriple : KnowledgeGraph.executeQuery(new Triple(tempString))){
 			System.out.println(foundTriple.getIdentifier());
 		}
 
 		tempString = "?" + " ? " + "?";
-		for (Triple foundTriple : ContextProvider.getKg().executeQuery(new Triple(tempString))){
+		for (Triple foundTriple : KnowledgeGraph.executeQuery(new Triple(tempString))){
 			System.out.println(foundTriple.getIdentifier());
 		}
 
@@ -154,10 +141,10 @@ public class ProviderTestDriver extends TestDriverBase {
 		System.out.println("PROVIDER BEFORE NAME CHANGE");
 		System.out.println(provider.getName());
 		System.out.println(provider.getContactInfo().getEmail());
-		provider = providerService.updateProviderName(ContextProvider.getAuthToken(), 
+		provider = ProviderService.updateProviderName(ContextProvider.getAuthToken(), 
 				provider.getProviderId(), "Vinod Changed Halaharvi");
 		System.out.println("PROVIDER AFTER THE NAME CHANGE");
-		provider = providerService.getProvider(ContextProvider.getAuthToken(), provider.getProviderId());
+		provider = ProviderService.getProvider(ContextProvider.getAuthToken(), provider.getProviderId());
 		System.out.println(provider.getName());		
 		System.out.println(provider.getContactInfo().getEmail());
 		System.out.println();
@@ -167,7 +154,7 @@ public class ProviderTestDriver extends TestDriverBase {
 		System.out.println(provider.getName());		
 		System.out.println(provider.getContactInfo().getEmail());
 		System.out.println("Picture URI: " + provider.getImage().getURI());
-		providerService.updateProviderPicture(ContextProvider.getAuthToken(), 
+		ProviderService.updateProviderPicture(ContextProvider.getAuthToken(), 
 				provider.getProviderId(), 
 				new Image("Amazing Picture From Yahoo", new URI("https://images.yahoo.com")));
 		System.out.println("PROVIDER AFTER PICTURE CHANGE");

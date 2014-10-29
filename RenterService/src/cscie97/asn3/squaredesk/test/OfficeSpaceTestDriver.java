@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 
 import cscie97.asn3.squaredesk.renter.AccessException;
 import cscie97.asn3.squaredesk.renter.Feature;
+import cscie97.asn3.squaredesk.renter.KnowledgeGraph;
 import cscie97.asn3.squaredesk.renter.OfficeSpace;
 import cscie97.asn3.squaredesk.renter.ProviderAlreadyExistException;
 import cscie97.asn3.squaredesk.renter.Triple;
@@ -66,7 +67,7 @@ public class OfficeSpaceTestDriver extends TestDriverBase {
 		//TEST THE KNOWLEDGE GRAPH QUERY FOR FEATURES	
 		System.out.println("Reading features using QueryEngine.");
 		String tempString = "?" + " has_feature " + "?";
-		for (Triple foundTriple : ContextProvider.getKg().executeQuery(new Triple(tempString))){
+		for (Triple foundTriple : KnowledgeGraph.executeQuery(new Triple(tempString))){
 			System.out.println(foundTriple.getIdentifier());
 		}
 		System.out.println("ENDING readTest");
@@ -82,7 +83,7 @@ public class OfficeSpaceTestDriver extends TestDriverBase {
 		}
 		System.out.println("Reading features using QueryEngine.");
 		String tempString = "?" + " has_feature " + "?";
-		for (Triple foundTriple : ContextProvider.getKg().executeQuery(new Triple(tempString))){
+		for (Triple foundTriple : KnowledgeGraph.executeQuery(new Triple(tempString))){
 			System.out.println(foundTriple.getIdentifier());
 		}
 		System.out.println("ENDING deleteTest");

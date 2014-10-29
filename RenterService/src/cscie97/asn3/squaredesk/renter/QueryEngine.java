@@ -30,9 +30,9 @@ public class QueryEngine {
 		if (query == null){ 
 			throw new QueryEngineException("Null query found"); 
 		}
-		KnowledgeGraph kg = KnowledgeGraph.getInstance(); 
+		//KnowledgeGraph.getInstance(); 
 		System.out.println(query);
-		for (Triple t: kg.executeQuery(new Triple(query.trim()))){
+		for (Triple t: KnowledgeGraph.executeQuery(new Triple(query.trim()))){
 			System.out.println(String.format("%s", t.getIdentifier())); 
 		}
 		System.out.println();
@@ -45,7 +45,7 @@ public class QueryEngine {
 	@SuppressWarnings("resource")
 	public void executeQueryFile(String filename) throws QueryEngineException {
 		File file = new File(filename); 
-		KnowledgeGraph kg = KnowledgeGraph.getInstance(); 
+		//KnowledgeGraph.getInstance(); 
 		try {
 			FileReader fr = new FileReader(file);
 			BufferedReader input = new BufferedReader(fr);
@@ -63,9 +63,9 @@ public class QueryEngine {
 					if (line.split(" ").length != 3) {
 						throw new QueryEngineException("Not enough Query Arguements");
 					} 					
-					Set<Triple> temp = kg.executeQuery(new Triple(line.trim()));
+					Set<Triple> temp = KnowledgeGraph.executeQuery(new Triple(line.trim()));
 					if (temp != null){ 						
-						for (Triple t: kg.executeQuery(new Triple(line.trim()))){
+						for (Triple t: KnowledgeGraph.executeQuery(new Triple(line.trim()))){
 							System.out.println(String.format("%s", t.getIdentifier())); 
 						}
 					} else { 

@@ -70,7 +70,7 @@ public class YamlImporterRenter {
 	@SuppressWarnings("unchecked")
 	public static void init(String filename) 
 			throws FileNotFoundException{
-		FileInputStream input = new FileInputStream("/Users/vinodhalaharvi/harvard/vhalaharvi_harvard_projects/cs97/workspace/RenterService/renter.yaml"); 
+		FileInputStream input = new FileInputStream(filename); 
 		yaml = new Yaml();
 		renterYaml = (Map<Object, Object>)  yaml.load(input); 
 		
@@ -81,6 +81,15 @@ public class YamlImporterRenter {
 		locationYaml = (Map<Object, Object>) searchCriteriaYaml.get("location");
 		facilityYaml = (Map<Object, Object>) searchCriteriaYaml.get("facility");
 		accountYaml = (Map<Object, Object>) renterYaml.get("account");
+	}
+	
+	
+	public static String importName(){
+		return (String) renterYaml.get("name"); 
+	}
+	
+	public static String importGender(){
+		return (String) renterYaml.get("gender"); 
 	}
 	
 

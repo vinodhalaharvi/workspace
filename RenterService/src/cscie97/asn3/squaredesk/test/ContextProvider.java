@@ -53,10 +53,7 @@ public class ContextProvider extends Context {
 			throws FileNotFoundException, ParseException{
 		@SuppressWarnings("unused")
 		YamlImporterProvider yaml = YamlImporterProvider.getInstance(); 
-		//Zeroth argument is the YAML file to create objects
 		YamlImporterProvider.init(inputfilepath);
-		//IMPORT YAML DATA FROM INPUT FILE
-		//AND CREATE JAVA OBJECTS OUT OF THEM
 		ratings = YamlImporterProvider.importRatings();
 		rates = YamlImporterProvider.importRates();
 		facility  = YamlImporterProvider.importFacility();
