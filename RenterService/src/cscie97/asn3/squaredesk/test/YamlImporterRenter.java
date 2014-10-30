@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package cscie97.asn3.squaredesk.test;
 
 
@@ -13,26 +16,16 @@ import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
 
+import cscie97.asn3.squaredesk.provider.Facility;
+import cscie97.asn3.squaredesk.provider.Feature;
+import cscie97.asn3.squaredesk.provider.Image;
+import cscie97.asn3.squaredesk.provider.Location;
+import cscie97.asn3.squaredesk.provider.Rating;
 import cscie97.asn3.squaredesk.renter.Account;
-import cscie97.asn3.squaredesk.renter.Facility;
-import cscie97.asn3.squaredesk.renter.Feature;
-import cscie97.asn3.squaredesk.renter.Image;
-import cscie97.asn3.squaredesk.renter.Location;
-import cscie97.asn3.squaredesk.renter.Rating;
 
 
 /**
- * The Class YamlImporter.
-
-import cscie97.asn3.squaredesk.renter.Capacity;
-import cscie97.asn3.squaredesk.renter.Facility;
-import cscie97.asn3.squaredesk.renter.Feature;
-import cscie97.asn3.squaredesk.renter.Image;
-import cscie97.asn3.squaredesk.renter.Location;
-import cscie97.asn3.squaredesk.renter.Rate;
-import cscie97.asn3.squaredesk.renter.Rating;
- *
- * @author Vinod Halaharvi
+ * The Class YamlImporterRenter.
  */
 public class YamlImporterRenter {
 
@@ -48,16 +41,26 @@ public class YamlImporterRenter {
 	/** The ratings yaml. */
 	private static ArrayList<Map<Object, Object>> ratingsYaml; 
 	
+	/** The yaml importer renter. */
 	private static YamlImporterRenter yamlImporterRenter;
 
+	/** The renter yaml. */
 	private static Map<Object, Object> renterYaml;
 
+	/** The account yaml. */
 	private static Map<Object, Object> accountYaml;
 
+	/** The search criteria yaml. */
 	private static Map<Object, Object> searchCriteriaYaml;
 
+	/** The facility yaml. */
 	private static Map<Object, Object> facilityYaml;
 
+	/**
+	 * Gets the single instance of YamlImporterRenter.
+	 *
+	 * @return single instance of YamlImporterRenter
+	 */
 	public static YamlImporterRenter getInstance() {
 		if (yamlImporterRenter == null){
 			yamlImporterRenter = new YamlImporterRenter();
@@ -67,6 +70,14 @@ public class YamlImporterRenter {
 		}
 	}
 	
+	/**
+	 * Inits the.
+	 *
+	 * @param filename
+	 *            the filename
+	 * @throws FileNotFoundException
+	 *             the file not found exception
+	 */
 	@SuppressWarnings("unchecked")
 	public static void init(String filename) 
 			throws FileNotFoundException{
@@ -84,10 +95,20 @@ public class YamlImporterRenter {
 	}
 	
 	
+	/**
+	 * Import name.
+	 *
+	 * @return the string
+	 */
 	public static String importName(){
 		return (String) renterYaml.get("name"); 
 	}
 	
+	/**
+	 * Import gender.
+	 *
+	 * @return the string
+	 */
 	public static String importGender(){
 		return (String) renterYaml.get("gender"); 
 	}
@@ -106,6 +127,11 @@ public class YamlImporterRenter {
 		return features; 
 	}
 	
+	/**
+	 * Import account.
+	 *
+	 * @return the account
+	 */
 	public static Account importAccount(){
 		Account account = new Account((String) accountYaml.get("payPalAccountNumber")); 
 		return account; 

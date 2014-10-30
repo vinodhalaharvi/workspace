@@ -5,8 +5,6 @@ package cscie97.asn3.squaredesk.renter;
 
 /**
  * The Class Account.
- *
- * @author Vinod Halaharvi
  */
 public class Account {
 	

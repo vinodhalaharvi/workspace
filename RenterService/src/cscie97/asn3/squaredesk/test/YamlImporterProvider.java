@@ -14,19 +14,17 @@ import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
 
-import cscie97.asn3.squaredesk.renter.Capacity;
-import cscie97.asn3.squaredesk.renter.Facility;
-import cscie97.asn3.squaredesk.renter.Feature;
-import cscie97.asn3.squaredesk.renter.Image;
-import cscie97.asn3.squaredesk.renter.Location;
-import cscie97.asn3.squaredesk.renter.Rate;
-import cscie97.asn3.squaredesk.renter.Rating;
+import cscie97.asn3.squaredesk.provider.Capacity;
+import cscie97.asn3.squaredesk.provider.Facility;
+import cscie97.asn3.squaredesk.provider.Feature;
+import cscie97.asn3.squaredesk.provider.Image;
+import cscie97.asn3.squaredesk.provider.Location;
+import cscie97.asn3.squaredesk.provider.Rate;
+import cscie97.asn3.squaredesk.provider.Rating;
 
 
 /**
- * The Class YamlImporter.
- *
- * @author Vinod Halaharvi
+ * The Class YamlImporterProvider.
  */
 public class YamlImporterProvider {
 
@@ -62,16 +60,14 @@ public class YamlImporterProvider {
 	
 	private static YamlImporterProvider yamlImporterProvider;   
 
-	
-	public static YamlImporterProvider getInstance() {
-		if (yamlImporterProvider == null){
-			yamlImporterProvider = new YamlImporterProvider();
-			return yamlImporterProvider;
-		} else {
-			return yamlImporterProvider;
-		}
-	}
-	
+	/**
+	 * Inits the.
+	 *
+	 * @param filename
+	 *            the filename
+	 * @throws FileNotFoundException
+	 *             the file not found exception
+	 */
 	@SuppressWarnings("unchecked")
 	public static void init(String filename) 
 			throws FileNotFoundException{
@@ -88,6 +84,17 @@ public class YamlImporterProvider {
 		ratingsYaml = (ArrayList<Map<Object, Object>>) officeSpacesYaml.get("ratings");
 	}
 
+	
+	public static YamlImporterProvider getInstance() {
+		if (yamlImporterProvider == null){
+			yamlImporterProvider = new YamlImporterProvider();
+			return yamlImporterProvider;
+		} else {
+			return yamlImporterProvider;
+		}
+	}
+	
+	
 	/**
 	 * Import features.
 	 *
@@ -103,28 +110,10 @@ public class YamlImporterProvider {
 
 
 	/**
-	 * Prints the features.
-	 *
-	 * @param features the features
-	 */
-	public static void printFeatures(ArrayList<Feature> features) {
-		System.out.println("FEATURES!!");
-		for(Feature feature : features){
-			System.out.println(feature.getName());
-			System.out.println();
-		}
-	}
-
-
-	/**
 	 * Import location.
 	 *
 	 * @return the location
 	 */
-	
-	//String street1, String street2, String city, String state,
-	//String zipCode, String address, String countryCode, Double lat,
-	//Double lng
 	public static Location importLocation() {
 		Location location = new Location( 
 				(String) locationYaml.get("street1"),
@@ -138,21 +127,6 @@ public class YamlImporterProvider {
 				(Double) locationYaml.get("lng")
 				);
 		return location;
-	}
-
-
-	/**
-	 * Prints the location.
-	 *
-	 * @param location the location
-	 */
-	public static void printLocation(Location location) {
-		System.out.println("LOCATION!!");
-		System.out.println(location.getStreet1());
-		System.out.println(location.getCity());
-		System.out.println(location.getState());
-		System.out.println(location.getZipCode());
-		System.out.println(location.getCountryCode());
 	}
 
 
@@ -172,19 +146,6 @@ public class YamlImporterProvider {
 
 
 	/**
-	 * Prints the capacity.
-	 *
-	 * @param capacity the capacity
-	 */
-	public static void printCapacity(Capacity capacity) {
-		System.out.println("CAPACITY!!");
-		System.out.println(capacity.getNumOfPeople());
-		System.out.println(capacity.getNumOfWorkSpaces());
-		System.out.println(capacity.getSquareFootage());
-	}
-
-
-	/**
 	 * Import facility.
 	 *
 	 * @return the facility
@@ -195,18 +156,6 @@ public class YamlImporterProvider {
 				(String) facilityYaml.get("category")
 				);
 		return facility; 
-	}
-
-
-	/**
-	 * Prints the facility.
-	 *
-	 * @param facility the facility
-	 */
-	public static void printFacility(Facility facility) {
-		System.out.println("FACILITY!!");
-		System.out.println("Type: " + facility.getType());
-		System.out.println("Category: " + facility.getCategory());
 	}
 
 
@@ -228,21 +177,6 @@ public class YamlImporterProvider {
 		return rates; 
 	}
 
-
-	/**
-	 * Prints the rates.
-	 *
-	 * @param rates the rates
-	 */
-	public static void printRates(ArrayList<Rate> rates) {
-		System.out.println("RATES!!");
-		for(Rate rate : rates){
-			System.out.println(rate.getPeriod());
-			System.out.println(rate.getCost());
-			System.out.println();
-		}
-	}
-
 	/**
 	 * Import images.
 	 *
@@ -261,29 +195,12 @@ public class YamlImporterProvider {
 		return images; 
 	}
 
-
-	/**
-	 * Prints the images.
-	 *
-	 * @param images the images
-	 */
-	public static void printImages(ArrayList<Image> images) {
-		System.out.println("IMAGES!!");
-		for(Image image : images){
-			System.out.println(image.getName());
-			System.out.println(image.getDescription());
-			System.out.println(image.getURI());     
-			System.out.println();
-		}
-	}
-
-
-
 	/**
 	 * Import ratings.
 	 *
 	 * @return the array list
-	 * @throws ParseException the parse exception
+	 * @throws ParseException
+	 *             the parse exception
 	 */
 	public static ArrayList<Rating> importRatings() throws ParseException {
 		ArrayList<Rating> ratings = new ArrayList<Rating>();
@@ -299,23 +216,6 @@ public class YamlImporterProvider {
 					));	
 		}
 		return ratings; 
-	}
-
-
-	/**
-	 * Prints the ratings.
-	 *
-	 * @param ratings the ratings
-	 */
-	public static void printRatings(ArrayList<Rating> ratings) {
-		System.out.println("RATINGS!!");
-		for(Rating rating : ratings){
-			System.out.println(rating.getStars());
-			System.out.println(rating.getComment());
-			System.out.println(rating.getDate());
-			System.out.println(rating.getAuthorsId());		
-			System.out.println();
-		}
 	}
 }
 

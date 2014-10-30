@@ -5,78 +5,74 @@ package cscie97.asn3.squaredesk.test;
 
 import java.net.URISyntaxException;
 
-import cscie97.asn3.squaredesk.renter.AccessException;
-import cscie97.asn3.squaredesk.renter.Feature;
+import cscie97.asn3.squaredesk.provider.AccessException;
+import cscie97.asn3.squaredesk.provider.Feature;
+import cscie97.asn3.squaredesk.provider.OfficeSpace;
+import cscie97.asn3.squaredesk.provider.ProviderAlreadyExistException;
 import cscie97.asn3.squaredesk.renter.KnowledgeGraph;
-import cscie97.asn3.squaredesk.renter.OfficeSpace;
-import cscie97.asn3.squaredesk.renter.ProviderAlreadyExistException;
 import cscie97.asn3.squaredesk.renter.Triple;
 
 /**
- * @author s2687
- *
+ * The Class OfficeSpaceTestDriver.
  */
 public class OfficeSpaceTestDriver extends TestDriverBase {
 
+	/** The office space. */
 	private OfficeSpace officeSpace;
 
 	/**
-	 * 
+	 * Instantiates a new office space test driver.
 	 */
 	public OfficeSpaceTestDriver() {
-		// TODO Auto-generated constructor stub
 	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#createTest()
+	 */
 	@Override
 	public void createTest() throws ProviderAlreadyExistException,
 	AccessException, URISyntaxException {
-		System.out.println("STARTING createTest");
-
-		// TEST CASE 1
-		// VERIFY CREATE AND READ OF THE "CRUD" OPERATIONS ON OfficeSpaceProvider and officeSpace
-		//USING ProviderService
-		//First create a Singleton ProviderService object
-		//Add OfficeSpace to provider
-		//get OfficeSpace object from provider object (and verify by printing to stdout) 
-		//add rates to the OfficeSpace of this provider  (and verify by printing to stdout)
-		//Mandatory fields are, location, capacity, facility, rate (at least one rate)
+		beginTest("createTest");
 		System.out.println("Creating OfficeSpace");
 		officeSpace = new OfficeSpace("Amazon OfficeSpace!", 
 				ContextProvider.getLocation(), ContextProvider.getCapacity(), ContextProvider.getFacility(), ContextProvider.getRates().get(0));
-		//add more rates if available
 		System.out.println("Adding rates");
 		officeSpace.addRate(ContextProvider.getAuthToken(), ContextProvider.getRates().get(1));
-		//add this officeSpace to provider
-		//Add features to office space. 
 		System.out.println("Adding features");
 		for(Feature feature : ContextProvider.getFeatures()){
 			officeSpace.addFeature(ContextProvider.getAuthToken(), feature.getName());
 		}
-		System.out.println("ENDING createTest");
-
+		endTest("createTest");
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#updateTest()
+	 */
 	@Override
 	public void updateTest() {
 		//update this newly added officespace. 
-		}
+	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#readTest()
+	 */
 	@Override
 	public void readTest() {
-		System.out.println("STARTING readTest");
-		//TEST THE KNOWLEDGE GRAPH QUERY FOR FEATURES	
+		beginTest("readTest");
 		System.out.println("Reading features using QueryEngine.");
 		String tempString = "?" + " has_feature " + "?";
 		for (Triple foundTriple : KnowledgeGraph.executeQuery(new Triple(tempString))){
 			System.out.println(foundTriple.getIdentifier());
 		}
-		System.out.println("ENDING readTest");
-
+		endTest("readTest");
 	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#deleteTest()
+	 */
 	@Override
 	public void deleteTest() {
-		System.out.println("STARTING deleteTest");
+		beginTest("deleteTest");
 		System.out.println("Deleting features .. ");
 		for(Feature feature : ContextProvider.getFeatures()){
 			officeSpace.removeFeature(ContextProvider.getAuthToken(), feature.getName());
@@ -86,6 +82,6 @@ public class OfficeSpaceTestDriver extends TestDriverBase {
 		for (Triple foundTriple : KnowledgeGraph.executeQuery(new Triple(tempString))){
 			System.out.println(foundTriple.getIdentifier());
 		}
-		System.out.println("ENDING deleteTest");
+		endTest("deleteTest");
 	}
 }

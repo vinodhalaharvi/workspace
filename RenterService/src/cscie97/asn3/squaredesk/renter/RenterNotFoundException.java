@@ -4,14 +4,11 @@
 package cscie97.asn3.squaredesk.renter;
 
 /**
- * @author vinodhalaharvi
- *
+ * The Class RenterNotFoundException.
  */
 public class RenterNotFoundException extends Exception {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 
 	/**
 	 * 

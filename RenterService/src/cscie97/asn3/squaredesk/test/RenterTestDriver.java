@@ -8,18 +8,17 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 
-import cscie97.asn3.squaredesk.renter.AccessException;
-import cscie97.asn3.squaredesk.renter.ContactInfo;
-import cscie97.asn3.squaredesk.renter.Image;
-import cscie97.asn3.squaredesk.renter.OfficeSpaceNotFoundException;
-import cscie97.asn3.squaredesk.renter.RatingNotFoundException;
+import cscie97.asn3.squaredesk.provider.AccessException;
+import cscie97.asn3.squaredesk.provider.ContactInfo;
+import cscie97.asn3.squaredesk.provider.Image;
+import cscie97.asn3.squaredesk.provider.OfficeSpaceNotFoundException;
+import cscie97.asn3.squaredesk.provider.RatingNotFoundException;
 import cscie97.asn3.squaredesk.renter.RenterAlreadyExistException;
 import cscie97.asn3.squaredesk.renter.RenterNotFoundException;
 import cscie97.asn3.squaredesk.renter.RenterService;
 
 /**
- * @author s2687
- *
+ * The Class RenterTestDriver.
  */
 public class RenterTestDriver extends TestDriverBase { 
 	/**

@@ -4,14 +4,11 @@
 package cscie97.asn3.squaredesk.renter;
 
 /**
- * @author s2687
- *
+ * The Class RenterAlreadyExistException.
  */
 public class RenterAlreadyExistException extends Exception {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5827507850203009048L;
 
 	/**

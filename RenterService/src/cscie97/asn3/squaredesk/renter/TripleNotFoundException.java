@@ -4,14 +4,11 @@
 package cscie97.asn3.squaredesk.renter;
 
 /**
- * @author s2687
- *
+ * The Class TripleNotFoundException.
  */
 public class TripleNotFoundException extends Exception {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2446226948529625952L;
 
 	/**

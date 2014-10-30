@@ -1,43 +1,42 @@
+/*
+ * 
+ */
 package cscie97.asn3.squaredesk.renter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.UUID;
 
+import cscie97.asn3.squaredesk.provider.AccessException;
+import cscie97.asn3.squaredesk.provider.OfficeSpace;
+import cscie97.asn3.squaredesk.provider.Rate;
+
 /**
  * The Class BookingService.
- *
- * @author Vinod Halaharvi
  */
 public final class BookingService {
 
-	/** The booking service. */
-	private static BookingService bookingService;  
 	/** The bookings. */
 	private static HashSet<Booking> bookings = new HashSet<Booking>();
 
 
+	/**
+	 * Gets the bookings.
+	 *
+	 * @return the bookings
+	 */
 	public static HashSet<Booking> getBookings() {
 		return bookings;
 	}
 
 
+	/**
+	 * Sets the bookings.
+	 *
+	 * @param bookings
+	 *            the new bookings
+	 */
 	public static void setBookings(HashSet<Booking> bookings) {
 		BookingService.bookings = bookings;
-	}
-
-
-	/**
-	 * Gets the single instance of BookingService.
-	 *
-	 * @return single instance of BookingService
-	 */
-	public static BookingService getInstance() {
-		if (bookingService == null){
-			bookingService = new BookingService();
-			return bookingService;
-		} else {
-			return bookingService;
-		}
 	}
 	
 	

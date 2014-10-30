@@ -4,15 +4,11 @@
 package cscie97.asn3.squaredesk.renter;
 
 /**
- * @author vinodhalaharvi
- * This is just a place holder Exception class. 
- * For this assignment this class's behavior is no different than it's parent class's
+ * The Class QueryEngineException.
  */
 public class QueryEngineException extends Exception {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3172907704439066607L;
 
 	/**

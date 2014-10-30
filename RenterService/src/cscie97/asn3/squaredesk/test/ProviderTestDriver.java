@@ -8,27 +8,30 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 
-import cscie97.asn3.squaredesk.renter.AccessException;
-import cscie97.asn3.squaredesk.renter.ContactInfo;
-import cscie97.asn3.squaredesk.renter.Feature;
-import cscie97.asn3.squaredesk.renter.Image;
+import cscie97.asn3.squaredesk.provider.AccessException;
+import cscie97.asn3.squaredesk.provider.ContactInfo;
+import cscie97.asn3.squaredesk.provider.Feature;
+import cscie97.asn3.squaredesk.provider.Image;
+import cscie97.asn3.squaredesk.provider.OfficeSpace;
+import cscie97.asn3.squaredesk.provider.OfficeSpaceNotFoundException;
+import cscie97.asn3.squaredesk.provider.Provider;
+import cscie97.asn3.squaredesk.provider.ProviderAlreadyExistException;
+import cscie97.asn3.squaredesk.provider.ProviderNotFoundException;
+import cscie97.asn3.squaredesk.provider.ProviderService;
+import cscie97.asn3.squaredesk.provider.Rating;
+import cscie97.asn3.squaredesk.provider.RatingNotFoundException;
 import cscie97.asn3.squaredesk.renter.KnowledgeGraph;
-import cscie97.asn3.squaredesk.renter.OfficeSpace;
-import cscie97.asn3.squaredesk.renter.OfficeSpaceNotFoundException;
-import cscie97.asn3.squaredesk.renter.Provider;
-import cscie97.asn3.squaredesk.renter.ProviderAlreadyExistException;
-import cscie97.asn3.squaredesk.renter.ProviderNotFoundException;
-import cscie97.asn3.squaredesk.renter.ProviderService;
-import cscie97.asn3.squaredesk.renter.Rating;
-import cscie97.asn3.squaredesk.renter.RatingNotFoundException;
 import cscie97.asn3.squaredesk.renter.Triple;
 
 /**
- * @author s2687
- *
+ * The Class ProviderTestDriver.
  */
 public class ProviderTestDriver extends TestDriverBase { 
+	
+	/** The office space. */
 	private OfficeSpace officeSpace; 
+	
+	/** The provider. */
 	private Provider provider;
 	/**
 	 * @throws ParseException 
@@ -45,7 +48,6 @@ public class ProviderTestDriver extends TestDriverBase {
 			throws ProviderAlreadyExistException, AccessException, URISyntaxException, 
 			FileNotFoundException, ParseException {
 		beginTest("createTest");
-		ContextProvider.getInstance();
 		provider = ProviderService.createProvider(ContextProvider.getAuthToken(), "Vinod Halaharvi", 
 				new ContactInfo("vinod.halaharvi@gmail.com"), 
 				new Image("Amazing Picture", new URI("https://images.google.com"))
@@ -62,6 +64,9 @@ public class ProviderTestDriver extends TestDriverBase {
 		endTest("createTest");
 	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#readTest()
+	 */
 	@Override
 	public void readTest() {
 		beginTest("readTest"); 
@@ -72,7 +77,6 @@ public class ProviderTestDriver extends TestDriverBase {
 		for (Triple foundTriple : KnowledgeGraph.executeQuery(new Triple(tempString))){
 			System.out.println(foundTriple.getIdentifier());
 		}
-
 		System.out.println();
 		System.out.println("Location");
 		tempString = "?" + " has_lat_long " + "?";
@@ -85,11 +89,17 @@ public class ProviderTestDriver extends TestDriverBase {
 		endTest("readTest"); 
 	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#init()
+	 */
 	@Override
 	public void init() {
 		//providerService = ProviderService.getInstance();
 	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#deleteTest()
+	 */
 	@Override
 	public void deleteTest() 
 			throws RatingNotFoundException {
@@ -108,16 +118,19 @@ public class ProviderTestDriver extends TestDriverBase {
 
 		//add Ratings to provider
 		provider.addRatingToList(ContextProvider.getRatings().get(0));
-		System.out.println("ADDING A RATING");
+		System.out.println("Adding a rating");
 		Rating rating = provider.addRatingToList(ContextProvider.getRatings().get(1));
 		System.out.println(provider.getRatings());
 		//delete rating for the provider
 		provider.removeRatingfromList(rating.getRatingId());
-		System.out.println("PRINT AFTER DELETING RATING..");
+		System.out.println("After deleting rating..");
 		System.out.println(provider.getRatings());
 		endTest("deleteTest"); 
 	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#updateTest()
+	 */
 	@Override
 	public void updateTest() 
 			throws OfficeSpaceNotFoundException, ProviderNotFoundException, AccessException, 
@@ -129,35 +142,30 @@ public class ProviderTestDriver extends TestDriverBase {
 		officeSpace1.setName("Extra Amazing OfficeSpace!!");
 
 		//These two names should be equal 
-		System.out.println("AFTER UPDATING OFFICE SPACE NAME");
+		System.out.println("After updating OfficeSpace name");
 		System.out.println(officeSpace.getName());
 		System.out.println(officeSpace1.getName());		
 		System.out.println();	
-
-		// TEST CASE 2
-		//VERIFY UPDATE OF "CRUD" OPERTIONS
-		//GET PROVIDER BY GUID
-		//UPDATE NAME, CONTACT INFO, PICTURE OF THE PROVIDER
-		System.out.println("PROVIDER BEFORE NAME CHANGE");
+		
+		System.out.println("Provider before name change");
 		System.out.println(provider.getName());
 		System.out.println(provider.getContactInfo().getEmail());
 		provider = ProviderService.updateProviderName(ContextProvider.getAuthToken(), 
 				provider.getProviderId(), "Vinod Changed Halaharvi");
-		System.out.println("PROVIDER AFTER THE NAME CHANGE");
+		System.out.println("Provider After name change");
 		provider = ProviderService.getProvider(ContextProvider.getAuthToken(), provider.getProviderId());
 		System.out.println(provider.getName());		
 		System.out.println(provider.getContactInfo().getEmail());
 		System.out.println();
 
-		System.out.println("PROVIDER BEFORE "
-				+ "PICTURE CHANGE");
+		System.out.println("Provider before picture change ");
 		System.out.println(provider.getName());		
 		System.out.println(provider.getContactInfo().getEmail());
 		System.out.println("Picture URI: " + provider.getImage().getURI());
 		ProviderService.updateProviderPicture(ContextProvider.getAuthToken(), 
 				provider.getProviderId(), 
 				new Image("Amazing Picture From Yahoo", new URI("https://images.yahoo.com")));
-		System.out.println("PROVIDER AFTER PICTURE CHANGE");
+		System.out.println("Provider After picture change ");
 		System.out.println(provider.getName());		
 		System.out.println(provider.getContactInfo().getEmail());
 		System.out.println("Picture URI: " + provider.getImage().getURI());

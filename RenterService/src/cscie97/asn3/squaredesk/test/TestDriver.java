@@ -9,21 +9,22 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import cscie97.asn3.squaredesk.renter.AccessException;
+import cscie97.asn3.squaredesk.provider.AccessException;
+import cscie97.asn3.squaredesk.provider.ContactInfo;
+import cscie97.asn3.squaredesk.provider.Feature;
+import cscie97.asn3.squaredesk.provider.Image;
+import cscie97.asn3.squaredesk.provider.OfficeSpace;
+import cscie97.asn3.squaredesk.provider.OfficeSpaceNotFoundException;
+import cscie97.asn3.squaredesk.provider.Provider;
+import cscie97.asn3.squaredesk.provider.ProviderAlreadyExistException;
+import cscie97.asn3.squaredesk.provider.ProviderNotFoundException;
+import cscie97.asn3.squaredesk.provider.ProviderService;
+import cscie97.asn3.squaredesk.provider.Rate;
+import cscie97.asn3.squaredesk.provider.Rating;
+import cscie97.asn3.squaredesk.provider.RatingNotFoundException;
 import cscie97.asn3.squaredesk.renter.BookingAlreadyExistException;
 import cscie97.asn3.squaredesk.renter.BookingService;
-import cscie97.asn3.squaredesk.renter.ContactInfo;
-import cscie97.asn3.squaredesk.renter.Feature;
-import cscie97.asn3.squaredesk.renter.Image;
-import cscie97.asn3.squaredesk.renter.OfficeSpace;
-import cscie97.asn3.squaredesk.renter.OfficeSpaceNotFoundException;
-import cscie97.asn3.squaredesk.renter.Provider;
-import cscie97.asn3.squaredesk.renter.ProviderAlreadyExistException;
-import cscie97.asn3.squaredesk.renter.ProviderNotFoundException;
-import cscie97.asn3.squaredesk.renter.ProviderService;
-import cscie97.asn3.squaredesk.renter.Rate;
-import cscie97.asn3.squaredesk.renter.Rating;
-import cscie97.asn3.squaredesk.renter.RatingNotFoundException;
+import cscie97.asn3.squaredesk.renter.Criteria;
 import cscie97.asn3.squaredesk.renter.Renter;
 import cscie97.asn3.squaredesk.renter.RenterAlreadyExistException;
 import cscie97.asn3.squaredesk.renter.RenterNotFoundException;
@@ -31,8 +32,6 @@ import cscie97.asn3.squaredesk.renter.RenterService;
 
 /**
  * The Class TestDriver.
- *
- * @author Vinod Halaharvi
  */
 public class TestDriver {
 
@@ -62,6 +61,7 @@ public class TestDriver {
 		
 		//Import provider from provider.yaml file
 		ContextProvider.importFile(args[0]); 
+		
 		//Import from renter.yaml file
 		ContextRenter.importFile(args[1]);
 		
@@ -138,6 +138,16 @@ public class TestDriver {
 		for(OfficeSpace offSpace : RenterService.searchKGUsingDates(authToken, startDate, endDate)){
 			System.out.println("SEARCH FOUND: " + offSpace.getOffId());
 		}
+		
+		
+		//Search for officeSpace using Criteria object 
+		System.out.println();
+		System.out.println("Search using Criteria object..!!");
+		Criteria criteria = new Criteria(ContextProvider.getFeatures(), ContextProvider.getLocation()
+				, ContextProvider.getFacility(), 2, startDate, endDate);
+		for(OfficeSpace offSpace : RenterService.searchKGCriteria(authToken, criteria)){
+			System.out.println("SEARCH FOUND: " + offSpace.getOffId());
+		}		
 		
 		System.exit(0); 
 	}

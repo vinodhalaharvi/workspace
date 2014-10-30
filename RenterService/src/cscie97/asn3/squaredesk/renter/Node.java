@@ -1,6 +1,10 @@
-package cscie97.asn3.squaredesk.renter;
-/**
+/*
  * 
+ */
+package cscie97.asn3.squaredesk.renter;
+
+/**
+ * The Class Node.
  */
 
 /**
@@ -8,6 +12,8 @@ package cscie97.asn3.squaredesk.renter;
  *
  */
 public class Node {
+	
+	/** The identifier. */
 	private String identifier; 
 
 	/**
@@ -40,7 +46,9 @@ public class Node {
 	
 	
 	/**
-	 * Return the identifier for this class
+	 * Gets the identifier.
+	 *
+	 * @return the identifier
 	 */
 	public String getIdentifier() {
 		return this.identifier;

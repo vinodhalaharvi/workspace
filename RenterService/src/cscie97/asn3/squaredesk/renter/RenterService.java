@@ -6,17 +6,26 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import cscie97.asn3.squaredesk.provider.AccessException;
+import cscie97.asn3.squaredesk.provider.ContactInfo;
+import cscie97.asn3.squaredesk.provider.Facility;
+import cscie97.asn3.squaredesk.provider.Feature;
+import cscie97.asn3.squaredesk.provider.Image;
+import cscie97.asn3.squaredesk.provider.Location;
+import cscie97.asn3.squaredesk.provider.OfficeSpace;
+import cscie97.asn3.squaredesk.provider.ProviderService;
+import cscie97.asn3.squaredesk.provider.Rating;
+import cscie97.asn3.squaredesk.provider.RatingNotFoundException;
 
 /**
  * The Class RenterService.
  */
 public final class RenterService {
 
-	/** The renter service. */
-	private static RenterService renterService;  
-	
 	/** The renters. */
 	private static Map<String, Renter> renters = new HashMap<String, Renter>();
 
@@ -53,32 +62,32 @@ public final class RenterService {
 		return uuidStr; 	
 	}
 
-
 	/**
-	 * Gets the single instance of RenterService.
+	 * Creates the renter.
 	 *
-	 * @return single instance of RenterService
+	 * @param authToken
+	 *            the auth token
+	 * @param name
+	 *            the name
+	 * @param contactInfo
+	 *            the contact info
+	 * @param picture
+	 *            the picture
+	 * @return the renter
+	 * @throws RenterAlreadyExistException
+	 *             the renter already exist exception
+	 * @throws AccessException
+	 *             the access exception
 	 */
-	public static RenterService getInstance() {
-		if (renterService == null){
-			renterService = new RenterService();
-			return renterService;
-		} else {
-			return renterService;
-		}
-	}
-
-
 	public static Renter createRenter(String authToken, String name, 
 			ContactInfo contactInfo, Image picture
 			) throws RenterAlreadyExistException, AccessException{ 
-		//Assumption is that renter name is unique in the system
-		//And servers a natural key to the renter object
 		String uuidName = getUUIDFromString(name); 
 		if (renters.containsKey(uuidName)){
 			throw new RenterAlreadyExistException("This Renter Already Exists");
 		} else {
-			Renter renterObj = new Renter(name, contactInfo, picture);
+			Renter renterObj = (Renter) ProfileFactory.createProfile("renter", 
+					name, contactInfo, picture, uuidName);
 			renterObj.setRenterId(uuidName); 
 			renters.put(uuidName, renterObj);
 			return renterObj; 
@@ -204,11 +213,15 @@ public final class RenterService {
 	/**
 	 * Adds the rating to renter.
 	 *
-	 * @param authToken the auth token
-	 * @param renterId the renter id
-	 * @param rating the rating
+	 * @param authToken
+	 *            the auth token
+	 * @param renterId
+	 *            the renter id
+	 * @param rating
+	 *            the rating
 	 * @return the rating
-	 * @throws RenterNotFoundException the renter not found exception
+	 * @throws RenterNotFoundException
+	 *             the renter not found exception
 	 */
 	public static Rating addRatingToRenter(String authToken, String renterId, Rating rating)
 			throws RenterNotFoundException{
@@ -220,11 +233,16 @@ public final class RenterService {
 	/**
 	 * Removes the rating from renter.
 	 *
-	 * @param authToken the auth token
-	 * @param renterId the renter id
-	 * @param ratingId the rating id
-	 * @throws RenterNotFoundException the renter not found exception
-	 * @throws RatingNotFoundException the rating not found exception
+	 * @param authToken
+	 *            the auth token
+	 * @param renterId
+	 *            the renter id
+	 * @param ratingId
+	 *            the rating id
+	 * @throws RenterNotFoundException
+	 *             the renter not found exception
+	 * @throws RatingNotFoundException
+	 *             the rating not found exception
 	 */
 	public static void removeRatingFromRenter(String authToken, String renterId, String ratingId) 
 			throws RenterNotFoundException, RatingNotFoundException{
@@ -235,10 +253,13 @@ public final class RenterService {
 	/**
 	 * Gets the rating list for renter.
 	 *
-	 * @param authToken the auth token
-	 * @param renterId the renter id
+	 * @param authToken
+	 *            the auth token
+	 * @param renterId
+	 *            the renter id
 	 * @return the rating list for renter
-	 * @throws RenterNotFoundException the renter not found exception
+	 * @throws RenterNotFoundException
+	 *             the renter not found exception
 	 */
 	public static Collection<Rating> getRatingListForRenter(String authToken, String renterId)
 			throws RenterNotFoundException{
@@ -246,28 +267,23 @@ public final class RenterService {
 		return renterObj.getRatings();
 	}
 
-	public static Criteria createSearchCriteria(){
-		return null;
-	}
-
-
-
 
 	/**
 	 * Search kg using features.
 	 *
 	 * @param authToken
 	 *            the auth token
-	 * @param features
-	 *            the features
+	 * @param list
+	 *            the list
 	 * @return the collection
 	 */
 	public static Collection<OfficeSpace> 
-	searchKGUsingFeatures(String authToken, ArrayList<Feature> features){
-		ProviderService.getInstance();
+	searchKGUsingFeatures(String authToken, List<Feature> list){
 		ArrayList<OfficeSpace> officeSpaces = new ArrayList<OfficeSpace>(); 
-		for (Feature feature : features){
+		
+		for (Feature feature : list){
 			String query = "?" + " has_feature " + feature.getName(); 
+			System.out.println("Query was: " + query);
 			for(Triple triple : KnowledgeGraph.executeQuery(new Triple(query))){
 				String offId = triple.getSubject().getIdentifier();
 				officeSpaces.add(ProviderService.getOfficeSpace(offId));
@@ -282,11 +298,19 @@ public final class RenterService {
 			kg.addTriple(new Triple(officeSpace.getOffId() + " has_rating " + rating));
 		}
 	 */
+	/**
+	 * Search kg using location.
+	 *
+	 * @param authToken
+	 *            the auth token
+	 * @param location
+	 *            the location
+	 * @return the collection
+	 */
 	public static Collection<OfficeSpace> searchKGUsingLocation(String authToken, Location location){ 
-		ProviderService.getInstance(); 
 		String query = "?" + " has_lat_long " + (int)Math.floor(location.getLat()) + "_"
 				+ (int)Math.floor(location.getlng()); 
-		System.out.println(query);
+		System.out.println("Query was: " + query);
 		ArrayList<OfficeSpace> officeSpaces = new ArrayList<OfficeSpace>(); 
 		for(Triple triple : KnowledgeGraph.executeQuery(new Triple(query))){
 			String offId = triple.getSubject().getIdentifier();
@@ -296,6 +320,15 @@ public final class RenterService {
 	}
 
 
+	/**
+	 * Search kg using facility and category.
+	 *
+	 * @param authToken
+	 *            the auth token
+	 * @param facility
+	 *            the facility
+	 * @return the collection
+	 */
 	public static Collection<OfficeSpace> searchKGUsingFacilityAndCategory(String authToken, Facility facility){ 
 		String query; 
 		if (facility.getCategory() == ""){
@@ -305,7 +338,7 @@ public final class RenterService {
 			query = "?" + " has_facility_type_category " +
 					facility.getType() + "_" + facility.getCategory().replace(' ', '_');
 		}
-		System.out.println(query);
+		System.out.println("Query was: " + query);
 		ArrayList<OfficeSpace> officeSpaces = new ArrayList<OfficeSpace>(); 
 		for(Triple triple : KnowledgeGraph.executeQuery(new Triple(query))){
 			String offId = triple.getSubject().getIdentifier();
@@ -315,12 +348,21 @@ public final class RenterService {
 	}
 
 
+	/**
+	 * Search kg using rating.
+	 *
+	 * @param authToken
+	 *            the auth token
+	 * @param minRating
+	 *            the min rating
+	 * @return the collection
+	 */
 	public static Collection<OfficeSpace> searchKGUsingRating(String authToken, int minRating){
 		String query; 
 		ArrayList<OfficeSpace> officeSpaces = new ArrayList<OfficeSpace>(); 
 		for (int i = 5; i >= minRating; i--) {
 			query = "?" + " has_rating " + i; 
-			System.out.println(query);
+			System.out.println("Query was: " + query);
 			for(Triple triple : KnowledgeGraph.executeQuery(new Triple(query))){
 				String offId = triple.getSubject().getIdentifier();
 				officeSpaces.add(ProviderService.getOfficeSpace(offId));
@@ -330,8 +372,19 @@ public final class RenterService {
 	}
 
 
+	/**
+	 * Search kg using dates.
+	 *
+	 * @param authToken
+	 *            the auth token
+	 * @param startDate
+	 *            the start date
+	 * @param endDate
+	 *            the end date
+	 * @return the collection
+	 */
 	public static Collection<OfficeSpace> searchKGUsingDates(String authToken, Date startDate, Date endDate){
-		ArrayList<OfficeSpace> officeSpaces = new ArrayList<OfficeSpace>(); 
+		ArrayList<OfficeSpace> officeSpaces = new ArrayList<OfficeSpace>();  
 		for(OfficeSpace officeSpace : ProviderService.getOfficeSpaces()){
 			if(BookingService.checkAvailability(officeSpace, startDate, endDate)){
 				officeSpaces.add(officeSpace); 
@@ -340,9 +393,8 @@ public final class RenterService {
 		return officeSpaces; 
 	}
 	
-	
 	/**
-	 * Search kg using criteria.
+	 * Search kg criteria.
 	 *
 	 * @param authToken
 	 *            the auth token
@@ -350,11 +402,16 @@ public final class RenterService {
 	 *            the criteria
 	 * @return the collection
 	 */
-	/*public static Collection<OfficeSpace> 
-	searchKGUsingCriteria(String authToken, Criteria criteria){ 
-		Set officeSpaces = new HashSet<OfficeSpace>(); 
-		return null; 
-	}*/
+	public static Collection<OfficeSpace> searchKGCriteria(String authToken, Criteria criteria){
+		ArrayList<OfficeSpace> officeSpaces = new ArrayList<OfficeSpace>();
+		//perform intersection to have "AND" criteria
+		officeSpaces = (ArrayList<OfficeSpace>) searchKGUsingFeatures(authToken, criteria.getFeatures());
+		officeSpaces.retainAll(searchKGUsingLocation(authToken, criteria.getLocation())); 
+		officeSpaces.retainAll(searchKGUsingFacilityAndCategory(authToken, criteria.getFacility())); 
+		officeSpaces.retainAll(searchKGUsingRating(authToken, criteria.getMinRating())); 
+		officeSpaces.retainAll(searchKGUsingDates(authToken, criteria.getStartDate(), criteria.getEndDate())); 
+		return officeSpaces; 
+	}	
 	
 	
 

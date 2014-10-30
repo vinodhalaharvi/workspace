@@ -7,15 +7,14 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 
-import cscie97.asn3.squaredesk.renter.AccessException;
-import cscie97.asn3.squaredesk.renter.OfficeSpaceNotFoundException;
-import cscie97.asn3.squaredesk.renter.ProviderAlreadyExistException;
-import cscie97.asn3.squaredesk.renter.ProviderNotFoundException;
-import cscie97.asn3.squaredesk.renter.RatingNotFoundException;
+import cscie97.asn3.squaredesk.provider.AccessException;
+import cscie97.asn3.squaredesk.provider.OfficeSpaceNotFoundException;
+import cscie97.asn3.squaredesk.provider.ProviderAlreadyExistException;
+import cscie97.asn3.squaredesk.provider.ProviderNotFoundException;
+import cscie97.asn3.squaredesk.provider.RatingNotFoundException;
 import cscie97.asn3.squaredesk.renter.RenterAlreadyExistException;
 import cscie97.asn3.squaredesk.renter.RenterNotFoundException;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestDriverBase.
  */
@@ -25,7 +24,6 @@ public abstract class TestDriverBase {
 	 * Instantiates a new test driver base.
 	 */
 	public TestDriverBase() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -58,24 +56,26 @@ public abstract class TestDriverBase {
 	/**
 	 * Delete test.
 	 *
-	 * @param obj
-	 *            the obj
-	 * @throws RatingNotFoundException 
+	 * @throws RatingNotFoundException
+	 *             the rating not found exception
 	 */
 	public void deleteTest() throws RatingNotFoundException{
 		
 	}
 
 	/**
-	 * Update test
+	 * Update test.
 	 *
-	 * @param obj
-	 *            the obj
-	 * @throws OfficeSpaceNotFoundException 
-	 * @throws AccessException 
-	 * @throws ProviderNotFoundException 
-	 * @throws URISyntaxException 
-	 * @throws RenterNotFoundException 
+	 * @throws OfficeSpaceNotFoundException
+	 *             the office space not found exception
+	 * @throws ProviderNotFoundException
+	 *             the provider not found exception
+	 * @throws AccessException
+	 *             the access exception
+	 * @throws URISyntaxException
+	 *             the URI syntax exception
+	 * @throws RenterNotFoundException
+	 *             the renter not found exception
 	 */
 	public void updateTest() 
 			throws OfficeSpaceNotFoundException, ProviderNotFoundException, AccessException, URISyntaxException, RenterNotFoundException{
@@ -84,22 +84,30 @@ public abstract class TestDriverBase {
 	
 	/**
 	 * Read test.
-	 *
-	 * @param obj
-	 *            the obj
 	 */
 	public void readTest(){
 		
 	}
 	
+	/**
+	 * Begin test.
+	 *
+	 * @param method
+	 *            the method
+	 */
 	public void beginTest(String method){
 		System.out.println();
 		System.out.println("Beginning " + method);
 	}
 	
+	/**
+	 * End test.
+	 *
+	 * @param method
+	 *            the method
+	 */
 	public void endTest(String method){
 		System.out.println();
 		System.out.println("Ending " + method);
 	}
-	
 }

@@ -12,26 +12,21 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author vinodhalaharvi
- *
+ * The Class KnowledgeGraph.
  */
 public final class KnowledgeGraph { 
-	private static Map<String, Node> nodeMap; 
-	private static Map<String, Predicate> predicateMap; 
-	private static Map<String, Triple> tripleMap; 
-	private static Map<String, Set<Triple>> queryMapSet; 
-
-	private static KnowledgeGraph kg; 
-
-	/**
-	 * Initialize static fields of this class
-	 */
-	private KnowledgeGraph() {
-		nodeMap = new HashMap<String, Node>();
-		predicateMap = new HashMap<String, Predicate>();
-		tripleMap = new HashMap<String, Triple>();
-		queryMapSet = new HashMap<String, Set<Triple>>();
-	}	
+	
+	/** The node map. */
+	private static Map<String, Node> nodeMap = new HashMap<String, Node>();; 
+	
+	/** The predicate map. */
+	private static Map<String, Predicate> predicateMap = new HashMap<String, Predicate>(); 
+	
+	/** The triple map. */
+	private static Map<String, Triple> tripleMap = new HashMap<String, Triple>(); 
+	
+	/** The query map set. */
+	private static Map<String, Set<Triple>> queryMapSet = new HashMap<String, Set<Triple>>(); 
 
 	/**
 	 * Helper function (NOT in the design document) to get the triples
@@ -111,43 +106,6 @@ public final class KnowledgeGraph {
 		}
 	}
 
-
-	/**
-	 * imoprtTriples, called by QueryEngine class
-	 */
-	public static void importTriples(List<Triple> tripleList) {
-		/*
-		 * Get the tripleList from Importer 
-		 * Iterate over each Triple
-		 * Prepare the permutations for QueryMapSet
-		 * Fill in the QueryMapSet
-		 * Fill in nodeMap, predicateMap, tripleMap
-		 * */
-		for (Triple t: tripleList){
-			String [] tokens = t.getIdentifier().split(" ");
-			Node n = new Node(tokens[0]);
-			Predicate p = new Predicate(tokens[1]);
-			Node s = new Node(tokens[2]);
-			nodeMap.put(tokens[0], n);
-			predicateMap.put(tokens[1], p);
-			nodeMap.put(tokens[2], s);
-			tripleMap.put(t.getIdentifier(), t);
-			Set<Triple> ts = new HashSet<Triple>();
-			getTripleSet(ts, t);
-			if (!queryMapSet.containsKey(t.getIdentifier())){
-				queryMapSet.put(t.getIdentifier(), new HashSet<Triple>());
-			}
-			queryMapSet.get(t.getIdentifier()).add(t);
-			for(Triple e: ts){  
-				if (!queryMapSet.containsKey(e.getIdentifier())){
-					queryMapSet.put(e.getIdentifier(), new HashSet<Triple>());
-				}
-				queryMapSet.get(e.getIdentifier()).add(t);
-			} 
-		}
-	}
-
-
 	/**
 	 * execute the query. A Triple set is already formed for this query to get O(1) performance
 	 * this methods just's returns that entry from queryMapSet
@@ -160,17 +118,6 @@ public final class KnowledgeGraph {
 		}
 	}
 
-	/**
-	 * generate Instance and return to the client
-	 */
-	public static KnowledgeGraph getInstance() {
-		if (kg == null){ 
-			kg = new KnowledgeGraph();  
-			return kg; 
-		} else {
-			return kg; 
-		}
-	}
 
 	/**
 	 * Get node using pre calculated nodeMap

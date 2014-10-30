@@ -4,16 +4,12 @@
 package cscie97.asn3.squaredesk.renter;
 
 /**
- * @author s2687
- *
+ * The Class BookingAlreadyExistException.
  */
 public class BookingAlreadyExistException extends Exception {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 603942381714967996L;
-
 	/**
 	 * 
 	 */
@@ -55,7 +51,6 @@ public class BookingAlreadyExistException extends Exception {
 	public BookingAlreadyExistException(String message, Throwable cause,
 			boolean enableSuppression, boolean writableStackTrace) {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }
