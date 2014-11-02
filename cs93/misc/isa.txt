@@ -1,0 +1,15 @@
+CPU instructions are divided into the following functional groups:
+. Load and Store
+. ALU
+. Jump and Branch
+. Miscellaneous
+. Coprocessor
+
+
+MIPS Instruction set. 
+add r1, r2, r3
+addu r1, r2, r3 (no overflow detection)
+addi r1, r2, imm ( with overflow detection)
+addiu r1, r2, imm (no overflow detection)
+
+

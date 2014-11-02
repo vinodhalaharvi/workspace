@@ -1,0 +1,183 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "lib.h"
+#include "command.h"
+#define BUFLEN 80
+
+char * subu(char * tokens[]){
+	return type6(
+		getOpcodebits("subu"), 
+		getRegisterBits(tokens[1]), 
+		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
+		"00000", 
+		getAluOpcodeBits("sub")
+	     ); 
+}
+
+
+char * sub(char * tokens[]){
+	return subu(tokens); 
+}
+
+
+char * add(char * tokens[]){
+	return addu(tokens); 
+}
+
+char * addu(char * tokens[]){
+	return type6(
+		getOpcodebits("addu"), 
+		getRegisterBits(tokens[1]), 
+		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
+		"00000", 
+		getAluOpcodeBits("addu")
+	); 
+}
+
+char * and(char * tokens[]){
+	return	type6(
+		getOpcodebits("and"), 
+		getRegisterBits(tokens[1]), 
+		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
+		"00000", 
+		getAluOpcodeBits("and")
+	); 
+}
+
+
+
+
+char * or(char * tokens[]){
+	return type6(
+		getOpcodebits("or"), 
+		getRegisterBits(tokens[1]), 
+		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
+		"00000", 
+		getAluOpcodeBits("or")
+	); 
+}
+
+
+
+
+char * xor(char * tokens[]){
+	return type6(
+		getOpcodebits("xor"), 
+		getRegisterBits(tokens[1]), 
+		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
+		"00000", 
+		getAluOpcodeBits("xor")
+	); 
+}
+
+
+char * nor(char * tokens[]){
+	return type6(
+		getOpcodebits("nor"), 
+		getRegisterBits(tokens[1]), 
+		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
+		"00000", 
+		getAluOpcodeBits("nor")
+	); 
+}
+
+
+char * slt(char * tokens[]){
+	return sltu(tokens); 
+}
+
+char * sltu(char * tokens[]){
+	return type6(
+		getOpcodebits("sltu"), 
+		getRegisterBits(tokens[1]), 
+		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
+		"00000", 
+		getAluOpcodeBits("sltu")
+	); 
+}
+
+
+char * type2(char * arg0, char * arg1){
+	char *res = (char *) malloc(BUFLEN); 
+	memset(res, '\0', BUFLEN); 
+	sprintf(res, "%s %s ", arg0, arg1); 
+	return res; 
+}
+
+char * type3(char * arg0, char * arg1, char * arg2){
+	char *res = (char *) malloc(BUFLEN); 
+	memset(res, '\0', BUFLEN); 
+	sprintf(res, "%s %s %s", arg0, arg1, arg2); 
+	return res; 
+}
+
+char * type4(char * arg0, char * arg1, char *arg2, char *arg3){
+	char *res = (char *) malloc(BUFLEN); 
+	memset(res, '\0', BUFLEN); 
+	sprintf(res, "%s %s %s %s", arg0, arg1, arg2, arg3); 
+	return res; 
+}
+
+char * type5(char * arg0, char * arg1, 
+		char *arg2, char *arg3, char *arg4){
+	char *res = (char *) malloc(BUFLEN); 
+	memset(res, '\0', BUFLEN); 
+	sprintf(res, "%s %s %s %s %s ", 
+			arg0, arg1, arg2, arg3, arg4); 
+	return res; 
+}
+
+char * type6(char * arg0, char * arg1, 
+		char *arg2, char *arg3, char *arg4, char *arg5){
+	char *res = (char *) malloc(BUFLEN); 
+	memset(res, '\0', BUFLEN); 
+	sprintf(res, "%s %s %s %s %s %s", 
+			arg0, arg1, arg2, arg3, arg4, arg5); 
+	return res; 
+}
+
+
+char * addi(char * tokens[]){
+	return addui(tokens); 
+}
+
+char * addui(char * tokens[]){
+	char *res = (char *) malloc(BUFLEN); 
+	memset(res, '\0', BUFLEN); 
+	sprintf(res, "%s %s %s %s", 
+			getOpcodebits(tokens[0]), 
+			getRegisterBits(tokens[1]), 
+			getRegisterBits(tokens[2]), 
+			getBits(atoi(tokens[3]), 16)
+			); 
+	return res; 
+}
+
+
+char * ori(char * tokens[]){
+	char *res = (char *) malloc(BUFLEN); 
+	memset(res, '\0', BUFLEN); 
+	sprintf(res, "%s %s %s %s", 
+			getOpcodebits(tokens[0]), 
+			getRegisterBits(tokens[1]), 
+			getRegisterBits(tokens[2]), 
+			getBits(atoi(tokens[3]), 16)
+			); 
+	return res; 
+}
+
+
+char * li(char *tokens[]){
+	printf("INSIDE FUNCTION %s(%s, %s, %s) .. \n\n", tokens[0], 
+			tokens[1], tokens[2], tokens[3]); 
+	return NULL; 
+}
+

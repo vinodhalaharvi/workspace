@@ -1,0 +1,53 @@
+In all instructions below, src1, src2, and dest are general-purpose registers. 
+imm is a 16-bit immediate value embedded within the instruction.
+
+addiu rdest, rsrc1, imm
+andi rdest, rsrc1, imm
+divu rsrc1, rsrc2
+multu rsrc1, rsrc2
+nor rdest, rsrc1, src2
+or rdest, rsrc1, src2
+ori rdest, rsrc1, src2
+sll rdest, rsrc1, src2
+sllv rdest, rsrc1, rsrc2
+sra rdest, rsrc1, src2
+srav rdest, rsrc1, rsrc2
+srl rdest, rsrc1, src2
+srlv rdest, rsrc1, rsrc2
+subu rdest, rsrc1, rsrc2
+xor rdest, rsrc1, src2
+xori rdest, rsrc1, imm
+lui rdest, imm
+sltu rdest, rsrc1, src2
+sltiu rdest, rsrc1, imm
+bczt label
+bczf label
+beq rsrc1, rsrc2, offset
+bgez rsrc, offset
+bgezal rsrc, offset
+bgtz rsrc, offset
+blez rsrc, offset
+bgezal rsrc, offset
+bltzal rsrc, offset
+bltz rsrc, offset
+bne rsrc1, src2, offset
+j label
+jal label
+jalr rsrc
+jr rsrc
+lb rdest, imm
+lbu rdest, imm
+lh rdest, imm
+lhu rdest, imm
+lw rdest, imm
+lwcz rdest, imm
+lwl rdest, imm
+lwr rdest, imm
+sb rsrc1, imm
+sh rsrc1, imm
+sw rsrc1, imm
+swcz rsrc1, imm
+swl rsrc1, imm
+swr rsrc1, imm
+mfhi rdest
+mflo rdest
