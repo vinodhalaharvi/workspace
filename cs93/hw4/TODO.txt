@@ -1,0 +1,47 @@
+research 
+checkout the motorola S format parser code
+location_counter
+getInteger instead of printing string
+label (multiple passes) isLabel(),
+string constants like .asciiz and other directives like .work, .size etc.
+	Mon Nov  3 12:45:34 UTC 2014
+############################################
+pseudo instructions
+expressions parenthesized expression
+ascii charater constants
+############################################
+
+
+Mon Nov  3 12:45:34 UTC 2014
+	research
+	checkout the motorola S format parser code
+	add static location_counter and memory to the code
+	getInteger instead of printing string
+	clear the comments, .data, .txt etc
+asciiz strings
+expressions parenthesized expression
+test all instruction are making through
+############################################
+pseudo instructions
+ascii charater constants
+############################################
+register basl
+
+dolabel(); 
+	put_symbol() with address
+	get_symbol() return address
+	
+doasciistring()
+	
+
+
+
+if label(&line)
+	label = getlabel(&line); 
+	if asciiz
+		writestring(); 
+		writelabel(label);
+	else 
+		writelable(label); 
+	
+
