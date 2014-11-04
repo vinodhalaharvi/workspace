@@ -110,28 +110,37 @@ void processLine(char * line, FILE *rfile, FILE *MIFfile){
 
 int main(int argc, const char *argv[])
 {
-	int lineno = 1; 
 	size_t len = 0 ; 
 	char * line = NULL; 
 	FILE * rfile,  * MIFfile; 
 	getFiles(argc, argv, &rfile, &MIFfile); 
 	while(getline(&line, &len, rfile) != EOF){
+		lineno++; 
 		cleanLine(&line);
 		if (filter(&line))
 			continue; 
 		if (islabel(line)){
 			if (isasciiz(line)) {
-				printf("%d: .asciiz=%s\n", lineno, getasciiz(line));
+				printf("doasciiz() %d: .asciiz=%s\n", lineno, getasciiz(line));
 			} else {
-				printf("%d: %s\n", lineno, getlabel(line));
+				char * label = getlabel(line); 
+				//printf("label found() %d: %s\n", lineno, label);
+				put_sym(label, lineno); 
 			}
 			continue; 
 		}
-		//printf("%d: %s\n", lineno, line);
-		//processLine(line, rfile, MIFfile); 
-		lineno++; 
+		/*if(isexp(line)){
+			line = doevalexp(line); 
+		} 
+		if(ispseudo(line)){
+			line = dopseudo(line); 
+		}*/
+		printf("%d: %s\n", lineno, line);
+		processLine(line, rfile, MIFfile); 
 	}
-	return 0; 
+
+	//dump_sym_table();
+	//return 0; 
 	for (int i = 0; i < locptr; i++) {
 		printf("%d\n", memory[i]);
 	}

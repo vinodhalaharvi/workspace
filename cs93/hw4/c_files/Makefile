@@ -27,9 +27,12 @@ cleanobj:
 	rm -f *.o
 	rm assembler
 
-tags: 
-	ctags -R --c++-kinds=+p --fields=+iaS \
-		--extra=+q . /usr/include /usr/local/include 
+#tags: 
+#	ctags -R --c++-kinds=+p --fields=+iaS \
+#		--extra=+q . /usr/include /usr/local/include 
+
+tags:	
+	ctags -R *.[ch]
 
 debug:  
 	gdb ./assember

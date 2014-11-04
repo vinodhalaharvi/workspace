@@ -1,5 +1,17 @@
 #include <stdint.h>
+#include <ctype.h>
 #define MIF_FILE_SIZE 32768
+#define MAX_SYMBOL_SIZE 32768
+#define MEMORY_START_ADDRESS 0x0
+
+typedef struct _symbol_table {
+	char * name; 
+	unsigned int index; 
+} symbol_table;
+
+static unsigned int lineno; 
+static symbol_table symbols[MAX_SYMBOL_SIZE]; 
+static unsigned int symmaxindex; 
 
 static uint16_t memory[MIF_FILE_SIZE];	
 static unsigned int locptr; 
@@ -181,3 +193,12 @@ int filter(char **lineptr);
 char * getHexBits(char * binary, int size);
 void printSymbolInfo(char * tokens[]); 
 char * getasciiz(const char *input); 
+unsigned int get_sym_address(const char * name);
+unsigned put_sym(const char * name, unsigned int lineno); 
+void printSymbolInfo(char * tokens[]) ;
+char * getasciiz(const char *input);
+char * getHexBits(char * binary, int size);
+int islabel(const char * string);
+unsigned found_sym(const char * name); 
+unsigned dump_sym_table();
+char * removeSpaces(const char * s); 

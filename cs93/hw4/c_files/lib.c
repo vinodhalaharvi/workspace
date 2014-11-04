@@ -4,6 +4,50 @@
 #include <string.h>
 #include "lib.h"
 
+unsigned int get_sym_address(const char * name){
+	for (int i = 0; i < symmaxindex; i++) {
+		if (strcmp(symbols[i].name, name) == 0) {
+			return symbols[i].index; 
+		}
+	}
+	printf("%s %s\n", name, "ERROR: SYMBOL NOT FOUND !!\n");
+	assert(1 == 0);
+}
+
+unsigned found_sym(const char * name) {
+	int i = 0;
+	for (int i = 0; i < MAX_SYMBOL_SIZE; i++) {
+		if(symbols[i].name != NULL && (strcmp(symbols[i].name, name) == 0))
+			return 1; 
+	}
+	return 0;
+}
+
+unsigned dump_sym_table(){
+	int i = 0;
+	printf("\nSYMBOL TABLE CONTENTS:\n");
+	for (int i = 0; i < MAX_SYMBOL_SIZE; i++) {
+		if(symbols[i].name != NULL) {
+			printf("%s=0x%x\n", symbols[i].name, symbols[i].index);
+		}
+	}
+	return 1;
+}
+
+unsigned put_sym(const char * name, unsigned int lineno){
+	int i = 0;
+	if (found_sym(name)) { 
+		fprintf(stderr, "%s:%d: Duplicate symbol found ..\n", name, lineno);
+		fprintf(stderr, "Exiting on error .. \n"); 
+		exit(0); 
+	} else {
+		symbols[symmaxindex].name = strdup(name); 
+		symbols[symmaxindex].index = MEMORY_START_ADDRESS + lineno; 
+		symmaxindex++;
+	}
+	return 1;
+}
+
 void printSymbolInfo(char * tokens[]) {
 	printf("%s(%s, %s, %s)\n", tokens[0], tokens[1], tokens[2], tokens[3]); 
 }
@@ -279,4 +323,64 @@ void outputMIFfile(FILE *MIFfile, char *inputFile) {
 	}
 	printTail(MIFfile); 
 }
+
+char * removeSpaces(const char * s) {
+	char * d = strdup(s); 
+	char * res = d; 
+	memset(d, '\0', strlen(s) + 1);
+	do {
+		if (!isspace(*s++))
+			*d++ = *(s-1); 
+	} while(!(*s == '\0'));
+	return res; 
+}
+
+char * newstr(int len){
+	assert(len >= 0);
+	char * str = (char *) malloc(len + 1); 
+	assert(str != NULL); 
+	memset(str, '\0', len); 
+	return str;
+}
+
+
+char * eval_register(char *expWithParen)
+{
+	int num1, num2; 
+	char op[10]; 
+	char *exp = newstr(100);
+	sscanf(expWithParen, "(" "%99[^)]" ")", exp); 
+	return exp; 
+}
+
+unsigned int ifParen(const char *exp){
+	if (strchr(exp, '(') != NULL)
+		return 1; 
+	else 
+		return 0; 
+}
+
+int eval_exp(char *expWithParen, int *error)
+{
+	int num1, num2; 
+	char op[10], exp[100]; 
+	sscanf(expWithParen, "(" "%99[^)]" ")", exp); 
+	int n = sscanf(exp, "%i%2s%i", &num1, op, &num2); 
+	if (n == 3) {
+		if (strcmp(op, "<<") == 0) { return num1 << num2; 
+		} else if (strcmp(op, ">>") == 0) { *error = 0 ; return num1 >> num2; 
+		} else if (strcmp(op, "+") == 0) { *error = 0 ; return num1 + num2; 
+		} else if (strcmp(op, "-") == 0) { *error = 0 ; return num1 - num2; 
+		} else if (strcmp(op, "/") == 0) { *error = 0 ; return num1 / num2; 
+		} else if (strcmp(op, "*") == 0) { *error = 0 ; return num1 * num2; 
+		} else if (strcmp(op, "%") == 0) { *error = 0 ; return num1 % num2; 
+		} else if (strcmp(op, "&") == 0) { *error = 0 ; return num1 & num2; 
+		} else if (strcmp(op, "|") == 0) { *error = 0 ; return num1 | num2; 
+		} else if (strcmp(op, "^") == 0) { *error = 0 ; return num1 ^ num2; 
+		}
+	}
+	*error = 1; 
+	return -1; 
+}
+
 
