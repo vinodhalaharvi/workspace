@@ -59,6 +59,10 @@ char * _break(char * tokens[]);
 char * j(char * tokens[]);
 char * jal(char * tokens[]);
 char * copz(char * tokens[]);
+
+//pseudo instructions
+char * la(char * tokens[]); 
+
 char * type2(char * arg0, char * arg1);
 char * type3(char * arg0, char * arg1, char * arg2);
 char * type4(char * arg0, char * arg1, char *arg2, char *arg3);

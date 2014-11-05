@@ -9,8 +9,9 @@ INSTYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	g
 INSTYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	t	typeref:enum:INSTYPE
 ITYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
 J	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
-MAX_SYMBOL_SIZE	lib.h	3;"	d
-MIF_FILE_SIZE	lib.h	2;"	d
+MAX_SYMBOL_SIZE	lib.h	4;"	d
+MEMORY_START_ADDRESS	lib.h	5;"	d
+MIF_FILE_SIZE	lib.h	3;"	d
 RTYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
 _GNU_SOURCE	assembler.c	5;"	d	file:
 _break	command.c	/^char * _break(char * tokens[]){$/;"	f
@@ -45,6 +46,8 @@ divu	command.c	/^char * divu(char * tokens[]){$/;"	f
 dump_sym_table	lib.c	/^unsigned dump_sym_table(){$/;"	f
 encoding	lib.h	/^} encoding; $/;"	t	typeref:struct:_encoding
 encoding_data	lib.h	/^static encoding encoding_data[] = { $/;"	v
+eval_exp	lib.c	/^int eval_exp(char *expWithParen, int *error)$/;"	f
+eval_register	lib.c	/^char * eval_register(char *expWithParen)$/;"	f
 exitOnNull	lib.c	/^void exitOnNull(void * ptr, char * msg){$/;"	f
 filter	lib.c	/^int filter(char **lineptr){$/;"	f
 found_sym	lib.c	/^unsigned found_sym(const char * name) {$/;"	f
@@ -63,13 +66,15 @@ getlabel	lib.c	/^char * getlabel(const char *string){$/;"	f
 hex	lib.h	/^	char * hex; $/;"	m	struct:_encoding
 hextoint	lib.c	/^unsigned int hextoint(char * hex){$/;"	f
 highertoint	lib.c	/^unsigned int highertoint(char * bits){$/;"	f
-index	lib.h	/^	unsigned index; $/;"	m	struct:_symbol_table
+ifParen	lib.c	/^unsigned int ifParen(const char *exp){$/;"	f
+index	lib.h	/^	unsigned int index; $/;"	m	struct:_symbol_table
 inst	lib.h	/^} inst; $/;"	t	typeref:struct:_inst
 inst_data	lib.h	/^static inst inst_data[100] = {$/;"	v
 inst_info	lib.h	/^} inst_info;$/;"	t	typeref:struct:_inst_info
 inst_table	lib.h	/^struct inst_table {$/;"	s
 instname	lib.h	/^	char * instname; $/;"	m	struct:_inst
 insts	assembler.c	/^struct inst_table insts[] = {$/;"	v	typeref:struct:inst_table
+isValidInt	lib.c	/^int isValidInt(const char *str, int base, int *value)$/;"	f
 isasciiz	lib.c	/^int isasciiz(const char * string){$/;"	f
 isempty	lib.c	/^int isempty(const char *string){$/;"	f
 islabel	lib.c	/^int islabel(const char * string){$/;"	f
@@ -77,6 +82,7 @@ j	command.c	/^char * j(char * tokens[]){$/;"	f
 jal	command.c	/^char * jal(char * tokens[]){$/;"	f
 jalr	command.c	/^char * jalr(char * tokens[]){$/;"	f
 jr	command.c	/^char * jr(char * tokens[]){$/;"	f
+la	command.c	/^char * la(char * tokens[]){$/;"	f
 lb	command.c	/^char * lb(char * tokens[]){$/;"	f
 lbu	command.c	/^char * lbu(char * tokens[]){$/;"	f
 lh	command.c	/^char * lh(char * tokens[]){$/;"	f
@@ -100,6 +106,7 @@ multu	command.c	/^char * multu(char * tokens[]){$/;"	f
 name	lib.h	/^	char * name; $/;"	m	struct:_inst_info
 name	lib.h	/^	char * name; $/;"	m	struct:_symbol_table
 name	lib.h	/^	char * name;$/;"	m	struct:inst_table
+newstr	lib.c	/^char * newstr(int len){$/;"	f
 nor	command.c	/^char * nor(char * tokens[]){$/;"	f
 opcodebits	lib.h	/^	char * opcodebits; $/;"	m	struct:_inst
 or	command.c	/^char * or(char * tokens[]){$/;"	f
@@ -108,16 +115,17 @@ outputMIFfile	lib.c	/^void outputMIFfile(FILE *MIFfile, char *inputFile) {$/;"	f
 printHeaders	lib.c	/^void printHeaders(FILE *MIFfile){$/;"	f
 printSymbolInfo	lib.c	/^void printSymbolInfo(char * tokens[]) {$/;"	f
 printTail	lib.c	/^void printTail(FILE *MIFfile){$/;"	f
-processLine	assembler.c	/^void processLine(char * line, FILE *rfile, FILE *MIFfile){$/;"	f
+processLine	assembler.c	/^char *  processLine(char * line, FILE *rfile, FILE *MIFfile){$/;"	f
 ptr	lib.h	/^	char * (*ptr)(char *[]);$/;"	m	struct:inst_table
 ptr	lib.h	/^void (*ptr)(int, int);$/;"	v
-put_sym	lib.c	/^unsigned put_sym(const char * name){$/;"	f
+put_sym	lib.c	/^unsigned put_sym(const char * name, unsigned int lineno){$/;"	f
 rdest	lib.h	/^	char * rdest; $/;"	m	struct:_inst_info
 reg	lib.h	/^} reg; $/;"	t	typeref:struct:_register
 register_data	lib.h	/^static reg register_data[] =  {$/;"	v
 registerbits	lib.h	/^	char * registerbits; $/;"	m	struct:_register
 registername	lib.h	/^	char * registername; $/;"	m	struct:_register
 registernumber	lib.h	/^	char * registernumber; $/;"	m	struct:_register
+removeSpaces	lib.c	/^char * removeSpaces(const char * s) {$/;"	f
 rsrc	lib.h	/^	char * rsrc; $/;"	m	struct:_inst_info
 sb	command.c	/^char * sb(char * tokens[]){$/;"	f
 sh	command.c	/^char * sh(char * tokens[]){$/;"	f
@@ -146,5 +154,6 @@ type3	command.c	/^char * type3(char * arg0, char * arg1, char * arg2){$/;"	f
 type4	command.c	/^char * type4(char * arg0, char * arg1, char *arg2, char *arg3){$/;"	f
 type5	command.c	/^char * type5(char * arg0, char * arg1, char *arg2, char *arg3, char *arg4){$/;"	f
 type6	command.c	/^char * type6(char * arg0, char * arg1, char *arg2, char *arg3, char *arg4, char *arg5){$/;"	f
+verify_atoi	command.c	/^int verify_atoi(char *token){$/;"	f
 xor	command.c	/^char * xor(char * tokens[]){$/;"	f
 xori	command.c	/^char * xori(char * tokens[]){$/;"	f

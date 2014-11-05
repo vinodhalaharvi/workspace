@@ -110,9 +110,9 @@ char * sll(char * tokens[]){
 	return type6(
 		getOpcodebits("sll"), 
 		"00000", 
+		getRegisterBits(tokens[1]), 
 		getRegisterBits(tokens[2]), 
-		getRegisterBits(tokens[3]), 
-		getBits(atoi(tokens[4]), 5),
+		getBits(atoi(tokens[3]), 5),
 		getAluOpcodeBits("sll")
 	); 
 }
@@ -121,9 +121,9 @@ char * srl(char * tokens[]){
 	return type6(
 		getOpcodebits("srl"), 
 		"00000", 
+		getRegisterBits(tokens[1]), 
 		getRegisterBits(tokens[2]), 
-		getRegisterBits(tokens[3]), 
-		getBits(atoi(tokens[4]), 5),
+		getBits(atoi(tokens[3]), 5),
 		getAluOpcodeBits("srl")
 	); 
 }
@@ -132,9 +132,9 @@ char * sra(char * tokens[]){
 	return type6(
 		getOpcodebits("sra"), 
 		"00000", 
+		getRegisterBits(tokens[1]), 
 		getRegisterBits(tokens[2]), 
-		getRegisterBits(tokens[3]), 
-		getBits(atoi(tokens[4]), 5),
+		getBits(atoi(tokens[3]), 5),
 		getAluOpcodeBits("sra")
 	); 
 }
@@ -249,7 +249,8 @@ char * bgez(char * tokens[]){
                 getOpcodebits("bgez"), 
                 getRegisterBits(tokens[1]), 
                 "00001", 
-                getBits(atoi(tokens[2]), 16)
+                //getBits(atoi(tokens[2]), 16)
+                getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
 
@@ -258,7 +259,8 @@ char * bgezal(char * tokens[]){
                 getOpcodebits("bgezal"), 
                 getRegisterBits(tokens[1]), 
                 "10001", 
-                getBits(atoi(tokens[2]), 16)
+                //getBits(atoi(tokens[2]), 16)
+                getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
 
@@ -267,7 +269,8 @@ char * bltz(char * tokens[]){
                 getOpcodebits("bltz"), 
                 getRegisterBits(tokens[1]), 
                 "00000", 
-                getBits(atoi(tokens[2]), 16)
+                //getBits(atoi(tokens[2]), 16)
+                getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
 
@@ -276,7 +279,8 @@ char * bltzal(char * tokens[]){
                 getOpcodebits("bltzal"), 
                 getRegisterBits(tokens[1]), 
                 "10000", 
-                getBits(atoi(tokens[2]), 16)
+                //getBits(atoi(tokens[2]), 16)
+                getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
 
@@ -320,6 +324,13 @@ char * xori(char * tokens[]){
         ); 
 }
 
+char * la(char * tokens[]){
+	char * bits = lui(tokens); 
+	memory[locptr++] = lowertoint(bits); 
+	memory[locptr++] = highertoint(bits); 
+	return ori(tokens); 
+}
+
 char * lui(char * tokens[]){
 	return type4(
                 getOpcodebits("lui"), 
@@ -330,7 +341,7 @@ char * lui(char * tokens[]){
 }
 
 char * lb(char * tokens[]){
-	return lhu(tokens);
+	return lbu(tokens);
 }
 
 char * lh(char * tokens[]){
@@ -383,10 +394,10 @@ char * lwr(char * tokens[]){
 }
 
 char * sb(char * tokens[]){
-	return type4(
+	return  type4(
                 getOpcodebits("sb"), 
+                getRegisterBits(eval_register(tokens[2])), 
                 getRegisterBits(tokens[1]), 
-                getRegisterBits(tokens[2]), 
                 getBits(atoi(tokens[3]), 16)
         ); 
 }
@@ -468,7 +479,8 @@ char * bne(char * tokens[]){
                 getOpcodebits("bne"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
@@ -477,7 +489,8 @@ char * blez(char * tokens[]){
                 getOpcodebits("blez"), 
                 getRegisterBits(tokens[1]), 
                 "00000", 
-                getBits(atoi(tokens[2]), 16)
+                //getBits(atoi(tokens[2]), 16)
+                getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
 
@@ -486,7 +499,8 @@ char * bgtz(char * tokens[]){
                 getOpcodebits("bgtz"), 
                 getRegisterBits(tokens[1]), 
                 "00000", 
-                getBits(atoi(tokens[2]), 16)
+                //getBits(atoi(tokens[2]), 16)
+                getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
 
@@ -510,15 +524,27 @@ char * _break(char * tokens[]){
 char * j(char * tokens[]){
 	return type2(
                 getOpcodebits("j"), 
-                getBits(atoi(tokens[1]), 26)
+                //getBits(atoi(tokens[1]), 26)
+                getBits(verify_atoi(tokens[1]), 26)
         ); 
 }
 
+int verify_atoi(char *token){
+	int value = 0 ; 
+	if( isValidInt(token, 10, &value) ||
+		isValidInt(token, 16, &value)) {
+		return value; 
+	} else {
+		return get_sym_address(token); 
+	}
+}
+
+
 char * jal(char * tokens[]){
 	return type2(
-                getOpcodebits("jal"), 
-                getBits(atoi(tokens[1]), 26)
-        ); 
+			getOpcodebits("jal"), 
+			getBits(verify_atoi(tokens[1]), 26)
+		    ); 
 }
 
 char * copz(char * tokens[]){

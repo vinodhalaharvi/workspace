@@ -201,4 +201,7 @@ char * getHexBits(char * binary, int size);
 int islabel(const char * string);
 unsigned found_sym(const char * name); 
 unsigned dump_sym_table();
+char * eval_register(char *expWithParen); 
+int isValidInt(const char *str, int base, int *value); 
+int verify_atoi(char *token); 
 char * removeSpaces(const char * s); 

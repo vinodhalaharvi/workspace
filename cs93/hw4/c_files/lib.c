@@ -3,6 +3,25 @@
 #include <stdlib.h>
 #include <string.h>
 #include "lib.h"
+#include <errno.h>
+#include <limits.h>
+
+int isValidInt(const char *str, int base, int *value)
+{
+	char *endptr;
+	long val;
+	errno = 0;    
+	val = strtol(str, &endptr, base);
+	if ((errno == ERANGE && (val == SHRT_MAX  || val == SHRT_MIN))
+			|| (errno != 0 && val == 0)) {
+		return 0; 
+	}
+	if (endptr == str) {
+		return 0; 
+	}
+	*value = val;
+	return 1; 
+}
 
 unsigned int get_sym_address(const char * name){
 	for (int i = 0; i < symmaxindex; i++) {
@@ -172,6 +191,7 @@ int filter(char **lineptr){
 
 unsigned int lowertoint(char * bits){
         assert(32 == strlen(bits));
+	assert(strlen(bits + 16) == 16); 
         return (int) strtol(bits + 16, NULL,  2);
 }
 
@@ -246,6 +266,7 @@ char * getRegisterBits(char *registername){
 		}
 		i++; 
 	}
+	fprintf(stderr, "%s: No such register ..\n", registername);
 	assert(1 == 0); 
 	//we should never be here
 	return NULL; 

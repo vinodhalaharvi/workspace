@@ -72,6 +72,8 @@ struct inst_table insts[] = {
 	{"j", &j},
 	{"jal", &jal},
 	{"copz", &copz},
+	//pseudo instructions
+	{"la", &la},
 	{NULL,  NULL},
 };
 
@@ -87,25 +89,26 @@ function_type getFunc(const char * name){
 }
 
 
-void processLine(char * line, FILE *rfile, FILE *MIFfile){
+char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 	char *tokens[4]; 
 	char * bits; 
+	//unsigned int  resultBits; 
 	for (int i = 0; i < 4; i++) {
 		tokens[i] = ""; 
 	}
 	getTokens(line, tokens); 
-	line[strlen(line)-1] = '\0';
 	function_type func = getFunc(tokens[0]); 
 	if (func) {
 		fprintf(MIFfile, "%s\n", func(tokens)); 	
-		//printf("%s\n", func(tokens)); 	
 		bits = func(tokens);
-		printf("%s: ", line); 
-		printf("%u\n", bin32toint(bits));
+		//resultBits = bin32toint(bits);
 		memory[locptr++] = lowertoint(bits); 
 		memory[locptr++] = highertoint(bits); 
+	} else {
+		//fprintf(stderr, "%s: Instruction not found ..\n", tokens[0]);
+		printf("%s: Instruction not found ..\n", tokens[0]);
 	}
-	return; 
+	return bits; 
 }
 
 int main(int argc, const char *argv[])
@@ -117,11 +120,13 @@ int main(int argc, const char *argv[])
 	while(getline(&line, &len, rfile) != EOF){
 		lineno++; 
 		cleanLine(&line);
+		//printf("%d: %s\n", lineno, line);
 		if (filter(&line))
 			continue; 
 		if (islabel(line)){
 			if (isasciiz(line)) {
-				printf("doasciiz() %d: .asciiz=%s\n", lineno, getasciiz(line));
+				//printf("doasciiz() %d: .asciiz=%s\n", lineno, getasciiz(line));
+				; 
 			} else {
 				char * label = getlabel(line); 
 				//printf("label found() %d: %s\n", lineno, label);
@@ -135,14 +140,14 @@ int main(int argc, const char *argv[])
 		if(ispseudo(line)){
 			line = dopseudo(line); 
 		}*/
-		printf("%d: %s\n", lineno, line);
-		processLine(line, rfile, MIFfile); 
+		char * bits = processLine(line, rfile, MIFfile); 
+		printf("%d:%s:0x%X:0x%X:0x%X\n", 
+				lineno, line, bin32toint(bits), 
+				highertoint(bits), lowertoint(bits));
 	}
-
 	//dump_sym_table();
-	//return 0; 
 	for (int i = 0; i < locptr; i++) {
-		printf("%d\n", memory[i]);
+		printf("0x%x\n", memory[i]);
 	}
 	return 0;
 }
