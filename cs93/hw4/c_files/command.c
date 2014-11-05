@@ -11,7 +11,7 @@ char * lwcz(char * tokens[]){
 }
 
 char * swcz(char * tokens[]){
-	return "NOT IMPLEMENTED!"; 
+	return "not implemented!"; 
 }
 
 char * subu(char * tokens[]){
@@ -417,7 +417,7 @@ char * sb(char * tokens[]){
                 getRegisterBits(eval_register(tokens[2])), 
                 getRegisterBits(tokens[1]), 
                 //getBits(atoi(tokens[3]), 16)
-                getBits(verify_atoi(tokens[3]), 16)
+                getBits(register_offset(tokens[2]), 16)
         ); 
 }
 

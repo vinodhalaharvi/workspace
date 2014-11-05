@@ -143,9 +143,53 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 	} else {
 		//fprintf(stderr, "%s: Instruction not found ..\n", tokens[0]);
 		printf("%s: Instruction not found ..\n", tokens[0]);
+		exit(99);
 	}
 	return bits; 
 }
+
+static char *sym_skip_list[100] = {
+	"main", 
+	"REG_IOCONTROL", 
+	"REG_IOBUFFFER_1", 
+	"REG_IOBUFFFER_2", 
+	"SP", 
+	NULL 
+
+}; 
+static unsigned int sli;
+
+int is_in_skip_list(char *sym){
+	int i = 0 ;
+	do {
+		if (sym_skip_list[i] && strcmp(sym_skip_list[i], sym) ==0)
+			return 1;
+	} while(sym_skip_list[i++]); 
+	return 0; 
+}
+
+/*void add_to_skip_list(char *sym){
+	sym_skip_list[sli++] = sym;
+}*/
+
+#define  STACK_BASE  (0x00FF08-0x00A000)/0x02
+#define REG_IOCONTROL 0x00FF00/0x2
+#define REG_IOBUFFFER_1 0x00FF04/0x2
+#define REG_IOBUFFFER_2 0x00FF08/0x2  
+static int sp = STACK_BASE; 
+
+int store_string(char *str){
+	int value; 
+	int store_address = sp; 
+	assert(STACK_BASE != 0 );  //make sure stack location is initialized
+	do {
+		value = *(str+1) << 8 | *str; 
+		memory[STACK_BASE + sp++] = value; 
+		str++; 
+	} while(*str); 
+	return store_address; 
+}
+
 
 void do_first_pass(int argc, const char *argv[]){
 	size_t len = 0 ; 
@@ -154,26 +198,43 @@ void do_first_pass(int argc, const char *argv[]){
 	getFiles(argc, argv, &rfile, &MIFfile); 
 
 	//First passs for label fixup
-	put_sym("main", lineno);  //main should always go in location 0x0
+	put_sym("main", lineno++);  
+	put_sym("REG_IOCONTROL", REG_IOCONTROL);
+	put_sym("REG_IOBUFFFER_1", REG_IOBUFFFER_1); 
+	put_sym("REG_IOBUFFFER_2", REG_IOBUFFFER_2); 
+	put_sym("STACK_BASE", STACK_BASE);  
+	
+
 	while(getline(&line, &len, rfile) != EOF){
 		cleanLine(&line);
 		if (filter(&line))
 			continue; 
 		if(is_valid_inst(line)){
 			lineno++; 
-		}
+		 }
 		if (islabel(line)){
-			char * label = getlabel(line); 
-			if (strcmp(label, "main") == 0){
-				continue; 
+			if (isasciiz(line)) {
+				char * label = getlabel(line); 
+				//printf("doasciiz() %d: .asciiz=%s\n", lineno, getasciiz(line));
+				//store the string at a location
+				//and store that location in the symbol table
+				int address = store_string(getasciiz(line)); 
+				put_sym(label, address); 
+				printf("Storing symbol %s at address %x\n", label, address);
+			} else {
+				char * label = getlabel(line); 
+				if (is_in_skip_list(label)) {
+					continue; 
+				}
+				put_sym(label, lineno); 
 			}
-			put_sym(label, lineno); 
 		}
 	}
 	lineno = 0;  // reset location_ptr
 	fclose(rfile);
 	fclose(MIFfile);
 }
+
 
 void do_second_pass(int argc, const char *argv[]){
 	size_t len = 0 ; 
@@ -185,27 +246,16 @@ void do_second_pass(int argc, const char *argv[]){
 		cleanLine(&line);
 		if (filter(&line))
 			continue; 
-		if (islabel(line)){
-			if (isasciiz(line)) {
-				//printf("doasciiz() %d: .asciiz=%s\n", 
-				//lineno, getasciiz(line));
-				; 
-			} else {
-				char * label = getlabel(line); 
-				if (!found_sym(label))
-					put_sym(label, lineno); 
-			}
+		if (islabel(line))
 			continue; 
-		}
 		/*if(isexp(line)){
-		  line = doevalexp(line); 
+			  line = doevalexp(line); 
 		  }*/ 
 		char * bits = processLine(line, rfile, MIFfile); 
 		printf("%d:%s:0x%X:0x%X:0x%X\n", 
 				lineno, line, bin32toint(bits), 
 				highertoint(bits), lowertoint(bits));
 	}
-	dump_sym_table();
 	fclose(rfile);
 	fclose(MIFfile);
 }
@@ -219,12 +269,9 @@ int main(int argc, const char *argv[])
 	getFiles(argc, argv, &rfile, &MIFfile); 
 	do_first_pass(argc, argv); 
 	dump_sym_table(); 
-	return 0; 
-
-	//delete this
-	put_sym("outputString", 0x998);
 
 	do_second_pass(argc, argv); 
+	return 0; 
 	//dump_sym_table();
 	for (int i = 0; i < locptr; i++) {
 		printf("0x%x\n", memory[i]);

@@ -208,3 +208,5 @@ int verify_atoi(char *token);
 char * removeSpaces(const char * s); 
 int lower_byte(int word16bit); 
 int higher_byte(int word16bit); 
+int register_offset(char * input); 
+char * register_name(char * input);

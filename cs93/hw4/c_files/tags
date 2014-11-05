@@ -12,7 +12,11 @@ J	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
 MAX_SYMBOL_SIZE	lib.h	5;"	d
 MEMORY_START_ADDRESS	lib.h	6;"	d
 MIF_FILE_SIZE	lib.h	4;"	d
+REG_IOBUFFFER_1	assembler.c	177;"	d	file:
+REG_IOBUFFFER_2	assembler.c	178;"	d	file:
+REG_IOCONTROL	assembler.c	176;"	d	file:
 RTYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
+STACK_BASE	assembler.c	175;"	d	file:
 _GNU_SOURCE	assembler.c	5;"	d	file:
 _break	command.c	/^char * _break(char * tokens[]){$/;"	f
 _div	command.c	/^char * _div(char * tokens[]){$/;"	f
@@ -78,6 +82,7 @@ inst_table	lib.h	/^struct inst_table {$/;"	s
 instname	lib.h	/^	char * instname; $/;"	m	struct:_inst
 insts	assembler.c	/^struct inst_table insts[] = {$/;"	v	typeref:struct:inst_table
 isValidInt	assembler.c	/^int isValidInt(const char *str, int base, int *value)$/;"	f
+is_in_skip_list	assembler.c	/^int is_in_skip_list(char *sym){$/;"	f
 is_valid_inst	assembler.c	/^unsigned int is_valid_inst(const char *line){$/;"	f
 isasciiz	lib.c	/^int isasciiz(const char * string){$/;"	f
 isempty	lib.c	/^int isempty(const char *string){$/;"	f
@@ -127,6 +132,8 @@ put_sym	lib.c	/^unsigned put_sym(const char * name, unsigned int lineno){$/;"	f
 rdest	lib.h	/^	char * rdest; $/;"	m	struct:_inst_info
 reg	lib.h	/^} reg; $/;"	t	typeref:struct:_register
 register_data	lib.h	/^static reg register_data[] =  {$/;"	v
+register_name	lib.c	/^char * register_name(char * input){$/;"	f
+register_offset	lib.c	/^int register_offset(char * input){$/;"	f
 registerbits	lib.h	/^	char * registerbits; $/;"	m	struct:_register
 registername	lib.h	/^	char * registername; $/;"	m	struct:_register
 registernumber	lib.h	/^	char * registernumber; $/;"	m	struct:_register
@@ -134,22 +141,26 @@ removeSpaces	lib.c	/^char * removeSpaces(const char * s) {$/;"	f
 rsrc	lib.h	/^	char * rsrc; $/;"	m	struct:_inst_info
 sb	command.c	/^char * sb(char * tokens[]){$/;"	f
 sh	command.c	/^char * sh(char * tokens[]){$/;"	f
+sli	assembler.c	/^static unsigned int sli;$/;"	v	file:
 sll	command.c	/^char * sll(char * tokens[]){$/;"	f
 sllv	command.c	/^char * sllv(char * tokens[]){$/;"	f
 slt	command.c	/^char * slt(char * tokens[]){$/;"	f
 slti	command.c	/^char * slti(char * tokens[]){$/;"	f
 sltiu	command.c	/^char * sltiu(char * tokens[]){$/;"	f
 sltu	command.c	/^char * sltu(char * tokens[]){$/;"	f
+sp	assembler.c	/^static int sp = STACK_BASE; $/;"	v	file:
 sra	command.c	/^char * sra(char * tokens[]){$/;"	f
 srav	command.c	/^char * srav(char * tokens[]){$/;"	f
 srl	command.c	/^char * srl(char * tokens[]){$/;"	f
 srlv	command.c	/^char * srlv(char * tokens[]){$/;"	f
+store_string	assembler.c	/^int store_string(char *str){$/;"	f
 sub	command.c	/^char * sub(char * tokens[]){$/;"	f
 subu	command.c	/^char * subu(char * tokens[]){$/;"	f
 sw	command.c	/^char * sw(char * tokens[]){$/;"	f
 swcz	command.c	/^char * swcz(char * tokens[]){$/;"	f
 swl	command.c	/^char * swl(char * tokens[]){$/;"	f
 swr	command.c	/^char * swr(char * tokens[]){$/;"	f
+sym_skip_list	assembler.c	/^static char *sym_skip_list[100] = {$/;"	v	file:
 symbol_table	lib.h	/^} symbol_table;$/;"	t	typeref:struct:_symbol_table
 symbols	lib.h	/^static symbol_table symbols[MAX_SYMBOL_SIZE]; $/;"	v
 symmaxindex	lib.h	/^static unsigned int symmaxindex; $/;"	v

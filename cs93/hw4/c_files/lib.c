@@ -12,7 +12,7 @@ unsigned int get_sym_address(const char * name){
 			return symbols[i].index; 
 		}
 	}
-	printf("%s %s\n", name, "ERROR: SYMBOL NOT FOUND !!\n");
+	printf("name: %s;  %s\n", name, "error: symbol not found !!\n");
 	assert(1 == 0);
 }
 
@@ -27,7 +27,7 @@ unsigned found_sym(const char * name) {
 
 unsigned dump_sym_table(){
 	int i = 0;
-	printf("\nSYMBOL TABLE CONTENTS:\n");
+	printf("\nsymbol table contents:\n");
 	for (int i = 0; i < MAX_SYMBOL_SIZE; i++) {
 		if(symbols[i].name != NULL) {
 			printf("%s=0x%x\n", symbols[i].name, symbols[i].index);
@@ -357,6 +357,21 @@ char * eval_register(char *expWithParen)
 	return exp; 
 }
 
+int register_offset(char * input){
+	int offset; 
+	char reg[2];
+	int t = sscanf(input, "%i(%2s)", &offset, reg); 
+	return offset; 
+}
+
+char * register_name(char * input){
+	int offset; 
+	char *reg = newstr(2); 
+	int t = sscanf(input, "%i(%2s)", &offset, reg); 
+	assert(t != -1); 
+	return reg; 
+}
+
 unsigned int ifParen(const char *exp){
 	if (strchr(exp, '(') != NULL)
 		return 1; 
@@ -370,6 +385,7 @@ int eval_exp(char *expWithParen, int *error)
 	char op[10], exp[100]; 
 	sscanf(expWithParen, "(" "%99[^)]" ")", exp); 
 	int n = sscanf(exp, "%i%2s%i", &num1, op, &num2); 
+	assert(n != -1); 
 	if (n == 3) {
 		if (strcmp(op, "<<") == 0) { return num1 << num2; 
 		} else if (strcmp(op, ">>") == 0) { *error = 0 ; return num1 >> num2; 
