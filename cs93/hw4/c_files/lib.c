@@ -33,6 +33,7 @@ unsigned dump_sym_table(){
 			printf("%s=0x%x\n", symbols[i].name, symbols[i].index);
 		}
 	}
+	printf("\n");
 	return 1;
 }
 

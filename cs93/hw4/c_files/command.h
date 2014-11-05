@@ -59,6 +59,7 @@ char * _break(char * tokens[]);
 char * j(char * tokens[]);
 char * jal(char * tokens[]);
 char * copz(char * tokens[]);
+char * nop(char * tokens[]); 
 
 //pseudo instructions
 char * la(char * tokens[]); 

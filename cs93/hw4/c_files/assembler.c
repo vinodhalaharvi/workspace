@@ -77,6 +77,7 @@ struct inst_table insts[] = {
 	{"copz", &copz},
 	//pseudo instructions
 	{"la", &la},
+	{"nop", &nop},
 	{NULL,  NULL},
 };
 
@@ -151,8 +152,8 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 static char *sym_skip_list[100] = {
 	"main", 
 	"REG_IOCONTROL", 
-	"REG_IOBUFFFER_1", 
-	"REG_IOBUFFFER_2", 
+	"REG_IOBUFFER_1", 
+	"REG_IOBUFFER_2", 
 	"SP", 
 	NULL 
 
@@ -174,8 +175,8 @@ int is_in_skip_list(char *sym){
 
 #define  STACK_BASE  (0x00FF08-0x00A000)/0x02
 #define REG_IOCONTROL 0x00FF00/0x2
-#define REG_IOBUFFFER_1 0x00FF04/0x2
-#define REG_IOBUFFFER_2 0x00FF08/0x2  
+#define REG_IOBUFFER_1 0x00FF04/0x2
+#define REG_IOBUFFER_2 0x00FF08/0x2  
 static int sp = STACK_BASE; 
 
 int store_string(char *str){
@@ -200,10 +201,9 @@ void do_first_pass(int argc, const char *argv[]){
 	//First passs for label fixup
 	put_sym("main", lineno++);  
 	put_sym("REG_IOCONTROL", REG_IOCONTROL);
-	put_sym("REG_IOBUFFFER_1", REG_IOBUFFFER_1); 
-	put_sym("REG_IOBUFFFER_2", REG_IOBUFFFER_2); 
+	put_sym("REG_IOBUFFER_1", REG_IOBUFFER_1); 
+	put_sym("REG_IOBUFFER_2", REG_IOBUFFER_2); 
 	put_sym("STACK_BASE", STACK_BASE);  
-	
 
 	while(getline(&line, &len, rfile) != EOF){
 		cleanLine(&line);

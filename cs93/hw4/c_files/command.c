@@ -6,6 +6,8 @@
 #include <limits.h>
 #include <errno.h>
 #define BUFLEN 33
+
+
 char * lwcz(char * tokens[]){
 	return "NOT IMPLEMENTED!"; 
 }
@@ -14,6 +16,9 @@ char * swcz(char * tokens[]){
 	return "not implemented!"; 
 }
 
+char * nop(char * tokens[]){
+	return "00000000000000000000000000000000";
+}
 char * subu(char * tokens[]){
 	return type6(
 		getOpcodebits("subu"), 
@@ -250,7 +255,6 @@ char * bgez(char * tokens[]){
                 getOpcodebits("bgez"), 
                 getRegisterBits(tokens[1]), 
                 "00001", 
-                //getBits(atoi(tokens[2]), 16)
                 getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
@@ -260,7 +264,6 @@ char * bgezal(char * tokens[]){
                 getOpcodebits("bgezal"), 
                 getRegisterBits(tokens[1]), 
                 "10001", 
-                //getBits(atoi(tokens[2]), 16)
                 getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
@@ -270,7 +273,6 @@ char * bltz(char * tokens[]){
                 getOpcodebits("bltz"), 
                 getRegisterBits(tokens[1]), 
                 "00000", 
-                //getBits(atoi(tokens[2]), 16)
                 getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
@@ -280,7 +282,6 @@ char * bltzal(char * tokens[]){
                 getOpcodebits("bltzal"), 
                 getRegisterBits(tokens[1]), 
                 "10000", 
-                //getBits(atoi(tokens[2]), 16)
                 getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
@@ -330,7 +331,6 @@ char * la(char * tokens[]){
                 getOpcodebits("lui"), 
                 "00000", 
                 getRegisterBits(tokens[1]), 
-                //getBits(atoi(tokens[2]), 16)
                 getBits(higher_byte(verify_atoi(tokens[2])), 16)
         ); 
 	memory[locptr++] = lowertoint(bits); 
@@ -348,7 +348,6 @@ char * lui(char * tokens[]){
                 getOpcodebits("lui"), 
                 "00000", 
                 getRegisterBits(tokens[1]), 
-                //getBits(atoi(tokens[2]), 16)
                 getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
@@ -366,7 +365,6 @@ char * lwl(char * tokens[]){
                 getOpcodebits("lwl"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                //getBits(atoi(tokens[3]), 16)
                 getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
@@ -376,7 +374,6 @@ char * lw(char * tokens[]){
                 getOpcodebits("lw"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                //getBits(atoi(tokens[3]), 16)
                 getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
@@ -384,10 +381,9 @@ char * lw(char * tokens[]){
 char * lbu(char * tokens[]){
 	return type4(
                 getOpcodebits("lbu"), 
+                getRegisterBits(eval_register(tokens[2])), 
                 getRegisterBits(tokens[1]), 
-                getRegisterBits(tokens[2]), 
-                //getBits(atoi(tokens[3]), 16)
-                getBits(verify_atoi(tokens[3]), 16)
+                getBits(register_offset(tokens[2]), 16)
         ); 
 }
 
@@ -396,7 +392,6 @@ char * lhu(char * tokens[]){
                 getOpcodebits("lhu"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                //getBits(atoi(tokens[3]), 16)
                 getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
@@ -406,7 +401,6 @@ char * lwr(char * tokens[]){
                 getOpcodebits("lwr"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                //getBits(atoi(tokens[3]), 16)
                 getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
@@ -416,7 +410,6 @@ char * sb(char * tokens[]){
                 getOpcodebits("sb"), 
                 getRegisterBits(eval_register(tokens[2])), 
                 getRegisterBits(tokens[1]), 
-                //getBits(atoi(tokens[3]), 16)
                 getBits(register_offset(tokens[2]), 16)
         ); 
 }
@@ -424,10 +417,9 @@ char * sb(char * tokens[]){
 char * sh(char * tokens[]){
 	return type4(
                 getOpcodebits("sh"), 
+                getRegisterBits(eval_register(tokens[2])), 
                 getRegisterBits(tokens[1]), 
-                getRegisterBits(tokens[2]), 
-                //getBits(atoi(tokens[3]), 16)
-                getBits(verify_atoi(tokens[3]), 16)
+                getBits(register_offset(tokens[2]), 16)
         ); 
 }
 
@@ -436,7 +428,6 @@ char * sw(char * tokens[]){
                 getOpcodebits("sw"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                //getBits(atoi(tokens[3]), 16)
                 getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
@@ -446,7 +437,6 @@ char * swl(char * tokens[]){
                 getOpcodebits("swl"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                //getBits(atoi(tokens[3]), 16)
                 getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
@@ -456,7 +446,6 @@ char * swr(char * tokens[]){
                 getOpcodebits("swr"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                //getBits(atoi(tokens[3]), 16)
                 getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
@@ -493,7 +482,6 @@ char * beq(char * tokens[]){
                 getOpcodebits("beq"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                //getBits(atoi(tokens[3]), 16)
                 getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
@@ -503,7 +491,6 @@ char * bne(char * tokens[]){
                 getOpcodebits("bne"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                //getBits(atoi(tokens[3]), 16)
                 getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
@@ -513,7 +500,6 @@ char * blez(char * tokens[]){
                 getOpcodebits("blez"), 
                 getRegisterBits(tokens[1]), 
                 "00000", 
-                //getBits(atoi(tokens[2]), 16)
                 getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
@@ -523,7 +509,6 @@ char * bgtz(char * tokens[]){
                 getOpcodebits("bgtz"), 
                 getRegisterBits(tokens[1]), 
                 "00000", 
-                //getBits(atoi(tokens[2]), 16)
                 getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
@@ -548,7 +533,6 @@ char * _break(char * tokens[]){
 char * j(char * tokens[]){
 	return type2(
                 getOpcodebits("j"), 
-                //getBits(atoi(tokens[1]), 26)
                 getBits(verify_atoi(tokens[1]), 26)
         ); 
 }
