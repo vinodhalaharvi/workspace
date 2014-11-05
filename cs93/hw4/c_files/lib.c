@@ -303,6 +303,17 @@ void printHeaders(FILE *MIFfile){
 
 /* REFERENCE: This function is taken from class notes */
 void outputMIFfile(FILE *MIFfile) {
+	uint16_t word;
+	printHeaders(MIFfile); 
+
+	/*while((address+1) < MIF_FILE_SIZE) {
+			fprintf(MIFfile, "  %04X: %04X;\n", firstAddress >> 1, word);
+		}
+	}*/
+	printTail(MIFfile); 
+}
+
+void outputMIFfile1(FILE *MIFfile) {
 	int address, firstAddress, lastAddress;
 	uint16_t word;
 	printHeaders(MIFfile); 
