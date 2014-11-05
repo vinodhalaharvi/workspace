@@ -11,6 +11,7 @@
 #include "command.h"
 #include <limits.h>
 #include <errno.h>
+#define DEBUG 0
 
 
 struct inst_table insts[] = {
@@ -218,12 +219,10 @@ void do_first_pass(int argc, const char *argv[]){
 		if (islabel(line)){
 			if (isasciiz(line)) {
 				char * label = getlabel(line); 
-				//printf("doasciiz() %d: .asciiz=%s\n", locptr, getasciiz(line));
 				//store the string at a location
 				//and store that location in the symbol table
 				int address = store_string(getasciiz(line)); 
 				put_sym(label, address); 
-				printf("Storing symbol %s at address %x\n", label, address);
 			} else {
 				char * label = getlabel(line); 
 				if (is_in_skip_list(label)) {
@@ -273,9 +272,8 @@ int main(int argc, const char *argv[])
 	FILE * rfile,  * MIFfile; 
 	getFiles(argc, argv, &rfile, &MIFfile); 
 	do_first_pass(argc, argv); 
-	dump_sym_table(); 
+	//dump_sym_table(); 
 	do_second_pass(argc, argv); 
-	return 0; 
 	//dump_sym_table();
 	outputMIFfile(MIFfile); 
 	return 0;

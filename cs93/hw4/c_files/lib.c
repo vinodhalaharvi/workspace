@@ -17,7 +17,6 @@ unsigned int get_sym_address(const char * name){
 }
 
 unsigned found_sym(const char * name) {
-	int i = 0;
 	for (int i = 0; i < MAX_SYMBOL_SIZE; i++) {
 		if(symbols[i].name != NULL && (strcmp(symbols[i].name, name) == 0))
 			return 1; 
@@ -26,7 +25,6 @@ unsigned found_sym(const char * name) {
 }
 
 unsigned dump_sym_table(){
-	int i = 0;
 	printf("\nsymbol table contents:\n");
 	for (int i = 0; i < MAX_SYMBOL_SIZE; i++) {
 		if(symbols[i].name != NULL) {
@@ -38,7 +36,6 @@ unsigned dump_sym_table(){
 }
 
 unsigned put_sym(const char * name, unsigned int loc){
-	int i = 0;
 	if (found_sym(name)) { 
 		fprintf(stderr, "%s:%d: Duplicate symbol found ..\n", name, loc);
 		fprintf(stderr, "Exiting on error .. \n"); 
@@ -88,7 +85,6 @@ int isasciiz(const char * string){
 
 char * getlabel(const char *string){
 	int i=0; 
-	int count = 0; 
 	assert (string != NULL); 
 	char * res = (char *) malloc(strlen(string)+1); 
 	memset(res, '\0', strlen(string)+1); 
@@ -305,11 +301,11 @@ void printHeaders(FILE *MIFfile){
 void outputMIFfile(FILE *MIFfile) {
 	uint16_t word;
 	printHeaders(MIFfile); 
-
-	/*while((address+1) < MIF_FILE_SIZE) {
-			fprintf(MIFfile, "  %04X: %04X;\n", firstAddress >> 1, word);
-		}
-	}*/
+	printf("%d\n", locptr);
+	for (int i = 0; i < locptr; i++) {
+		//fprintf(MIFfile, "  %04X: %04X;\n", memory[i]); 
+		printf("  %04X: %04X;\n", memory[i]); 
+	}
 	printTail(MIFfile); 
 }
 
@@ -365,8 +361,6 @@ char * newstr(int len){
 
 char * eval_register(char *expWithParen)
 {
-	int num1, num2; 
-	char op[10]; 
 	char *exp = newstr(100);
 	sscanf(expWithParen, "(" "%99[^)]" ")", exp); 
 	return exp; 
@@ -376,6 +370,7 @@ int register_offset(char * input){
 	int offset; 
 	char reg[2];
 	int t = sscanf(input, "%i(%2s)", &offset, reg); 
+	assert(t != -1); 
 	return offset; 
 }
 

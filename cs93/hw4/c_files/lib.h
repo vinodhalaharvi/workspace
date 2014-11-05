@@ -10,12 +10,12 @@ typedef struct _symbol_table {
 	unsigned int index; 
 } symbol_table;
 
-static unsigned int lineno; 
-static symbol_table symbols[MAX_SYMBOL_SIZE]; 
-static unsigned int symmaxindex; 
+extern unsigned int lineno; 
+extern symbol_table symbols[MAX_SYMBOL_SIZE]; 
+extern unsigned int symmaxindex; 
 
-static uint16_t memory[MIF_FILE_SIZE];	
-static unsigned int locptr; 
+uint16_t memory[MIF_FILE_SIZE];	
+unsigned int locptr; 
 
 typedef struct _encoding { 
 	char * binary; 
