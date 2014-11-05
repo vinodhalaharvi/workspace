@@ -68,3 +68,9 @@ char * type3(char * arg0, char * arg1, char * arg2);
 char * type4(char * arg0, char * arg1, char *arg2, char *arg3);
 char * type5(char * arg0, char * arg1, char *arg2, char *arg3, char *arg4);
 char * type6(char * arg0, char * arg1, char *arg2, char *arg3, char *arg4, char *arg5);
+
+//utility functions
+function_type getFunc(const char * name); 
+unsigned int is_valid_inst(const char *line); 
+int isValidInt(const char *str, int base, int *value); 
+

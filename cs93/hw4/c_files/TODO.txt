@@ -1,0 +1,2 @@
+la and pseudo instructions
+memory location, place main at 0x0

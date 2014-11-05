@@ -6,23 +6,6 @@
 #include <errno.h>
 #include <limits.h>
 
-int isValidInt(const char *str, int base, int *value)
-{
-	char *endptr;
-	long val;
-	errno = 0;    
-	val = strtol(str, &endptr, base);
-	if ((errno == ERANGE && (val == SHRT_MAX  || val == SHRT_MIN))
-			|| (errno != 0 && val == 0)) {
-		return 0; 
-	}
-	if (endptr == str) {
-		return 0; 
-	}
-	*value = val;
-	return 1; 
-}
-
 unsigned int get_sym_address(const char * name){
 	for (int i = 0; i < symmaxindex; i++) {
 		if (strcmp(symbols[i].name, name) == 0) {
@@ -404,4 +387,10 @@ int eval_exp(char *expWithParen, int *error)
 	return -1; 
 }
 
+int lower_byte(int word16bit){
+	return  (word16bit  & 0xFF);
+}
 
+int higher_byte(int word16bit) {
+	return word16bit >> 8;
+}

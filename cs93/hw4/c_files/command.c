@@ -3,8 +3,9 @@
 #include <string.h>
 #include "lib.h"
 #include "command.h"
+#include <limits.h>
+#include <errno.h>
 #define BUFLEN 33
-
 char * lwcz(char * tokens[]){
 	return "NOT IMPLEMENTED!"; 
 }
@@ -325,10 +326,21 @@ char * xori(char * tokens[]){
 }
 
 char * la(char * tokens[]){
-	char * bits = lui(tokens); 
+	char * bits =  type4(
+                getOpcodebits("lui"), 
+                "00000", 
+                getRegisterBits(tokens[1]), 
+                //getBits(atoi(tokens[2]), 16)
+                getBits(higher_byte(verify_atoi(tokens[2])), 16)
+        ); 
 	memory[locptr++] = lowertoint(bits); 
 	memory[locptr++] = highertoint(bits); 
-	return ori(tokens); 
+	return type4(
+                getOpcodebits("ori"), 
+                getRegisterBits(tokens[1]), 
+                getRegisterBits(tokens[1]), 
+                getBits(lower_byte(verify_atoi(tokens[2])), 16)
+        ); 
 }
 
 char * lui(char * tokens[]){
@@ -336,7 +348,8 @@ char * lui(char * tokens[]){
                 getOpcodebits("lui"), 
                 "00000", 
                 getRegisterBits(tokens[1]), 
-                getBits(atoi(tokens[2]), 16)
+                //getBits(atoi(tokens[2]), 16)
+                getBits(verify_atoi(tokens[2]), 16)
         ); 
 }
 
@@ -353,7 +366,8 @@ char * lwl(char * tokens[]){
                 getOpcodebits("lwl"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
@@ -362,7 +376,8 @@ char * lw(char * tokens[]){
                 getOpcodebits("lw"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
@@ -371,7 +386,8 @@ char * lbu(char * tokens[]){
                 getOpcodebits("lbu"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
@@ -380,7 +396,8 @@ char * lhu(char * tokens[]){
                 getOpcodebits("lhu"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
@@ -389,7 +406,8 @@ char * lwr(char * tokens[]){
                 getOpcodebits("lwr"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
@@ -398,7 +416,8 @@ char * sb(char * tokens[]){
                 getOpcodebits("sb"), 
                 getRegisterBits(eval_register(tokens[2])), 
                 getRegisterBits(tokens[1]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
@@ -407,7 +426,8 @@ char * sh(char * tokens[]){
                 getOpcodebits("sh"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
@@ -416,7 +436,8 @@ char * sw(char * tokens[]){
                 getOpcodebits("sw"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
@@ -425,7 +446,8 @@ char * swl(char * tokens[]){
                 getOpcodebits("swl"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
@@ -434,7 +456,8 @@ char * swr(char * tokens[]){
                 getOpcodebits("swr"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
@@ -470,7 +493,8 @@ char * beq(char * tokens[]){
                 getOpcodebits("beq"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
@@ -590,3 +614,4 @@ char * type6(char * arg0, char * arg1, char *arg2, char *arg3, char *arg4, char 
 			arg0, arg1, arg2, arg3, arg4, arg5); 
 	return res; 
 }
+

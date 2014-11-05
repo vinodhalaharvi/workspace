@@ -4,14 +4,14 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-BUFLEN	command.c	6;"	d	file:
+BUFLEN	command.c	8;"	d	file:
 INSTYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	g
 INSTYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	t	typeref:enum:INSTYPE
 ITYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
 J	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
-MAX_SYMBOL_SIZE	lib.h	4;"	d
-MEMORY_START_ADDRESS	lib.h	5;"	d
-MIF_FILE_SIZE	lib.h	3;"	d
+MAX_SYMBOL_SIZE	lib.h	5;"	d
+MEMORY_START_ADDRESS	lib.h	6;"	d
+MIF_FILE_SIZE	lib.h	4;"	d
 RTYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
 _GNU_SOURCE	assembler.c	5;"	d	file:
 _break	command.c	/^char * _break(char * tokens[]){$/;"	f
@@ -43,6 +43,8 @@ bne	command.c	/^char * bne(char * tokens[]){$/;"	f
 cleanLine	lib.c	/^void cleanLine(char **lineptr){$/;"	f
 copz	command.c	/^char * copz(char * tokens[]){$/;"	f
 divu	command.c	/^char * divu(char * tokens[]){$/;"	f
+do_first_pass	assembler.c	/^void do_first_pass(int argc, const char *argv[]){$/;"	f
+do_second_pass	assembler.c	/^void do_second_pass(int argc, const char *argv[]){$/;"	f
 dump_sym_table	lib.c	/^unsigned dump_sym_table(){$/;"	f
 encoding	lib.h	/^} encoding; $/;"	t	typeref:struct:_encoding
 encoding_data	lib.h	/^static encoding encoding_data[] = { $/;"	v
@@ -65,6 +67,7 @@ getasciiz	lib.c	/^char * getasciiz(const char *input){$/;"	f
 getlabel	lib.c	/^char * getlabel(const char *string){$/;"	f
 hex	lib.h	/^	char * hex; $/;"	m	struct:_encoding
 hextoint	lib.c	/^unsigned int hextoint(char * hex){$/;"	f
+higher_byte	lib.c	/^int higher_byte(int word16bit) {$/;"	f
 highertoint	lib.c	/^unsigned int highertoint(char * bits){$/;"	f
 ifParen	lib.c	/^unsigned int ifParen(const char *exp){$/;"	f
 index	lib.h	/^	unsigned int index; $/;"	m	struct:_symbol_table
@@ -74,7 +77,8 @@ inst_info	lib.h	/^} inst_info;$/;"	t	typeref:struct:_inst_info
 inst_table	lib.h	/^struct inst_table {$/;"	s
 instname	lib.h	/^	char * instname; $/;"	m	struct:_inst
 insts	assembler.c	/^struct inst_table insts[] = {$/;"	v	typeref:struct:inst_table
-isValidInt	lib.c	/^int isValidInt(const char *str, int base, int *value)$/;"	f
+isValidInt	assembler.c	/^int isValidInt(const char *str, int base, int *value)$/;"	f
+is_valid_inst	assembler.c	/^unsigned int is_valid_inst(const char *line){$/;"	f
 isasciiz	lib.c	/^int isasciiz(const char * string){$/;"	f
 isempty	lib.c	/^int isempty(const char *string){$/;"	f
 islabel	lib.c	/^int islabel(const char * string){$/;"	f
@@ -89,6 +93,7 @@ lh	command.c	/^char * lh(char * tokens[]){$/;"	f
 lhu	command.c	/^char * lhu(char * tokens[]){$/;"	f
 lineno	lib.h	/^static unsigned int lineno; $/;"	v
 locptr	lib.h	/^static unsigned int locptr; $/;"	v
+lower_byte	lib.c	/^int lower_byte(int word16bit){$/;"	f
 lowertoint	lib.c	/^unsigned int lowertoint(char * bits){$/;"	f
 lui	command.c	/^char * lui(char * tokens[]){$/;"	f
 lw	command.c	/^char * lw(char * tokens[]){$/;"	f

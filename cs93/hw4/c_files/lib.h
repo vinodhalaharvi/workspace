@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <ctype.h>
+#include <assert.h>
 #define MIF_FILE_SIZE 32768
 #define MAX_SYMBOL_SIZE 32768
 #define MEMORY_START_ADDRESS 0x0
@@ -205,3 +206,5 @@ char * eval_register(char *expWithParen);
 int isValidInt(const char *str, int base, int *value); 
 int verify_atoi(char *token); 
 char * removeSpaces(const char * s); 
+int lower_byte(int word16bit); 
+int higher_byte(int word16bit); 

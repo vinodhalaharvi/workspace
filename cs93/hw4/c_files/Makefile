@@ -23,6 +23,9 @@ assembler: $(objects)
 run: all assembler
 	./assembler /tmp/test.asm /tmp/test.mif
 
+debug: all assembler
+	gdb ./assembler
+
 cleanobj:
 	rm -f *.o
 	rm assembler
@@ -33,8 +36,5 @@ cleanobj:
 
 tags:	
 	ctags -R *.[ch]
-
-debug:  
-	gdb ./assember
 
 .PHONY: clean cleanobj cleandiff tags

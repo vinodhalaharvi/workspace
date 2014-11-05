@@ -9,6 +9,9 @@
 #include <string.h>
 #include "lib.h"
 #include "command.h"
+#include <limits.h>
+#include <errno.h>
+
 
 struct inst_table insts[] = {
 	{"lwcz", &lwcz},
@@ -88,6 +91,39 @@ function_type getFunc(const char * name){
 	return (function_type) NULL; 
 }
 
+unsigned int is_valid_inst(const char *line){
+	int i = 0;
+	char *tokens[4]; 
+	for (int i = 0; i < 4; i++) {
+		tokens[i] = ""; 
+	}
+	getTokens(line, tokens); 
+	function_type func = getFunc(tokens[0]); 
+	if (func) {
+		return 1;
+	}
+	return 0;
+}
+
+
+
+int isValidInt(const char *str, int base, int *value)
+{
+	char *endptr;
+	long val;
+	errno = 0;    
+	val = strtol(str, &endptr, base);
+	if ((errno == ERANGE && (val == SHRT_MAX  || val == SHRT_MIN))
+			|| (errno != 0 && val == 0)) {
+		return 0; 
+	}
+	if (endptr == str) {
+		return 0; 
+	}
+	*value = val;
+	return 1; 
+}
+
 
 char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 	char *tokens[4]; 
@@ -111,8 +147,35 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 	return bits; 
 }
 
-int main(int argc, const char *argv[])
-{
+void do_first_pass(int argc, const char *argv[]){
+	size_t len = 0 ; 
+	char * line = NULL; 
+	FILE * rfile,  * MIFfile; 
+	getFiles(argc, argv, &rfile, &MIFfile); 
+
+	//First passs for label fixup
+	put_sym("main", lineno);  //main should always go in location 0x0
+	while(getline(&line, &len, rfile) != EOF){
+		cleanLine(&line);
+		if (filter(&line))
+			continue; 
+		if(is_valid_inst(line)){
+			lineno++; 
+		}
+		if (islabel(line)){
+			char * label = getlabel(line); 
+			if (strcmp(label, "main") == 0){
+				continue; 
+			}
+			put_sym(label, lineno); 
+		}
+	}
+	lineno = 0;  // reset location_ptr
+	fclose(rfile);
+	fclose(MIFfile);
+}
+
+void do_second_pass(int argc, const char *argv[]){
 	size_t len = 0 ; 
 	char * line = NULL; 
 	FILE * rfile,  * MIFfile; 
@@ -120,34 +183,54 @@ int main(int argc, const char *argv[])
 	while(getline(&line, &len, rfile) != EOF){
 		lineno++; 
 		cleanLine(&line);
-		//printf("%d: %s\n", lineno, line);
 		if (filter(&line))
 			continue; 
 		if (islabel(line)){
 			if (isasciiz(line)) {
-				//printf("doasciiz() %d: .asciiz=%s\n", lineno, getasciiz(line));
+				//printf("doasciiz() %d: .asciiz=%s\n", 
+				//lineno, getasciiz(line));
 				; 
 			} else {
 				char * label = getlabel(line); 
-				//printf("label found() %d: %s\n", lineno, label);
-				put_sym(label, lineno); 
+				if (!found_sym(label))
+					put_sym(label, lineno); 
 			}
 			continue; 
 		}
 		/*if(isexp(line)){
-			line = doevalexp(line); 
-		} 
-		if(ispseudo(line)){
-			line = dopseudo(line); 
-		}*/
+		  line = doevalexp(line); 
+		  }*/ 
 		char * bits = processLine(line, rfile, MIFfile); 
 		printf("%d:%s:0x%X:0x%X:0x%X\n", 
 				lineno, line, bin32toint(bits), 
 				highertoint(bits), lowertoint(bits));
 	}
+	dump_sym_table();
+	fclose(rfile);
+	fclose(MIFfile);
+}
+
+
+int main(int argc, const char *argv[])
+{
+	size_t len = 0 ; 
+	char * line = NULL; 
+	FILE * rfile,  * MIFfile; 
+	getFiles(argc, argv, &rfile, &MIFfile); 
+	do_first_pass(argc, argv); 
+	dump_sym_table(); 
+	return 0; 
+
+	//delete this
+	put_sym("outputString", 0x998);
+
+	do_second_pass(argc, argv); 
 	//dump_sym_table();
 	for (int i = 0; i < locptr; i++) {
 		printf("0x%x\n", memory[i]);
 	}
 	return 0;
 }
+
+
+
