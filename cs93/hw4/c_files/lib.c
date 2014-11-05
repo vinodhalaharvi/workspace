@@ -37,15 +37,15 @@ unsigned dump_sym_table(){
 	return 1;
 }
 
-unsigned put_sym(const char * name, unsigned int lineno){
+unsigned put_sym(const char * name, unsigned int loc){
 	int i = 0;
 	if (found_sym(name)) { 
-		fprintf(stderr, "%s:%d: Duplicate symbol found ..\n", name, lineno);
+		fprintf(stderr, "%s:%d: Duplicate symbol found ..\n", name, loc);
 		fprintf(stderr, "Exiting on error .. \n"); 
 		exit(0); 
 	} else {
 		symbols[symmaxindex].name = strdup(name); 
-		symbols[symmaxindex].index = MEMORY_START_ADDRESS + lineno; 
+		symbols[symmaxindex].index = MEMORY_START_ADDRESS + loc; 
 		symmaxindex++;
 	}
 	return 1;

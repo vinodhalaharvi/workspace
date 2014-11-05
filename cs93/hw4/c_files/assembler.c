@@ -199,8 +199,11 @@ void do_first_pass(int argc, const char *argv[]){
 	getFiles(argc, argv, &rfile, &MIFfile); 
 
 	//First passs for label fixup
-	put_sym("main", lineno++);  
-	put_sym("REG_IOCONTROL", REG_IOCONTROL);
+	assert(locptr == 0);
+	put_sym("main", locptr);   
+	locptr += 2; 
+
+	put_sym("REG_IOCONTROL", REG_IOCONTROL); //hard places, not relative
 	put_sym("REG_IOBUFFER_1", REG_IOBUFFER_1); 
 	put_sym("REG_IOBUFFER_2", REG_IOBUFFER_2); 
 	put_sym("STACK_BASE", STACK_BASE);  
@@ -210,12 +213,12 @@ void do_first_pass(int argc, const char *argv[]){
 		if (filter(&line))
 			continue; 
 		if(is_valid_inst(line)){
-			lineno++; 
+			locptr += 2; 
 		 }
 		if (islabel(line)){
 			if (isasciiz(line)) {
 				char * label = getlabel(line); 
-				//printf("doasciiz() %d: .asciiz=%s\n", lineno, getasciiz(line));
+				//printf("doasciiz() %d: .asciiz=%s\n", locptr, getasciiz(line));
 				//store the string at a location
 				//and store that location in the symbol table
 				int address = store_string(getasciiz(line)); 
@@ -226,11 +229,11 @@ void do_first_pass(int argc, const char *argv[]){
 				if (is_in_skip_list(label)) {
 					continue; 
 				}
-				put_sym(label, lineno); 
+				put_sym(label, locptr); 
 			}
 		}
 	}
-	lineno = 0;  // reset location_ptr
+	locptr = 0;  // reset location_ptr
 	fclose(rfile);
 	fclose(MIFfile);
 }
@@ -252,9 +255,11 @@ void do_second_pass(int argc, const char *argv[]){
 			  line = doevalexp(line); 
 		  }*/ 
 		char * bits = processLine(line, rfile, MIFfile); 
-		printf("%d:%s:0x%X:0x%X:0x%X\n", 
-				lineno, line, bin32toint(bits), 
-				highertoint(bits), lowertoint(bits));
+		if (DEBUG){
+			printf("%d:%s:0x%X:0x%X:0x%X\n", 
+					lineno, line, bin32toint(bits), 
+					highertoint(bits), lowertoint(bits));
+		}
 	}
 	fclose(rfile);
 	fclose(MIFfile);

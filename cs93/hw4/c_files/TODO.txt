@@ -1,2 +1,22 @@
-la and pseudo instructions
-memory location, place main at 0x0
+Mon Nov  3 12:45:34 UTC 2014
+	research
+	checkout the motorola S format parser code
+	add static location_counter and memory to the code
+	getInteger instead of printing string
+	clear the comments, .data, .txt etc
+	labels and symbol table
+	.word and .asciiz directives
+	ascii charater constants
+	expressions parenthesized expression
+	test all instruction are making through
+	memory location, place main at 0x0, place other symbols
+	putting it all together and writing it to memory
+	asciiz strings
+	la and pseudo instructions
+	
+Wed Nov  5 18:23:41 UTC 2014
+write the combiled assembly and run it through assembler
+recalibrate the stack, text and data locations
+memory output
+fix prob6, prob7 and prob8 in spim
+Correct the instruction bits for rformat instruction
