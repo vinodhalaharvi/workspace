@@ -144,7 +144,7 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 	} else {
 		//fprintf(stderr, "%s: Instruction not found ..\n", tokens[0]);
 		printf("%s: Instruction not found ..\n", tokens[0]);
-		exit(99);
+		assert(0==1); 
 	}
 	return bits; 
 }
@@ -269,13 +269,10 @@ int main(int argc, const char *argv[])
 	getFiles(argc, argv, &rfile, &MIFfile); 
 	do_first_pass(argc, argv); 
 	dump_sym_table(); 
-
 	do_second_pass(argc, argv); 
 	return 0; 
 	//dump_sym_table();
-	for (int i = 0; i < locptr; i++) {
-		printf("0x%x\n", memory[i]);
-	}
+	outputMIFfile(MIFfile); 
 	return 0;
 }
 

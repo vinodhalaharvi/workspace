@@ -1,1 +1,1 @@
-run /tmp/asm/prob2.asm /tmp/asm/prob2.mif
+run /tmp/test.asm /tmp/test.mif

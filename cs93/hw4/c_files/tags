@@ -12,11 +12,11 @@ J	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
 MAX_SYMBOL_SIZE	lib.h	5;"	d
 MEMORY_START_ADDRESS	lib.h	6;"	d
 MIF_FILE_SIZE	lib.h	4;"	d
-REG_IOBUFFFER_1	assembler.c	177;"	d	file:
-REG_IOBUFFFER_2	assembler.c	178;"	d	file:
-REG_IOCONTROL	assembler.c	176;"	d	file:
+REG_IOBUFFER_1	assembler.c	178;"	d	file:
+REG_IOBUFFER_2	assembler.c	179;"	d	file:
+REG_IOCONTROL	assembler.c	177;"	d	file:
 RTYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
-STACK_BASE	assembler.c	175;"	d	file:
+STACK_BASE	assembler.c	176;"	d	file:
 _GNU_SOURCE	assembler.c	5;"	d	file:
 _break	command.c	/^char * _break(char * tokens[]){$/;"	f
 _div	command.c	/^char * _div(char * tokens[]){$/;"	f
@@ -117,11 +117,12 @@ name	lib.h	/^	char * name; $/;"	m	struct:_inst_info
 name	lib.h	/^	char * name; $/;"	m	struct:_symbol_table
 name	lib.h	/^	char * name;$/;"	m	struct:inst_table
 newstr	lib.c	/^char * newstr(int len){$/;"	f
+nop	command.c	/^char * nop(char * tokens[]){$/;"	f
 nor	command.c	/^char * nor(char * tokens[]){$/;"	f
 opcodebits	lib.h	/^	char * opcodebits; $/;"	m	struct:_inst
 or	command.c	/^char * or(char * tokens[]){$/;"	f
 ori	command.c	/^char * ori(char * tokens[]){$/;"	f
-outputMIFfile	lib.c	/^void outputMIFfile(FILE *MIFfile, char *inputFile) {$/;"	f
+outputMIFfile	lib.c	/^void outputMIFfile(FILE *MIFfile) {$/;"	f
 printHeaders	lib.c	/^void printHeaders(FILE *MIFfile){$/;"	f
 printSymbolInfo	lib.c	/^void printSymbolInfo(char * tokens[]) {$/;"	f
 printTail	lib.c	/^void printTail(FILE *MIFfile){$/;"	f

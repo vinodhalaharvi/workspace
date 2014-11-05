@@ -302,12 +302,14 @@ void printHeaders(FILE *MIFfile){
 
 
 /* REFERENCE: This function is taken from class notes */
-void outputMIFfile(FILE *MIFfile, char *inputFile) {
+void outputMIFfile(FILE *MIFfile) {
 	int address, firstAddress, lastAddress;
 	uint16_t word;
 	printHeaders(MIFfile); 
+	fflush(MIFfile); 
 	address = 0;
 	while((address+1) < MIF_FILE_SIZE) {
+		printf("%x %d\n", address,  MIF_FILE_SIZE);
 		firstAddress = address;
 		word = memory[address] | (memory[address+1] << 8);
 		address += 2;
@@ -327,6 +329,7 @@ void outputMIFfile(FILE *MIFfile, char *inputFile) {
 		}
 	}
 	printTail(MIFfile); 
+	fflush(MIFfile); 
 }
 
 char * removeSpaces(const char * s) {
