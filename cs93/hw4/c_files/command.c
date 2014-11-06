@@ -7,6 +7,10 @@
 #include <errno.h>
 #define BUFLEN 33
 
+/* Vinod Halaharvi
+ * HUID 80778287
+ */
+
 
 /*
  * Description:  Most of the functions here take the tokens
