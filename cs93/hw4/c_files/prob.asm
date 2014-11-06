@@ -68,7 +68,7 @@ mul10:
 div10: # routine to divide a number by 10
 	addi $a1, $zero, 0x1999 # this number is nothing but 1/10 * 2^16
 	add $s0, $ra, $zero 
-	jal multiply # call multiply
+	jal multiply # call multiply (num - mul10(div10(num))) gives the LSB
 	srl $a0, $a0, 16 # right shift by 16
 	add $ra, $s0, $zero
 	jr $ra
@@ -95,14 +95,14 @@ signedDecimalToString:
 	loop3:	
 		beq $a0, $zero, exit
 		add $s1, $a0, $zero
-		jal div10
+		jal div10  # this and next line is used for LSB calculation
 		jal mul10
-		sub $a0, $s1, $a0
-		add $a0, $s1, $zero
-		jal div10
+		sub $a0, $s1, $a0 # get the LSB
+		add $a0, $s1, $zero # store the value
+		jal div10 # repeat till div10 >= 0 to get all digits
 		j loop3   # 
 	exit:
-		jal storeOutput
+		jal storeOutput # store output of each digit
 		jr $ra
 
 # prob7
@@ -115,10 +115,10 @@ stringToInt:
 	loop4:
 		lb      $t0, ($a0)
 		beq     $t0, $zero, fixNeg 	# line feed
-		sll     $t2, $v0, 1
-		sll     $v0, $v0, 3
+		sll     $t2, $v0, 1 # this and next line calculated (n<<3) + (n<<1)
+		sll     $v0, $v0, 3 # which is same as multiplying by 10
 		add     $v0, $v0, $t2       
-		addi    $t0, $t0, -48
+		addi    $t0, $t0, -48 # convert to digit
 		add     $v0, $v0, $t0       
 		addi    $a0, $a0, 1         
 		j   loop4
@@ -127,46 +127,46 @@ stringToInt:
 		addi     $a0, $a0, 1
 		j loop4
 	fixNeg:
-		beq     $t1, $zero, result    
+		beq     $t1, $zero, result   # if negative flag is set, reverse sign 
 		sub     $v0, $zero, $v0 # final output is in v0
 	result:
 		jr      $ra       
 # prob8
 # $a0 <- $a0, $a1 
 multiply:
-	slt  $t4, $a0, $zero
+	slt  $t4, $a0, $zero # check if the first number is negative
 	beq  $t4, $zero, skip1
 	sub  $a0, $zero, $a0 # flip sign 
 	skip1:
-	slt  $t5, $a1, $zero
+	slt  $t5, $a1, $zero # check if the second number is negative 
 	beq  $t5, $zero, skip2
 	sub  $a1, $zero, $a1 # flip sign 
 	skip2:
 	add $t0, $zero, $zero
 	loop: 
-		srav  $t1, $a1, $t0
+		srav  $t1, $a1, $t0 # shift multiplier to right
 		andi  $t2, $t1, 1
 		addi  $t1, $zero, 1
 		beq   $t2, $t1 label 
 		back:
 			addi  $t0, $t0, 1
-			slti  $t8, $t0, 32
+			slti  $t8, $t0, 32 # shift multiplicand to left
 			bne   $t8, $zero, loop	
 			add $a0, $v0, $zero
 
 			# fix sign before returning
-			beq $t4, $zero, skip3
+			beq $t4, $zero, skip3 # first number was negative
 			sub  $a0, $zero, $a0 # flip sign 
 
 			skip3:
-			beq $t5, $zero, skip4
+			beq $t5, $zero, skip4 # second number was negative
 			sub  $a0, $zero, $a0 # flip sign 
 
 			skip4:
 			jr $ra
 		label:
-			sllv $t3, $a0, $t0
-			add $v0, $v0, $t3
+			sllv $t3, $a0, $t0 # shift left by the amount in $a0
+			add $v0, $v0, $t3 # accumulator
 			j back
 	jr $ra
 

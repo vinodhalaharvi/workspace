@@ -6,6 +6,11 @@
 #include <errno.h>
 #include <limits.h>
 
+/*
+ * Description:  Get the address of the symbol from symbol table
+ * @param symbol name
+ * @returns symbol address in the symbol table
+ */
 unsigned int get_sym_address(const char * name){
 	for (int i = 0; i < symmaxindex; i++) {
 		if (strcmp(symbols[i].name, name) == 0) {
@@ -16,6 +21,11 @@ unsigned int get_sym_address(const char * name){
 	assert(1 == 0);
 }
 
+/*
+ * Description:  Is this symbol in the symbol table? 
+ * @param  symbol name
+ * @returns boolean, true if name found
+ */
 unsigned found_sym(const char * name) {
 	for (int i = 0; i < MAX_SYMBOL_SIZE; i++) {
 		if(symbols[i].name != NULL && (strcmp(symbols[i].name, name) == 0))
@@ -24,6 +34,11 @@ unsigned found_sym(const char * name) {
 	return 0;
 }
 
+/*
+ * Description: Helper function to dump the symbol table 
+ * @param  void
+ * @returns 1 if success
+ */
 unsigned dump_sym_table(){
 	printf("\nsymbol table contents:\n");
 	for (int i = 0; i < MAX_SYMBOL_SIZE; i++) {
@@ -35,6 +50,11 @@ unsigned dump_sym_table(){
 	return 1;
 }
 
+/*
+ * Description:  insert symbol in the symbol table
+ * @param   symbol name and address
+ * @returns 1 if successful 
+ */
 unsigned put_sym(const char * name, unsigned int loc){
 	if (found_sym(name)) { 
 		fprintf(stderr, "%s:%d: Duplicate symbol found ..\n", name, loc);
@@ -48,20 +68,42 @@ unsigned put_sym(const char * name, unsigned int loc){
 	return 1;
 }
 
+/*
+ * Description: get the line containing  the asciiz string
+ * @param  input line
+ * @returns asciiz string
+ */
 char * getasciiz(const char *input){
 	char *str = (char * ) malloc(strlen(input) + 1);
 	memset(str, '\0', strlen(input) + 1);
 	sscanf(input, "%*[^\"]%*c%[^\"]%*c%*[^\n]%*c", str);
 	return str; 
 }
+
+
+/*
+ * Description:  is this a valid lable?
+ * @param label name
+ * @returns boolean true/false
+ */
 int islabel(const char * string){
 	return (strchr(string, ':') != NULL); 
 }
 
+/*
+ * Description: 
+ * @param  
+ * @returns
+ */
 int isasciiz(const char * string){
 	return (strstr(string, ".asciiz") != NULL); 
 }
 
+/*
+ * Description:  get label from line
+ * @param input line
+ * @returns label
+ */
 char * getlabel(const char *string){
 	int i=0; 
 	assert (string != NULL); 
@@ -82,6 +124,11 @@ char * getlabel(const char *string){
 	return res;
 }
 
+/*
+ * Description: get input and output files 
+ * @param  argc, argv, input file and output MIF file handlers
+ * @returns void
+ */
 void getFiles(int argc, const char * argv[], FILE **rfile, FILE **MIFfile){
 	assert(argc == 3); 
 	const char * inputfilepath =  argv[1]; 
@@ -96,6 +143,11 @@ void getFiles(int argc, const char * argv[], FILE **rfile, FILE **MIFfile){
 }
 
 
+/*
+ * Description: parse a line and return tokens split using space or a  
+ * @param line from an assembly program
+ * @returns void
+ */
 void getTokens(const char * line, char * tokens[]){
 	const char d[] = "	 ,\n"; 
 	char *linecopy;
@@ -110,6 +162,11 @@ void getTokens(const char * line, char * tokens[]){
 	return;
 }
 
+/*
+ * Description: clean the line in assembly program 
+ * @param pointer to the line 
+ * @returns void
+ */
 void cleanLine(char **lineptr){
 	(*lineptr)[strlen(*lineptr)-1] = '\0';  // remove new line 
 	char *found = strchr(*lineptr, '#');  //remove everything after '#'
@@ -120,6 +177,11 @@ void cleanLine(char **lineptr){
 	}
 }
 
+/*
+ * Description:  is this line empty
+ * @param   line
+ * @returns boolean true/false
+ */
 int isempty(const char *string){
 	int i=0; 
 	int count = 0; 
@@ -134,6 +196,11 @@ int isempty(const char *string){
 	return (count == 0); 
 }
 
+/*
+ * Description: Should this line be ignored from processing 
+ * @param  line pointer 
+ * @returns boolean true/false
+ */
 int filter(char **lineptr){
 	if (strstr(*lineptr, ".data"))  {
 		return 1; 
@@ -148,6 +215,11 @@ int filter(char **lineptr){
 }
 
 
+/*
+ * Description: convert the lower 16 bits work to int and return
+ * @param 32 bit word
+ * @returns lower 16 bits 
+ */
 unsigned int lowertoint(char * bits){
         assert(32 == strlen(bits));
 	assert(strlen(bits + 16) == 16); 
@@ -155,6 +227,12 @@ unsigned int lowertoint(char * bits){
 }
 
 
+/*
+ * Description: convert the higher 16 bits work to int and return
+ * @param 32 bit word
+ * @returns higher 16 bits 
+ *
+ */
 unsigned int highertoint(char * bits){
         char * temp = strdup(bits);
         assert(32 == strlen(temp));
@@ -163,20 +241,40 @@ unsigned int highertoint(char * bits){
         return (int) strtol(temp, NULL,  2);
 }
 
+/*
+ * Description:  convert hex to int
+ * @param  
+ * @returns
+ */
 unsigned int hextoint(char * hex){
 	return (int)strtol(hex, NULL, 16);
 }
 
+/*
+ * Description: convert binary to int
+ * @param  
+ * @returns
+ */
 unsigned int bin32toint(char * bits){
 	assert(strlen(bits) == 32); 
 	return (int) strtol(bits, NULL,  2); 
 }
 
+/* 
+ * Description:  convert bin 16 bits to int
+ * @param  
+ * @returns
+ */
 unsigned int  bin16toint(char * bits){
 	assert(strlen(bits) == 16); 
 	return (int) strtol(bits, NULL,  2); 
 }
 
+/*
+ * Description: get operation code bits for an instruction 
+ * @param  
+ * @returns
+ */
 char * getOpcodebits(char *name){
 	int i = 0; 
 	while (inst_data[i].instname != NULL) {
@@ -188,6 +286,11 @@ char * getOpcodebits(char *name){
 	return NULL; 
 }
 
+/*
+ * Description: convert the number to bits of given SIZE
+ * @param  
+ * @returns
+ */
 char * getBits(int num, unsigned int SIZE) { 
 	char * bits = (char * ) malloc(SIZE+1);
 	memset(bits, '\0', SIZE+1); 
@@ -200,6 +303,11 @@ char * getBits(int num, unsigned int SIZE) {
 	return bits; 
 }
 
+/*
+ * Description:  Convert register pneumonic to bits
+ * @param  
+ * @returns
+ */
 char * getRegisterBits(char *registername){
 	int i = 0; 
 	//Does the register name match ?
@@ -223,6 +331,11 @@ char * getRegisterBits(char *registername){
 	return NULL; 
 }
 
+/*
+ * Description:  Get Alu operation code bits
+ * @param  
+ * @returns
+ */
 char * getAluOpcodeBits(char *name){
 	int i = 0; 
 	while (inst_data[i].instname != NULL) {
@@ -234,6 +347,11 @@ char * getAluOpcodeBits(char *name){
 	return NULL; 
 }
 
+/*
+ * Description:  binary to Hex converter
+ * @param  
+ * @returns
+ */
 char * binaryToHex(char * binary){
 	int i = 0; 
 	while (encoding_data[i].binary != NULL) {
@@ -245,6 +363,11 @@ char * binaryToHex(char * binary){
 	return NULL; 
 }
 
+/*
+ * Description:  helper function to exit on null value
+ * @param  
+ * @returns
+ */
 void exitOnNull(void * ptr, char * msg){
 	if (ptr == NULL) {
 		perror(msg); 
@@ -252,11 +375,21 @@ void exitOnNull(void * ptr, char * msg){
 	}
 }
 
+/*
+ * Description:  print end for mif file
+ * @param  
+ * @returns
+ */
 void printTail(FILE *MIFfile){
 	fprintf(MIFfile, "END;\n");
 	fflush(MIFfile); 
 }
 
+/*
+ * Description:  print mif file header
+ * @param  
+ * @returns
+ */
 void printHeaders(FILE *MIFfile){
 	fprintf(MIFfile, "\n");
 	fprintf(MIFfile, "WIDTH=16;\n");
@@ -270,7 +403,11 @@ void printHeaders(FILE *MIFfile){
 }
 
 
-/* REFERENCE: This function is taken from class notes */
+/*
+ * Description:  print the mif file contents
+ * @param  
+ * @returns
+ */
 void outputMIFfile(FILE *MIFfile) {
 	uint16_t word;
 	printHeaders(MIFfile); 
@@ -281,6 +418,11 @@ void outputMIFfile(FILE *MIFfile) {
 	printTail(MIFfile); 
 }
 
+/*
+ * Description:  remove spaces from the line,need for expression parsing
+ * @param  
+ * @returns
+ */
 char * removeSpaces(const char * s) {
 	char * d = strdup(s); 
 	char * res = d; 
@@ -292,6 +434,11 @@ char * removeSpaces(const char * s) {
 	return res; 
 }
 
+/*
+ * Description:  allocate new string
+ * @param  
+ * @returns
+ */
 char * newstr(int len){
 	assert(len >= 0);
 	char * str = (char *) malloc(len + 1); 
@@ -301,6 +448,11 @@ char * newstr(int len){
 }
 
 
+/*
+ * Description: get register bits from for ex ($t1) 
+ * @param  
+ * @returns
+ */
 char * eval_register(char *expWithParen)
 {
 	char *exp = newstr(100);
@@ -308,6 +460,11 @@ char * eval_register(char *expWithParen)
 	return exp; 
 }
 
+/*
+ * Description:  get offset applied to register for eg 0($t2)
+ * @param  
+ * @returns
+ */
 int register_offset(char * input){
 	int offset; 
 	char reg[2];
@@ -316,6 +473,11 @@ int register_offset(char * input){
 	return offset; 
 }
 
+/*
+ * Description:  get register name from for ex 0($t1)
+ * @param  
+ * @returns
+ */
 char * register_name(char * input){
 	int offset; 
 	char *reg = newstr(2); 
@@ -324,6 +486,8 @@ char * register_name(char * input){
 	return reg; 
 }
 
+
+//test for presence of parenthesis in a string
 unsigned int ifParen(const char *exp){
 	if (strchr(exp, '(') != NULL)
 		return 1; 
@@ -331,6 +495,11 @@ unsigned int ifParen(const char *exp){
 		return 0; 
 }
 
+/*
+ * Description:  simple expression evaluater
+ * @param  
+ * @returns
+ */
 int eval_exp(char *expWithParen, int *error)
 {
 	int num1, num2; 
@@ -355,10 +524,20 @@ int eval_exp(char *expWithParen, int *error)
 	return -1; 
 }
 
+/*
+ * Description:  get lower byte from 16 bit word
+ * @param  
+ * @returns
+ */
 int lower_byte(int word16bit){
 	return  (word16bit  & 0xFF);
 }
 
+/*
+ * Description:  get higher byte from 16 bit word
+ * @param  
+ * @returns
+ */
 int higher_byte(int word16bit) {
 	return word16bit >> 8;
 }

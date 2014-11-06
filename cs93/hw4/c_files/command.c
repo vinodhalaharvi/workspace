@@ -8,6 +8,16 @@
 #define BUFLEN 33
 
 
+/*
+ * Description:  Most of the functions here take the tokens
+ * which have been parsed by the processLine function
+ * and return the bits corresponding the that instruction
+ * @param tokens 
+ * @returns bits corresponding the the instruction  
+ */
+
+
+
 char * lwcz(char * tokens[]){
 	return "NOT IMPLEMENTED!"; 
 }
@@ -561,6 +571,11 @@ char * copz(char * tokens[]){
                 getBits(atoi(tokens[1]), 26)
         ); 
 }
+/*
+ * Description: 
+ * @param  
+ * @returns
+ */
 
 char * type2(char * arg0, char * arg1){
 	char *res = (char *) malloc(BUFLEN); 

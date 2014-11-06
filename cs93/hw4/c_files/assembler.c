@@ -13,7 +13,15 @@
 #include <errno.h>
 #define DEBUG 1
 
-
+/* Initialize function pointer
+ The individual functions are defined in lib.c
+ There roughly one function for each instruction
+ Here we have some functions that are not implemented yet.
+ We probably might not need them. Those will be removed 
+ after pset5 when everything seems to be working with 
+ the functions we have here
+ */
+ 
 struct inst_table insts[] = {
 	{"lwcz", &lwcz},
 	{"swcz", &swcz},
@@ -82,6 +90,12 @@ struct inst_table insts[] = {
 	{NULL,  NULL},
 };
 
+
+/* Get function takes in name
+ * and returns function pointer 
+ * @param name, the name of the function
+ * @returns function pointer
+ */
 function_type getFunc(const char * name){
 	int i = 0;
 	while((insts+i)->name != NULL){
@@ -93,6 +107,11 @@ function_type getFunc(const char * name){
 	return (function_type) NULL; 
 }
 
+
+/* Check if the line contains a valid instruction
+ * @param line, a parsed line from the assembly file
+ * @return boolean, true if the line has valid instruction
+ */
 unsigned int is_valid_inst(const char *line){
 	int i = 0;
 	char *tokens[4]; 
@@ -108,7 +127,12 @@ unsigned int is_valid_inst(const char *line){
 }
 
 
-
+/* Is the string a valid int? 
+ * @param str, string contain number value
+ * @param base number radix
+ * @param value, if the number is valid
+ * @returns true if a valid int
+ */
 int isValidInt(const char *str, int base, int *value)
 {
 	char *endptr;
@@ -126,7 +150,11 @@ int isValidInt(const char *str, int base, int *value)
 	return 1; 
 }
 
-
+/*
+ * Description:
+ * @param line, input rfile and output MIFfile
+ * @returns bits for mif file
+ */
 char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 	char *tokens[4]; 
 	char * bits; 
@@ -146,6 +174,9 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 	return bits; 
 }
 
+/*
+ * Description: Skip list for hardcode labels
+ */
 static char *sym_skip_list[100] = {
 	"main", 
 	"REG_IOCONTROL", 
@@ -157,6 +188,11 @@ static char *sym_skip_list[100] = {
 }; 
 static unsigned int sli;
 
+/*
+ * Description: check if the symbol is in the skip list
+ * @param  symbol name
+ * @returns true if the symbol is in the skip list
+ */
 int is_in_skip_list(char *sym){
 	int i = 0 ;
 	do {
@@ -172,6 +208,11 @@ int is_in_skip_list(char *sym){
 #define REG_IOBUFFER_2 0x00FF08/0x2  
 static int sp = STACK_BASE; 
 
+/*
+ * Description: 
+ * @param  
+ * @returns
+ */
 int store_string(char *str){
 	int value; 
 	int store_address = sp; 
@@ -185,6 +226,11 @@ int store_string(char *str){
 }
 
 
+/*
+ * Description: 
+ * @param  
+ * @returns
+ */
 void do_first_pass(int argc, const char *argv[]){
 	size_t len = 0 ; 
 	char * line = NULL; 
@@ -229,7 +275,11 @@ void do_first_pass(int argc, const char *argv[]){
 	fclose(MIFfile);
 }
 
-
+/*
+ * Description: 
+ * @param  
+ * @returns
+ */
 void do_second_pass(int argc, const char *argv[]){
 	size_t len = 0 ; 
 	char * line = NULL; 
@@ -254,7 +304,11 @@ void do_second_pass(int argc, const char *argv[]){
 	fclose(MIFfile);
 }
 
-
+/*
+ * Description: 
+ * @param  
+ * @returns
+ */
 int main(int argc, const char *argv[])
 {
 	size_t len = 0 ; 
