@@ -5,6 +5,7 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 BUFLEN	command.c	8;"	d	file:
+DEBUG	assembler.c	14;"	d	file:
 INSTYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	g
 INSTYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	t	typeref:enum:INSTYPE
 ITYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
@@ -12,11 +13,11 @@ J	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
 MAX_SYMBOL_SIZE	lib.h	5;"	d
 MEMORY_START_ADDRESS	lib.h	6;"	d
 MIF_FILE_SIZE	lib.h	4;"	d
-REG_IOBUFFER_1	assembler.c	178;"	d	file:
-REG_IOBUFFER_2	assembler.c	179;"	d	file:
-REG_IOCONTROL	assembler.c	177;"	d	file:
+REG_IOBUFFER_1	assembler.c	171;"	d	file:
+REG_IOBUFFER_2	assembler.c	172;"	d	file:
+REG_IOCONTROL	assembler.c	170;"	d	file:
 RTYPE	lib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
-STACK_BASE	assembler.c	176;"	d	file:
+STACK_BASE	assembler.c	169;"	d	file:
 _GNU_SOURCE	assembler.c	5;"	d	file:
 _break	command.c	/^char * _break(char * tokens[]){$/;"	f
 _div	command.c	/^char * _div(char * tokens[]){$/;"	f
@@ -62,7 +63,6 @@ getAluOpcodeBits	lib.c	/^char * getAluOpcodeBits(char *name){$/;"	f
 getBits	lib.c	/^char * getBits(int num, unsigned int SIZE) { $/;"	f
 getFiles	lib.c	/^void getFiles(int argc, const char * argv[], FILE **rfile, FILE **MIFfile){$/;"	f
 getFunc	assembler.c	/^function_type getFunc(const char * name){$/;"	f
-getHexBits	lib.c	/^char * getHexBits(char * binary, int size){$/;"	f
 getOpcodebits	lib.c	/^char * getOpcodebits(char *name){$/;"	f
 getRegisterBits	lib.c	/^char * getRegisterBits(char *registername){$/;"	f
 getTokens	lib.c	/^void getTokens(const char * line, char * tokens[]){$/;"	f
@@ -96,8 +96,8 @@ lb	command.c	/^char * lb(char * tokens[]){$/;"	f
 lbu	command.c	/^char * lbu(char * tokens[]){$/;"	f
 lh	command.c	/^char * lh(char * tokens[]){$/;"	f
 lhu	command.c	/^char * lhu(char * tokens[]){$/;"	f
-lineno	lib.h	/^static unsigned int lineno; $/;"	v
-locptr	lib.h	/^static unsigned int locptr; $/;"	v
+lineno	lib.h	/^unsigned int lineno; $/;"	v
+locptr	lib.h	/^unsigned int locptr; $/;"	v
 lower_byte	lib.c	/^int lower_byte(int word16bit){$/;"	f
 lowertoint	lib.c	/^unsigned int lowertoint(char * bits){$/;"	f
 lui	command.c	/^char * lui(char * tokens[]){$/;"	f
@@ -106,7 +106,7 @@ lwcz	command.c	/^char * lwcz(char * tokens[]){$/;"	f
 lwl	command.c	/^char * lwl(char * tokens[]){$/;"	f
 lwr	command.c	/^char * lwr(char * tokens[]){$/;"	f
 main	assembler.c	/^int main(int argc, const char *argv[])$/;"	f
-memory	lib.h	/^static uint16_t memory[MIF_FILE_SIZE];	$/;"	v
+memory	lib.h	/^uint16_t memory[MIF_FILE_SIZE];	$/;"	v
 mfhi	command.c	/^char * mfhi(char * tokens[]){$/;"	f
 mflo	command.c	/^char * mflo(char * tokens[]){$/;"	f
 mthi	command.c	/^char * mthi(char * tokens[]){$/;"	f
@@ -124,12 +124,11 @@ or	command.c	/^char * or(char * tokens[]){$/;"	f
 ori	command.c	/^char * ori(char * tokens[]){$/;"	f
 outputMIFfile	lib.c	/^void outputMIFfile(FILE *MIFfile) {$/;"	f
 printHeaders	lib.c	/^void printHeaders(FILE *MIFfile){$/;"	f
-printSymbolInfo	lib.c	/^void printSymbolInfo(char * tokens[]) {$/;"	f
 printTail	lib.c	/^void printTail(FILE *MIFfile){$/;"	f
 processLine	assembler.c	/^char *  processLine(char * line, FILE *rfile, FILE *MIFfile){$/;"	f
 ptr	lib.h	/^	char * (*ptr)(char *[]);$/;"	m	struct:inst_table
 ptr	lib.h	/^void (*ptr)(int, int);$/;"	v
-put_sym	lib.c	/^unsigned put_sym(const char * name, unsigned int lineno){$/;"	f
+put_sym	lib.c	/^unsigned put_sym(const char * name, unsigned int loc){$/;"	f
 rdest	lib.h	/^	char * rdest; $/;"	m	struct:_inst_info
 reg	lib.h	/^} reg; $/;"	t	typeref:struct:_register
 register_data	lib.h	/^static reg register_data[] =  {$/;"	v
@@ -163,8 +162,8 @@ swl	command.c	/^char * swl(char * tokens[]){$/;"	f
 swr	command.c	/^char * swr(char * tokens[]){$/;"	f
 sym_skip_list	assembler.c	/^static char *sym_skip_list[100] = {$/;"	v	file:
 symbol_table	lib.h	/^} symbol_table;$/;"	t	typeref:struct:_symbol_table
-symbols	lib.h	/^static symbol_table symbols[MAX_SYMBOL_SIZE]; $/;"	v
-symmaxindex	lib.h	/^static unsigned int symmaxindex; $/;"	v
+symbols	lib.h	/^symbol_table symbols[MAX_SYMBOL_SIZE]; $/;"	v
+symmaxindex	lib.h	/^unsigned int symmaxindex; $/;"	v
 syscall	command.c	/^char * syscall(char * tokens[]){$/;"	f
 type2	command.c	/^char * type2(char * arg0, char * arg1){$/;"	f
 type3	command.c	/^char * type3(char * arg0, char * arg1, char * arg2){$/;"	f

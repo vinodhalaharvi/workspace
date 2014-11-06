@@ -12,7 +12,7 @@ unsigned int get_sym_address(const char * name){
 			return symbols[i].index; 
 		}
 	}
-	printf("name: %s;  %s\n", name, "error: symbol not found !!\n");
+	fprintf(stderr, "name: %s;  %s\n", name, "error: symbol not found !!\n");
 	assert(1 == 0);
 }
 
@@ -48,33 +48,12 @@ unsigned put_sym(const char * name, unsigned int loc){
 	return 1;
 }
 
-void printSymbolInfo(char * tokens[]) {
-	printf("%s(%s, %s, %s)\n", tokens[0], tokens[1], tokens[2], tokens[3]); 
-}
-
 char * getasciiz(const char *input){
 	char *str = (char * ) malloc(strlen(input) + 1);
 	memset(str, '\0', strlen(input) + 1);
 	sscanf(input, "%*[^\"]%*c%[^\"]%*c%*[^\n]%*c", str);
 	return str; 
 }
-
-//TODO
-//DOES NOT YET WORK
-char * getHexBits(char * binary, int size){
-	char * res = (char *) malloc(size/4+1); 
-	memset(res, '\0', size/4+1); 
-	int j = 0; 
-	char temp[5]; 
-	memset(temp, '\0', 5); 
-	for (int i = 0; i < size; i=i+4) {
-		memcpy(temp, binary+i, 4); 
-		memcpy(res+j, binaryToHex(temp), 1); 
-		j++; 
-	}
-	return res; 
-}
-
 int islabel(const char * string){
 	return (strchr(string, ':') != NULL); 
 }
@@ -198,14 +177,6 @@ unsigned int  bin16toint(char * bits){
 	return (int) strtol(bits, NULL,  2); 
 }
 
-/*
-char * tobin(int num, unsigned int size){
-	char * bits = (char *) malloc(size+1);
-	memset(bits, '\0', size+1);
-	itoa(num, bits, 2); 
-	return bits; 
-}*/
-
 char * getOpcodebits(char *name){
 	int i = 0; 
 	while (inst_data[i].instname != NULL) {
@@ -283,6 +254,7 @@ void exitOnNull(void * ptr, char * msg){
 
 void printTail(FILE *MIFfile){
 	fprintf(MIFfile, "END;\n");
+	fflush(MIFfile); 
 }
 
 void printHeaders(FILE *MIFfile){
@@ -294,6 +266,7 @@ void printHeaders(FILE *MIFfile){
 	fprintf(MIFfile, "DATA_RADIX=HEX;\n");
 	fprintf(MIFfile, "\n");
 	fprintf(MIFfile, "CONTENT BEGIN\n");
+	fflush(MIFfile); 
 }
 
 
@@ -301,42 +274,11 @@ void printHeaders(FILE *MIFfile){
 void outputMIFfile(FILE *MIFfile) {
 	uint16_t word;
 	printHeaders(MIFfile); 
-	printf("%d\n", locptr);
 	for (int i = 0; i < locptr; i++) {
-		//fprintf(MIFfile, "  %04X: %04X;\n", memory[i]); 
-		printf("  %04X: %04X;\n", memory[i]); 
+		fprintf(MIFfile, "  %04X: %04X;\n", i, memory[i]); 
 	}
-	printTail(MIFfile); 
-}
-
-void outputMIFfile1(FILE *MIFfile) {
-	int address, firstAddress, lastAddress;
-	uint16_t word;
-	printHeaders(MIFfile); 
 	fflush(MIFfile); 
-	address = 0;
-	while((address+1) < MIF_FILE_SIZE) {
-		printf("%x %d\n", address,  MIF_FILE_SIZE);
-		firstAddress = address;
-		word = memory[address] | (memory[address+1] << 8);
-		address += 2;
-		if(((address+1) < MIF_FILE_SIZE) &&
-				((memory[address] | (memory[address+1] << 8)) == word)) {
-			lastAddress = address;
-			address += 2;
-			while(((address+1) < MIF_FILE_SIZE) &&
-					(memory[address] | (memory[address+1] << 8)) == word) {
-				lastAddress = address;
-				address += 2;
-			}
-			fprintf(MIFfile, "  [%04X..%04X]: %04X;\n", firstAddress >> 1,
-					lastAddress >> 1, word);
-		} else {
-			fprintf(MIFfile, "  %04X: %04X;\n", firstAddress >> 1, word);
-		}
-	}
 	printTail(MIFfile); 
-	fflush(MIFfile); 
 }
 
 char * removeSpaces(const char * s) {

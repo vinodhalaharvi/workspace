@@ -2,10 +2,6 @@
 # HUID: 80778287
 # vinod.halaharvi@gmai.com, halavin@iit.edu
 
-#la is equivalent to 
-#lui $t1, REG_IOCONTROL # $t1 <- REG_IOCONTROL
-#lhu $t0, ($t1) # $t0 <- loadHalf($t1) (load unsigned)
-# the assembler handles the pseudo instructions
 # prob2
 .data  # no relevance to the assembler.
 	outputString: .asciiz "            \n"
@@ -62,34 +58,34 @@ inputStringFromDevice:
 #prob6
 # $a0 <- $a0
 mul10:
-	sll $t0, $a0, 3
-	sll $t1, $a0, 1 
-	add $t0, $t0, $t1
+	sll $t0, $a0, 3 # n << 3
+	sll $t1, $a0, 1 # n << 1
+	add $t0, $t0, $t1 # (n<<3) + (n<<1) is same as multiplying by 10
 	add $a0, $t0, $zero
 	jr $ra
 	
 # $a0 <- $a0
-div10:
-	addi $a1, $zero, 0x1999
-	add $s0, $ra, $zero
-	jal multiply
-	srl $a0, $a0, 16
+div10: # routine to divide a number by 10
+	addi $a1, $zero, 0x1999 # this number is nothing but 1/10 * 2^16
+	add $s0, $ra, $zero 
+	jal multiply # call multiply
+	srl $a0, $a0, 16 # right shift by 16
 	add $ra, $s0, $zero
 	jr $ra
 
 # $a0 <- $a0
 toChar:
-	addi $a0, $a0, 48
+	addi $a0, $a0, 48 # int to char
 	jr $ra
 
 # $a0 <- $a0
 toDigit:
-	addi $a0, $a0, -48 
+	addi $a0, $a0, -48  # char to int
 	jr $ra
 
 # a1 <-  changed
 storeOutput:
-	la $a1, outputString
+	la $a1, outputString # store output to a memory location
 	sb $a0 ($a1)
 	jr $ra
 
@@ -104,8 +100,9 @@ signedDecimalToString:
 		sub $a0, $s1, $a0
 		add $a0, $s1, $zero
 		jal div10
-		j loop3
+		j loop3   # 
 	exit:
+		jal storeOutput
 		jr $ra
 
 # prob7
@@ -131,7 +128,7 @@ stringToInt:
 		j loop4
 	fixNeg:
 		beq     $t1, $zero, result    
-		sub     $v0, $zero, $v0
+		sub     $v0, $zero, $v0 # final output is in v0
 	result:
 		jr      $ra       
 # prob8
@@ -174,4 +171,34 @@ multiply:
 	jr $ra
 
 # prob9
+.data
+	askFirstNumber: .asciiz "input First Number\n"
+	askSecondNumber: .asciiz "input Second Number\n"
+	firstNumber: .asciiz "       "
+	secondNumber: .asciiz "       "
+.text
+	main:
+	# ask for first number
+	la   $a0, askFirstNumber
+	jal  outputStringToDevice
+	la   $a0, firstNumber
+	jal inputStringFromDevice
 
+	la   $a0, askSecondNumber
+	jal outputStringToDevice
+	la   $a0, secondNumber
+	jal inputStringFromDevice
+
+	la   $t0, firstNumber # first number argument in $a0
+	jal stringToInt
+	addi $a0, $t0, $zero
+
+	la   $t1, firstNumber
+	jal stringToInt
+	addi $a1, $t1, $zero  # second number argument in $a1
+
+	jal multiply # now call multiply, result in $a0
+	jal signedDecimalToString # first argument is from $a0
+
+	la $a0, outputString # result is stored here
+	jal outputStringToDevice # output to device

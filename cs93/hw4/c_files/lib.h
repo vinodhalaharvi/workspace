@@ -10,10 +10,9 @@ typedef struct _symbol_table {
 	unsigned int index; 
 } symbol_table;
 
-extern unsigned int lineno; 
-extern symbol_table symbols[MAX_SYMBOL_SIZE]; 
-extern unsigned int symmaxindex; 
-
+unsigned int lineno; 
+symbol_table symbols[MAX_SYMBOL_SIZE]; 
+unsigned int symmaxindex; 
 uint16_t memory[MIF_FILE_SIZE];	
 unsigned int locptr; 
 

@@ -11,7 +11,7 @@
 #include "command.h"
 #include <limits.h>
 #include <errno.h>
-#define DEBUG 0
+#define DEBUG 1
 
 
 struct inst_table insts[] = {
@@ -130,21 +130,17 @@ int isValidInt(const char *str, int base, int *value)
 char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 	char *tokens[4]; 
 	char * bits; 
-	//unsigned int  resultBits; 
 	for (int i = 0; i < 4; i++) {
 		tokens[i] = ""; 
 	}
 	getTokens(line, tokens); 
 	function_type func = getFunc(tokens[0]); 
 	if (func) {
-		fprintf(MIFfile, "%s\n", func(tokens)); 	
 		bits = func(tokens);
-		//resultBits = bin32toint(bits);
 		memory[locptr++] = lowertoint(bits); 
 		memory[locptr++] = highertoint(bits); 
 	} else {
-		//fprintf(stderr, "%s: Instruction not found ..\n", tokens[0]);
-		printf("%s: Instruction not found ..\n", tokens[0]);
+		fprintf(stderr, "%s: Instruction not found ..\n", tokens[0]);
 		assert(0==1); 
 	}
 	return bits; 
@@ -169,10 +165,6 @@ int is_in_skip_list(char *sym){
 	} while(sym_skip_list[i++]); 
 	return 0; 
 }
-
-/*void add_to_skip_list(char *sym){
-	sym_skip_list[sli++] = sym;
-}*/
 
 #define  STACK_BASE  (0x00FF08-0x00A000)/0x02
 #define REG_IOCONTROL 0x00FF00/0x2
@@ -243,6 +235,7 @@ void do_second_pass(int argc, const char *argv[]){
 	char * line = NULL; 
 	FILE * rfile,  * MIFfile; 
 	getFiles(argc, argv, &rfile, &MIFfile); 
+	printf("Helpful for debugging ..\n");
 	while(getline(&line, &len, rfile) != EOF){
 		lineno++; 
 		cleanLine(&line);
@@ -250,9 +243,6 @@ void do_second_pass(int argc, const char *argv[]){
 			continue; 
 		if (islabel(line))
 			continue; 
-		/*if(isexp(line)){
-			  line = doevalexp(line); 
-		  }*/ 
 		char * bits = processLine(line, rfile, MIFfile); 
 		if (DEBUG){
 			printf("%d:%s:0x%X:0x%X:0x%X\n", 
@@ -272,12 +262,10 @@ int main(int argc, const char *argv[])
 	FILE * rfile,  * MIFfile; 
 	getFiles(argc, argv, &rfile, &MIFfile); 
 	do_first_pass(argc, argv); 
-	//dump_sym_table(); 
+	dump_sym_table(); 
 	do_second_pass(argc, argv); 
-	//dump_sym_table();
 	outputMIFfile(MIFfile); 
+	printf("%s\n", "\n\nThe output has been written to ./prob.mif file .. " );
 	return 0;
 }
-
-
 
