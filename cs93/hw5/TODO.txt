@@ -1,0 +1,12 @@
+start parsing the mif file
+covert each hex to the function and invoke that function
+simulate that function 
+define registers
+make all register lookup ints
+display registers
+define memory 
+perform memory insts too. 
+put everything together
+Fri Nov  7 04:22:51 UTC 2014
+#####################################
+start emulating

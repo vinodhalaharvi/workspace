@@ -1,0 +1,12 @@
+000000	00000	%5s	%5s	sa	000011
+000001	%5s	10001	offset
+000000	%5s	000000000000000	001000
+000000	%5s	%5s	%5s	00000	101011
+000011	inst_index
+000101	%5s	%5s	offset
+000111	%5s	00000	offset
+001110	%5s	%5s	imm
+001111	00000	%5s	imm
+101110	base	%5s	offset
+
+if opcode is 000000 or 000001 then look at the auxcode

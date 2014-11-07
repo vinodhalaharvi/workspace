@@ -1,0 +1,11 @@
+	//char * bits =  getBits(hextoint("0xFFFF"), 16);
+	//printf("%d\n", strtol(bits, 16));
+	//return 0; 
+	//assert(strlen(bits) == 16); 
+	//printf("%s\n", bits);
+	//return 0;
+	//
+	//char * input = "00000000010001100000000000100011";  //subu
+	//char * input = "00000000000000000000000000100100";  //and
+	//assert(strlen(input) == 32); 
+

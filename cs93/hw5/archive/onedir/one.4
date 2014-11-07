@@ -1,0 +1,33 @@
+(sscanf(input, "00000000000%5s%5s%5s%6s", &opcode, &rs, &rt, &auxcode) ==  4) &&
+	sprintf(output, "%s, %s, %s, %s", opcode, rs, rt, auxcode);
+
+(sscanf(input, "000001%5s%s%5s", &opcode, &rs, &auxcode, &offset) == 4 ) &&  
+	sprintf(output, "%s, %s, %s, %s", opcode, rs, auxcode, offset);
+ 
+(sscanf(input, "000000%5s000000000000000001000", &opcode, &rs, &auxcode) ==  3 ) && 
+	sprintf(output, "%s, %s, %s", opcode, rs, auxcode);
+
+(sscanf(input, "000000%5s%5s%5s00000%6s", &opcode, &rs, &rt, &rd, &auxcode) == 5) && 
+	sprintf(output, "%s, %s, %s, %s, %s", opcode, rs, rt, rd, auxcode);
+
+(sscanf(input, "000011%26s", &opcode, &inst_index) ==  2) && 
+	sprintf(output, "%s, %s", opcode, inst_index);
+ 
+(sscanf(input, "000101%5s%5s%16s", &opcode, &rs, &rt, &offset) ==  4) && 
+	sprintf(output, "%s, %s, %s %s", opcode, rs, rt, offset);
+ 
+(sscanf(input, "000111%5s00000%16s", &opcode, &rs, &offset) == 3 ) && 
+	sprintf(output, "%s, %s, %s %s", opcode, rs, rt, offset);
+ 
+(sscanf(input, "001110%5s%5s%16s", &opcode, &rs, &rt, &imm) ==  4) && 
+	sprintf(output, "%s, %s, %s %s", opcode, rs, rt, imm);
+ 
+(sscanf(input, "00111100000%5s%16s", &opcode, &rs, &imm) == 3) && 
+	sprintf(output, "%s, %s, %s", opcode, rs, imm);
+ 
+(sscanf(input, "101110%5s%5s%16s", &opcode, &base, &rs, offset) ==  4) && 
+	sprintf(output, "%s, %s, %s %s", opcode, base, rs, offset);
+
+
+
+(sscanf(input, "if opcode is 000000 or 000001 then look at the auxcode
