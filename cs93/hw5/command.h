@@ -1,4 +1,10 @@
 extern int registers[32];
+extern int pc;
+extern int ir; 
+
+#define MEMORY_MAX 32627
+extern int memory[MEMORY_MAX];
+
 int doinst(char * inst);
 int sll(int rt, int rd, int sa);
 int srl(int rt, int rd, int sa);
@@ -48,3 +54,9 @@ int bgez(int rs, int offset);
 int bgezal(int rs, int offset);
 int bltz(int rs, int offset);
 int bltzal(int rs, int offset);
+void refresh_registers();
+char * newstr(int len);
+void print_output(char *str);
+char * getBits(int num, unsigned int SIZE); 
+unsigned int hextoint(char * hex);
+

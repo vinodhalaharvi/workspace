@@ -3,8 +3,22 @@
 #include <assert.h>
 #include <string.h>
 #include "command.h"
+#include <curses.h>
+
+
+unsigned get(int num, int start, int end){
+	unsigned int res = 0; 
+	for (int i = end; i <= start; i++) {
+		res |= (num & ( 1 << i )); 
+	}
+	return (res >> end); 
+}
 
 int registers[32]; 
+int memory[MEMORY_MAX]; 
+int pc; 
+int ir; 
+
 
 char * newstr(int len){
 	assert(len >= 0);
@@ -12,6 +26,34 @@ char * newstr(int len){
 	assert(str != NULL); 
 	memset(str, '\0', len); 
 	return str;
+}
+
+
+void refresh_registers(){
+	WINDOW * window;
+	if ((window = initscr()) == NULL ) {
+		fprintf(stderr, "Error initializing curses.\n");
+		exit(EXIT_FAILURE);
+	}
+	char * regstr = newstr(30);
+	int j = 0; 
+	int k = 13; 
+	for (int i = 0; i < 32; i++) {
+		sprintf(regstr, "$%d = 0x%x", i, registers[i]);
+		if ( i % 6 == 0) {
+			k = 0; 
+			j += 14; 
+		}
+		mvaddstr(0 + k++, 0 + j, regstr); 
+	}
+	sprintf(regstr, "$%s = 0x%x", "PC", pc);
+	mvaddstr(0 + k++, 0 + j, regstr); 
+	free(regstr); 
+	refresh();
+}
+
+void print_output(char *str){
+	mvaddstr(0 + 20, 10, str); 
 }
 
 char * getBits(int num, unsigned int SIZE) { 
@@ -28,15 +70,6 @@ char * getBits(int num, unsigned int SIZE) {
 
 unsigned int hextoint(char * hex){
 	return (int)strtol(hex, NULL, 16);
-}
-
-
-void getFiles(int argc, const char * argv[], FILE **rfile){
-	assert(argc == 2); 
-	const char * inputfilepath =  argv[1]; 
-	*rfile = fopen(inputfilepath, "r"); 
-	assert (rfile != NULL); 
-	return ; 
 }
 
 unsigned int toint(char * bits){
@@ -157,12 +190,14 @@ int doinst(char * inst){
 
 int sll(int rt, int rd, int sa){
 	//printf("%s\n", "sll");
+	//rd <- rt << sa
 	registers[rd] = registers[rt] << sa; 
 	return 0; 
 }
 
 int srl(int rt, int rd, int sa){
-	registers[rd] = (unsigned) registers[rt] >> sa; 
+	// rd <- rt >> sa
+	registers[rd] = (unsigned int) registers[rt] >> sa; 
 	//printf("%s\n", "srl");
 	return 0;
 }
@@ -175,214 +210,261 @@ int sra(int rt, int rd, int sa){
 }
 
 int sllv(int rs, int rt, int rd){
-	registers[rd] = registers[rs] << registers[rt]; 
+	registers[rd] = registers[rt] << registers[rs]; 
 	//printf("%s\n", "sllv");
 	return 0;
 }
 
 int srlv(int rs, int rt, int rd){
 	//printf("%s\n", "srlv");
+	registers[rd] = (unsigned int) registers[rt] >> registers[rs]; 
 	return 0;
 }
 
 int srav(int rs, int rt, int rd){
 	//printf("%s\n", "srav");
+	registers[rd] = registers[rt] >> registers[rs]; 
 	return 0;
 }
 
 int jr(int rs){
 	//printf("%s\n", "jr");
+	pc = registers[rs]; 
 	return 0;
 }
-
 int jalr(int rs, int rd){
 	//printf("%s\n", "jalr");
+	registers[rd] = pc + 4; 
+	pc = registers[rs]; 
 	return 0;
 }
 
 int add(int rs, int rt, int rd){
 	//printf("%s\n", "add");
+	registers[rd] = registers[rs] + registers[rt];
 	return 0;
 }
 
 int addu(int rs, int rt, int rd){
+	registers[rd] = registers[rs] + registers[rt];
 	//printf("%s\n", "addu");
 	return 0;
 }
 
 int sub(int rs, int rt, int rd){
+	registers[rd] = registers[rs] - registers[rt];
 	//printf("%s\n", "sub");
 	return 0;
 }
 
 int subu(int rs, int rt, int rd){
 	//printf("%s\n", "subu");
+	registers[rd] = registers[rs] - registers[rt];
 	return 0;
 }
 
 int and(int rs, int rt, int rd){
 	//printf("and\n");
+	registers[rd] = registers[rs] & registers[rt]; 
 	return 0;
 }
 
 int or(int rs, int rt, int rd){
 	//printf("%s\n", "or");
+	registers[rd] = registers[rs] | registers[rt]; 
 	return 0;
 }
 
 int xor(int rs, int rt, int rd){
 	//printf("%s\n", "xor");
+	registers[rd] = registers[rs] ^ registers[rt]; 
 	return 0;
 }
 
 int nor(int rs, int rt, int rd){
 	//printf("%s\n", "nor");
+	registers[rd] = ~(registers[rs] | registers[rt]); 
 	return 0;
 }
 
 int slt(int rs, int rt, int rd){
 	//printf("%s\n", "slt");
+	registers[rd] = registers[rs] < registers[rt]; 
 	return 0;
 }
 
 int sltu(int rs, int rt, int rd){
 	//printf("%s\n", "sltu");
+	registers[rd] = (unsigned int ) registers[rs] < (unsigned int ) registers[rt]; 
 	return 0;
 }
 
-int j(int inst_idnex){
-
+int j(int inst_index){
+	pc = (get(pc, 31, 28) << 28) | (inst_index << 2);
 	return 0;
 }
 
-int jal(int inst_idnex){
-
+int jal(int inst_index){
+	registers[31] = pc + 4; 
+	pc = (get(pc, 31, 28) << 28) | (inst_index << 2);
 	return 0;
 }
-
 
 int beq(int rs, int rt, int offset){
-
+	if (registers[rs] == registers[rt])
+		pc = pc + (offset << 2);
 	return 0;
 }
 
 int bne(int rs, int rt, int offset){
-
+	if (registers[rs] != registers[rt])
+		pc = pc + (offset << 2);
 	return 0;
 }
 
 
 int blez(int rs, int offset){
+	if (registers[rs] <= 0)
+		pc = pc + (offset << 2);
 	return 0;
 }
 
 
 int bgtz(int rs, int offset){
+	if (registers[rs] >= 0)
+		pc = pc + (offset << 2);
 	return 0;
 
 }
-
 
 int addiu(int rs, int rt, int imm){
+	registers[rt] =  registers[rs] + imm; 
 	return 0;
 }
 
-
 int slti(int rs, int rt, int imm){
+	registers[rt] = registers[rs] < imm; 
 	return 0;
 }
 
 int sltiu(int rs, int rt, int imm){
+	registers[rt] = (unsigned int ) registers[rs] < (unsigned int )imm; 
 	return 0;
 
 }
 int andi(int rs, int rt, int imm){
+	registers[rt] = registers[rs] & imm; 
 	return 0;
 }
 
 
 int xori(int rs, int rt, int imm){
-
+	registers[rt] = registers[rs] ^ imm; 
 	return 0;
 }
 
 int addi(int rs, int rt, int imm){
-
+	registers[rt] = registers[rs] +  imm; 
 	return 0;
 }
 
 
 int ori(int rs, int rt, int imm){
-
+	registers[rt] = registers[rs] |  imm; 
 	return 0;
 }
 
 int lui(int rt, int imm){
-
+	registers[rt] = (imm << 16) && 0xFF; 
 	return 0;
 }
 
 int lb(int base , int rt, int offset){
+	registers[rt] = memory[base + offset] && 0xF; 
 	return 0;
 }
 
 int lh(int base , int rt, int offset){
+	registers[rt] = memory[base + offset] & 0xFF; 
 	return 0;
 }
 
 int lwl(int base , int rt, int offset){
+	//printf("%s\n", "lwl Not implemented yet.. ");
+	assert(0 == 1); 
 	return 0;
 }
 
 int lw(int base , int rt, int offset){
+	registers[rt] = ((memory[base + offset + 1] & 0xFF) << 16) | (memory[base + offset] & 0xFF); 
 	return 0;
 }
 
 int lbu(int base , int rt, int offset){
+	registers[rt] = memory[base + offset] && 0xF; 
 	return 0;
 }
 
 int lhu(int base , int rt, int offset){
+	registers[rt] = memory[base + offset] && 0xFF;  
 	return 0;
 }
 
 int lwr(int base , int rt, int offset){
+	//printf("%s\n", "lwl Not implemented yet.. ");
+	assert(0 == 1); 
 	return 0;
 }
 
 int sb(int base , int rt, int offset){
+	memory[base + offset] = (memory[base + offset] & 0xF0) | (registers[rt] & 0xF); 
 	return 0;
 }
 
 int sh(int base , int rt, int offset){
+	memory[base + offset] = registers[rt] & 0xFF; 
 	return 0;
 }
 
 int sw(int base , int rt, int offset){
+	memory[base + offset] = registers[rt] & 0xFF; 
+	memory[base + offset + 1] = registers[rt] & 0xFF00; 
 	return 0;
 }
 
 int swl(int base , int rt, int offset){
+	//printf("%s\n", "lwl Not implemented yet.. ");
+	assert(0 == 1); 
 	return 0;
 }
 
 int swr(int base , int rt, int offset){
+	//printf("%s\n", "lwl Not implemented yet.. ");
+	assert(0 == 1); 
 	return 0;
 }
 
 int bgez(int rs, int offset){
+	if (registers[rs] >= 0)
+		pc = pc + (offset << 2);
 	return 0;
 }
 
 int bgezal(int rs, int offset){
+	//printf("%s\n", "bgezal Not implemented yet.. ");
+	assert(0 == 1); 
 	return 0;
 }
 
 int bltz(int rs, int offset){
+	if (registers[rs] < 0)
+		pc = pc + (offset << 2);
 	return 0;
 }
 
 int bltzal(int rs, int offset){
+	//printf("%s\n", "bltzal Not implemented yet.. ");
+	assert(0 == 1); 
 	return 0;
 
 }

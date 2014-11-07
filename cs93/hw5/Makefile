@@ -3,9 +3,7 @@ CC=gcc
 O=0
 objects=command.o lib.o emulator.o
 
-#CPPFLAGS+=-I/usr/include/postgresql/
-#LDLIBS=-lpq -lssh
-#LDFLAGS=
+LDLIBS=-lncurses
 
 all: $(objects)
 
@@ -21,7 +19,7 @@ emulator: $(objects)
 	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LOADLIBES) $(LDLIBS) -o $@ 
 
 run:  emulator
-	./emulator 
+	./emulator  prob.mif
 
 cleanobj:
 	rm -f *.o

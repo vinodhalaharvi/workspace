@@ -2,10 +2,14 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
-#include "command.h"
-#include "lib.h"
-#include <curses.h>
 
+char * newstr(int len){
+	assert(len >= 0);
+	char * str = (char *) malloc(len + 1); 
+	assert(str != NULL); 
+	memset(str, '\0', len); 
+	return str;
+}
 
 void getFiles(int argc, const char * argv[], FILE **rfile){
 	assert(argc == 2); 
@@ -15,18 +19,15 @@ void getFiles(int argc, const char * argv[], FILE **rfile){
 	return ; 
 }
 
+
 int main(int argc, const char *argv[])
 {
-	WINDOW * window; 
-	if ((window = initscr()) == NULL ) {
-		fprintf(stderr, "Error initializing curses.\n");
-		exit(EXIT_FAILURE);
-	}
 	FILE *rfile; 
 	char *line = newstr(100);
 	char *address = newstr(100);
 	char *value = newstr(100);
 	size_t len = 0; 
+	int i = 0; 
 	int sn = 0 ; 
 	getFiles(argc, argv, &rfile); 
 	while(getline(&line, &len, rfile) != EOF){
@@ -34,22 +35,8 @@ int main(int argc, const char *argv[])
 		if(strchr(line, ':') == NULL)
 			continue; 
 		int sn = sscanf(line, "  %4s: %4s;", address, value); 
-		memory[hextoint(address)] = hextoint(value); 
-	}
-	char * output = newstr(200); 
-	pc = 0;
-	while(1) {
-		sprintf(output, "%d\n", memory[pc]);
-		print_output(output); //print the instruction on the screen 
-		ir = memory[pc++]; 
-		doinst(getBits(ir, 32));
-		ir = memory[pc++]; 
-		refresh_registers();	
-		getchar();  //wait for the user input
-		pc ++; 
+		printf("%s, %s\n", address, value); 
 	}
 	fclose(rfile);
-	delwin(window);
-	endwin();
-	return 0; 
+	return 0;
 }
