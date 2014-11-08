@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <string.h>
+#include "command.h"
+#include "lib.h"
+#include <curses.h>
+
+int main(int argc, const char *argv[])
+{
+	WINDOW * window; 
+	if ((window = initscr()) == NULL ) {
+		fprintf(stderr, "Error initializing curses.\n");
+		exit(EXIT_FAILURE);
+	}
+	char * input[20] = {
+		"00000000000000011000011100000000x",
+		"00000000000000011000011100000010x",
+		"00000000000000011000011100000011x",
+		"00000000010000011000000000000100x",
+		"00000000010000011000000000000110x",
+		"00000000010000011000000000000111x",
+		"00000000010000000000000000001000x",
+		"00000000010000001000000000001001x",
+		"00000000010000011000000000100000x",
+		"00000000010000011000000000100001x",
+		"00000000010000011000000000100010x",
+		"00000000010000011000000000100011x",
+		"00000000010000011000000000100100x",
+		"00000000010000011000000000100101x",
+		"00000000010000011000000000100110x",
+		"00000000010000011000000000100111x",
+		"00000000010000011000000000101010x",
+		"00000000010000011000000000101011x",
+	}; 
+
+	for (int i = 1; i < 32; i++) { 
+		registers[i] = i;
+	}
+	int count = 18; 
+	char * output = newstr(200); 
+	for (int i = 0; i < count; i++) {
+		assert(strlen(input[i]) == 33); 
+		sprintf(output, "%s\n", input[i]);
+		doinst(input[i]); 
+		refresh_registers();	
+		print_output(output);
+		getchar(); 
+	}
+	delwin(window);
+	endwin();
+	refresh();
+	return 0; 
+}

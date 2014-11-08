@@ -1,0 +1,12 @@
+http://www.cs.uwm.edu/classes/cs315/Bacon/Lecture/HTML/index.html
+http://logos.cs.uic.edu/366/notes/mips%20quick%20tutorial.htm
+http://cs.gmu.edu/~dnord/cs265/spim_intro.html
+http://stackoverflow.com/questions/20320162/mips-more-than-4-strings-as-parameters
+http://stackoverflow.com/questions/5938836/mips-architecture-syscall-instruction
+http://www.cs.cmu.edu/afs/cs/academic/class/15740-f97/public/doc/mips-isa.pdf
+http://sites.fas.harvard.edu/~cscie287/fall2014/io_interface.txt
+install Qtspim on windows. Looks very good! Also check out the kernel text segment for the code to implement syscall
+http://courses.missouristate.edu/KenVollmar/MARS/Fibonacci.asm
+http://en.wikipedia.org/wiki/SPIM
+http://courses.missouristate.edu/kenvollmar/mars/help/MarsExceptions.html
+http://cs.gmu.edu/~dnord/cs265/spim_intro.html

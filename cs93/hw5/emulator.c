@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
-#include "command.h"
-#include "lib.h"
+#include "emcommand.h"
+#include "emlib.h"
 #include <curses.h>
 
 

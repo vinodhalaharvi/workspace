@@ -7,8 +7,8 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
-#include "lib.h"
-#include "command.h"
+#include "aslib.h"
+#include "ascommand.h"
 #include <limits.h>
 #include <errno.h>
 #define DEBUG 1
@@ -20,7 +20,7 @@
 static int sp = STACK_BASE; 
 
 /* Initialize function pointer
- The individual functions are defined in lib.c
+ The individual functions are defined in aslib.c
  There roughly one function for each instruction
  Here we have some functions that are not implemented yet.
  We probably might not need them. Those will be removed 

@@ -1,0 +1,34 @@
+Register 
+000000ss sssttttt dddddaaa aaffffff
+
+Immediate 
+ooooooss sssttttt iiiiiiii iiiiiiii
+
+Jump 
+ooooooii iiiiiiii iiiiiiii iiiiiiii
+
+
+initialize IRWord <- 32 zero bits;
+if (instructionType == REGISTER) { 
+	if(instructionSubType == ALU){
+		IRWord += "00000" // 5 bits
+	} else {
+		IRWord += getOpcodeBits(instString) // 5 bits
+	}
+	IRWord += getOp1(firstOperand) //5 bits
+		IRWord += getOp2(secondOperand) //5 bits
+		IRWord += getOp3(thirdOperand) //5 bits
+		if(instructionSubType == ALU){
+			IRWord += getALUOpCodeBits(instString) // 5 bits
+		} else if  instructionSubType == SHIFT){
+		}
+		else {
+			IRWord += "00000" // 5 bits
+		}
+} else if (instructionType == IMMEDIATE ){
+	print not implement yet
+} else if (instructionType == JUMP){
+	print not implement yet
+} else {
+	error(); 
+}

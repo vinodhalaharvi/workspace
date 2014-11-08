@@ -1,0 +1,25 @@
+import sys 
+
+i = 0 
+for line in sys.stdin.readlines():
+	line = line.strip()
+	if i == 0: 
+		header = line.split()
+		i += 1
+		continue
+	tokens = line.split()
+	fillers =  zip(header, tokens)
+	temp = []
+	fillers = [temp.extend(a) for a in fillers]
+	str =  '{' + "".join(('.%s="%s", ', ) * len(fillers)) + '},'
+	print str
+	print temp
+	print str % (temp, )
+	break
+	#print str % temp
+	'''print '{.%s="%s", .%s="%s", .%s="%s"},' % ( \
+		header[0], tokens[0],  \
+		header[1], tokens[1], \
+		header[2], tokens[2],)'''
+	i += 1
+	

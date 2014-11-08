@@ -1,34 +1,42 @@
 CFLAGS=-Wall -ggdb -std=gnu99
 CC=gcc
 O=0
-objects=command.o lib.o emulator.o
+emobjects=emcommand.o emlib.o emulator.o 
+asobjects=aslib.o ascommand.o assembler.o
 
 LDLIBS=-lncurses
 
 all: $(objects)
 
-#client : $(objects)
-#	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LOADLIBES) $(LDLIBS) -o $@
+$(emobjects): %.o: %.c
+	$(CC) -Wno-unused-variable $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c -o $@ $< $(LDLIBS)  
 
-$(objects): %.o: %.c
+$(asobjects): %.o: %.c
 	$(CC) -Wno-unused-variable $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c -o $@ $< $(LDLIBS)  
 
 clean : cleanobj cleandiff
 
-emulator: $(objects)
+emulator: $(emobjects)
 	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LOADLIBES) $(LDLIBS) -o $@ 
 
-run:  emulator
-	./emulator  test.mif
+assembler: $(asobjects)
+	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LOADLIBES) $(LDLIBS) -o $@ 
+
+runas:  assembler
+	./assembler  asm/test.asm mif/test.mif
+
+runem:  emulator
+	./emulator  mif/test.mif
 
 cleanobj:
 	rm -f *.o
 	rm emulator
+	rm assembler
 tags: 
 	ctags *.[ch]
 
 debug:  emulator
-	echo 'run test.mif' > .gdbinit
+	echo 'run mif/test.mif' > .gdbinit
 	gdb ./emulator
 
 .PHONY: clean cleanobj cleandiff tags

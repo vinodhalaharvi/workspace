@@ -1,7 +1,7 @@
 CFLAGS=-Wall -ggdb -std=gnu99
 CC=gcc
 O=0
-objects=lib.o command.o assembler.o 
+objects=aslib.o ascommand.o assembler.o 
 #LDLIBS=
 #LDFLAGS=
 
