@@ -29,7 +29,9 @@ int main(int argc, const char *argv[])
 	size_t len = 0; 
 	int sn = 0 ; 
 	getFiles(argc, argv, &rfile); 
+	int lineno = 0; 
 	while(getline(&line, &len, rfile) != EOF){
+		lineno++: 
 		line[strlen(line)-1] = '\0';
 		if(strchr(line, ':') == NULL)
 			continue; 
@@ -38,6 +40,11 @@ int main(int argc, const char *argv[])
 	}
 	char * output = newstr(200); 
 	pc = 0;
+	
+	for (int i = 0; i < lineno; i++) {
+		printf("%x, %x\n", i,);
+	}
+
 	while(1) {
 		sprintf(output, "%d\n", memory[pc]);
 		print_output(output); //print the instruction on the screen 

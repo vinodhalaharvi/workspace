@@ -19,7 +19,7 @@ emulator: $(objects)
 	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LOADLIBES) $(LDLIBS) -o $@ 
 
 run:  emulator
-	./emulator  prob.mif
+	./emulator  test.mif
 
 cleanobj:
 	rm -f *.o
