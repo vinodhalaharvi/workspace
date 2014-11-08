@@ -1,9 +1,8 @@
-extern int registers[32];
-extern int pc;
-extern int ir; 
-
 #define MEMORY_MAX 32627
-extern int memory[MEMORY_MAX];
+extern int registers[32];
+extern unsigned int  pc;
+extern unsigned int  ir; 
+extern unsigned short  memory[MEMORY_MAX];
 
 int doinst(char * inst);
 int sll(int rt, int rd, int sa);
@@ -59,4 +58,3 @@ char * newstr(int len);
 void print_output(char *str);
 char * getBits(int num, unsigned int SIZE); 
 unsigned int hextoint(char * hex);
-

@@ -17,11 +17,6 @@ void getFiles(int argc, const char * argv[], FILE **rfile){
 
 int main(int argc, const char *argv[])
 {
-	WINDOW * window; 
-	if ((window = initscr()) == NULL ) {
-		fprintf(stderr, "Error initializing curses.\n");
-		exit(EXIT_FAILURE);
-	}
 	FILE *rfile; 
 	char *line = newstr(100);
 	char *address = newstr(100);
@@ -30,30 +25,31 @@ int main(int argc, const char *argv[])
 	int sn = 0 ; 
 	getFiles(argc, argv, &rfile); 
 	int lineno = 0; 
+	unsigned int memindex = 0;
 	while(getline(&line, &len, rfile) != EOF){
-		lineno++: 
+		lineno++; 
 		line[strlen(line)-1] = '\0';
 		if(strchr(line, ':') == NULL)
 			continue; 
 		int sn = sscanf(line, "  %4s: %4s;", address, value); 
-		memory[hextoint(address)] = hextoint(value); 
+		assert(hextoint(address) % 2 == 0); 
+		memory[hextoint(address)] = hextoint(value) & 0xFFFF; 
+		memory[hextoint(address)+2] = (hextoint(value) >> 16) & 0xFFFF; 
+		memindex += 2;
 	}
 	char * output = newstr(200); 
 	pc = 0;
-	
-	for (int i = 0; i < lineno; i++) {
-		printf("%x, %x\n", i,);
+	WINDOW * window; 
+	if ((window = initscr()) == NULL ) {
+		fprintf(stderr, "Error initializing curses.\n");
+		exit(EXIT_FAILURE);
 	}
-
 	while(1) {
-		sprintf(output, "%d\n", memory[pc]);
-		print_output(output); //print the instruction on the screen 
-		ir = memory[pc++]; 
-		doinst(getBits(ir, 32));
-		ir = memory[pc++]; 
-		refresh_registers();	
 		getchar();  //wait for the user input
-		pc ++; 
+		ir = (memory[pc+2] << 16) | memory[pc]; 
+		refresh_registers();	
+		pc += 4; 
+		doinst(getBits(ir, 32));
 	}
 	fclose(rfile);
 	delwin(window);

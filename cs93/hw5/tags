@@ -4,7 +4,7 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-MEMORY_MAX	command.h	3;"	d
+MEMORY_MAX	command.h	1;"	d
 add	command.c	/^int add(int rs, int rt, int rd){$/;"	f
 addi	command.c	/^int addi(int rs, int rt, int imm){$/;"	f
 addiu	command.c	/^int addiu(int rs, int rt, int imm){$/;"	f
@@ -22,8 +22,9 @@ bne	command.c	/^int bne(int rs, int rt, int offset){$/;"	f
 doinst	command.c	/^int doinst(char * inst){$/;"	f
 get	command.c	/^unsigned get(int num, int start, int end){$/;"	f
 getBits	command.c	/^char * getBits(int num, unsigned int SIZE) { $/;"	f
-getFiles	command.c	/^void getFiles(int argc, const char * argv[], FILE **rfile){$/;"	f
+getFiles	emulator.c	/^void getFiles(int argc, const char * argv[], FILE **rfile){$/;"	f
 hextoint	command.c	/^unsigned int hextoint(char * hex){$/;"	f
+ir	command.c	/^unsigned int ir; $/;"	v
 j	command.c	/^int j(int inst_index){$/;"	f
 jal	command.c	/^int jal(int inst_index){$/;"	f
 jalr	command.c	/^int jalr(int rs, int rd){$/;"	f
@@ -37,13 +38,12 @@ lw	command.c	/^int lw(int base , int rt, int offset){$/;"	f
 lwl	command.c	/^int lwl(int base , int rt, int offset){$/;"	f
 lwr	command.c	/^int lwr(int base , int rt, int offset){$/;"	f
 main	emulator.c	/^int main(int argc, const char *argv[])$/;"	f
-memory	command.c	/^int memory[MEMORY_MAX]; $/;"	v
-memory	command.h	/^int memory[MEMORY_MAX];$/;"	v
+memory	command.c	/^unsigned char memory[MEMORY_MAX]; $/;"	v
 newstr	command.c	/^char * newstr(int len){$/;"	f
 nor	command.c	/^int nor(int rs, int rt, int rd){$/;"	f
 or	command.c	/^int or(int rs, int rt, int rd){$/;"	f
 ori	command.c	/^int ori(int rs, int rt, int imm){$/;"	f
-pc	command.c	/^int pc; $/;"	v
+pc	command.c	/^unsigned int pc; $/;"	v
 print_output	command.c	/^void print_output(char *str){$/;"	f
 refresh_registers	command.c	/^void refresh_registers(){$/;"	f
 registers	command.c	/^int registers[32]; $/;"	v

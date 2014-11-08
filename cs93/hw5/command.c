@@ -15,10 +15,9 @@ unsigned get(int num, int start, int end){
 }
 
 int registers[32]; 
-int memory[MEMORY_MAX]; 
-int pc; 
-int ir; 
-
+unsigned short memory[MEMORY_MAX]; 
+unsigned int pc; 
+unsigned int ir; 
 
 char * newstr(int len){
 	assert(len >= 0);
@@ -39,14 +38,16 @@ void refresh_registers(){
 	int j = 0; 
 	int k = 13; 
 	for (int i = 0; i < 32; i++) {
-		sprintf(regstr, "$%d = 0x%x", i, registers[i]);
-		if ( i % 6 == 0) {
+		sprintf(regstr, "$%2d = 0x%08X", i, registers[i]);
+		if ( i % 16 == 0) {
 			k = 0; 
-			j += 14; 
+			j += 24; 
 		}
 		mvaddstr(0 + k++, 0 + j, regstr); 
 	}
-	sprintf(regstr, "$%s = 0x%x", "PC", pc);
+	sprintf(regstr, "$%s = 0x%08X", "PC", pc);
+	mvaddstr(0 + k++, 0 + j, regstr); 
+	sprintf(regstr, "$%s = 0x%08X", "IR", ir);
 	mvaddstr(0 + k++, 0 + j, regstr); 
 	free(regstr); 
 	refresh();
@@ -56,9 +57,22 @@ void print_output(char *str){
 	mvaddstr(0 + 20, 10, str); 
 }
 
-char * getBits(int num, unsigned int SIZE) { 
+char * getBits1(int num, unsigned int SIZE) { 
 	char * bits = (char * ) malloc(SIZE+1);
 	memset(bits, '\0', SIZE+1); 
+	for (int i = 0; i < SIZE; i++) {
+		if ( num >> i & 1)
+			bits[SIZE-i-1] = '1'; 
+		else 
+			bits[SIZE-i-1] = '0'; 
+	}   
+	return bits; 
+}
+
+char * getBits(int num, unsigned int SIZE) { 
+	char * bits = (char * ) malloc(SIZE+2);
+	memset(bits, '\0', SIZE+2); 
+	memset(bits, 'x', SIZE+1); 
 	for (int i = 0; i < SIZE; i++) {
 		if ( num >> i & 1)
 			bits[SIZE-i-1] = '1'; 
@@ -77,7 +91,6 @@ unsigned int toint(char * bits){
 	return (int) strtol(bits, NULL,  2); 
 }
 
-
 int doinst(char * inst){
 	char * rs = newstr(10); 
 	char * rt = newstr(10); 
@@ -89,6 +102,7 @@ int doinst(char * inst){
 	char * imm = newstr(16);
 	char * inst_index = newstr(26);
 	assert(strlen(inst) == 33); 
+
 	if(sscanf(inst, "00000000000%5s%5s%5s000000%1s", rt, rd, sa, ig) ==4)
 		return sll(toint(rt), toint(rd), toint(sa)); 
 	if(sscanf(inst, "00000000000%5s%5s%5s000010%1s", rt, rd, sa, ig) ==4)
@@ -185,6 +199,7 @@ int doinst(char * inst){
 		return bltz(toint(rs), toint(offset));
 	if(sscanf(inst, "000001%5s10000%16s%1s", rs, offset, ig) ==3)
 		return bltzal(toint(rs), toint(offset));
+	assert(1 == 0); 
 	return 0; 
 }
 
@@ -338,6 +353,7 @@ int bgtz(int rs, int offset){
 }
 
 int addiu(int rs, int rt, int imm){
+	printf("addiu\n");
 	registers[rt] =  registers[rs] + imm; 
 	return 0;
 }
@@ -375,17 +391,17 @@ int ori(int rs, int rt, int imm){
 }
 
 int lui(int rt, int imm){
-	registers[rt] = (imm << 16) && 0xFF; 
+	registers[rt] = (imm << 16) & 0xFF; 
 	return 0;
 }
 
 int lb(int base , int rt, int offset){
-	registers[rt] = memory[base + offset] && 0xF; 
+	lbu(base, rt, offset); 
 	return 0;
 }
 
 int lh(int base , int rt, int offset){
-	registers[rt] = memory[base + offset] & 0xFF; 
+	lhu(base, rt, offset); 
 	return 0;
 }
 
@@ -396,17 +412,22 @@ int lwl(int base , int rt, int offset){
 }
 
 int lw(int base , int rt, int offset){
-	registers[rt] = ((memory[base + offset + 1] & 0xFF) << 16) | (memory[base + offset] & 0xFF); 
-	return 0;
-}
-
-int lbu(int base , int rt, int offset){
-	registers[rt] = memory[base + offset] && 0xF; 
+	assert((base + offset) % 4 == 0); 
+	registers[rt] = ((memory[base + offset + 2]) << 16) 
+			| (memory[base + offset]); 
 	return 0;
 }
 
 int lhu(int base , int rt, int offset){
-	registers[rt] = memory[base + offset] && 0xFF;  
+	assert((base + offset) % 4 == 0); 
+	registers[rt] = memory[base + offset]; 
+	return 0;
+}
+
+
+int lbu(int base , int rt, int offset){
+	assert((base + offset) % 4 == 0); 
+	registers[rt] = memory[base + offset] & 0xFF; 
 	return 0;
 }
 
@@ -417,18 +438,21 @@ int lwr(int base , int rt, int offset){
 }
 
 int sb(int base , int rt, int offset){
-	memory[base + offset] = (memory[base + offset] & 0xF0) | (registers[rt] & 0xF); 
+	assert((base + offset) % 4 == 0); 
+	memory[base + offset] = registers[rt] & 0xFF; 
 	return 0;
 }
 
 int sh(int base , int rt, int offset){
-	memory[base + offset] = registers[rt] & 0xFF; 
+	assert((base + offset) % 4 == 0); 
+	memory[base + offset] = registers[rt] & 0xFFFF; 
 	return 0;
 }
 
 int sw(int base , int rt, int offset){
-	memory[base + offset] = registers[rt] & 0xFF; 
-	memory[base + offset + 1] = registers[rt] & 0xFF00; 
+	assert((base + offset) % 4 == 0); 
+	memory[base + offset + 2] = (registers[rt] >> 16) & 0xFFFF; 
+	memory[base + offset] = registers[rt] & 0xFFFF; 
 	return 0;
 }
 
@@ -466,5 +490,4 @@ int bltzal(int rs, int offset){
 	//printf("%s\n", "bltzal Not implemented yet.. ");
 	assert(0 == 1); 
 	return 0;
-
 }

@@ -1,2 +1,2 @@
 b main
-run test.asm test.mif
+run ./prob.asm ./prob.mif

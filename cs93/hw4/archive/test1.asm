@@ -1,3 +1,5 @@
+ori	$t1, $t0, -11
+or	$t1, $t0, $t2
 addi	$s1, $0, 5	
 addi	$s2, $0, -20	
 addi	$s3, $0, 13	

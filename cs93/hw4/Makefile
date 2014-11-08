@@ -2,15 +2,10 @@ CFLAGS=-Wall -ggdb -std=gnu99
 CC=gcc
 O=0
 objects=lib.o command.o assembler.o 
-
-#CPPFLAGS+=-I/usr/include/postgresql/
-#LDLIBS=-lpq -lssh
+#LDLIBS=
 #LDFLAGS=
 
 all: $(objects)
-
-#client : $(objects)
-#	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 $(objects): %.o: %.c
 	$(CC) -Wno-unused-variable $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c -o $@ $< $(LDLIBS)  
@@ -20,18 +15,23 @@ clean : cleanobj cleandiff
 assembler: $(objects)
 	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LOADLIBES) $(LDLIBS) -o $@ 
 
-run: 
-	./assembler test1.asm test1.mif
+run:  all assembler
+	./assembler ./prob.asm ./prob.mif
+
+debug: all assembler
+	echo 'b main' > .gdbinit
+	echo 'run ./prob.asm ./prob.mif' >> .gdbinit
+	gdb ./assembler
 
 cleanobj:
 	rm -f *.o
 	rm assembler
 
-tags: 
-	ctags -R --c++-kinds=+p --fields=+iaS \
-		--extra=+q . /usr/include /usr/local/include 
+#tags: 
+#	ctags -R --c++-kinds=+p --fields=+iaS \
+#		--extra=+q . /usr/include /usr/local/include 
 
-debug:  
-	gdb ./assember
+tags:	
+	ctags -R *.[ch]
 
 .PHONY: clean cleanobj cleandiff tags

@@ -1,3 +1,21 @@
+#include <stdint.h>
+#include <ctype.h>
+#include <assert.h>
+#define MIF_FILE_SIZE 32768
+#define MAX_SYMBOL_SIZE 100
+//#define MEMORY_START_ADDRESS 0x0
+
+typedef struct _symbol_table {
+	char * name; 
+	unsigned int index; 
+} symbol_table;
+
+extern unsigned int lineno; 
+extern unsigned int symmaxindex; 
+extern unsigned short  memory[MIF_FILE_SIZE];	
+extern unsigned int address; 
+extern symbol_table symbols[MAX_SYMBOL_SIZE]; 
+
 typedef struct _encoding { 
 	char * binary; 
 	char * hex; 
@@ -72,13 +90,13 @@ typedef struct _inst {
 } inst; 
 
 static inst inst_data[100] = {
-	{.instname="sll", .opcodebits="000000", .aluopcodebits="000000"},
-	{.instname="srl", .opcodebits="000000", .aluopcodebits="000010"},
-	{.instname="sra", .opcodebits="000000", .aluopcodebits="000011"},
+	{.instname="sll",  .opcodebits="000000", .aluopcodebits="000000"},
+	{.instname="srl",  .opcodebits="000000", .aluopcodebits="000010"},
+	{.instname="sra",  .opcodebits="000000", .aluopcodebits="000011"},
 	{.instname="sllv", .opcodebits="000000", .aluopcodebits="000100"},
 	{.instname="srlv", .opcodebits="000000", .aluopcodebits="000110"},
 	{.instname="srav", .opcodebits="000000", .aluopcodebits="000111"},
-	{.instname="jr", .opcodebits="000000", .aluopcodebits="001000"},
+	{.instname="jr",   .opcodebits="000000", .aluopcodebits="001000"},
 	{.instname="jalr", .opcodebits="000000", .aluopcodebits="001001"},
 	{.instname="syscall", .opcodebits="000000", .aluopcodebits="001100"},
 	{.instname="break", .opcodebits="000000", .aluopcodebits="001101"},
@@ -136,17 +154,17 @@ static inst inst_data[100] = {
 
 
 typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; 
-typedef struct _symbol_info {
+typedef struct _inst_info {
 	char * name; 
 	char * rsrc; 
 	char * rdest; 
-} symbol_info;
+} inst_info;
 
 typedef char * (*function_type)(char *[]); 
 
 void (*ptr)(int, int);
 
-struct symbol_table {
+struct inst_table {
 	char * name;
 	char * (*ptr)(char *[]);
 };
@@ -159,3 +177,36 @@ void exitOnNull(void * ptr, char * msg);
 void printTail(); 
 char * getBits(int num, unsigned int SIZE); 
 void printHeaders(); 
+unsigned int hextoint(char * hex);
+unsigned int highertoint(char * bits);
+unsigned int lowertoint(char * bits);
+unsigned int bin32toint(char * bits);
+unsigned int  bin16toint(char * bits);
+int islabel(const char * string);
+int isasciiz(const char * string);
+char * getlabel(const char *string);
+void getFiles(int argc, const char * argv[], FILE **rfile, FILE **MIFfile);
+void getTokens(const char * line, char * tokens[]);
+void cleanLine(char **lineptr);
+int isempty(const char *string);
+int filter(char **lineptr);
+char * getHexBits(char * binary, int size);
+void printSymbolInfo(char * tokens[]); 
+char * getasciiz(const char *input); 
+unsigned int get_sym_address(const char * name);
+unsigned put_sym(const char * name, unsigned int lineno); 
+void printSymbolInfo(char * tokens[]) ;
+char * getasciiz(const char *input);
+char * getHexBits(char * binary, int size);
+int islabel(const char * string);
+unsigned found_sym(const char * name); 
+unsigned dump_sym_table();
+char * eval_register(char *expWithParen); 
+int isValidInt(const char *str, int base, int *value); 
+int verify_atoi(char *token); 
+char * removeSpaces(const char * s); 
+int lower_byte(int word16bit); 
+int higher_byte(int word16bit); 
+int register_offset(char * input); 
+void outputMIFfile(FILE *MIFfile);
+char * register_name(char * input);
