@@ -1,3 +1,4 @@
+addi   $t0, $t0, 28      
 srl    $t0, $t0, 1       
 addi   $t1, $gp, 28      
 sll    $t0, $t0, 2       

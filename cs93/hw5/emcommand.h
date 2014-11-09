@@ -55,6 +55,8 @@ int bltz(int rs, int offset);
 int bltzal(int rs, int offset);
 void refresh_state();
 char * newstr(int len);
-void print_output(char *str);
+void print_output(const char *str);
 char * getBits(int num, unsigned int SIZE); 
 unsigned int hextoint(char * hex);
+void pr_rs_rt_other(const char * inst, int rs, int rt, int other);
+

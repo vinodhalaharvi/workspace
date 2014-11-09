@@ -15,13 +15,6 @@ void getFiles(int argc, const char * argv[], FILE **rfile){
 	return ; 
 }
 
-void dump_memory(){
-	for (int i = 0; i < memindex; i++) {
-		printf("0x%4X, 0x%4X\n", i, memory[i]);
-	}
-}
-
-
 int main(int argc, const char *argv[])
 {
 	FILE *rfile; 
