@@ -17,6 +17,8 @@ outputChar:
 		la $t1, REG_IOBUFFER_2
 		sh $v0 ($t1) # store $a0 to REG_IOBUFFER_2
 		jr $ra
+
+
 # prob3
 inputChar:
 	nop
@@ -29,6 +31,9 @@ inputChar:
 		la $t1, REG_IOBUFFER_1
 		lhu $v0 ($t1) # store $a0 to REG_IOBUFFER_2
 		jr $ra
+
+
+
 # prob4
 # $a0 has location of the null terminated string to output
 outputStringToDevice:
@@ -41,6 +46,9 @@ outputStringToDevice:
 		j loop1 # loop again
 	return1:
 		jr $t0 # return to caller
+
+
+
 # prob5
 # Store the input string at location $a0 and null terminate it
 inputStringFromDevice:
@@ -55,6 +63,8 @@ inputStringFromDevice:
 	return2:
 		sb $zero ($a0) # store '\0' to null terminate string
 		jr $t0 # return to caller
+
+
 #prob6
 # $a0 <- $a0
 mul10:
@@ -77,18 +87,15 @@ div10: # routine to divide a number by 10
 toChar:
 	addi $a0, $a0, 48 # int to char
 	jr $ra
-
 # $a0 <- $a0
 toDigit:
 	addi $a0, $a0, -48  # char to int
 	jr $ra
-
 # a1 <-  changed
 storeOutput:
 	la $a1, outputString # store output to a memory location
 	sb $a0 ($a1)
 	jr $ra
-
 # a0 <- a0
 signedDecimalToString:
 	#addi $a0, $zero, 8989 # sample example number
@@ -104,6 +111,7 @@ signedDecimalToString:
 	exit:
 		jal storeOutput # store output of each digit
 		jr $ra
+
 
 # prob7
 stringToInt:
@@ -131,6 +139,9 @@ stringToInt:
 		sub     $v0, $zero, $v0 # final output is in v0
 	result:
 		jr      $ra       
+
+
+
 # prob8
 # $a0 <- $a0, $a1 
 multiply:
