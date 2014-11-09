@@ -13,13 +13,13 @@
 unsigned int lineno; 
 unsigned int symmaxindex; 
 unsigned short  memory[MIF_FILE_SIZE];	
-unsigned int address; 
+unsigned int wordaddress; 
 symbol_table symbols[MAX_SYMBOL_SIZE];
 
 /*
- * Description:  Get the address of the symbol from symbol table
+ * Description:  Get the wordaddress of the symbol from symbol table
  * @param symbol name
- * @returns symbol address in the symbol table
+ * @returns symbol wordaddress in the symbol table
  */
 unsigned int get_sym_address(const char * name){
 	for (int i = 0; i < symmaxindex; i++) {
@@ -38,7 +38,9 @@ unsigned int get_sym_address(const char * name){
  */
 unsigned found_sym(const char * name) {
 	for (int i = 0; i < MAX_SYMBOL_SIZE; i++) {
-		if(symbols[i].name != NULL && (strcmp(symbols[i].name, name) == 0))
+		assert(MAX_SYMBOL_SIZE !=  0);
+		if(symbols[i].name != NULL 
+			&& (strcmp(symbols[i].name, name) == 0))
 			return 1; 
 	}
 	return 0;
@@ -53,7 +55,7 @@ unsigned dump_sym_table(){
 	printf("\nsymbol table contents:\n");
 	for (int i = 0; i < MAX_SYMBOL_SIZE; i++) {
 		if(symbols[i].name != NULL) {
-			printf("%s=0x%x\n", symbols[i].name, symbols[i].index);
+			printf("%s=0x%X\n", symbols[i].name, symbols[i].index);
 		}
 	}
 	printf("\n");
@@ -62,7 +64,7 @@ unsigned dump_sym_table(){
 
 /*
  * Description:  insert symbol in the symbol table
- * @param   symbol name and address
+ * @param   symbol name and wordaddress
  * @returns 1 if successful 
  */
 unsigned put_sym(const char * name, unsigned int loc){
@@ -139,7 +141,8 @@ char * getlabel(const char *string){
  * @param  argc, argv, input file and output MIF file handlers
  * @returns void
  */
-void getFiles(int argc, const char * argv[], FILE **rfile, FILE **MIFfile){
+void getFiles(int argc, const char * argv[], 
+		FILE **rfile, FILE **MIFfile){
 	assert(argc == 3); 
 	const char * inputfilepath =  argv[1]; 
 	const char * outputfilepath =  argv[2]; 
@@ -418,10 +421,15 @@ void printHeaders(FILE *MIFfile){
  * @param  
  * @returns
  */
+void dump_memory() { 
+	for (int i = 0; i <= wordaddress; i++) {
+		printf("  %04X: %04X;\n", i, memory[i]); 
+	}
+}
+
 void outputMIFfile(FILE *MIFfile) {
-	uint16_t word;
 	printHeaders(MIFfile); 
-	for (int i = 0; i <= address; i += 2) {
+	for (int i = 0; i <= wordaddress; i++) {
 		fprintf(MIFfile, "  %04X: %04X;\n", i, memory[i]); 
 	}
 	fflush(MIFfile); 

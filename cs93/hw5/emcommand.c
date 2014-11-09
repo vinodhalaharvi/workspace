@@ -28,7 +28,7 @@ char * newstr(int len){
 }
 
 
-void refresh_registers(){
+void refresh_state(){
 	WINDOW * window;
 	if ((window = initscr()) == NULL ) {
 		fprintf(stderr, "Error initializing curses.\n");
@@ -88,6 +88,10 @@ unsigned int hextoint(char * hex){
 
 unsigned int toint(char * bits){
 	assert(strlen(bits) == 5); 
+	char * out = newstr(10); 
+	sprintf(out, "%d\n", strlen(bits));
+	print_output(out);
+	free(out); 
 	return (int) strtol(bits, NULL,  2); 
 }
 

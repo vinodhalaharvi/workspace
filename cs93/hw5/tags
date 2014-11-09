@@ -1,69 +1,130 @@
-!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
-!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
-!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
-!_TAG_PROGRAM_NAME	Exuberant Ctags	//
-!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-MEMORY_MAX	command.h	1;"	d
-add	command.c	/^int add(int rs, int rt, int rd){$/;"	f
-addi	command.c	/^int addi(int rs, int rt, int imm){$/;"	f
-addiu	command.c	/^int addiu(int rs, int rt, int imm){$/;"	f
-addu	command.c	/^int addu(int rs, int rt, int rd){$/;"	f
-and	command.c	/^int and(int rs, int rt, int rd){$/;"	f
-andi	command.c	/^int andi(int rs, int rt, int imm){$/;"	f
-beq	command.c	/^int beq(int rs, int rt, int offset){$/;"	f
-bgez	command.c	/^int bgez(int rs, int offset){$/;"	f
-bgezal	command.c	/^int bgezal(int rs, int offset){$/;"	f
-bgtz	command.c	/^int bgtz(int rs, int offset){$/;"	f
-blez	command.c	/^int blez(int rs, int offset){$/;"	f
-bltz	command.c	/^int bltz(int rs, int offset){$/;"	f
-bltzal	command.c	/^int bltzal(int rs, int offset){$/;"	f
-bne	command.c	/^int bne(int rs, int rt, int offset){$/;"	f
-doinst	command.c	/^int doinst(char * inst){$/;"	f
-get	command.c	/^unsigned get(int num, int start, int end){$/;"	f
-getBits	command.c	/^char * getBits(int num, unsigned int SIZE) { $/;"	f
-getFiles	emulator.c	/^void getFiles(int argc, const char * argv[], FILE **rfile){$/;"	f
-hextoint	command.c	/^unsigned int hextoint(char * hex){$/;"	f
-ir	command.c	/^unsigned int ir; $/;"	v
-j	command.c	/^int j(int inst_index){$/;"	f
-jal	command.c	/^int jal(int inst_index){$/;"	f
-jalr	command.c	/^int jalr(int rs, int rd){$/;"	f
-jr	command.c	/^int jr(int rs){$/;"	f
-lb	command.c	/^int lb(int base , int rt, int offset){$/;"	f
-lbu	command.c	/^int lbu(int base , int rt, int offset){$/;"	f
-lh	command.c	/^int lh(int base , int rt, int offset){$/;"	f
-lhu	command.c	/^int lhu(int base , int rt, int offset){$/;"	f
-lui	command.c	/^int lui(int rt, int imm){$/;"	f
-lw	command.c	/^int lw(int base , int rt, int offset){$/;"	f
-lwl	command.c	/^int lwl(int base , int rt, int offset){$/;"	f
-lwr	command.c	/^int lwr(int base , int rt, int offset){$/;"	f
-main	emulator.c	/^int main(int argc, const char *argv[])$/;"	f
-memory	command.c	/^unsigned char memory[MEMORY_MAX]; $/;"	v
-newstr	command.c	/^char * newstr(int len){$/;"	f
-nor	command.c	/^int nor(int rs, int rt, int rd){$/;"	f
-or	command.c	/^int or(int rs, int rt, int rd){$/;"	f
-ori	command.c	/^int ori(int rs, int rt, int imm){$/;"	f
-pc	command.c	/^unsigned int pc; $/;"	v
-print_output	command.c	/^void print_output(char *str){$/;"	f
-refresh_registers	command.c	/^void refresh_registers(){$/;"	f
-registers	command.c	/^int registers[32]; $/;"	v
-sb	command.c	/^int sb(int base , int rt, int offset){$/;"	f
-sh	command.c	/^int sh(int base , int rt, int offset){$/;"	f
-sll	command.c	/^int sll(int rt, int rd, int sa){$/;"	f
-sllv	command.c	/^int sllv(int rs, int rt, int rd){$/;"	f
-slt	command.c	/^int slt(int rs, int rt, int rd){$/;"	f
-slti	command.c	/^int slti(int rs, int rt, int imm){$/;"	f
-sltiu	command.c	/^int sltiu(int rs, int rt, int imm){$/;"	f
-sltu	command.c	/^int sltu(int rs, int rt, int rd){$/;"	f
-sra	command.c	/^int sra(int rt, int rd, int sa){$/;"	f
-srav	command.c	/^int srav(int rs, int rt, int rd){$/;"	f
-srl	command.c	/^int srl(int rt, int rd, int sa){$/;"	f
-srlv	command.c	/^int srlv(int rs, int rt, int rd){$/;"	f
-sub	command.c	/^int sub(int rs, int rt, int rd){$/;"	f
-subu	command.c	/^int subu(int rs, int rt, int rd){$/;"	f
-sw	command.c	/^int sw(int base , int rt, int offset){$/;"	f
-swl	command.c	/^int swl(int base , int rt, int offset){$/;"	f
-swr	command.c	/^int swr(int base , int rt, int offset){$/;"	f
-toint	command.c	/^unsigned int toint(char * bits){$/;"	f
-xor	command.c	/^int xor(int rs, int rt, int rd){$/;"	f
-xori	command.c	/^int xori(int rs, int rt, int imm){$/;"	f
+INSTYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/
+Massembler	assembler.c	/^int main(int argc, const char *argv[])$/
+Memulator	emulator.c	/^int main(int argc, const char *argv[])$/
+_break	ascommand.c	/^char * _break(char * tokens[]){$/
+_div	ascommand.c	/^char * _div(char * tokens[]){$/
+add	ascommand.c	/^char * add(char * tokens[]){$/
+addi	ascommand.c	/^char * addi(char * tokens[]){$/
+addiu	ascommand.c	/^char * addiu(char * tokens[]){$/
+addu	ascommand.c	/^char * addu(char * tokens[]){$/
+and	ascommand.c	/^char * and(char * tokens[]){$/
+andi	ascommand.c	/^char * andi(char * tokens[]){$/
+beq	ascommand.c	/^char * beq(char * tokens[]){$/
+bgez	ascommand.c	/^char * bgez(char * tokens[]){$/
+bgezal	ascommand.c	/^char * bgezal(char * tokens[]){$/
+bgtz	ascommand.c	/^char * bgtz(char * tokens[]){$/
+bin16toint	aslib.c	/^unsigned int  bin16toint(char * bits){$/
+bin32toint	aslib.c	/^unsigned int bin32toint(char * bits){$/
+binaryToHex	aslib.c	/^char * binaryToHex(char * binary){$/
+blez	ascommand.c	/^char * blez(char * tokens[]){$/
+bltz	ascommand.c	/^char * bltz(char * tokens[]){$/
+bltzal	ascommand.c	/^char * bltzal(char * tokens[]){$/
+bne	ascommand.c	/^char * bne(char * tokens[]){$/
+cleanLine	aslib.c	/^void cleanLine(char **lineptr){$/
+copz	ascommand.c	/^char * copz(char * tokens[]){$/
+divu	ascommand.c	/^char * divu(char * tokens[]){$/
+do_first_pass	assembler.c	/^void do_first_pass(int argc, const char *argv[]){$/
+do_second_pass	assembler.c	/^void do_second_pass(int argc, const char *argv[]){/
+doinst	emcommand.c	/^int doinst(char * inst){$/
+dump_memory	aslib.c	/^void dump_memory() { $/
+dump_sym_table	aslib.c	/^unsigned dump_sym_table(){$/
+encoding	aslib.h	/^} encoding; $/
+eval_exp	aslib.c	/^int eval_exp(char *expWithParen, int *error)$/
+eval_register	aslib.c	/^char * eval_register(char *expWithParen)$/
+exitOnNull	aslib.c	/^void exitOnNull(void * ptr, char * msg){$/
+filter	aslib.c	/^int filter(char **lineptr){$/
+found_sym	aslib.c	/^unsigned found_sym(const char * name) {$/
+function_type	aslib.h	/^typedef char * (*function_type)(char *[]); $/
+get	emcommand.c	/^unsigned get(int num, int start, int end){$/
+getAluOpcodeBits	aslib.c	/^char * getAluOpcodeBits(char *name){$/
+getBits	aslib.c	/^char * getBits(int num, unsigned int SIZE) { $/
+getBits1	emcommand.c	/^char * getBits1(int num, unsigned int SIZE) { $/
+getFiles	aslib.c	/^void getFiles(int argc, const char * argv[], $/
+getFunc	assembler.c	/^function_type getFunc(const char * name){$/
+getOpcodebits	aslib.c	/^char * getOpcodebits(char *name){$/
+getRegisterBits	aslib.c	/^char * getRegisterBits(char *registername){$/
+getTokens	aslib.c	/^void getTokens(const char * line, char * tokens[])/
+get_sym_address	aslib.c	/^unsigned int get_sym_address(const char * name){$/
+getasciiz	aslib.c	/^char * getasciiz(const char *input){$/
+getlabel	aslib.c	/^char * getlabel(const char *string){$/
+hextoint	aslib.c	/^unsigned int hextoint(char * hex){$/
+higher_byte	aslib.c	/^int higher_byte(int word16bit) {$/
+highertoint	aslib.c	/^unsigned int highertoint(char * bits){$/
+ifParen	aslib.c	/^unsigned int ifParen(const char *exp){$/
+inst	aslib.h	/^} inst; $/
+inst_info	aslib.h	/^} inst_info;$/
+inst_table	aslib.h	/^struct inst_table {$/
+isValidInt	assembler.c	/^int isValidInt(const char *str, int base, int *val/
+is_in_skip_list	assembler.c	/^int is_in_skip_list(char *sym){$/
+is_valid_inst	assembler.c	/^unsigned int is_valid_inst(const char *line){$/
+isasciiz	aslib.c	/^int isasciiz(const char * string){$/
+isempty	aslib.c	/^int isempty(const char *string){$/
+islabel	aslib.c	/^int islabel(const char * string){$/
+j	ascommand.c	/^char * j(char * tokens[]){$/
+jal	ascommand.c	/^char * jal(char * tokens[]){$/
+jalr	ascommand.c	/^char * jalr(char * tokens[]){$/
+jr	ascommand.c	/^char * jr(char * tokens[]){$/
+la	ascommand.c	/^char * la(char * tokens[]){$/
+lb	ascommand.c	/^char * lb(char * tokens[]){$/
+lbu	ascommand.c	/^char * lbu(char * tokens[]){$/
+lh	ascommand.c	/^char * lh(char * tokens[]){$/
+lhu	ascommand.c	/^char * lhu(char * tokens[]){$/
+lower_byte	aslib.c	/^int lower_byte(int word16bit){$/
+lowertoint	aslib.c	/^unsigned int lowertoint(char * bits){$/
+lui	ascommand.c	/^char * lui(char * tokens[]){$/
+lw	ascommand.c	/^char * lw(char * tokens[]){$/
+lwcz	ascommand.c	/^char * lwcz(char * tokens[]){$/
+lwl	ascommand.c	/^char * lwl(char * tokens[]){$/
+lwr	ascommand.c	/^char * lwr(char * tokens[]){$/
+mfhi	ascommand.c	/^char * mfhi(char * tokens[]){$/
+mflo	ascommand.c	/^char * mflo(char * tokens[]){$/
+mthi	ascommand.c	/^char * mthi(char * tokens[]){$/
+mtlo	ascommand.c	/^char * mtlo(char * tokens[]){$/
+mult	ascommand.c	/^char * mult(char * tokens[]){$/
+multu	ascommand.c	/^char * multu(char * tokens[]){$/
+newstr	aslib.c	/^char * newstr(int len){$/
+nop	ascommand.c	/^char * nop(char * tokens[]){$/
+nor	ascommand.c	/^char * nor(char * tokens[]){$/
+or	ascommand.c	/^char * or(char * tokens[]){$/
+ori	ascommand.c	/^char * ori(char * tokens[]){$/
+outputMIFfile	aslib.c	/^void outputMIFfile(FILE *MIFfile) {$/
+printHeaders	aslib.c	/^void printHeaders(FILE *MIFfile){$/
+printTail	aslib.c	/^void printTail(FILE *MIFfile){$/
+print_output	emcommand.c	/^void print_output(char *str){$/
+processLine	assembler.c	/^char *  processLine(char * line, FILE *rfile, FILE/
+put_sym	aslib.c	/^unsigned put_sym(const char * name, unsigned int l/
+refresh_registers	emcommand.c	/^void refresh_registers(){$/
+reg	aslib.h	/^} reg; $/
+register_name	aslib.c	/^char * register_name(char * input){$/
+register_offset	aslib.c	/^int register_offset(char * input){$/
+removeSpaces	aslib.c	/^char * removeSpaces(const char * s) {$/
+sb	ascommand.c	/^char * sb(char * tokens[]){$/
+sh	ascommand.c	/^char * sh(char * tokens[]){$/
+sll	ascommand.c	/^char * sll(char * tokens[]){$/
+sllv	ascommand.c	/^char * sllv(char * tokens[]){$/
+slt	ascommand.c	/^char * slt(char * tokens[]){$/
+slti	ascommand.c	/^char * slti(char * tokens[]){$/
+sltiu	ascommand.c	/^char * sltiu(char * tokens[]){$/
+sltu	ascommand.c	/^char * sltu(char * tokens[]){$/
+sra	ascommand.c	/^char * sra(char * tokens[]){$/
+srav	ascommand.c	/^char * srav(char * tokens[]){$/
+srl	ascommand.c	/^char * srl(char * tokens[]){$/
+srlv	ascommand.c	/^char * srlv(char * tokens[]){$/
+store_string	assembler.c	/^int store_string(char *str){$/
+sub	ascommand.c	/^char * sub(char * tokens[]){$/
+subu	ascommand.c	/^char * subu(char * tokens[]){$/
+sw	ascommand.c	/^char * sw(char * tokens[]){$/
+swcz	ascommand.c	/^char * swcz(char * tokens[]){$/
+swl	ascommand.c	/^char * swl(char * tokens[]){$/
+swr	ascommand.c	/^char * swr(char * tokens[]){$/
+symbol_table	aslib.h	/^} symbol_table;$/
+syscall	ascommand.c	/^char * syscall(char * tokens[]){$/
+toint	emcommand.c	/^unsigned int toint(char * bits){$/
+type2	ascommand.c	/^char * type2(char * arg0, char * arg1){$/
+type3	ascommand.c	/^char * type3(char * arg0, char * arg1, char * arg2/
+type4	ascommand.c	/^char * type4(char * arg0, char * arg1, char *arg2,/
+type5	ascommand.c	/^char * type5(char * arg0, char * arg1, char *arg2,/
+type6	ascommand.c	/^char * type6(char * arg0, char * arg1, char *arg2,/
+verify_atoi	ascommand.c	/^int verify_atoi(char *token){$/
+xor	ascommand.c	/^char * xor(char * tokens[]){$/
+xori	ascommand.c	/^char * xori(char * tokens[]){$/

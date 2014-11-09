@@ -53,7 +53,7 @@ int bgez(int rs, int offset);
 int bgezal(int rs, int offset);
 int bltz(int rs, int offset);
 int bltzal(int rs, int offset);
-void refresh_registers();
+void refresh_state();
 char * newstr(int len);
 void print_output(char *str);
 char * getBits(int num, unsigned int SIZE); 

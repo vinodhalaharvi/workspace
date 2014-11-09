@@ -348,9 +348,9 @@ char * la(char * tokens[]){
                 getBits(higher_byte(verify_atoi(tokens[2])), 16)
         ); 
 	int t = bin32toint(bits);
-	memory[address] = t & 0xFFFF; 
-	memory[address + 2] = (t >> 16) & 0xFFFF; 
-	address += 2; 
+	memory[wordaddress] = t & 0xFFFF; 
+	memory[wordaddress + 1] = (t >> 16) & 0xFFFF; 
+	wordaddress += 2; 
 	return type4(
                 getOpcodebits("ori"), 
                 getRegisterBits(tokens[1]), 

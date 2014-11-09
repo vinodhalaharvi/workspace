@@ -13,7 +13,7 @@ typedef struct _symbol_table {
 extern unsigned int lineno; 
 extern unsigned int symmaxindex; 
 extern unsigned short  memory[MIF_FILE_SIZE];	
-extern unsigned int address; 
+extern unsigned int wordaddress; 
 extern symbol_table symbols[MAX_SYMBOL_SIZE]; 
 
 typedef struct _encoding { 
@@ -209,4 +209,5 @@ int lower_byte(int word16bit);
 int higher_byte(int word16bit); 
 int register_offset(char * input); 
 void outputMIFfile(FILE *MIFfile);
+void dump_memory(); 
 char * register_name(char * input);

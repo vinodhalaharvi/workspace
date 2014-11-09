@@ -1,1 +1,1 @@
-run test.mif
+run mif/test.mif

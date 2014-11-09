@@ -11,7 +11,7 @@
 #include "ascommand.h"
 #include <limits.h>
 #include <errno.h>
-#define DEBUG 1
+#define DEBUG 0
 
 #define  STACK_BASE  (0x00FF08-0x00A000)
 #define REG_IOCONTROL 0x00FF00
@@ -119,7 +119,6 @@ function_type getFunc(const char * name){
  * @return boolean, true if the line has valid instruction
  */
 unsigned int is_valid_inst(const char *line){
-	int i = 0;
 	char *tokens[4]; 
 	for (int i = 0; i < 4; i++) {
 		tokens[i] = ""; 
@@ -171,11 +170,14 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 	function_type func = getFunc(tokens[0]); 
 	if (func) {
 		bits = func(tokens);
-		assert(address % 2 == 0);
+		assert(strlen(bits) == 32);
 		int t = bin32toint(bits); 
-		memory[address] = t & 0xFFFF; 
-		memory[address + 2] = (t >> 16) & 0xFFFF; 
-		address += 2; 
+		memory[wordaddress] = t & 0xFFFF; 
+		memory[wordaddress + 1] = (t >> 16) & 0xFFFF; 
+		printf("%s ; 0x%04X, 0x%04X", tokens[0], memory[wordaddress + 1], 
+				memory[wordaddress]);
+		getchar();
+		wordaddress += 2; 
 	} else {
 		fprintf(stderr, "%s: Instruction not found ..\n", tokens[0]);
 		assert(0==1); 
@@ -195,7 +197,6 @@ static char *sym_skip_list[100] = {
 	NULL 
 
 }; 
-static unsigned int sli;
 
 /*
  * Description: check if the symbol is in the skip list
@@ -240,41 +241,38 @@ void do_first_pass(int argc, const char *argv[]){
 	char * line = NULL; 
 	FILE * rfile,  * MIFfile; 
 	getFiles(argc, argv, &rfile, &MIFfile); 
-
-	//First passs for label fixup
-	assert(address == 0);
-	put_sym("main", address);   
-	address += 2; 
-
+	int tmpaddr = 0; 
+	//First pass for label fixup
+	assert(tmpaddr == 0);
+	put_sym("main", tmpaddr);   
+	tmpaddr += 2; 
 	put_sym("REG_IOCONTROL", REG_IOCONTROL); //hard places, not relative
 	put_sym("REG_IOBUFFER_1", REG_IOBUFFER_1); 
 	put_sym("REG_IOBUFFER_2", REG_IOBUFFER_2); 
 	put_sym("STACK_BASE", STACK_BASE);  
-
 	while(getline(&line, &len, rfile) != EOF){
 		cleanLine(&line);
 		if (filter(&line))
 			continue; 
 		if(is_valid_inst(line)){
-			address += 2; 
+			tmpaddr += 2; 
 		 }
 		if (islabel(line)){
 			if (isasciiz(line)) {
 				char * label = getlabel(line); 
 				//store the string at a location
 				//and store that location in the symbol table
-				//int address = store_string(getasciiz(line)); 
-				put_sym(label, address); 
+				//int tmpaddr = store_string(getasciiz(line)); 
+				put_sym(label, tmpaddr); 
 			} else {
 				char * label = getlabel(line); 
 				if (is_in_skip_list(label)) {
 					continue; 
 				}
-				put_sym(label, address); 
+				put_sym(label, tmpaddr); 
 			}
 		}
 	}
-	address = 0;  // reset location_ptr
 	fclose(rfile);
 	fclose(MIFfile);
 }
@@ -289,7 +287,7 @@ void do_second_pass(int argc, const char *argv[]){
 	char * line = NULL; 
 	FILE * rfile,  * MIFfile; 
 	getFiles(argc, argv, &rfile, &MIFfile); 
-	printf("Helpful for debugging ..\n");
+	assert(wordaddress == 0);
 	while(getline(&line, &len, rfile) != EOF){
 		lineno++; 
 		cleanLine(&line);
@@ -315,17 +313,16 @@ void do_second_pass(int argc, const char *argv[]){
  */
 int main(int argc, const char *argv[])
 {
-	size_t len = 0 ; 
-	char * line = NULL; 
+	assert(sizeof(short) == 2); 
 	FILE * rfile,  * MIFfile; 
 	getFiles(argc, argv, &rfile, &MIFfile); 
 	assert(argc == 3); 
 	do_first_pass(argc, argv); 
-	dump_sym_table(); 
 	do_second_pass(argc, argv); 
 	outputMIFfile(MIFfile); 
 	printf("\nThe output has been written to  %s file .. \n", 
 			argv[2]);
+	dump_memory(); 
 	return 0;
 }
 
