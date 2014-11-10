@@ -1,8 +1,7 @@
 .data
-	firstNumber:  .asciiz "-1112"
-	secondNumber: .asciiz "1122"
-	enterString:  .asciiz "            \n"
-	outputString: .asciiz "                   \n"
+	firstNumber: .asciiz "-11"
+	secondNumber: .asciiz "-11"
+	enterString: .asciiz "\n"
 .text
 	stringToInt:
 		addi $sp, $sp, -60
@@ -123,52 +122,31 @@
 		add $a0, $a0, -48 
 		jr $ra
 
-
-	intToString:
-		addi $sp, $sp, -60
-		# callee saved convention
-		sw $s0, 24($sp)  # first on argument parameter
-		sw $s1, 28($sp) 
-		sw $s2, 32($sp) 
-		sw $s3, 36($sp) 
-		sw $ra, 40($sp) 
-		# do work 
+	main:
+		addi $s0, $zero, 8679
 		la   $s3, outputString
-		slt  $t4, $a0, $zero # check if the first number is negative
-		beq  $t4, $zero, intToStringskip
-		addi $t4, $zero, 0 # check if the first number is negative
-		addi $t4, $t4, '-' 
-		sb   $t4, 0($s3)
-		addi $s3, $s3, 1
-		sub  $a0, $zero, $a0 # flip sign  of $a0
-		intToStringskip:
-		add $s0, $a0, $zero
-		#addi $s0, $zero, 8679
 		mainLoop:	
 			add  $a0, $s0, $zero
-			jal  div10 # output is in $a0
-			add  $s1, $a0, $zero
-			jal  mul10 # output is in $a0
-			sub  $t0, $s0, $a0
-			add  $s0, $s1, $zero
-			add  $a0, $t0, $zero
-			jal  toChar
+			jal div10 # output is in $a0
+			add $s1, $a0, $zero
+			jal mul10 # output is in $a0
+			sub $t0, $s0, $a0
+			add $s0, $s1, $zero
+			add $a0, $t0, $zero
+			#jal printInt
 			sb   $a0, 0($s3)
 			addi $s3, $s3, 1
 			beq  $s0, $zero, exit
 			j    mainLoop
 		exit:
-			la     $a0, outputString #output is in $a0
-			# and return
-			lw $s0, 24($sp)
-			lw $s1, 28($sp)
-			lw $s2, 32($sp) 
-			lw $s3, 36($sp) 
-			lw $ra, 40($sp) 
-			add $sp, $sp, 60
-			jr $ra
+			li $v0, 4
+			la $a0, outputString
+			syscall
 
-	main:
+			li $v0, 10 
+			syscall
+
+	main1:
 		# do work 
 		# registers used are
 		#
@@ -185,20 +163,10 @@
 		add $a1, $s1, $zero
 		
 		jal multiply	
-		add $a0, $v0, $zero # move the output to $a0
+		add $a0, $v0, $zero
 
-		li $v0, 1
+		li  $v0, 1
 		syscall
-		li $v0, 10 
-		syscall
-
-		jal intToString
-
-		#print output to console
-		la $a0, outputString
-		li  $v0, 4
-		syscall 
-
 		li $v0, 10 
 		syscall
 
