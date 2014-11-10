@@ -24,6 +24,7 @@ _div	ascommand.c	/^char * _div(char * tokens[]){$/;"	f
 _encoding	aslib.h	/^typedef struct _encoding { $/;"	s
 _inst	aslib.h	/^typedef struct _inst { $/;"	s
 _inst_info	aslib.h	/^typedef struct _inst_info {$/;"	s
+_location	emcommand.c	/^typedef struct _location {$/;"	s	file:
 _register	aslib.h	/^typedef struct _register {$/;"	s
 _symbol_table	aslib.h	/^typedef struct _symbol_table {$/;"	s
 add	ascommand.c	/^char * add(char * tokens[]){$/;"	f
@@ -60,13 +61,13 @@ bltzal	emcommand.c	/^int bltzal(int rs, int offset){$/;"	f
 bne	ascommand.c	/^char * bne(char * tokens[]){$/;"	f
 bne	emcommand.c	/^int bne(int rs, int rt, int offset){$/;"	f
 cleanLine	aslib.c	/^void cleanLine(char **lineptr){$/;"	f
+command	emcommand.c	/^location command = {.x = 20, .y = 0}; $/;"	v
 copz	ascommand.c	/^char * copz(char * tokens[]){$/;"	f
 divu	ascommand.c	/^char * divu(char * tokens[]){$/;"	f
 do_first_pass	assembler.c	/^void do_first_pass(int argc, const char *argv[]){$/;"	f
 do_second_pass	assembler.c	/^void do_second_pass(int argc, const char *argv[]){$/;"	f
 doinst	emcommand.c	/^int doinst(char * inst){$/;"	f
 dump_memory	aslib.c	/^void dump_memory() { $/;"	f
-dump_memory	emulator.c	/^void dump_memory(){$/;"	f
 dump_sym_table	aslib.c	/^unsigned dump_sym_table(){$/;"	f
 encoding	aslib.h	/^} encoding; $/;"	t	typeref:struct:_encoding
 encoding_data	aslib.h	/^static encoding encoding_data[] = { $/;"	v
@@ -130,6 +131,7 @@ lh	emcommand.c	/^int lh(int base , int rt, int offset){$/;"	f
 lhu	ascommand.c	/^char * lhu(char * tokens[]){$/;"	f
 lhu	emcommand.c	/^int lhu(int base , int rt, int offset){$/;"	f
 lineno	aslib.c	/^unsigned int lineno; $/;"	v
+location	emcommand.c	/^} location;$/;"	t	typeref:struct:_location	file:
 lower_byte	aslib.c	/^int lower_byte(int word16bit){$/;"	f
 lowertoint	aslib.c	/^unsigned int lowertoint(char * bits){$/;"	f
 lui	ascommand.c	/^char * lui(char * tokens[]){$/;"	f
@@ -168,9 +170,11 @@ ori	ascommand.c	/^char * ori(char * tokens[]){$/;"	f
 ori	emcommand.c	/^int ori(int rs, int rt, int imm){$/;"	f
 outputMIFfile	aslib.c	/^void outputMIFfile(FILE *MIFfile) {$/;"	f
 pc	emcommand.c	/^unsigned int pc; $/;"	v
+pr_reg_other	emcommand.c	/^void pr_reg_other(const char * inst, int reg, int other){$/;"	f
+pr_reg_reg_other	emcommand.c	/^void pr_reg_reg_other(const char * inst, int reg1, int reg2, int other){$/;"	f
 printHeaders	aslib.c	/^void printHeaders(FILE *MIFfile){$/;"	f
 printTail	aslib.c	/^void printTail(FILE *MIFfile){$/;"	f
-print_output	emcommand.c	/^void print_output(char *str){$/;"	f
+print_output	emcommand.c	/^void print_output(const char *str){$/;"	f
 processLine	assembler.c	/^char *  processLine(char * line, FILE *rfile, FILE *MIFfile){$/;"	f
 ptr	aslib.h	/^	char * (*ptr)(char *[]);$/;"	m	struct:inst_table
 ptr	aslib.h	/^void (*ptr)(int, int);$/;"	v
@@ -237,7 +241,9 @@ type5	ascommand.c	/^char * type5(char * arg0, char * arg1, char *arg2, char *arg
 type6	ascommand.c	/^char * type6(char * arg0, char * arg1, char *arg2, char *arg3, char *arg4, char *arg5){$/;"	f
 verify_atoi	ascommand.c	/^int verify_atoi(char *token){$/;"	f
 wordaddress	aslib.c	/^unsigned int wordaddress; $/;"	v
+x	emcommand.c	/^	int x, y; $/;"	m	struct:_location	file:
 xor	ascommand.c	/^char * xor(char * tokens[]){$/;"	f
 xor	emcommand.c	/^int xor(int rs, int rt, int rd){$/;"	f
 xori	ascommand.c	/^char * xori(char * tokens[]){$/;"	f
 xori	emcommand.c	/^int xori(int rs, int rt, int imm){$/;"	f
+y	emcommand.c	/^	int x, y; $/;"	m	struct:_location	file:
