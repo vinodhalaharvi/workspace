@@ -137,7 +137,7 @@ char * slt(char * tokens[]){
 		getRegisterBits(tokens[1]), 
 		"00000", 
 		getAluOpcodeBits("slt")
-	); 
+	);  
 	//return sltu(tokens); 
 }
 
