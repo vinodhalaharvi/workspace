@@ -58,8 +58,4 @@ char * newstr(int len);
 void print_output(const char *str);
 char * getBits(int num, unsigned int SIZE); 
 unsigned int hextoint(char * hex);
-void pr_rs_rt_other(const char * inst, int rs, int rt, int other);
-void pr_reg_reg_other(const char * inst, int reg1, int reg2, int other);
-void pr_reg_other(const char * inst, int reg, int other);
-void pr_base_rt_offset(const char * inst, int base, int rt, int offset); 
-
+extern char *regmap[32]; 

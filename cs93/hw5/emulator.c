@@ -38,11 +38,11 @@ int main(int argc, const char *argv[])
 	pc = 0;
 	while(1) {
 		ir = (memory[pc+1] << 16) | memory[pc]; 
-		printf("%[0x%06X]:0x%08X\n", pc, 
+		doinst(getBits(ir, 32));
+		printf("[0x%06X]:0x%08X\n", pc, 
 				(memory[pc + 1] << 16)
 				|  memory[pc]);
 		pc += 2; 
-		doinst(getBits(ir, 32));
 		getchar();  //wait for the user input
 	}
 	return 0; 

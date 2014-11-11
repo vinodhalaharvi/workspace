@@ -1,0 +1,10 @@
+void pr_reg_imm(const char * inst, int reg, int imm);
+void pr_reg_reg_imm(const char * inst, int reg1, int reg2, int imm);
+void pr_base_inst_index(const char * inst, int inst_index);
+void pr_reg_reg_sa(const char * inst, int reg1, int reg2, int sa);
+void pr_reg(const char * inst, int reg1);
+void pr_reg_reg(const char * inst, int reg1, int reg2);
+void pr_reg_reg_reg(const char * inst, int reg1, int reg2, int reg3);
+void pr_base_rt_inst_index(const char * inst, int base, int reg, int inst_index);
+void pr_base_rt_offset(const char * inst, int base, int reg, int offset); 
+void pr_reg_reg_offset(const char * inst, int reg1, int reg2, int offset); 

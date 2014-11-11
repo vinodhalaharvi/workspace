@@ -10,8 +10,6 @@
 /* Vinod Halaharvi
  * HUID 80778287
  */
-
-
 /*
  * Description:  Most of the functions here take the tokens
  * which have been parsed by the processLine function
@@ -19,31 +17,8 @@
  * @param tokens 
  * @returns bits corresponding the the instruction  
  */
-
-
-
-char * lwcz(char * tokens[]){
-	return "NOT IMPLEMENTED!"; 
-	assert(1 == 0);
-}
-
-char * swcz(char * tokens[]){
-	return "not implemented!"; 
-	assert(1 == 0);
-}
-
 char * nop(char * tokens[]){
 	return "00000000000000000000000000000000";
-}
-char * subu(char * tokens[]){
-	return type6(
-		getOpcodebits("subu"), 
-		getRegisterBits(tokens[3]), 
-		getRegisterBits(tokens[2]), 
-		getRegisterBits(tokens[1]), 
-		"00000", 
-		getAluOpcodeBits("sub")
-	     ); 
 }
 
 char * sub(char * tokens[]){
@@ -66,18 +41,7 @@ char * add(char * tokens[]){
 		getRegisterBits(tokens[2]), 
 		getRegisterBits(tokens[1]), 
 		"00000", 
-		getAluOpcodeBits("addu")
-	); 
-}
-
-char * addu(char * tokens[]){
-	return type6(
-		getOpcodebits("addu"), 
-		getRegisterBits(tokens[3]), 
-		getRegisterBits(tokens[2]), 
-		getRegisterBits(tokens[1]), 
-		"00000", 
-		getAluOpcodeBits("addu")
+		getAluOpcodeBits("add")
 	); 
 }
 
@@ -139,17 +103,6 @@ char * slt(char * tokens[]){
 		getAluOpcodeBits("slt")
 	);  
 	//return sltu(tokens); 
-}
-
-char * sltu(char * tokens[]){
-	return type6(
-		getOpcodebits("sltu"), 
-		getRegisterBits(tokens[3]), 
-		getRegisterBits(tokens[2]), 
-		getRegisterBits(tokens[1]), 
-		"00000", 
-		getAluOpcodeBits("sltu")
-	); 
 }
 
 char * sll(char * tokens[]){
@@ -229,54 +182,6 @@ char * jalr(char * tokens[]){
 	); 
 }
 
-char * mfhi(char * tokens[]){
-	return type5(
-		getOpcodebits("mfhi"), 
-		"0000000000", 
-		getRegisterBits(tokens[1]), 
-		"00000",
-		getAluOpcodeBits("mfhi")
-	); 
-}
-
-char * mflo(char * tokens[]){
-	return type5(
-		getOpcodebits("mflo"), 
-		"0000000000", 
-		getRegisterBits(tokens[1]), 
-		"00000",
-		getAluOpcodeBits("mflo")
-	); 
-}
-
-char * mult(char * tokens[]){
-	return multu(tokens);
-}
-
-char * multu(char * tokens[]){
-	return type5(
-		getOpcodebits("multu"), 
-		getRegisterBits(tokens[1]), 
-		getRegisterBits(tokens[2]), 
-                "0000000000",
-		getAluOpcodeBits("multu")
-	); 
-}
-
-char * _div(char * tokens[]){
-	return divu(tokens);
-}
-
-char * divu(char * tokens[]){
-	return type5(
-		getOpcodebits("divu"), 
-		getRegisterBits(tokens[1]), 
-		getRegisterBits(tokens[2]), 
-                "0000000000",
-		getAluOpcodeBits("divu")
-	); 
-}
-
 char * addi(char * tokens[]){
 	return type4(
                 getOpcodebits("addi"), 
@@ -286,58 +191,9 @@ char * addi(char * tokens[]){
         ); 
 }
 
-char * addiu(char * tokens[]){
-	return type4(
-                getOpcodebits("addiu"), 
-                getRegisterBits(tokens[1]), 
-                getRegisterBits(tokens[2]), 
-                getBits(atoi(tokens[3]), 16)
-        ); 
-}
-
-char * bgez(char * tokens[]){
-	return type4(
-                getOpcodebits("bgez"), 
-                getRegisterBits(tokens[1]), 
-                "00001", 
-                getBits(verify_atoi(tokens[2]), 16)
-        ); 
-}
-
-char * bgezal(char * tokens[]){
-	return type4(
-                getOpcodebits("bgezal"), 
-                getRegisterBits(tokens[1]), 
-                "10001", 
-                getBits(verify_atoi(tokens[2]), 16)
-        ); 
-}
-
-char * bltz(char * tokens[]){
-	return type4(
-                getOpcodebits("bltz"), 
-                getRegisterBits(tokens[1]), 
-                "00000", 
-                getBits(verify_atoi(tokens[2]), 16)
-        ); 
-}
-
-char * bltzal(char * tokens[]){
-	return type4(
-                getOpcodebits("bltzal"), 
-                getRegisterBits(tokens[1]), 
-                "10000", 
-                getBits(verify_atoi(tokens[2]), 16)
-        ); 
-}
-
 char * slti(char * tokens[]){
-	return sltiu(tokens); 
-}
-
-char * sltiu(char * tokens[]){
 	return type4(
-                getOpcodebits("sltiu"), 
+                getOpcodebits("slti"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
                 getBits(atoi(tokens[3]), 16)
@@ -506,24 +362,6 @@ char * jr(char * tokens[]){
         ); 
 }
 
-char * mthi(char * tokens[]){
-	return type4(
-                getOpcodebits("mthi"), 
-                getRegisterBits(tokens[1]), 
-                "000000000000000",
-		getAluOpcodeBits("mthi")
-        ); 
-}
-
-char * mtlo(char * tokens[]){
-	return type4(
-                getOpcodebits("mtlo"), 
-                getRegisterBits(tokens[1]), 
-                "000000000000000",
-		getAluOpcodeBits("mtlo")
-        ); 
-}
-
 char * beq(char * tokens[]){
 	return type4(
                 getOpcodebits("beq"), 
@@ -539,40 +377,6 @@ char * bne(char * tokens[]){
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
                 getBits(verify_atoi(tokens[3]), 16)
-        ); 
-}
-
-char * blez(char * tokens[]){
-	return type4(
-                getOpcodebits("blez"), 
-                getRegisterBits(tokens[1]), 
-                "00000", 
-                getBits(verify_atoi(tokens[2]), 16)
-        ); 
-}
-
-char * bgtz(char * tokens[]){
-	return type4(
-                getOpcodebits("bgtz"), 
-                getRegisterBits(tokens[1]), 
-                "00000", 
-                getBits(verify_atoi(tokens[2]), 16)
-        ); 
-}
-
-char * syscall(char * tokens[]){
-	return type3(
-                getOpcodebits("syscall"), 
-                getBits(atoi(tokens[1]), 20), 
-		getAluOpcodeBits("syscall")
-        ); 
-}
-
-char * _break(char * tokens[]){
-	return type3(
-                getOpcodebits("break"), 
-                getBits(atoi(tokens[1]), 22), 
-		getAluOpcodeBits("break")
         ); 
 }
 
@@ -594,25 +398,12 @@ int verify_atoi(char *token){
 	}
 }
 
-
 char * jal(char * tokens[]){
 	return type2(
 			getOpcodebits("jal"), 
 			getBits(verify_atoi(tokens[1]), 26)
 		    ); 
 }
-
-char * copz(char * tokens[]){
-	return type2(
-                getOpcodebits("copz"), 
-                getBits(atoi(tokens[1]), 26)
-        ); 
-}
-/*
- * Description: 
- * @param  
- * @returns
- */
 
 char * type2(char * arg0, char * arg1){
 	char *res = (char *) malloc(BUFLEN); 

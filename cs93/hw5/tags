@@ -20,8 +20,6 @@ REG_IOCONTROL	assembler.c	16;"	d	file:
 RTYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
 STACK_BASE	assembler.c	19;"	d	file:
 _GNU_SOURCE	assembler.c	5;"	d	file:
-_break	ascommand.c	/^char * _break(char * tokens[]){$/;"	f
-_div	ascommand.c	/^char * _div(char * tokens[]){$/;"	f
 _encoding	aslib.h	/^typedef struct _encoding { $/;"	s
 _inst	aslib.h	/^typedef struct _inst { $/;"	s
 _inst_info	aslib.h	/^typedef struct _inst_info {$/;"	s
@@ -32,9 +30,7 @@ add	ascommand.c	/^char * add(char * tokens[]){$/;"	f
 add	emcommand.c	/^int add(int rs, int rt, int rd){$/;"	f
 addi	ascommand.c	/^char * addi(char * tokens[]){$/;"	f
 addi	emcommand.c	/^int addi(int rs, int rt, int imm){$/;"	f
-addiu	ascommand.c	/^char * addiu(char * tokens[]){$/;"	f
 addiu	emcommand.c	/^int addiu(int rs, int rt, int imm){$/;"	f
-addu	ascommand.c	/^char * addu(char * tokens[]){$/;"	f
 addu	emcommand.c	/^int addu(int rs, int rt, int rd){$/;"	f
 align4	assembler.c	/^int  align4(int address){$/;"	f
 aluopcodebits	aslib.h	/^	char * aluopcodebits; $/;"	m	struct:_inst
@@ -44,28 +40,20 @@ andi	ascommand.c	/^char * andi(char * tokens[]){$/;"	f
 andi	emcommand.c	/^int andi(int rs, int rt, int imm){$/;"	f
 beq	ascommand.c	/^char * beq(char * tokens[]){$/;"	f
 beq	emcommand.c	/^int beq(int rs, int rt, int offset){$/;"	f
-bgez	ascommand.c	/^char * bgez(char * tokens[]){$/;"	f
 bgez	emcommand.c	/^int bgez(int rs, int offset){$/;"	f
-bgezal	ascommand.c	/^char * bgezal(char * tokens[]){$/;"	f
 bgezal	emcommand.c	/^int bgezal(int rs, int offset){$/;"	f
-bgtz	ascommand.c	/^char * bgtz(char * tokens[]){$/;"	f
 bgtz	emcommand.c	/^int bgtz(int rs, int offset){$/;"	f
 bin16toint	aslib.c	/^unsigned int  bin16toint(char * bits){$/;"	f
 bin32toint	aslib.c	/^unsigned int bin32toint(char * bits){$/;"	f
 binary	aslib.h	/^	char * binary; $/;"	m	struct:_encoding
 binaryToHex	aslib.c	/^char * binaryToHex(char * binary){$/;"	f
-blez	ascommand.c	/^char * blez(char * tokens[]){$/;"	f
 blez	emcommand.c	/^int blez(int rs, int offset){$/;"	f
-bltz	ascommand.c	/^char * bltz(char * tokens[]){$/;"	f
 bltz	emcommand.c	/^int bltz(int rs, int offset){$/;"	f
-bltzal	ascommand.c	/^char * bltzal(char * tokens[]){$/;"	f
 bltzal	emcommand.c	/^int bltzal(int rs, int offset){$/;"	f
 bne	ascommand.c	/^char * bne(char * tokens[]){$/;"	f
 bne	emcommand.c	/^int bne(int rs, int rt, int offset){$/;"	f
 cleanLine	aslib.c	/^void cleanLine(char **lineptr){$/;"	f
 command	emcommand.c	/^location command = {.x = 20, .y = 0}; $/;"	v
-copz	ascommand.c	/^char * copz(char * tokens[]){$/;"	f
-divu	ascommand.c	/^char * divu(char * tokens[]){$/;"	f
 do_first_pass	assembler.c	/^void do_first_pass(int argc, const char *argv[]){$/;"	f
 do_second_pass	assembler.c	/^void do_second_pass(int argc, const char *argv[]){$/;"	f
 doinst	emcommand.c	/^int doinst(char * inst){$/;"	f
@@ -142,7 +130,6 @@ lui	ascommand.c	/^char * lui(char * tokens[]){$/;"	f
 lui	emcommand.c	/^int lui(int rt, int imm){$/;"	f
 lw	ascommand.c	/^char * lw(char * tokens[]){$/;"	f
 lw	emcommand.c	/^int lw(int base , int rt, int offset){$/;"	f
-lwcz	ascommand.c	/^char * lwcz(char * tokens[]){$/;"	f
 lwl	ascommand.c	/^char * lwl(char * tokens[]){$/;"	f
 lwl	emcommand.c	/^int lwl(int base , int rt, int offset){$/;"	f
 lwr	ascommand.c	/^char * lwr(char * tokens[]){$/;"	f
@@ -152,12 +139,6 @@ main	emulator.c	/^int main(int argc, const char *argv[])$/;"	f
 memindex	emulator.c	/^unsigned int memindex = 0;$/;"	v
 memory	aslib.c	/^unsigned short  memory[MIF_FILE_SIZE];	$/;"	v
 memory	emcommand.c	/^unsigned short memory[MEMORY_MAX]; $/;"	v
-mfhi	ascommand.c	/^char * mfhi(char * tokens[]){$/;"	f
-mflo	ascommand.c	/^char * mflo(char * tokens[]){$/;"	f
-mthi	ascommand.c	/^char * mthi(char * tokens[]){$/;"	f
-mtlo	ascommand.c	/^char * mtlo(char * tokens[]){$/;"	f
-mult	ascommand.c	/^char * mult(char * tokens[]){$/;"	f
-multu	ascommand.c	/^char * multu(char * tokens[]){$/;"	f
 name	aslib.h	/^	char * name; $/;"	m	struct:_inst_info
 name	aslib.h	/^	char * name; $/;"	m	struct:_symbol_table
 name	aslib.h	/^	char * name;$/;"	m	struct:inst_table
@@ -174,9 +155,16 @@ ori	ascommand.c	/^char * ori(char * tokens[]){$/;"	f
 ori	emcommand.c	/^int ori(int rs, int rt, int imm){$/;"	f
 outputMIFfile	aslib.c	/^void outputMIFfile(FILE *MIFfile) {$/;"	f
 pc	emcommand.c	/^unsigned int pc; $/;"	v
-pr_base_rt_offset	emcommand.c	/^void pr_base_rt_offset(const char * inst, int base, int rt, $/;"	f
-pr_reg_other	emcommand.c	/^void pr_reg_other(const char * inst, int reg, int other){$/;"	f
-pr_reg_reg_other	emcommand.c	/^void pr_reg_reg_other(const char * inst, int reg1, int reg2, int other){$/;"	f
+pr_base_inst_index	simpleoutput.c	/^void pr_base_inst_index(const char * inst, int inst_index){$/;"	f
+pr_base_rt_inst_index	simpleoutput.c	/^void pr_base_rt_inst_index(const char * inst, int reg, int inst_index){$/;"	f
+pr_base_rt_offset	simpleoutput.c	/^void pr_base_rt_offset(const char * inst, int base, int reg, int offset){$/;"	f
+pr_reg	simpleoutput.c	/^void pr_reg(const char * inst, int reg1){$/;"	f
+pr_reg_imm	simpleoutput.c	/^void pr_reg_imm(const char * inst, int reg, int imm){$/;"	f
+pr_reg_reg	simpleoutput.c	/^void pr_reg_reg(const char * inst, int reg1, int reg2){$/;"	f
+pr_reg_reg_imm	simpleoutput.c	/^void pr_reg_reg_imm(const char * inst, int reg1, int reg2, int imm){$/;"	f
+pr_reg_reg_offset	simpleoutput.c	/^void pr_reg_reg_offset(const char * inst, int reg1, int reg2, int offset){$/;"	f
+pr_reg_reg_reg	simpleoutput.c	/^void pr_reg_reg_reg(const char * inst, int reg1, int reg2, int reg3){$/;"	f
+pr_reg_reg_sa	simpleoutput.c	/^void pr_reg_reg_sa(const char * inst, int reg1, int reg2, int sa){$/;"	f
 printHeaders	aslib.c	/^void printHeaders(FILE *MIFfile){$/;"	f
 printTail	aslib.c	/^void printTail(FILE *MIFfile){$/;"	f
 print_output	emcommand.c	/^void print_output(const char *str){$/;"	f
@@ -195,6 +183,7 @@ registerbits	aslib.h	/^	char * registerbits; $/;"	m	struct:_register
 registername	aslib.h	/^	char * registername; $/;"	m	struct:_register
 registernumber	aslib.h	/^	char * registernumber; $/;"	m	struct:_register
 registers	emcommand.c	/^int registers[32]; $/;"	v
+regmap	emcommand.c	/^char *regmap[32] =  {$/;"	v
 removeSpaces	aslib.c	/^char * removeSpaces(const char * s) {$/;"	f
 rsrc	aslib.h	/^	char * rsrc; $/;"	m	struct:_inst_info
 sb	ascommand.c	/^char * sb(char * tokens[]){$/;"	f
@@ -209,9 +198,7 @@ slt	ascommand.c	/^char * slt(char * tokens[]){$/;"	f
 slt	emcommand.c	/^int slt(int rs, int rt, int rd){$/;"	f
 slti	ascommand.c	/^char * slti(char * tokens[]){$/;"	f
 slti	emcommand.c	/^int slti(int rs, int rt, int imm){$/;"	f
-sltiu	ascommand.c	/^char * sltiu(char * tokens[]){$/;"	f
 sltiu	emcommand.c	/^int sltiu(int rs, int rt, int imm){$/;"	f
-sltu	ascommand.c	/^char * sltu(char * tokens[]){$/;"	f
 sltu	emcommand.c	/^int sltu(int rs, int rt, int rd){$/;"	f
 sp	assembler.c	/^static int sp = STACK_BASE; $/;"	v	file:
 sra	ascommand.c	/^char * sra(char * tokens[]){$/;"	f
@@ -225,11 +212,9 @@ srlv	emcommand.c	/^int srlv(int rs, int rt, int rd){$/;"	f
 store_string	assembler.c	/^int store_string(char *str){$/;"	f
 sub	ascommand.c	/^char * sub(char * tokens[]){$/;"	f
 sub	emcommand.c	/^int sub(int rs, int rt, int rd){$/;"	f
-subu	ascommand.c	/^char * subu(char * tokens[]){$/;"	f
 subu	emcommand.c	/^int subu(int rs, int rt, int rd){$/;"	f
 sw	ascommand.c	/^char * sw(char * tokens[]){$/;"	f
 sw	emcommand.c	/^int sw(int base , int rt, int offset){$/;"	f
-swcz	ascommand.c	/^char * swcz(char * tokens[]){$/;"	f
 swl	ascommand.c	/^char * swl(char * tokens[]){$/;"	f
 swl	emcommand.c	/^int swl(int base , int rt, int offset){$/;"	f
 swr	ascommand.c	/^char * swr(char * tokens[]){$/;"	f
@@ -238,7 +223,6 @@ sym_skip_list	assembler.c	/^static char *sym_skip_list[100] = {$/;"	v	file:
 symbol_table	aslib.h	/^} symbol_table;$/;"	t	typeref:struct:_symbol_table
 symbols	aslib.c	/^symbol_table symbols[MAX_SYMBOL_SIZE];$/;"	v
 symmaxindex	aslib.c	/^unsigned int symmaxindex; $/;"	v
-syscall	ascommand.c	/^char * syscall(char * tokens[]){$/;"	f
 type2	ascommand.c	/^char * type2(char * arg0, char * arg1){$/;"	f
 type3	ascommand.c	/^char * type3(char * arg0, char * arg1, char * arg2){$/;"	f
 type4	ascommand.c	/^char * type4(char * arg0, char * arg1, char *arg2, char *arg3){$/;"	f
