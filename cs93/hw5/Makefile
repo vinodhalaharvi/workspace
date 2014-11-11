@@ -36,11 +36,13 @@ tags:
 	ctags *.[ch]
 
 debugem:  emulator
-	echo 'run mif/test.mif' > .gdbinit
+	echo 'set confirm off' > .gdbinit
+	echo 'run mif/test.mif' >> .gdbinit
 	gdb ./emulator
 
 debugas:  assembler
-	echo 'run asm/test.asm mif/test.mif' > .gdbinit
+	echo 'set confirm off' > .gdbinit
+	echo 'run asm/test.asm mif/test.mif' >> .gdbinit
 	gdb ./assembler
 
 .PHONY: clean cleanobj cleandiff tags

@@ -1,0 +1,13 @@
+fix the main function issue of start at location 0
+get the alignment working for all instructions and lw/sw/lb/sb insts
+start disassembling and start checking
+
+get the final assembly prog working
+start emulating
+check emulation output with the assembler output
+Tue Nov 11 03:50:47 UTC 2014
+####################################
+make sure the assembler works for the final program 
+make the read char and write char working. 
+Wed Nov 12 03:50:47 UTC 2014
+####################################

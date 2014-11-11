@@ -13,11 +13,14 @@
 #include <errno.h>
 #define DEBUG 0
 
-#define  STACK_BASE  (0x00FF08-0x00A000)
 #define REG_IOCONTROL 0x00FF00
 #define REG_IOBUFFER_1 0x00FF04
 #define REG_IOBUFFER_2 0x00FF08
+#define STACK_BASE   (REG_IOCONTROL - 0x00A000)
+#define HEAP_BASE    (STACK_BASE - 0x000A00)
+
 static int sp = STACK_BASE; 
+static int hp = HEAP_BASE; 
 
 /* Initialize function pointer
  The individual functions are defined in aslib.c
@@ -176,11 +179,11 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 		memory[wordaddress + 1] = (t >> 16) & 0xFFFF; 
 		/*printf("%s ; 0x%04X, 0x%04X", tokens[0], memory[wordaddress + 1], 
 				memory[wordaddress]);*/
-		printf("%10s ; [0x%06X]:0x%08X", line,  
+		printf("%10s ; [0x%06X]:0x%08X\n", line,  
 				wordaddress, 
 				(memory[wordaddress + 1] << 16)
 				|  memory[wordaddress]);
-		getchar();
+		//getchar();
 		wordaddress += 2; 
 	} else {
 		fprintf(stderr, "%s: Instruction not found ..\n", tokens[0]);
@@ -216,6 +219,10 @@ int is_in_skip_list(char *sym){
 	return 0; 
 }
 
+int  align4(int address){
+	int n; 
+	return ((address + 3) & 0xFFFFFFFC); 
+}
 
 /*
  * Description: 
@@ -224,14 +231,25 @@ int is_in_skip_list(char *sym){
  */
 int store_string(char *str){
 	int value; 
-	int store_address = sp; 
-	assert(STACK_BASE != 0 );  //make sure stack location is initialized
-	do {
-		value = *(str+1) << 8 | *str; 
-		memory[STACK_BASE + sp++] = value; 
-		str++; 
-	} while(*str); 
+	int store_address = hp; 
+	//make sure heap location is initialized
+	//and make sure heap is 4 byte memory aligned
+	assert(hp >= 0 && hp % 4 == 0);  
+	while (*str){
+		memory[hp++] = *str++;
+	}
+	memory[hp] = '\0';
+	hp = align4(hp);  //memory align to 4 byte boundary
 	return store_address; 
+}
+
+char * get_string_from_memory(int address){
+	char * res = newstr(100); 
+	char * iter = res; 
+	while(memory[address] && memory[address] != '\n')
+		*iter++ = memory[address++]; 
+	*iter = '\0';
+	return res; 
 }
 
 
@@ -266,7 +284,7 @@ void do_first_pass(int argc, const char *argv[]){
 				char * label = getlabel(line); 
 				//store the string at a location
 				//and store that location in the symbol table
-				//int tmpaddr = store_string(getasciiz(line)); 
+				int tmpaddr = store_string(getasciiz(line)); 
 				put_sym(label, tmpaddr); 
 			} else {
 				char * label = getlabel(line); 
@@ -322,6 +340,7 @@ int main(int argc, const char *argv[])
 	getFiles(argc, argv, &rfile, &MIFfile); 
 	assert(argc == 3); 
 	do_first_pass(argc, argv); 
+	dump_sym_table(); 
 	do_second_pass(argc, argv); 
 	outputMIFfile(MIFfile); 
 	printf("\nThe output has been written to  %s file .. \n", 

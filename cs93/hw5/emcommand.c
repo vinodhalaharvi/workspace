@@ -122,7 +122,7 @@ unsigned int offsetint(char * bits){
 }
 
 unsigned int instint(char * bits){
-	assert(strlen(bits) == 16); 
+	assert(strlen(bits) == 26); 
 	return (int) strtol(bits, NULL,  2); 
 }
 
@@ -240,13 +240,14 @@ int doinst(char * inst){
 
 int sll(int rt, int rd, int sa){
 	pr_reg_reg_other("sll", rt, rd, sa); 
+	return 0; //deleteme 
 	registers[rd] = registers[rt] << sa; 
 	return 0; 
 }
 
 int srl(int rt, int rd, int sa){
 	pr_reg_reg_other("srl", rt, rd, sa); 
-	// rd <- rt >> sa
+	return 0; //deleteme 
 	registers[rd] = (unsigned int) registers[rt] >> sa; 
 	return 0;
 }
@@ -254,24 +255,28 @@ int srl(int rt, int rd, int sa){
 
 int sra(int rt, int rd, int sa){
 	pr_reg_reg_other("srl", rt, rd, sa); 
+	return 0; //deleteme 
 	registers[rd] = registers[rt] >> sa; 
 	return 0;
 }
 
 int sllv(int rs, int rt, int rd){
 	pr_reg_reg_other("sllv", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = registers[rt] << registers[rs]; 
 	return 0;
 }
 
 int srlv(int rs, int rt, int rd){
 	pr_reg_reg_other("srlv", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = (unsigned int) registers[rt] >> registers[rs]; 
 	return 0;
 }
 
 int srav(int rs, int rt, int rd){
 	pr_reg_reg_other("srav", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = registers[rt] >> registers[rs]; 
 	return 0;
 }
@@ -281,6 +286,7 @@ int jr(int rs){
 	return 0;
 }
 int jalr(int rs, int rd){
+	return 0; //deleteme 
 	registers[rd] = pc + 4; 
 	pc = registers[rs]; 
 	return 0;
@@ -288,60 +294,70 @@ int jalr(int rs, int rd){
 
 int add(int rs, int rt, int rd){
 	pr_reg_reg_other("add", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = registers[rs] + registers[rt];
 	return 0;
 }
 
 int addu(int rs, int rt, int rd){
 	pr_reg_reg_other("addu", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = registers[rs] + registers[rt];
 	return 0;
 }
 
 int sub(int rs, int rt, int rd){
 	pr_reg_reg_other("sub", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = registers[rs] - registers[rt];
 	return 0;
 }
 
 int subu(int rs, int rt, int rd){
 	pr_reg_reg_other("subu", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = registers[rs] - registers[rt];
 	return 0;
 }
 
 int and(int rs, int rt, int rd){
 	pr_reg_reg_other("and", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = registers[rs] & registers[rt]; 
 	return 0;
 }
 
 int or(int rs, int rt, int rd){
 	pr_reg_reg_other("or", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = registers[rs] | registers[rt]; 
 	return 0;
 }
 
 int xor(int rs, int rt, int rd){
 	pr_reg_reg_other("xor", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = registers[rs] ^ registers[rt]; 
 	return 0;
 }
 
 int nor(int rs, int rt, int rd){
 	pr_reg_reg_other("nor", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = ~(registers[rs] | registers[rt]); 
 	return 0;
 }
 
 int slt(int rs, int rt, int rd){
 	pr_reg_reg_other("slt", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = registers[rs] < registers[rt]; 
 	return 0;
 }
 
 int sltu(int rs, int rt, int rd){
 	pr_reg_reg_other("sltu", rs, rt, rd); 
+	return 0; //deleteme 
 	registers[rd] = (unsigned int ) registers[rs] < (unsigned int ) registers[rt]; 
 	return 0;
 }
@@ -352,6 +368,7 @@ int j(int inst_index){
 }
 
 int jal(int inst_index){
+	return 0; //deleteme 
 	registers[31] = pc + 4; 
 	pc = (get(pc, 31, 28) << 28) | (inst_index << 2);
 	return 0;
@@ -386,21 +403,43 @@ int bgtz(int rs, int offset){
 
 }
 
+void pr_reg_reg(const char * inst, int reg1, int reg2){
+	char * printstr = newstr(40);
+	sprintf(printstr, "                                       ");                   
+	////print_output(printstr); 
+	sprintf(printstr, "%s $%d, $%d", inst, reg1, reg2); 
+	printf("%s\n", printstr);
+	//print_output(printstr); 
+	free(printstr); 
+}
+
+void pr_reg(const char * inst, int reg1){
+	char * printstr = newstr(40);
+	sprintf(printstr, "                                       ");                   
+	//print_output(printstr); 
+	sprintf(printstr, "%s $%d", inst, reg1); 
+	printf("%s\n", printstr);
+	//print_output(printstr); 
+	free(printstr); 
+}
+
 void pr_reg_reg_other(const char * inst, int reg1, int reg2, int other){
 	char * printstr = newstr(40);
 	sprintf(printstr, "                                       ");                   
-	print_output(printstr); 
+	//print_output(printstr); 
 	sprintf(printstr, "%s $%d, $%d, $%d", inst, reg1, reg2, other); 
-	print_output(printstr); 
+	printf("%s\n", printstr);
+	//print_output(printstr); 
 	free(printstr); 
 }
 
 void pr_reg_other(const char * inst, int reg, int other){
 	char * printstr = newstr(40);
 	sprintf(printstr, "                                       ");                   
-	print_output(printstr); 
+	//print_output(printstr); 
 	sprintf(printstr, "%s $%d, $%d", inst, reg, other); 
-	print_output(printstr); 
+	printf("%s\n", printstr);
+	//print_output(printstr); 
 	free(printstr); 
 }
 
@@ -408,32 +447,37 @@ void pr_base_rt_offset(const char * inst, int base, int rt,
 		int offset){
 	char * printstr = newstr(40);
 	sprintf(printstr, "                                       ");                   
-	print_output(printstr); 
+	//print_output(printstr); 
 	sprintf(printstr, "%s $%d, %d($%d)", inst, rt, offset, base); 
-	print_output(printstr); 
+	printf("%s\n", printstr);
+	//print_output(printstr); 
 	free(printstr); 
 }
 
 int addiu(int rs, int rt, int imm){
 	pr_reg_reg_other("addiu", rs, rt, imm);
+	return 0; //deleteme 
 	registers[rt] =  registers[rs] + imm; 
 	return 0;
 }
 
 int slti(int rs, int rt, int imm){
 	pr_reg_reg_other("slti", rs, rt, imm);
+	return 0; //deleteme 
 	registers[rt] = registers[rs] < imm; 
 	return 0;
 }
 
 int sltiu(int rs, int rt, int imm){
 	pr_reg_reg_other("sltiu", rs, rt, imm);
+	return 0; //deleteme 
 	registers[rt] = (unsigned int ) registers[rs] < (unsigned int )imm; 
 	return 0;
 
 }
 int andi(int rs, int rt, int imm){
 	pr_reg_reg_other("andi", rs, rt, imm);
+	return 0; //deleteme 
 	registers[rt] = registers[rs] & imm; 
 	return 0;
 }
@@ -441,12 +485,14 @@ int andi(int rs, int rt, int imm){
 
 int xori(int rs, int rt, int imm){
 	pr_reg_reg_other("xori", rs, rt, imm);
+	return 0; //deleteme 
 	registers[rt] = registers[rs] ^ imm; 
 	return 0;
 }
 
 int addi(int rs, int rt, int imm){
 	pr_reg_reg_other("addi", rs, rt, imm);
+	return 0; //deleteme 
 	registers[rt] = registers[rs] +  imm; 
 	return 0;
 }
@@ -454,12 +500,14 @@ int addi(int rs, int rt, int imm){
 
 int ori(int rs, int rt, int imm){
 	pr_reg_reg_other("ori", rs, rt, imm);
+	return 0; //deleteme 
 	registers[rt] = registers[rs] |  imm; 
 	return 0;
 }
 
 int lui(int rt, int imm){
 	pr_reg_other("lui", rt, imm); 
+	return 0; //deleteme 
 	registers[rt] = (imm << 16) & 0xFF; 
 	return 0;
 }
@@ -484,6 +532,7 @@ int lwl(int base , int rt, int offset){
 int lw(int base , int rt, int offset){
 	pr_base_rt_offset("lw", base, rt, offset); 
 	assert((base + offset) % 4 == 0); 
+	return 0; //deleteme 
 	registers[rt] = ((memory[base + offset + 2]) << 16) 
 			| (memory[base + offset]); 
 	return 0;
@@ -492,6 +541,7 @@ int lw(int base , int rt, int offset){
 int lhu(int base , int rt, int offset){
 	pr_base_rt_offset("lhu", base, rt, offset); 
 	assert((base + offset) % 4 == 0); 
+	return 0; //deleteme 
 	registers[rt] = memory[base + offset]; 
 	return 0;
 }
@@ -500,6 +550,7 @@ int lhu(int base , int rt, int offset){
 int lbu(int base , int rt, int offset){
 	pr_base_rt_offset("lbu", base, rt, offset); 
 	assert((base + offset) % 4 == 0); 
+	return 0; //deleteme 
 	registers[rt] = memory[base + offset] & 0xFF; 
 	return 0;
 }

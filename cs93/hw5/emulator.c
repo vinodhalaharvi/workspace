@@ -32,14 +32,21 @@ int main(int argc, const char *argv[])
 		int sn = sscanf(line, "  %4s: %4s;", address, value); 
 		assert(sn == 2);
 		memory[hextoint(address)] = hextoint(value);
-		//printf("  %04X: %04X;", hextoint(address)
-		//		, memory[hextoint(address)]);
-		//getchar(); 
-		//memory[hextoint(address)] = hextoint(value) & 0xFFFF; 
-		//memory[hextoint(address)+1] = (hextoint(value) >> 16) & 0xFFFF; 
 		memindex = hextoint(address); 
 	}
-	//char * output = newstr(200); 
+	getchar(); 
+	pc = 0;
+	while(1) {
+		ir = (memory[pc+1] << 16) | memory[pc]; 
+		printf("%[0x%06X]:0x%08X\n", pc, 
+				(memory[pc + 1] << 16)
+				|  memory[pc]);
+		pc += 2; 
+		doinst(getBits(ir, 32));
+		getchar();  //wait for the user input
+	}
+	return 0; 
+
 	pc = 0;
 	WINDOW * window; 
 	if ((window = initscr()) == NULL ) {

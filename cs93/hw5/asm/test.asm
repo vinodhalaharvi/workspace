@@ -1,8 +1,8 @@
 .data
 	firstNumber:  .asciiz "-1112"
 	secondNumber: .asciiz "1122"
-	enterString:  .asciiz "            \n"
-	outputString: .asciiz "                   \n"
+	enterString:  .asciiz ""
+	outputString: .asciiz "    "
 .text
 	main:
 		# do work 

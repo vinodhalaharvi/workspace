@@ -211,3 +211,4 @@ int register_offset(char * input);
 void outputMIFfile(FILE *MIFfile);
 void dump_memory(); 
 char * register_name(char * input);
+char * newstr(int len); 

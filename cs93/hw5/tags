@@ -6,6 +6,7 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 BUFLEN	ascommand.c	8;"	d	file:
 DEBUG	assembler.c	14;"	d	file:
+HEAP_BASE	assembler.c	20;"	d	file:
 INSTYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	g
 INSTYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	t	typeref:enum:INSTYPE
 ITYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
@@ -13,11 +14,11 @@ J	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
 MAX_SYMBOL_SIZE	aslib.h	5;"	d
 MEMORY_MAX	emcommand.h	1;"	d
 MIF_FILE_SIZE	aslib.h	4;"	d
-REG_IOBUFFER_1	assembler.c	18;"	d	file:
-REG_IOBUFFER_2	assembler.c	19;"	d	file:
-REG_IOCONTROL	assembler.c	17;"	d	file:
+REG_IOBUFFER_1	assembler.c	17;"	d	file:
+REG_IOBUFFER_2	assembler.c	18;"	d	file:
+REG_IOCONTROL	assembler.c	16;"	d	file:
 RTYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
-STACK_BASE	assembler.c	16;"	d	file:
+STACK_BASE	assembler.c	19;"	d	file:
 _GNU_SOURCE	assembler.c	5;"	d	file:
 _break	ascommand.c	/^char * _break(char * tokens[]){$/;"	f
 _div	ascommand.c	/^char * _div(char * tokens[]){$/;"	f
@@ -35,6 +36,7 @@ addiu	ascommand.c	/^char * addiu(char * tokens[]){$/;"	f
 addiu	emcommand.c	/^int addiu(int rs, int rt, int imm){$/;"	f
 addu	ascommand.c	/^char * addu(char * tokens[]){$/;"	f
 addu	emcommand.c	/^int addu(int rs, int rt, int rd){$/;"	f
+align4	assembler.c	/^int  align4(int address){$/;"	f
 aluopcodebits	aslib.h	/^	char * aluopcodebits; $/;"	m	struct:_inst
 and	ascommand.c	/^char * and(char * tokens[]){$/;"	f
 and	emcommand.c	/^int and(int rs, int rt, int rd){$/;"	f
@@ -88,6 +90,7 @@ getFunc	assembler.c	/^function_type getFunc(const char * name){$/;"	f
 getOpcodebits	aslib.c	/^char * getOpcodebits(char *name){$/;"	f
 getRegisterBits	aslib.c	/^char * getRegisterBits(char *registername){$/;"	f
 getTokens	aslib.c	/^void getTokens(const char * line, char * tokens[]){$/;"	f
+get_string_from_memory	assembler.c	/^char * get_string_from_memory(int address){$/;"	f
 get_sym_address	aslib.c	/^unsigned int get_sym_address(const char * name){$/;"	f
 getasciiz	aslib.c	/^char * getasciiz(const char *input){$/;"	f
 getlabel	aslib.c	/^char * getlabel(const char *string){$/;"	f
@@ -96,6 +99,7 @@ hextoint	aslib.c	/^unsigned int hextoint(char * hex){$/;"	f
 hextoint	emcommand.c	/^unsigned int hextoint(char * hex){$/;"	f
 higher_byte	aslib.c	/^int higher_byte(int word16bit) {$/;"	f
 highertoint	aslib.c	/^unsigned int highertoint(char * bits){$/;"	f
+hp	assembler.c	/^static int hp = HEAP_BASE; $/;"	v	file:
 ifParen	aslib.c	/^unsigned int ifParen(const char *exp){$/;"	f
 immint	emcommand.c	/^unsigned int immint(char * bits){$/;"	f
 index	aslib.h	/^	unsigned int index; $/;"	m	struct:_symbol_table
@@ -170,6 +174,7 @@ ori	ascommand.c	/^char * ori(char * tokens[]){$/;"	f
 ori	emcommand.c	/^int ori(int rs, int rt, int imm){$/;"	f
 outputMIFfile	aslib.c	/^void outputMIFfile(FILE *MIFfile) {$/;"	f
 pc	emcommand.c	/^unsigned int pc; $/;"	v
+pr_base_rt_offset	emcommand.c	/^void pr_base_rt_offset(const char * inst, int base, int rt, $/;"	f
 pr_reg_other	emcommand.c	/^void pr_reg_other(const char * inst, int reg, int other){$/;"	f
 pr_reg_reg_other	emcommand.c	/^void pr_reg_reg_other(const char * inst, int reg1, int reg2, int other){$/;"	f
 printHeaders	aslib.c	/^void printHeaders(FILE *MIFfile){$/;"	f

@@ -24,10 +24,12 @@
 
 char * lwcz(char * tokens[]){
 	return "NOT IMPLEMENTED!"; 
+	assert(1 == 0);
 }
 
 char * swcz(char * tokens[]){
 	return "not implemented!"; 
+	assert(1 == 0);
 }
 
 char * nop(char * tokens[]){
@@ -45,11 +47,27 @@ char * subu(char * tokens[]){
 }
 
 char * sub(char * tokens[]){
-	return subu(tokens); 
+	return type6(
+		getOpcodebits("sub"), 
+		getRegisterBits(tokens[3]), 
+		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[1]), 
+		"00000", 
+		getAluOpcodeBits("sub")
+	     ); 
+	//return subu(tokens); 
 }
 
 char * add(char * tokens[]){
-	return addu(tokens); 
+	//return addu(tokens); 
+	return type6(
+		getOpcodebits("add"), 
+		getRegisterBits(tokens[3]), 
+		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[1]), 
+		"00000", 
+		getAluOpcodeBits("addu")
+	); 
 }
 
 char * addu(char * tokens[]){
@@ -112,7 +130,15 @@ char * nor(char * tokens[]){
 }
 
 char * slt(char * tokens[]){
-	return sltu(tokens); 
+	return type6(
+		getOpcodebits("slt"), 
+		getRegisterBits(tokens[3]), 
+		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[1]), 
+		"00000", 
+		getAluOpcodeBits("slt")
+	); 
+	//return sltu(tokens); 
 }
 
 char * sltu(char * tokens[]){
@@ -252,7 +278,12 @@ char * divu(char * tokens[]){
 }
 
 char * addi(char * tokens[]){
-	return addiu(tokens); 
+	return type4(
+                getOpcodebits("addi"), 
+                getRegisterBits(tokens[1]), 
+                getRegisterBits(tokens[2]), 
+                getBits(atoi(tokens[3]), 16)
+        ); 
 }
 
 char * addiu(char * tokens[]){

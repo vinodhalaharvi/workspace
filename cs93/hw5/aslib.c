@@ -258,6 +258,7 @@ unsigned int highertoint(char * bits){
  * @returns
  */
 unsigned int hextoint(char * hex){
+	assert(strlen(hex) == 4); 
 	return (int)strtol(hex, NULL, 16);
 }
 
