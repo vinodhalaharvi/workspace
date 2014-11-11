@@ -174,8 +174,12 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 		int t = bin32toint(bits); 
 		memory[wordaddress] = t & 0xFFFF; 
 		memory[wordaddress + 1] = (t >> 16) & 0xFFFF; 
-		printf("%s ; 0x%04X, 0x%04X", tokens[0], memory[wordaddress + 1], 
-				memory[wordaddress]);
+		/*printf("%s ; 0x%04X, 0x%04X", tokens[0], memory[wordaddress + 1], 
+				memory[wordaddress]);*/
+		printf("%10s ; [0x%06X]:0x%08X", line,  
+				wordaddress, 
+				(memory[wordaddress + 1] << 16)
+				|  memory[wordaddress]);
 		getchar();
 		wordaddress += 2; 
 	} else {

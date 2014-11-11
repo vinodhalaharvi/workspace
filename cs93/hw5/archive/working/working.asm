@@ -4,27 +4,6 @@
 	enterString:  .asciiz "            \n"
 	outputString: .asciiz "                   \n"
 .text
-	main:
-		# do work 
-		# registers used are
-		#
-		#jal stringToIntTesting
-		la $a0, firstNumber 
-		jal stringToInt
-		add $s0, $v0, $zero
-
-		la $a0, secondNumber 
-		jal stringToInt
-		add $s1, $v0, $zero
-
-		add $a0, $s0, $zero
-		add $a1, $s1, $zero
-		
-		jal multiply	
-		add $a0, $v0, $zero # move the output to $a0
-
-		exitloop:
-			jal exitloop
 	stringToInt:
 		addi $sp, $sp, -60
 		# callee saved convention
@@ -54,7 +33,7 @@
 		# and return
 		result:
 			lw  $s0, 24($sp)
-			addi $sp, $sp, 60
+			add $sp, $sp, 60
 			jr  $ra       
 
 
@@ -96,7 +75,7 @@
 						# and return
 						lw $s0, 24($sp)
 						lw $s1, 28($sp)
-						addi $sp, $sp, 60
+						add $sp, $sp, 60
 						jr $ra
 						# result  is in $v0
 			label:
@@ -130,18 +109,18 @@
 		lw $s0, 24($sp)
 		lw $s1, 28($sp)
 		lw $ra, 32($sp)
-		addi $sp, $sp, 60
+		add $sp, $sp, 60
 		jr $ra
 
 
 	# $a0 <- $a0
 	toChar:
-		addi $a0, $a0, 48
+		add $a0, $a0, 48
 		jr $ra
 
 	# $a0 <- $a0
 	toDigit:
-		addi $a0, $a0, -48 
+		add $a0, $a0, -48 
 		jr $ra
 
 
@@ -186,5 +165,40 @@
 			lw $s2, 32($sp) 
 			lw $s3, 36($sp) 
 			lw $ra, 40($sp) 
-			addi $sp, $sp, 60
+			add $sp, $sp, 60
 			jr $ra
+
+	main:
+		# do work 
+		# registers used are
+		#
+		#jal stringToIntTesting
+		la $a0, firstNumber 
+		jal stringToInt
+		add $s0, $v0, $zero
+
+		la $a0, secondNumber 
+		jal stringToInt
+		add $s1, $v0, $zero
+
+		add $a0, $s0, $zero
+		add $a1, $s1, $zero
+		
+		jal multiply	
+		add $a0, $v0, $zero # move the output to $a0
+
+		li $v0, 1
+		syscall
+		li $v0, 10 
+		syscall
+
+		jal intToString
+
+		#print output to console
+		la $a0, outputString
+		li  $v0, 4
+		syscall 
+
+		li $v0, 10 
+		syscall
+

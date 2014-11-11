@@ -146,10 +146,8 @@ void getFiles(int argc, const char * argv[],
 	assert(argc == 3); 
 	const char * inputfilepath =  argv[1]; 
 	const char * outputfilepath =  argv[2]; 
-
 	*rfile = fopen(inputfilepath, "r"); 
 	assert (rfile != NULL); 
-
 	*MIFfile = fopen(outputfilepath, "w"); 
 	assert (MIFfile != NULL); 
 	return ; 
@@ -474,8 +472,11 @@ char * newstr(int len){
 char * eval_register(char *expWithParen)
 {
 	char *exp = newstr(100);
-	sscanf(expWithParen, "(" "%99[^)]" ")", exp); 
-	return exp; 
+	if(sscanf(expWithParen, "%*[^(](%6[^)])",  exp) == 1) 
+		return exp; 
+	if(sscanf(expWithParen, "(%6[^)])",  exp) == 1) 
+		return exp; 
+	assert(1 == 0); 
 }
 
 /*
@@ -486,7 +487,7 @@ char * eval_register(char *expWithParen)
 int register_offset(char * input){
 	int offset; 
 	char reg[2];
-	int t = sscanf(input, "%i(%2s)", &offset, reg); 
+	int t = sscanf(input, "%i(%6s)", &offset, reg); 
 	assert(t != -1); 
 	return offset; 
 }
@@ -499,7 +500,7 @@ int register_offset(char * input){
 char * register_name(char * input){
 	int offset; 
 	char *reg = newstr(2); 
-	int t = sscanf(input, "%i(%2s)", &offset, reg); 
+	int t = sscanf(input, "%i(%6s)", &offset, reg); 
 	assert(t != -1); 
 	return reg; 
 }

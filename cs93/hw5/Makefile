@@ -35,8 +35,12 @@ cleanobj:
 tags: 
 	ctags *.[ch]
 
-debug:  emulator
+debugem:  emulator
 	echo 'run mif/test.mif' > .gdbinit
 	gdb ./emulator
+
+debugas:  assembler
+	echo 'run asm/test.asm mif/test.mif' > .gdbinit
+	gdb ./assembler
 
 .PHONY: clean cleanobj cleandiff tags
