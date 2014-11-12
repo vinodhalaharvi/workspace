@@ -34,7 +34,7 @@ int main(int argc, const char *argv[])
 		memory[hextoint(address)] = hextoint(value);
 		memindex = hextoint(address); 
 	}
-	getchar(); 
+	(DEBUG) && getchar(); 
 	pc = 0;
 	while(1) {
 		ir = (memory[pc+1] << 16) | memory[pc]; 
@@ -42,8 +42,9 @@ int main(int argc, const char *argv[])
 		printf("[0x%06X]:0x%08X\n", pc, 
 				(memory[pc + 1] << 16)
 				|  memory[pc]);
+
 		pc += 2; 
-		getchar();  //wait for the user input
+		(DEBUG) && getchar();  //wait for the user input
 	}
 	return 0; 
 
@@ -54,7 +55,7 @@ int main(int argc, const char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	while(1) {
-		getchar();  //wait for the user input
+		(DEBUG) && getchar();  //wait for the user input
 		ir = (memory[pc+1] << 16) | memory[pc]; 
 		refresh_state();	
 		pc += 2; 

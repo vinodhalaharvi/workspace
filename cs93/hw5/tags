@@ -5,8 +5,7 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 BUFLEN	ascommand.c	8;"	d	file:
-DEBUG	assembler.c	14;"	d	file:
-HEAP_BASE	assembler.c	20;"	d	file:
+HEAP_BASE	assembler.c	19;"	d	file:
 INSTYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	g
 INSTYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	t	typeref:enum:INSTYPE
 ITYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
@@ -14,11 +13,11 @@ J	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
 MAX_SYMBOL_SIZE	aslib.h	5;"	d
 MEMORY_MAX	emcommand.h	1;"	d
 MIF_FILE_SIZE	aslib.h	4;"	d
-REG_IOBUFFER_1	assembler.c	17;"	d	file:
-REG_IOBUFFER_2	assembler.c	18;"	d	file:
-REG_IOCONTROL	assembler.c	16;"	d	file:
+REG_IOBUFFER_1	assembler.c	16;"	d	file:
+REG_IOBUFFER_2	assembler.c	17;"	d	file:
+REG_IOCONTROL	assembler.c	15;"	d	file:
 RTYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
-STACK_BASE	assembler.c	19;"	d	file:
+STACK_BASE	assembler.c	18;"	d	file:
 _GNU_SOURCE	assembler.c	5;"	d	file:
 _encoding	aslib.h	/^typedef struct _encoding { $/;"	s
 _inst	aslib.h	/^typedef struct _inst { $/;"	s
@@ -30,8 +29,6 @@ add	ascommand.c	/^char * add(char * tokens[]){$/;"	f
 add	emcommand.c	/^int add(int rs, int rt, int rd){$/;"	f
 addi	ascommand.c	/^char * addi(char * tokens[]){$/;"	f
 addi	emcommand.c	/^int addi(int rs, int rt, int imm){$/;"	f
-addiu	emcommand.c	/^int addiu(int rs, int rt, int imm){$/;"	f
-addu	emcommand.c	/^int addu(int rs, int rt, int rd){$/;"	f
 align4	assembler.c	/^int  align4(int address){$/;"	f
 aluopcodebits	aslib.h	/^	char * aluopcodebits; $/;"	m	struct:_inst
 and	ascommand.c	/^char * and(char * tokens[]){$/;"	f
@@ -155,9 +152,9 @@ ori	ascommand.c	/^char * ori(char * tokens[]){$/;"	f
 ori	emcommand.c	/^int ori(int rs, int rt, int imm){$/;"	f
 outputMIFfile	aslib.c	/^void outputMIFfile(FILE *MIFfile) {$/;"	f
 pc	emcommand.c	/^unsigned int pc; $/;"	v
-pr_base_inst_index	simpleoutput.c	/^void pr_base_inst_index(const char * inst, int inst_index){$/;"	f
 pr_base_rt_inst_index	simpleoutput.c	/^void pr_base_rt_inst_index(const char * inst, int reg, int inst_index){$/;"	f
 pr_base_rt_offset	simpleoutput.c	/^void pr_base_rt_offset(const char * inst, int base, int reg, int offset){$/;"	f
+pr_inst_index	simpleoutput.c	/^void pr_inst_index(const char * inst, int inst_index){$/;"	f
 pr_reg	simpleoutput.c	/^void pr_reg(const char * inst, int reg1){$/;"	f
 pr_reg_imm	simpleoutput.c	/^void pr_reg_imm(const char * inst, int reg, int imm){$/;"	f
 pr_reg_reg	simpleoutput.c	/^void pr_reg_reg(const char * inst, int reg1, int reg2){$/;"	f
@@ -198,9 +195,6 @@ slt	ascommand.c	/^char * slt(char * tokens[]){$/;"	f
 slt	emcommand.c	/^int slt(int rs, int rt, int rd){$/;"	f
 slti	ascommand.c	/^char * slti(char * tokens[]){$/;"	f
 slti	emcommand.c	/^int slti(int rs, int rt, int imm){$/;"	f
-sltiu	emcommand.c	/^int sltiu(int rs, int rt, int imm){$/;"	f
-sltu	emcommand.c	/^int sltu(int rs, int rt, int rd){$/;"	f
-sp	assembler.c	/^static int sp = STACK_BASE; $/;"	v	file:
 sra	ascommand.c	/^char * sra(char * tokens[]){$/;"	f
 sra	emcommand.c	/^int sra(int rt, int rd, int sa){$/;"	f
 srav	ascommand.c	/^char * srav(char * tokens[]){$/;"	f
@@ -212,7 +206,6 @@ srlv	emcommand.c	/^int srlv(int rs, int rt, int rd){$/;"	f
 store_string	assembler.c	/^int store_string(char *str){$/;"	f
 sub	ascommand.c	/^char * sub(char * tokens[]){$/;"	f
 sub	emcommand.c	/^int sub(int rs, int rt, int rd){$/;"	f
-subu	emcommand.c	/^int subu(int rs, int rt, int rd){$/;"	f
 sw	ascommand.c	/^char * sw(char * tokens[]){$/;"	f
 sw	emcommand.c	/^int sw(int base , int rt, int offset){$/;"	f
 swl	ascommand.c	/^char * swl(char * tokens[]){$/;"	f

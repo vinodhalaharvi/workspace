@@ -1,4 +1,6 @@
-CFLAGS=-Wall -ggdb -std=gnu99
+override CFLAGS += -Wall -ggdb -std=gnu99
+#CFLAGS+=-DDEBUG=1
+
 CC=gcc
 O=0
 emobjects=emcommand.o emlib.o emulator.o  simpleoutput.o
@@ -30,8 +32,8 @@ runem:  emulator
 
 cleanobj:
 	rm -f *.o
-	rm emulator
-	rm assembler
+	rm -f emulator
+	rm -f assembler
 tags: 
 	ctags *.[ch]
 
@@ -46,3 +48,10 @@ debugas:  assembler
 	gdb ./assembler
 
 .PHONY: clean cleanobj cleandiff tags
+
+
+#make clean ; make runas CFLAGS+=-DDEBUG=1
+#make clean ; make runas CFLAGS+=-DDEBUG=0
+#make clean ; make runem CFLAGS+=-DDEBUG=1
+#make clean ; make runem CFLAGS+=-DDEBUG=0
+

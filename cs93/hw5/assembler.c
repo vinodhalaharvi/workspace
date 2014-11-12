@@ -11,7 +11,6 @@
 #include "ascommand.h"
 #include <limits.h>
 #include <errno.h>
-#define DEBUG 0
 
 #define REG_IOCONTROL 0x00FF00
 #define REG_IOBUFFER_1 0x00FF04
@@ -19,7 +18,7 @@
 #define STACK_BASE   (REG_IOCONTROL - 0x00A000)
 #define HEAP_BASE    (STACK_BASE - 0x000A00)
 
-static int sp = STACK_BASE; 
+//static int sp = STACK_BASE; 
 static int hp = HEAP_BASE; 
 
 /* Initialize function pointer
@@ -123,6 +122,9 @@ int isValidInt(const char *str, int base, int *value)
 	long val;
 	errno = 0;    
 	val = strtol(str, &endptr, base);
+	if(*endptr){
+		return 0; 
+	}
 	if ((errno == ERANGE && (val == SHRT_MAX  || val == SHRT_MIN))
 			|| (errno != 0 && val == 0)) {
 		return 0; 
@@ -146,6 +148,7 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 		tokens[i] = ""; 
 	}
 	getTokens(line, tokens); 
+	char * printstr = newstr(100);
 	function_type func = getFunc(tokens[0]); 
 	if (func) {
 		bits = func(tokens);
@@ -153,13 +156,14 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 		int t = bin32toint(bits); 
 		memory[wordaddress] = t & 0xFFFF; 
 		memory[wordaddress + 1] = (t >> 16) & 0xFFFF; 
-		/*printf("%s ; 0x%04X, 0x%04X", tokens[0], memory[wordaddress + 1], 
-				memory[wordaddress]);*/
-		printf("%10s ; [0x%06X]:0x%08X\n", line,  
-				wordaddress, 
+		sprintf(printstr, "%s", line);
+		printf("%60s ; ", printstr);
+		printf("[0x%06X]:0x%08X\n", wordaddress, 
 				(memory[wordaddress + 1] << 16)
 				|  memory[wordaddress]);
-		//getchar();
+		free(printstr);
+		if(DEBUG == 1)
+			getchar();
 		wordaddress += 2; 
 	} else {
 		fprintf(stderr, "%s: Instruction not found ..\n", tokens[0]);
@@ -294,11 +298,6 @@ void do_second_pass(int argc, const char *argv[]){
 		if (islabel(line))
 			continue; 
 		char * bits = processLine(line, rfile, MIFfile); 
-		if (DEBUG){
-			printf("%d:%s:0x%X:0x%X:0x%X\n", 
-					lineno, line, bin32toint(bits), 
-					highertoint(bits), lowertoint(bits));
-		}
 	}
 	fclose(rfile);
 	fclose(MIFfile);
@@ -321,7 +320,7 @@ int main(int argc, const char *argv[])
 	outputMIFfile(MIFfile); 
 	printf("\nThe output has been written to  %s file .. \n", 
 			argv[2]);
-	dump_memory(); 
+	//dump_memory(); 
 	return 0;
 }
 

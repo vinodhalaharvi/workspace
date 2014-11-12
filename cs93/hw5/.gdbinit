@@ -1,2 +1,2 @@
 set confirm off
-run mif/test.mif
+run asm/test.asm mif/test.mif

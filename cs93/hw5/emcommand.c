@@ -193,12 +193,8 @@ int doinst(char * inst){
 		return jalr(regint(rs), regint(rd)); 
 	if(sscanf(inst, "000000%5s%5s%5s00000100000%1s", rs, rt, rd, ig) ==4)
 		return add(regint(rs), regint(rt), regint(rd));
-	if(sscanf(inst, "000000%5s%5s%5s00000100001%1s", rs, rt, rd, ig) ==4)
-		return addu(regint(rs), regint(rt), regint(rd));
 	if(sscanf(inst, "000000%5s%5s%5s00000100010%1s", rs, rt, rd, ig) ==4)
 		return sub(regint(rs), regint(rt), regint(rd));
-	if(sscanf(inst, "000000%5s%5s%5s00000100011%1s", rs, rt, rd, ig) ==4)
-		return subu(regint(rs), regint(rt), regint(rd));
 	if(sscanf(inst, "000000%5s%5s%5s00000100100%1s", rs, rt, rd, ig) ==4)
 		return and(regint(rs), regint(rt), regint(rd));
 	if(sscanf(inst, "000000%5s%5s%5s00000100101%1s", rs, rt, rd, ig) ==4)
@@ -209,8 +205,6 @@ int doinst(char * inst){
 		return nor(regint(rs), regint(rt), regint(rd));
 	if(sscanf(inst, "000000%5s%5s%5s00000101010%1s", rs, rt, rd, ig) ==4)
 		return slt(regint(rs), regint(rt), regint(rd));
-	if(sscanf(inst, "000000%5s%5s%5s00000101011%1s", rs, rt, rd, ig) ==4)
-		return sltu(regint(rs), regint(rt), regint(rd));
 	if(sscanf(inst, "000010%26s%1s", inst_index, ig) ==2)
 		return j(instint(inst_index)); 
 	if(sscanf(inst, "000011%26s%1s", inst_index, ig) ==2)
@@ -225,12 +219,8 @@ int doinst(char * inst){
 		return bgtz(regint(rs), offsetint(offset)); 
 	if(sscanf(inst, "001000%5s%5s%16s%1s", rs, rt, imm, ig) ==4)
 		return addi(regint(rs), regint(rt), immint(imm));
-	if(sscanf(inst, "001001%5s%5s%16s%1s", rs, rt, imm, ig) ==4)
-		return addiu(regint(rs), regint(rt), immint(imm));
 	if(sscanf(inst, "001010%5s%5s%16s%1s", rs, rt, imm, ig) ==4)
 		return slti(regint(rs), regint(rt), immint(imm));
-	if(sscanf(inst, "001011%5s%5s%16s%1s", rs, rt, imm, ig) ==4)
-		return sltiu(regint(rs), regint(rt), immint(imm));
 	if(sscanf(inst, "001100%5s%5s%16s%1s", rs, rt, imm, ig) ==4)
 		return andi(regint(rs), regint(rt), immint(imm));
 	if(sscanf(inst, "001101%5s%5s%16s%1s", rs, rt, imm, ig) ==4)
@@ -319,6 +309,8 @@ int srav(int rs, int rt, int rd){
 }
 
 int jr(int rs){
+	pr_reg("jr", rs); 
+	return 0; 
 	pc = registers[rs]; 
 	return 0;
 }
@@ -336,22 +328,8 @@ int add(int rs, int rt, int rd){
 	return 0;
 }
 
-int addu(int rs, int rt, int rd){
-	pr_reg_reg_reg("addu", rs, rt, rd); 
-	return 0; //deleteme 
-	registers[rd] = registers[rs] + registers[rt];
-	return 0;
-}
-
 int sub(int rs, int rt, int rd){
 	pr_reg_reg_reg("sub", rs, rt, rd); 
-	return 0; //deleteme 
-	registers[rd] = registers[rs] - registers[rt];
-	return 0;
-}
-
-int subu(int rs, int rt, int rd){
-	pr_reg_reg_reg("subu", rs, rt, rd); 
 	return 0; //deleteme 
 	registers[rd] = registers[rs] - registers[rt];
 	return 0;
@@ -392,20 +370,15 @@ int slt(int rs, int rt, int rd){
 	return 0;
 }
 
-int sltu(int rs, int rt, int rd){
-	pr_reg_reg_reg("sltu", rs, rt, rd); 
-	return 0; //deleteme 
-	registers[rd] = (unsigned int ) registers[rs] < (unsigned int ) registers[rt]; 
-	return 0;
-}
-
 int j(int inst_index){
+ 	pr_inst_index("j", inst_index); 
+	return 0; //deleteme 
 	pc = (get(pc, 31, 28) << 28) | (inst_index << 2);
 	return 0;
 }
 
 int jal(int inst_index){
-	pr_base_inst_index("jal", inst_index); 
+	pr_inst_index("jal", inst_index); 
 	return 0; //deleteme 
 	registers[31] = pc + 4; 
 	pc = (get(pc, 31, 28) << 28) | (inst_index << 2);
@@ -414,6 +387,7 @@ int jal(int inst_index){
 
 int beq(int rs, int rt, int offset){
 	pr_reg_reg_offset("beq", rs, rt, offset); 
+	return 0; //deleteme 
 	if (registers[rs] == registers[rt])
 		pc = pc + (offset << 2);
 	return 0;
@@ -421,6 +395,7 @@ int beq(int rs, int rt, int offset){
 
 int bne(int rs, int rt, int offset){
 	pr_reg_reg_offset("bne", rs, rt, offset); 
+	return 0; //deleteme 
 	if (registers[rs] != registers[rt])
 		pc = pc + (offset << 2);
 	return 0;
@@ -428,6 +403,7 @@ int bne(int rs, int rt, int offset){
 
 
 int blez(int rs, int offset){
+	assert(1 == 0); 
 	if (registers[rs] <= 0)
 		pc = pc + (offset << 2);
 	return 0;
@@ -441,13 +417,6 @@ int bgtz(int rs, int offset){
 
 }
 
-int addiu(int rs, int rt, int imm){
-	pr_reg_reg_imm("addiu", rs, rt, imm);
-	return 0; //deleteme 
-	registers[rt] =  registers[rs] + imm; 
-	return 0;
-}
-
 int slti(int rs, int rt, int imm){
 	pr_reg_reg_imm("slti", rs, rt, imm);
 	return 0; //deleteme 
@@ -455,13 +424,6 @@ int slti(int rs, int rt, int imm){
 	return 0;
 }
 
-int sltiu(int rs, int rt, int imm){
-	pr_reg_reg_imm("sltiu", rs, rt, imm);
-	return 0; //deleteme 
-	registers[rt] = (unsigned int ) registers[rs] < (unsigned int )imm; 
-	return 0;
-
-}
 int andi(int rs, int rt, int imm){
 	pr_reg_reg_imm("andi", rs, rt, imm);
 	return 0; //deleteme 
@@ -501,12 +463,14 @@ int lui(int rt, int imm){
 
 int lb(int base , int rt, int offset){
 	pr_base_rt_offset("lb", base, rt, offset); 
+	return 0; //deleteme 
 	lbu(base, rt, offset); 
 	return 0;
 }
 
 int lh(int base , int rt, int offset){
 	pr_base_rt_offset("lhu", base, rt, offset); 
+	return 0; //deleteme 
 	lhu(base, rt, offset); 
 	return 0;
 }
@@ -518,8 +482,8 @@ int lwl(int base , int rt, int offset){
 
 int lw(int base , int rt, int offset){
 	pr_base_rt_offset("lw", base, rt, offset); 
-	assert((base + offset) % 4 == 0); 
 	return 0; //deleteme 
+	assert((base + offset) % 4 == 0); 
 	registers[rt] = ((memory[base + offset + 2]) << 16) 
 			| (memory[base + offset]); 
 	return 0;
@@ -527,8 +491,8 @@ int lw(int base , int rt, int offset){
 
 int lhu(int base , int rt, int offset){
 	pr_base_rt_offset("lhu", base, rt, offset); 
-	assert((base + offset) % 4 == 0); 
 	return 0; //deleteme 
+	assert((base + offset) % 4 == 0); 
 	registers[rt] = memory[base + offset]; 
 	return 0;
 }
@@ -536,8 +500,8 @@ int lhu(int base , int rt, int offset){
 
 int lbu(int base , int rt, int offset){
 	pr_base_rt_offset("lbu", base, rt, offset); 
-	assert((base + offset) % 4 == 0); 
 	return 0; //deleteme 
+	assert((base + offset) % 4 == 0); 
 	registers[rt] = memory[base + offset] & 0xFF; 
 	return 0;
 }
@@ -549,6 +513,7 @@ int lwr(int base , int rt, int offset){
 
 int sb(int base , int rt, int offset){
 	pr_base_rt_offset("sb", base, rt, offset); 
+	return 0;
 	assert((base + offset) % 4 == 0); 
 	memory[base + offset] = registers[rt] & 0xFF; 
 	return 0;
@@ -556,6 +521,7 @@ int sb(int base , int rt, int offset){
 
 int sh(int base , int rt, int offset){
 	pr_base_rt_offset("sh", base, rt, offset); 
+	return 0;
 	assert((base + offset) % 4 == 0); 
 	memory[base + offset] = registers[rt] & 0xFFFF; 
 	return 0;
@@ -563,8 +529,8 @@ int sh(int base , int rt, int offset){
 
 int sw(int base , int rt, int offset){
 	pr_base_rt_offset("sw", base, rt, offset); 
-	assert((base + offset) % 2 == 0); 
 	return 0; 
+	assert((registers[base] + offset) % 2 == 0); 
 	memory[base + offset + 2] = (registers[rt] >> 16) & 0xFFFF; 
 	memory[base + offset] = registers[rt] & 0xFFFF; 
 	return 0;
@@ -593,6 +559,7 @@ int bgezal(int rs, int offset){
 }
 
 int bltz(int rs, int offset){
+	assert(0 == 1); 
 	if (registers[rs] < 0)
 		pc = pc + (offset << 2);
 	return 0;
@@ -602,4 +569,3 @@ int bltzal(int rs, int offset){
 	assert(0 == 1); 
 	return 0;
 }
-
