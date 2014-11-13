@@ -55,7 +55,8 @@ unsigned dump_sym_table(){
 	printf("\nsymbol table contents:\n");
 	for (int i = 0; i < MAX_SYMBOL_SIZE; i++) {
 		if(symbols[i].name != NULL) {
-			printf("%s=0x%X\n", symbols[i].name, symbols[i].index);
+			//printf("%s=0x%X\n", symbols[i].name, symbols[i].index);
+			printf("%s=%d\n", symbols[i].name, symbols[i].index);
 		}
 	}
 	printf("\n");

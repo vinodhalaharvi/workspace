@@ -4,6 +4,7 @@ start emulating!
 check emulation output with the assembler output!
 Tue Nov 12 03:50:47 UTC 2014
 ####################################
+cs f s foo
 make sure the assembler/emulator works for the final program 
 make the read char and write char working. 
 Wed Nov 13 03:50:47 UTC 2014
@@ -16,8 +17,10 @@ you need heap pointer during assembler?
 make clean ; make runas CFLAGS+=-DDEBUG=1
 make clean ; make runas
 
-make clean ; make runem CFLAGS+=-DDISASSEMBLY=1
-make clean ; make runem CFLAGS+=-DEMULATE=1
+make clean ; make runem CFLAGS+=-DDISASSEMBLY=1 CFLAGS+=-DONTEMULATE=1 # do not emulate just print as inst
+make clean ; make runem CFLAGS+=-DEMULATE=1 CFLAGS+=-DDISASSEMBLY=1 # emulate but regular display
+make clean ; make runem # emulate and curses display 
+
 
 testing notes
 #####################

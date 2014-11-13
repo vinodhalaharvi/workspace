@@ -176,7 +176,7 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
  * Description: Skip list for hardcode labels
  */
 static char *sym_skip_list[100] = {
-	"main", 
+	//"main", 
 	"REG_IOCONTROL", 
 	"REG_IOBUFFER_1", 
 	"REG_IOBUFFER_2", 
@@ -246,8 +246,8 @@ void do_first_pass(int argc, const char *argv[]){
 	int tmpaddr = 0; 
 	//First pass for label fixup
 	assert(tmpaddr == 0);
-	put_sym("main", tmpaddr);   
-	tmpaddr += 2; 
+	//put_sym("main", tmpaddr);   
+	//tmpaddr += 2; 
 	put_sym("REG_IOCONTROL", REG_IOCONTROL); //hard places, not relative
 	put_sym("REG_IOBUFFER_1", REG_IOBUFFER_1); 
 	put_sym("REG_IOBUFFER_2", REG_IOBUFFER_2); 
@@ -323,4 +323,3 @@ int main(int argc, const char *argv[])
 	//dump_memory(); 
 	return 0;
 }
-

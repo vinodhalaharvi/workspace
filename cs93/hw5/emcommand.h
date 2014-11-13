@@ -3,6 +3,7 @@ extern int registers[32];
 extern unsigned int  pc;
 extern unsigned int  ir; 
 extern unsigned short  memory[MEMORY_MAX];
+extern char currInst[100]; 
 
 int doinst(char * inst);
 int sll(int rt, int rd, int sa);

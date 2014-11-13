@@ -6,6 +6,8 @@
 #include "emlib.h"
 #include <curses.h>
 unsigned int memindex = 0;
+char currInst[100];
+
 
 void getFiles(int argc, const char * argv[], FILE **rfile){
 	assert(argc == 2); 
@@ -50,16 +52,20 @@ int main(int argc, const char *argv[])
 	return 0; 
 #elif EMULATE
 	pc = 0;
+	getchar();  //wait for the user input
 	WINDOW * window; 
 	if ((window = initscr()) == NULL ) {
 		fprintf(stderr, "Error initializing curses.\n");
 		exit(EXIT_FAILURE);
 	}
+	refresh_state();	
+	getchar();  //wait for the user input
 	while(1) {
 		ir = (memory[pc+1] << 16) | memory[pc]; 
 		pc += 2; 
 		doinst(getBits(ir, 32));
 		refresh_state();	
+		print_output(currInst); 
 		getchar();  //wait for the user input
 	}
 	fclose(rfile);

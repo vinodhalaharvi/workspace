@@ -45,6 +45,7 @@ bne	ascommand.c	/^char * bne(char * tokens[]){$/;"	f
 bne	emcommand.c	/^int bne(int rs, int rt, int offset){$/;"	f
 cleanLine	aslib.c	/^void cleanLine(char **lineptr){$/;"	f
 command	emcommand.c	/^location command = {.x = 20, .y = 0}; $/;"	v
+currInst	emulator.c	/^char currInst[100];$/;"	v
 do_first_pass	assembler.c	/^void do_first_pass(int argc, const char *argv[]){$/;"	f
 do_second_pass	assembler.c	/^void do_second_pass(int argc, const char *argv[]){$/;"	f
 doinst	emcommand.c	/^int doinst(char * inst){$/;"	f

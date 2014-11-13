@@ -113,9 +113,7 @@ void refresh_state(){
 void print_output(const char *str){
 	assert (command.x > 0 ) ; 
 	assert (command.y >= 0 ) ; 
-	mvaddstr(command.x, command.y, "                                             "); 
 	mvaddstr(command.x, command.y, str); 
-	refresh();
 }
 
 char * getBits1(int num, unsigned int SIZE) { 
@@ -250,18 +248,18 @@ int doinst(char * inst){
 }
 
 int sll(int rt, int rd, int sa){
+#ifdef DISASSEMBLY
 	pr_rt_rd_sa("sll", rt, rd, sa); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rt] << sa; 
 	return 0; 
 }
 
 int srl(int rt, int rd, int sa){
+#ifdef DISASSEMBLY
 	pr_rt_rd_sa("srl", rt, rd, sa); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = (unsigned int) registers[rt] >> sa; 
 	return 0;
@@ -269,99 +267,99 @@ int srl(int rt, int rd, int sa){
 
 
 int sra(int rt, int rd, int sa){
+#ifdef DISASSEMBLY
 	pr_rt_rd_sa("srl", rt, rd, sa); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rt] >> sa; 
 	return 0;
 }
 
 int sllv(int rs, int rt, int rd){
+#ifdef DISASSEMBLY
 	pr_rs_rt_rd("sllv", rs, rt, rd); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rt] << registers[rs]; 
 	return 0;
 }
 
 int srlv(int rs, int rt, int rd){
+#ifdef DISASSEMBLY
 	pr_rs_rt_rd("srlv", rs, rt, rd); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = (unsigned int) registers[rt] >> registers[rs]; 
 	return 0;
 }
 
 int srav(int rs, int rt, int rd){
+#ifdef DISASSEMBLY
 	pr_rs_rt_rd("srav", rs, rt, rd); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rt] >> registers[rs]; 
 	return 0;
 }
 
 int add(int rs, int rt, int rd){
+#ifdef DISASSEMBLY
 	pr_rs_rt_rd("add", rs, rt, rd); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rs] + registers[rt];
 	return 0;
 }
 
 int sub(int rs, int rt, int rd){
+#ifdef DISASSEMBLY
 	pr_rs_rt_rd("sub", rs, rt, rd); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rs] - registers[rt];
 	return 0;
 }
 
 int and(int rs, int rt, int rd){
+#ifdef DISASSEMBLY
 	pr_rs_rt_rd("and", rs, rt, rd); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rs] & registers[rt]; 
 	return 0;
 }
 
 int or(int rs, int rt, int rd){
+#ifdef DISASSEMBLY
 	pr_rs_rt_rd("or", rs, rt, rd); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rs] | registers[rt]; 
 	return 0;
 }
 
 int xor(int rs, int rt, int rd){
+#ifdef DISASSEMBLY
 	pr_rs_rt_rd("xor", rs, rt, rd); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rs] ^ registers[rt]; 
 	return 0;
 }
 
 int nor(int rs, int rt, int rd){
+#ifdef DISASSEMBLY
 	pr_rs_rt_rd("nor", rs, rt, rd); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = ~(registers[rs] | registers[rt]); 
 	return 0;
 }
 
 int slt(int rs, int rt, int rd){
+#ifdef DISASSEMBLY
 	pr_rs_rt_rd("slt", rs, rt, rd); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rs] < registers[rt]; 
 	return 0;
@@ -369,39 +367,37 @@ int slt(int rs, int rt, int rd){
 
 
 int jr(int rs){
+#ifdef DISASSEMBLY
 	pr_rs("jr", rs); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0;  //deleteme
 #endif
 	pc = registers[rs]; 
 	return 0;
 }
 
 int j(int inst_index){
+#ifdef DISASSEMBLY
 	pr_inst_index("j", inst_index); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
-	//pc = (get(pc, 31, 28) << 28) | (inst_index << 2);
-	pc = inst_index;  // not accurate. 
+	pc = (get(pc, 31, 28) << 28) | (inst_index << 2);
 	return 0;
 }
 
 int jal(int inst_index){
+#ifdef DISASSEMBLY
 	pr_inst_index("jal", inst_index); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[31] = pc + 4; 
-	//pc = (get(pc, 31, 28) << 28) | (inst_index << 2); 
-	pc = inst_index;  // not accurate. 
+	pc = (get(pc, 31, 28) << 28) | (inst_index << 2);
 	return 0;
 }
 
 int beq(int rs, int rt, int offset){
+#ifdef DISASSEMBLY
 	pr_rs_rt_offset("beq", rs, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	if (registers[rs] == registers[rt])
 		pc = pc + (offset << 2);
@@ -409,9 +405,9 @@ int beq(int rs, int rt, int offset){
 }
 
 int bne(int rs, int rt, int offset){
+#ifdef DISASSEMBLY
 	pr_rs_rt_offset("bne", rs, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	if (registers[rs] != registers[rt])
 		pc = pc + (offset << 2);
@@ -420,18 +416,18 @@ int bne(int rs, int rt, int offset){
 
 
 int slti(int rs, int rt, int imm){
+#ifdef DISASSEMBLY
 	pr_rs_rt_imm("slti", rs, rt, imm);
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rt] = registers[rs] < imm; 
 	return 0;
 }
 
 int andi(int rs, int rt, int imm){
+#ifdef DISASSEMBLY
 	pr_rs_rt_imm("andi", rs, rt, imm);
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rt] = registers[rs] & imm; 
 	return 0;
@@ -439,18 +435,18 @@ int andi(int rs, int rt, int imm){
 
 
 int xori(int rs, int rt, int imm){
+#ifdef DISASSEMBLY
 	pr_rs_rt_imm("xori", rs, rt, imm);
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rt] = registers[rs] ^ imm; 
 	return 0;
 }
 
 int addi(int rs, int rt, int imm){
+#ifdef DISASSEMBLY
 	pr_rs_rt_imm("addi", rs, rt, imm);
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rt] = registers[rs] +  imm; 
 	return 0;
@@ -458,45 +454,45 @@ int addi(int rs, int rt, int imm){
 
 
 int ori(int rs, int rt, int imm){
+#ifdef DISASSEMBLY
 	pr_rs_rt_imm("ori", rs, rt, imm);
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rt] = registers[rs] |  imm; 
 	return 0;
 }
 
 int lui(int rt, int imm){
+#ifdef DISASSEMBLY
 	pr_rt_imm("lui", rt, imm); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	registers[rt] = (imm << 16) & 0xFF; 
 	return 0;
 }
 
 int lb(int base , int rt, int offset){
+#ifdef DISASSEMBLY
 	pr_base_rt_offset("lb", base, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	lbu(base, rt, offset); 
 	return 0;
 }
 
 int lh(int base , int rt, int offset){
+#ifdef DISASSEMBLY
 	pr_base_rt_offset("lhu", base, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	lhu(base, rt, offset); 
 	return 0;
 }
 
 int lw(int base , int rt, int offset){
+#ifdef DISASSEMBLY
 	pr_base_rt_offset("lw", base, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	assert((base + offset) % 4 == 0); 
 	registers[rt] = ((memory[base + offset + 2]) << 16) 
@@ -505,9 +501,9 @@ int lw(int base , int rt, int offset){
 }
 
 int lhu(int base , int rt, int offset){
+#ifdef DISASSEMBLY
 	pr_base_rt_offset("lhu", base, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	assert((base + offset) % 4 == 0); 
 	registers[rt] = memory[base + offset]; 
@@ -516,9 +512,9 @@ int lhu(int base , int rt, int offset){
 
 
 int lbu(int base , int rt, int offset){
+#ifdef DISASSEMBLY
 	pr_base_rt_offset("lbu", base, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	assert((base + offset) % 4 == 0); 
 	registers[rt] = memory[base + offset] & 0xFF; 
@@ -527,9 +523,9 @@ int lbu(int base , int rt, int offset){
 
 
 int sb(int base , int rt, int offset){
+#ifdef DISASSEMBLY
 	pr_base_rt_offset("sb", base, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme 
 #endif
 	assert((base + offset) % 4 == 0); 
 	memory[base + offset] = registers[rt] & 0xFF; 
@@ -537,9 +533,9 @@ int sb(int base , int rt, int offset){
 }
 
 int sh(int base , int rt, int offset){
+#ifdef DISASSEMBLY
 	pr_base_rt_offset("sh", base, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0; //deleteme
 #endif
 	assert((base + offset) % 4 == 0); 
 	memory[base + offset] = registers[rt] & 0xFFFF; 
@@ -547,12 +543,13 @@ int sh(int base , int rt, int offset){
 }
 
 int sw(int base , int rt, int offset){
+#ifdef DISASSEMBLY
 	pr_base_rt_offset("sw", base, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
+	return 0;  //deleteme
 #endif
 	assert((registers[base] + offset) % 2 == 0); 
 	memory[base + offset + 2] = (registers[rt] >> 16) & 0xFFFF; 
 	memory[base + offset] = registers[rt] & 0xFFFF; 
 	return 0;
 }
+
