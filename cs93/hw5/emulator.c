@@ -34,20 +34,21 @@ int main(int argc, const char *argv[])
 		memory[hextoint(address)] = hextoint(value);
 		memindex = hextoint(address); 
 	}
-	(DEBUG) && getchar(); 
+#ifdef DISASSEMBLY
+	getchar(); 
 	pc = 0;
 	while(1) {
 		ir = (memory[pc+1] << 16) | memory[pc]; 
+		pc += 2; 
 		doinst(getBits(ir, 32));
 		printf("[0x%06X]:0x%08X\n", pc, 
 				(memory[pc + 1] << 16)
 				|  memory[pc]);
 
-		pc += 2; 
-		(DEBUG) && getchar();  //wait for the user input
+		getchar();  //wait for the user input
 	}
 	return 0; 
-
+#elif EMULATE
 	pc = 0;
 	WINDOW * window; 
 	if ((window = initscr()) == NULL ) {
@@ -55,14 +56,15 @@ int main(int argc, const char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	while(1) {
-		(DEBUG) && getchar();  //wait for the user input
 		ir = (memory[pc+1] << 16) | memory[pc]; 
-		refresh_state();	
 		pc += 2; 
 		doinst(getBits(ir, 32));
+		refresh_state();	
+		getchar();  //wait for the user input
 	}
 	fclose(rfile);
 	delwin(window);
 	endwin();
+#endif
 	return 0; 
 }

@@ -162,8 +162,9 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 				(memory[wordaddress + 1] << 16)
 				|  memory[wordaddress]);
 		free(printstr);
-		if(DEBUG == 1)
-			getchar();
+#ifdef DEBUG
+		getchar();
+#endif
 		wordaddress += 2; 
 	} else {
 		fprintf(stderr, "%s: Instruction not found ..\n", tokens[0]);

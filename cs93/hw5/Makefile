@@ -48,10 +48,3 @@ debugas:  assembler
 	gdb ./assembler
 
 .PHONY: clean cleanobj cleandiff tags
-
-
-#make clean ; make runas CFLAGS+=-DDEBUG=1
-#make clean ; make runas CFLAGS+=-DDEBUG=0
-#make clean ; make runem CFLAGS+=-DDEBUG=1
-#make clean ; make runem CFLAGS+=-DDEBUG=0
-

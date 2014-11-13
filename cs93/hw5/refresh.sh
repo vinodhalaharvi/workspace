@@ -1,2 +1,2 @@
-make clean ; make runas CFLAGS+=-DDEBUG=0 > /tmp/assembler.txt
-make clean ; make runem CFLAGS+=-DDEBUG=0 > /tmp/emulator.txt
+make clean ; make runas  > /tmp/assembler.txt
+make clean ; make runem  > /tmp/emulator.txt

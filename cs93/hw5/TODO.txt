@@ -14,17 +14,17 @@ you ned stack pointer during emulator?
 you need heap pointer during assembler?
 
 make clean ; make runas CFLAGS+=-DDEBUG=1
-make clean ; make runas CFLAGS+=-DDEBUG=0
+make clean ; make runas
 
-make clean ; make runem CFLAGS+=-DDEBUG=1
-make clean ; make runem CFLAGS+=-DDEBUG=0
+make clean ; make runem CFLAGS+=-DDISASSEMBLY=1
+make clean ; make runem CFLAGS+=-DEMULATE=1
 
 testing notes
 #####################
 check out the addi with negative values, for example addi $sp, $sp, -60 ;[0x00001A]:0x23BDFFC4
 check out the issue with lb and lbu. Which one is correct ?
 
-
-        
+#ifdef DISASSEMBLY
+#endif
         
         

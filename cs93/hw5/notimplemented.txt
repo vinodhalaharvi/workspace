@@ -1,0 +1,96 @@
+/*
+ * int swl(int base , int rt, int offset){
+	printf("Not Implemented yet!\n"); //deleteme
+	assert(0 == 1); 
+	return 0;
+}
+
+int swr(int base , int rt, int offset){
+	printf("Not Implemented yet!\n"); //deleteme
+	assert(0 == 1); 
+	return 0;
+}
+
+int bgez(int rs, int offset){
+	printf("Not Implemented yet!\n"); //deleteme
+	assert(0 == 1); 
+	if (registers[rs] >= 0)
+		pc = pc + (offset << 2);
+	return 0;
+}
+
+int bgezal(int rs, int offset){
+	printf("Not Implemented yet!\n"); //deleteme
+	assert(0 == 1); 
+	return 0;
+}
+
+int bltz(int rs, int offset){
+	printf("Not Implemented yet!\n"); //deleteme
+	assert(0 == 1); 
+	if (registers[rs] < 0)
+		pc = pc + (offset << 2);
+	return 0;
+}
+
+int bltzal(int rs, int offset){
+	printf("Not Implemented yet!\n"); //deleteme
+	assert(0 == 1); 
+	return 0;
+}*/
+int jalr(int rs, int rd){
+	printf("Not Implemented\n");
+	assert(1 == 0 );
+#ifdef DISASSEMBLY
+	return 0; //deleteme 
+#endif
+	registers[rd] = pc + 4; 
+	pc = registers[rs]; 
+	return 0;
+}
+int blez(int rs, int offset){
+	assert(1 == 0); 
+	if (registers[rs] <= 0)
+		pc = pc + (offset << 2);
+	return 0;
+}
+
+
+int bgtz(int rs, int offset){
+	assert(1 == 0); 
+	if (registers[rs] >= 0)
+		pc = pc + (offset << 2);
+	return 0;
+
+}
+int lwl(int base , int rt, int offset){
+	assert(0 == 1); 
+	return 0;
+}
+int lwr(int base , int rt, int offset){
+	assert(0 == 1); 
+	return 0;
+}
+
+	if(sscanf(inst, "000000%5s00000%5s00000001001%1s", rs, rd, ig) ==3)
+		return jalr(regint(rs), regint(rd)); 
+	if(sscanf(inst, "000110%5s00000%16s%1s", rs, offset, ig) ==3)
+		return blez(regint(rs), offsetint(offset)); 
+	if(sscanf(inst, "000111%5s00000%16s%1s", rs, offset, ig) ==3)
+		return bgtz(regint(rs), offsetint(offset)); 
+	if(sscanf(inst, "100010%5s%5s%16s%1s", base, rt, offset, ig) ==4)
+		return lwl(regint(base), regint(rt), offsetint(offset));
+	if(sscanf(inst, "100110%5s%5s%16s%1s", base, rt, offset, ig) ==4)
+		return lwr(regint(base), regint(rt), offsetint(offset));
+	if(sscanf(inst, "101011%5s%5s%16s%1s", base, rt, offset, ig) ==4)
+		return swl(regint(base), regint(rt), offsetint(offset));
+	if(sscanf(inst, "101110%5s%5s%16s%1s", base, rt, offset, ig) ==4)
+		return swr(regint(base), regint(rt), offsetint(offset));
+	if(sscanf(inst, "000001%5s00001%16s%1s", rs, offset, ig) ==3)
+		return bgez(regint(rs), offsetint(offset));
+	if(sscanf(inst, "000001%5s10001%16s%1s", rs, offset, ig) ==3)
+		return bgezal(regint(rs), offsetint(offset));
+	if(sscanf(inst, "000001%5s00000%16s%1s", rs, offset, ig) ==3)
+		return bltz(regint(rs), offsetint(offset));
+	if(sscanf(inst, "000001%5s10000%16s%1s", rs, offset, ig) ==3)
+		return bltzal(regint(rs), offsetint(offset));
