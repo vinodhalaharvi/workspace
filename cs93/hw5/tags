@@ -37,16 +37,10 @@ andi	ascommand.c	/^char * andi(char * tokens[]){$/;"	f
 andi	emcommand.c	/^int andi(int rs, int rt, int imm){$/;"	f
 beq	ascommand.c	/^char * beq(char * tokens[]){$/;"	f
 beq	emcommand.c	/^int beq(int rs, int rt, int offset){$/;"	f
-bgez	emcommand.c	/^int bgez(int rs, int offset){$/;"	f
-bgezal	emcommand.c	/^int bgezal(int rs, int offset){$/;"	f
-bgtz	emcommand.c	/^int bgtz(int rs, int offset){$/;"	f
 bin16toint	aslib.c	/^unsigned int  bin16toint(char * bits){$/;"	f
 bin32toint	aslib.c	/^unsigned int bin32toint(char * bits){$/;"	f
 binary	aslib.h	/^	char * binary; $/;"	m	struct:_encoding
 binaryToHex	aslib.c	/^char * binaryToHex(char * binary){$/;"	f
-blez	emcommand.c	/^int blez(int rs, int offset){$/;"	f
-bltz	emcommand.c	/^int bltz(int rs, int offset){$/;"	f
-bltzal	emcommand.c	/^int bltzal(int rs, int offset){$/;"	f
 bne	ascommand.c	/^char * bne(char * tokens[]){$/;"	f
 bne	emcommand.c	/^int bne(int rs, int rt, int offset){$/;"	f
 cleanLine	aslib.c	/^void cleanLine(char **lineptr){$/;"	f
@@ -106,8 +100,6 @@ j	ascommand.c	/^char * j(char * tokens[]){$/;"	f
 j	emcommand.c	/^int j(int inst_index){$/;"	f
 jal	ascommand.c	/^char * jal(char * tokens[]){$/;"	f
 jal	emcommand.c	/^int jal(int inst_index){$/;"	f
-jalr	ascommand.c	/^char * jalr(char * tokens[]){$/;"	f
-jalr	emcommand.c	/^int jalr(int rs, int rd){$/;"	f
 jr	ascommand.c	/^char * jr(char * tokens[]){$/;"	f
 jr	emcommand.c	/^int jr(int rs){$/;"	f
 la	ascommand.c	/^char * la(char * tokens[]){$/;"	f
@@ -128,9 +120,7 @@ lui	emcommand.c	/^int lui(int rt, int imm){$/;"	f
 lw	ascommand.c	/^char * lw(char * tokens[]){$/;"	f
 lw	emcommand.c	/^int lw(int base , int rt, int offset){$/;"	f
 lwl	ascommand.c	/^char * lwl(char * tokens[]){$/;"	f
-lwl	emcommand.c	/^int lwl(int base , int rt, int offset){$/;"	f
 lwr	ascommand.c	/^char * lwr(char * tokens[]){$/;"	f
-lwr	emcommand.c	/^int lwr(int base , int rt, int offset){$/;"	f
 main	assembler.c	/^int main(int argc, const char *argv[])$/;"	f
 main	emulator.c	/^int main(int argc, const char *argv[])$/;"	f
 memindex	emulator.c	/^unsigned int memindex = 0;$/;"	v
@@ -152,16 +142,15 @@ ori	ascommand.c	/^char * ori(char * tokens[]){$/;"	f
 ori	emcommand.c	/^int ori(int rs, int rt, int imm){$/;"	f
 outputMIFfile	aslib.c	/^void outputMIFfile(FILE *MIFfile) {$/;"	f
 pc	emcommand.c	/^unsigned int pc; $/;"	v
-pr_base_rt_inst_index	simpleoutput.c	/^void pr_base_rt_inst_index(const char * inst, int reg, int inst_index){$/;"	f
-pr_base_rt_offset	simpleoutput.c	/^void pr_base_rt_offset(const char * inst, int base, int reg, int offset){$/;"	f
+pr_base_rt_inst_index	simpleoutput.c	/^void pr_base_rt_inst_index(const char * inst, int rt, int inst_index){$/;"	f
+pr_base_rt_offset	simpleoutput.c	/^void pr_base_rt_offset(const char * inst, int base, int rt, int offset){$/;"	f
 pr_inst_index	simpleoutput.c	/^void pr_inst_index(const char * inst, int inst_index){$/;"	f
-pr_reg	simpleoutput.c	/^void pr_reg(const char * inst, int reg1){$/;"	f
-pr_reg_imm	simpleoutput.c	/^void pr_reg_imm(const char * inst, int reg, int imm){$/;"	f
-pr_reg_reg	simpleoutput.c	/^void pr_reg_reg(const char * inst, int reg1, int reg2){$/;"	f
-pr_reg_reg_imm	simpleoutput.c	/^void pr_reg_reg_imm(const char * inst, int reg1, int reg2, int imm){$/;"	f
-pr_reg_reg_offset	simpleoutput.c	/^void pr_reg_reg_offset(const char * inst, int reg1, int reg2, int offset){$/;"	f
-pr_reg_reg_reg	simpleoutput.c	/^void pr_reg_reg_reg(const char * inst, int reg1, int reg2, int reg3){$/;"	f
-pr_reg_reg_sa	simpleoutput.c	/^void pr_reg_reg_sa(const char * inst, int reg1, int reg2, int sa){$/;"	f
+pr_rs	simpleoutput.c	/^void pr_rs(const char * inst, int rs){$/;"	f
+pr_rs_rt_imm	simpleoutput.c	/^void pr_rs_rt_imm(const char * inst, int rs, int rt, int imm){$/;"	f
+pr_rs_rt_offset	simpleoutput.c	/^void pr_rs_rt_offset(const char * inst, int rs, int rt, int offset){$/;"	f
+pr_rs_rt_rd	simpleoutput.c	/^void pr_rs_rt_rd(const char * inst, int rs, int rt, int rd){$/;"	f
+pr_rt_imm	simpleoutput.c	/^void pr_rt_imm(const char * inst, int rt, int imm){$/;"	f
+pr_rt_rd_sa	simpleoutput.c	/^void pr_rt_rd_sa(const char * inst, int rt, int rd, int sa){$/;"	f
 printHeaders	aslib.c	/^void printHeaders(FILE *MIFfile){$/;"	f
 printTail	aslib.c	/^void printTail(FILE *MIFfile){$/;"	f
 print_output	emcommand.c	/^void print_output(const char *str){$/;"	f
@@ -209,9 +198,7 @@ sub	emcommand.c	/^int sub(int rs, int rt, int rd){$/;"	f
 sw	ascommand.c	/^char * sw(char * tokens[]){$/;"	f
 sw	emcommand.c	/^int sw(int base , int rt, int offset){$/;"	f
 swl	ascommand.c	/^char * swl(char * tokens[]){$/;"	f
-swl	emcommand.c	/^int swl(int base , int rt, int offset){$/;"	f
 swr	ascommand.c	/^char * swr(char * tokens[]){$/;"	f
-swr	emcommand.c	/^int swr(int base , int rt, int offset){$/;"	f
 sym_skip_list	assembler.c	/^static char *sym_skip_list[100] = {$/;"	v	file:
 symbol_table	aslib.h	/^} symbol_table;$/;"	t	typeref:struct:_symbol_table
 symbols	aslib.c	/^symbol_table symbols[MAX_SYMBOL_SIZE];$/;"	v

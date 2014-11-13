@@ -12,7 +12,6 @@ int sllv(int rs, int rt, int rd);
 int srlv(int rs, int rt, int rd);
 int srav(int rs, int rt, int rd);
 int jr(int rs);
-int jalr(int rs, int rd);
 int add(int rs, int rt, int rd);
 int addu(int rs, int rt, int rd);
 int sub(int rs, int rt, int rd);

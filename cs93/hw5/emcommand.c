@@ -91,12 +91,12 @@ void refresh_state(){
 			sprintf(printstr, "    0x%04X = 0x%08X", i, memory[i]);
 		mvaddstr(0 + k++, 0 + j, printstr); 
 	}
-	j += 16; 
+	j += 12; 
 	for (int i = 0; i < 32; i++) {
-		sprintf(printstr, "$%2d = 0x%08X", i, registers[i]);
+		sprintf(printstr, "$%2d (%s) = 0x%08X", i, regmap[i], registers[i]);
 		if ( i % 16 == 0) {
 			k = 0; 
-			j += 24; 
+			j += 28; 
 		}
 		mvaddstr(0 + k++, 0 + j, printstr); 
 	}
@@ -247,7 +247,7 @@ int doinst(char * inst){
 
 int sll(int rt, int rd, int sa){
 #ifdef DISASSEMBLY
-	pr_reg_reg_sa("sll", rt, rd, sa); 
+	pr_rt_rd_sa("sll", rt, rd, sa); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rt] << sa; 
@@ -256,7 +256,7 @@ int sll(int rt, int rd, int sa){
 
 int srl(int rt, int rd, int sa){
 #ifdef DISASSEMBLY
-	pr_reg_reg_sa("srl", rt, rd, sa); 
+	pr_rt_rd_sa("srl", rt, rd, sa); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = (unsigned int) registers[rt] >> sa; 
@@ -266,7 +266,7 @@ int srl(int rt, int rd, int sa){
 
 int sra(int rt, int rd, int sa){
 #ifdef DISASSEMBLY
-	pr_reg_reg_sa("srl", rt, rd, sa); 
+	pr_rt_rd_sa("srl", rt, rd, sa); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rt] >> sa; 
@@ -275,7 +275,7 @@ int sra(int rt, int rd, int sa){
 
 int sllv(int rs, int rt, int rd){
 #ifdef DISASSEMBLY
-	pr_reg_reg_reg("sllv", rs, rt, rd); 
+	pr_rs_rt_rd("sllv", rs, rt, rd); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rt] << registers[rs]; 
@@ -284,7 +284,7 @@ int sllv(int rs, int rt, int rd){
 
 int srlv(int rs, int rt, int rd){
 #ifdef DISASSEMBLY
-	pr_reg_reg_reg("srlv", rs, rt, rd); 
+	pr_rs_rt_rd("srlv", rs, rt, rd); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = (unsigned int) registers[rt] >> registers[rs]; 
@@ -293,25 +293,16 @@ int srlv(int rs, int rt, int rd){
 
 int srav(int rs, int rt, int rd){
 #ifdef DISASSEMBLY
-	pr_reg_reg_reg("srav", rs, rt, rd); 
+	pr_rs_rt_rd("srav", rs, rt, rd); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rt] >> registers[rs]; 
 	return 0;
 }
 
-int jr(int rs){
-#ifdef DISASSEMBLY
-	pr_reg("jr", rs); 
-	return 0; 
-#endif
-	pc = registers[rs]; 
-	return 0;
-}
-
 int add(int rs, int rt, int rd){
 #ifdef DISASSEMBLY
-	pr_reg_reg_reg("add", rs, rt, rd); 
+	pr_rs_rt_rd("add", rs, rt, rd); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rs] + registers[rt];
@@ -320,7 +311,7 @@ int add(int rs, int rt, int rd){
 
 int sub(int rs, int rt, int rd){
 #ifdef DISASSEMBLY
-	pr_reg_reg_reg("sub", rs, rt, rd); 
+	pr_rs_rt_rd("sub", rs, rt, rd); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rs] - registers[rt];
@@ -329,7 +320,7 @@ int sub(int rs, int rt, int rd){
 
 int and(int rs, int rt, int rd){
 #ifdef DISASSEMBLY
-	pr_reg_reg_reg("and", rs, rt, rd); 
+	pr_rs_rt_rd("and", rs, rt, rd); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rs] & registers[rt]; 
@@ -338,7 +329,7 @@ int and(int rs, int rt, int rd){
 
 int or(int rs, int rt, int rd){
 #ifdef DISASSEMBLY
-	pr_reg_reg_reg("or", rs, rt, rd); 
+	pr_rs_rt_rd("or", rs, rt, rd); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rs] | registers[rt]; 
@@ -347,7 +338,7 @@ int or(int rs, int rt, int rd){
 
 int xor(int rs, int rt, int rd){
 #ifdef DISASSEMBLY
-	pr_reg_reg_reg("xor", rs, rt, rd); 
+	pr_rs_rt_rd("xor", rs, rt, rd); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rs] ^ registers[rt]; 
@@ -356,7 +347,7 @@ int xor(int rs, int rt, int rd){
 
 int nor(int rs, int rt, int rd){
 #ifdef DISASSEMBLY
-	pr_reg_reg_reg("nor", rs, rt, rd); 
+	pr_rs_rt_rd("nor", rs, rt, rd); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = ~(registers[rs] | registers[rt]); 
@@ -365,16 +356,26 @@ int nor(int rs, int rt, int rd){
 
 int slt(int rs, int rt, int rd){
 #ifdef DISASSEMBLY
-	pr_reg_reg_reg("slt", rs, rt, rd); 
+	pr_rs_rt_rd("slt", rs, rt, rd); 
 	return 0; //deleteme 
 #endif
 	registers[rd] = registers[rs] < registers[rt]; 
 	return 0;
 }
 
+
+int jr(int rs){
+#ifdef DISASSEMBLY
+	pr_rs("jr", rs); 
+	return 0; 
+#endif
+	pc = registers[rs]; 
+	return 0;
+}
+
 int j(int inst_index){
 #ifdef DISASSEMBLY
- 	pr_inst_index("j", inst_index); 
+	pr_inst_index("j", inst_index); 
 	return 0; //deleteme 
 #endif
 	pc = (get(pc, 31, 28) << 28) | (inst_index << 2);
@@ -393,7 +394,7 @@ int jal(int inst_index){
 
 int beq(int rs, int rt, int offset){
 #ifdef DISASSEMBLY
-	pr_reg_reg_offset("beq", rs, rt, offset); 
+	pr_rs_rt_offset("beq", rs, rt, offset); 
 	return 0; //deleteme 
 #endif
 	if (registers[rs] == registers[rt])
@@ -403,7 +404,7 @@ int beq(int rs, int rt, int offset){
 
 int bne(int rs, int rt, int offset){
 #ifdef DISASSEMBLY
-	pr_reg_reg_offset("bne", rs, rt, offset); 
+	pr_rs_rt_offset("bne", rs, rt, offset); 
 	return 0; //deleteme 
 #endif
 	if (registers[rs] != registers[rt])
@@ -414,7 +415,7 @@ int bne(int rs, int rt, int offset){
 
 int slti(int rs, int rt, int imm){
 #ifdef DISASSEMBLY
-	pr_reg_reg_imm("slti", rs, rt, imm);
+	pr_rs_rt_imm("slti", rs, rt, imm);
 	return 0; //deleteme 
 #endif
 	registers[rt] = registers[rs] < imm; 
@@ -423,7 +424,7 @@ int slti(int rs, int rt, int imm){
 
 int andi(int rs, int rt, int imm){
 #ifdef DISASSEMBLY
-	pr_reg_reg_imm("andi", rs, rt, imm);
+	pr_rs_rt_imm("andi", rs, rt, imm);
 	return 0; //deleteme 
 #endif
 	registers[rt] = registers[rs] & imm; 
@@ -433,7 +434,7 @@ int andi(int rs, int rt, int imm){
 
 int xori(int rs, int rt, int imm){
 #ifdef DISASSEMBLY
-	pr_reg_reg_imm("xori", rs, rt, imm);
+	pr_rs_rt_imm("xori", rs, rt, imm);
 	return 0; //deleteme 
 #endif
 	registers[rt] = registers[rs] ^ imm; 
@@ -442,7 +443,7 @@ int xori(int rs, int rt, int imm){
 
 int addi(int rs, int rt, int imm){
 #ifdef DISASSEMBLY
-	pr_reg_reg_imm("addi", rs, rt, imm);
+	pr_rs_rt_imm("addi", rs, rt, imm);
 	return 0; //deleteme 
 #endif
 	registers[rt] = registers[rs] +  imm; 
@@ -452,7 +453,7 @@ int addi(int rs, int rt, int imm){
 
 int ori(int rs, int rt, int imm){
 #ifdef DISASSEMBLY
-	pr_reg_reg_imm("ori", rs, rt, imm);
+	pr_rs_rt_imm("ori", rs, rt, imm);
 	return 0; //deleteme 
 #endif
 	registers[rt] = registers[rs] |  imm; 
@@ -461,7 +462,7 @@ int ori(int rs, int rt, int imm){
 
 int lui(int rt, int imm){
 #ifdef DISASSEMBLY
-	pr_reg_imm("lui", rt, imm); 
+	pr_rt_imm("lui", rt, imm); 
 	return 0; //deleteme 
 #endif
 	registers[rt] = (imm << 16) & 0xFF; 
