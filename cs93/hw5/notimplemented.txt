@@ -94,3 +94,154 @@ int lwr(int base , int rt, int offset){
 		return bltz(regint(rs), offsetint(offset));
 	if(sscanf(inst, "000001%5s10000%16s%1s", rs, offset, ig) ==3)
 		return bltzal(regint(rs), offsetint(offset));
+print_heap(){
+	printf("%s\n", "Printing heap .. ");
+	printf("%s\n", "firstNumber");
+	int i = 21760; 
+	while(memory[i]){
+		printf("%c", memory[i++]);
+	}
+	printf("\n");
+	printf("%s\n", "secondNumber");
+	i = 21768; 
+	while(memory[i]){
+		printf("%c", memory[i++]);
+	}
+	printf("\n");
+	printf("%s\n", "enterString");
+	i = 21772; 
+	while(memory[i]){
+		printf("%c", memory[i++]);
+	}
+}
+
+char * int_int_to_str(int a, int b){
+	char * printStr = newstr(100); 
+	sprintf(printStr,"%d %d", a, b); 
+	return printStr; 
+}
+int lh(int base , int rt, int offset){
+	pr_base_rt_offset("lhu", base, rt, offset); 
+#ifdef DONTEMULATE
+	return 0;
+#endif
+	lhu(base, rt, offset); 
+	return 0;
+}
+
+int lhu(int base , int rt, int offset){
+	pr_base_rt_offset("lhu", base, rt, offset); 
+#ifdef DONTEMULATE
+	return 0;
+#endif
+	assert((base + offset) % 4 == 0); 
+	registers[rt] = memory[registers[base] + offset]; 
+	return 0;
+}
+
+
+int lbu(int base , int rt, int offset){
+	pr_base_rt_offset("lbu", base, rt, offset); 
+#ifdef DONTEMULATE
+	return 0;
+#endif
+	assert((base + offset) % 4 == 0); 
+	registers[rt] = memory[registers[base] + offset] & 0xFF; 
+	return 0;
+}
+
+int sh(int base , int rt, int offset){
+	pr_base_rt_offset("sh", base, rt, offset); 
+#ifdef DONTEMULATE
+	return 0;
+#endif
+	assert((base + offset) % 4 == 0); 
+	memory[registers[base] + offset] = registers[rt] & 0xFFFF; 
+	return 0;
+}
+
+	if(sscanf(inst, "100001%5s%5s%16s%1s", base, rt, offset, ig) ==4)
+		return lh(regint(base), regint(rt), offsetint(offset));
+	if(sscanf(inst, "100100%5s%5s%16s%1s", base, rt, offset, ig) ==4)
+		return lbu(regint(base), regint(rt), offsetint(offset));
+	if(sscanf(inst, "100101%5s%5s%16s%1s", base, rt, offset, ig) ==4)
+		return lhu(regint(base), regint(rt), offsetint(offset));
+	if(sscanf(inst, "101001%5s%5s%16s%1s", base, rt, offset, ig) ==4)
+		return sh(regint(base), regint(rt), offsetint(offset));
+	if(sscanf(inst, "101000%5s%5s%16s%1s", base, rt, offset, ig) ==4)
+		return sb(regint(base), regint(rt), offsetint(offset));
+	if(sscanf(inst, "100011%5s%5s%16s%1s", base, rt, offset, ig) ==4)
+		return lw(regint(base), regint(rt), offsetint(offset));
+	if(sscanf(inst, "101010%5s%5s%16s%1s", base, rt, offset, ig) ==4)
+		return sw(regint(base), regint(rt), offsetint(offset));
+char * lwl(char * tokens[]){
+	return type4(
+                getOpcodebits("lwl"), 
+                getRegisterBits(eval_register(tokens[2])), 
+                getRegisterBits(tokens[1]), 
+                getBits(register_offset(tokens[2]), 16)
+        ); 
+}
+
+char * lbu(char * tokens[]){
+	return type4(
+                getOpcodebits("lbu"), 
+                getRegisterBits(eval_register(tokens[2])), 
+                getRegisterBits(tokens[1]), 
+                getBits(register_offset(tokens[2]), 16)
+        ); 
+}
+
+char * lhu(char * tokens[]){
+	return type4(
+                getOpcodebits("lhu"), 
+                getRegisterBits(eval_register(tokens[2])), 
+                getRegisterBits(tokens[1]), 
+                getBits(register_offset(tokens[2]), 16)
+        ); 
+}
+
+char * lwr(char * tokens[]){
+	return type4(
+                getOpcodebits("lwr"), 
+                getRegisterBits(eval_register(tokens[2])), 
+                getRegisterBits(tokens[1]), 
+                getBits(register_offset(tokens[2]), 16)
+        ); 
+}
+
+char * sb(char * tokens[]){
+	return  type4(
+                getOpcodebits("sb"), 
+                getRegisterBits(eval_register(tokens[2])), 
+                getRegisterBits(tokens[1]), 
+                getBits(register_offset(tokens[2]), 16)
+        ); 
+}
+
+char * sh(char * tokens[]){
+	return type4(
+                getOpcodebits("sh"), 
+                getRegisterBits(eval_register(tokens[2])), 
+                getRegisterBits(tokens[1]), 
+                getBits(register_offset(tokens[2]), 16)
+        ); 
+}
+
+char * swl(char * tokens[]){
+	return type4(
+                getOpcodebits("swl"), 
+                getRegisterBits(eval_register(tokens[2])), 
+                getRegisterBits(tokens[1]), 
+                getBits(register_offset(tokens[2]), 16)
+        ); 
+}
+
+char * swr(char * tokens[]){
+	return type4(
+                getOpcodebits("swr"), 
+                getRegisterBits(eval_register(tokens[2])), 
+                getRegisterBits(tokens[1]), 
+                getBits(register_offset(tokens[2]), 16)
+        ); 
+}

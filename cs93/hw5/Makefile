@@ -3,7 +3,7 @@ override CFLAGS += -Wall -ggdb -std=gnu99
 
 CC=gcc
 O=0
-emobjects=emcommand.o emlib.o emulator.o  simpleoutput.o
+emobjects=emcommand.o  emulator.o  simpleoutput.o
 asobjects=aslib.o ascommand.o assembler.o
 
 LDLIBS=-lncurses

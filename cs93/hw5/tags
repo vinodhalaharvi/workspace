@@ -5,19 +5,24 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 BUFLEN	ascommand.c	8;"	d	file:
-HEAP_BASE	assembler.c	19;"	d	file:
+HEAP_BASE	aslib.h	12;"	d
+HEAP_BASE	emcommand.h	12;"	d
 INSTYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	g
 INSTYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	t	typeref:enum:INSTYPE
 ITYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
 J	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
-MAX_SYMBOL_SIZE	aslib.h	5;"	d
-MEMORY_MAX	emcommand.h	1;"	d
-MIF_FILE_SIZE	aslib.h	4;"	d
-REG_IOBUFFER_1	assembler.c	16;"	d	file:
-REG_IOBUFFER_2	assembler.c	17;"	d	file:
-REG_IOCONTROL	assembler.c	15;"	d	file:
+MAX_SYMBOL_SIZE	aslib.h	6;"	d
+MIF_FILE_SIZE	aslib.h	5;"	d
+MIF_FILE_SIZE	emcommand.h	1;"	d
+REG_IOBUFFER_1	aslib.h	9;"	d
+REG_IOBUFFER_1	emcommand.h	9;"	d
+REG_IOBUFFER_2	aslib.h	10;"	d
+REG_IOBUFFER_2	emcommand.h	10;"	d
+REG_IOCONTROL	aslib.h	8;"	d
+REG_IOCONTROL	emcommand.h	8;"	d
 RTYPE	aslib.h	/^typedef  enum INSTYPE {RTYPE, ITYPE, J} INSTYPE; $/;"	e	enum:INSTYPE
-STACK_BASE	assembler.c	18;"	d	file:
+STACK_BASE	aslib.h	11;"	d
+STACK_BASE	emcommand.h	11;"	d
 _GNU_SOURCE	assembler.c	5;"	d	file:
 _encoding	aslib.h	/^typedef struct _encoding { $/;"	s
 _inst	aslib.h	/^typedef struct _inst { $/;"	s
@@ -63,7 +68,6 @@ get	emcommand.c	/^unsigned get(int num, int start, int end){$/;"	f
 getAluOpcodeBits	aslib.c	/^char * getAluOpcodeBits(char *name){$/;"	f
 getBits	aslib.c	/^char * getBits(int num, unsigned int SIZE) { $/;"	f
 getBits	emcommand.c	/^char * getBits(int num, unsigned int SIZE) { $/;"	f
-getBits1	emcommand.c	/^char * getBits1(int num, unsigned int SIZE) { $/;"	f
 getFiles	aslib.c	/^void getFiles(int argc, const char * argv[], $/;"	f
 getFiles	emulator.c	/^void getFiles(int argc, const char * argv[], FILE **rfile){$/;"	f
 getFunc	assembler.c	/^function_type getFunc(const char * name){$/;"	f
@@ -77,9 +81,11 @@ getlabel	aslib.c	/^char * getlabel(const char *string){$/;"	f
 hex	aslib.h	/^	char * hex; $/;"	m	struct:_encoding
 hextoint	aslib.c	/^unsigned int hextoint(char * hex){$/;"	f
 hextoint	emcommand.c	/^unsigned int hextoint(char * hex){$/;"	f
+higher_16_byte	aslib.c	/^int higher_16_byte(int word32bit) {$/;"	f
 higher_byte	aslib.c	/^int higher_byte(int word16bit) {$/;"	f
 highertoint	aslib.c	/^unsigned int highertoint(char * bits){$/;"	f
 hp	assembler.c	/^static int hp = HEAP_BASE; $/;"	v	file:
+hp	emcommand.c	/^int hp = HEAP_BASE; $/;"	v
 ifParen	aslib.c	/^unsigned int ifParen(const char *exp){$/;"	f
 immint	emcommand.c	/^unsigned int immint(char * bits){$/;"	f
 index	aslib.h	/^	unsigned int index; $/;"	m	struct:_symbol_table
@@ -106,27 +112,23 @@ jr	emcommand.c	/^int jr(int rs){$/;"	f
 la	ascommand.c	/^char * la(char * tokens[]){$/;"	f
 lb	ascommand.c	/^char * lb(char * tokens[]){$/;"	f
 lb	emcommand.c	/^int lb(int base , int rt, int offset){$/;"	f
-lbu	ascommand.c	/^char * lbu(char * tokens[]){$/;"	f
-lbu	emcommand.c	/^int lbu(int base , int rt, int offset){$/;"	f
 lh	ascommand.c	/^char * lh(char * tokens[]){$/;"	f
-lh	emcommand.c	/^int lh(int base , int rt, int offset){$/;"	f
-lhu	ascommand.c	/^char * lhu(char * tokens[]){$/;"	f
-lhu	emcommand.c	/^int lhu(int base , int rt, int offset){$/;"	f
 lineno	aslib.c	/^unsigned int lineno; $/;"	v
 location	emcommand.c	/^} location;$/;"	t	typeref:struct:_location	file:
+loglocation	emcommand.c	/^location loglocation = {.x = 21, .y = 0}; $/;"	v
+logstring	emcommand.c	/^void logstring(const char *str){$/;"	f
+lower_16_byte	aslib.c	/^int lower_16_byte(int word32bit){$/;"	f
 lower_byte	aslib.c	/^int lower_byte(int word16bit){$/;"	f
 lowertoint	aslib.c	/^unsigned int lowertoint(char * bits){$/;"	f
 lui	ascommand.c	/^char * lui(char * tokens[]){$/;"	f
 lui	emcommand.c	/^int lui(int rt, int imm){$/;"	f
 lw	ascommand.c	/^char * lw(char * tokens[]){$/;"	f
 lw	emcommand.c	/^int lw(int base , int rt, int offset){$/;"	f
-lwl	ascommand.c	/^char * lwl(char * tokens[]){$/;"	f
-lwr	ascommand.c	/^char * lwr(char * tokens[]){$/;"	f
 main	assembler.c	/^int main(int argc, const char *argv[])$/;"	f
 main	emulator.c	/^int main(int argc, const char *argv[])$/;"	f
 memindex	emulator.c	/^unsigned int memindex = 0;$/;"	v
 memory	aslib.c	/^unsigned short  memory[MIF_FILE_SIZE];	$/;"	v
-memory	emcommand.c	/^unsigned short memory[MEMORY_MAX]; $/;"	v
+memory	emcommand.c	/^unsigned short memory[MIF_FILE_SIZE]; $/;"	v
 name	aslib.h	/^	char * name; $/;"	m	struct:_inst_info
 name	aslib.h	/^	char * name; $/;"	m	struct:_symbol_table
 name	aslib.h	/^	char * name;$/;"	m	struct:inst_table
@@ -175,8 +177,6 @@ removeSpaces	aslib.c	/^char * removeSpaces(const char * s) {$/;"	f
 rsrc	aslib.h	/^	char * rsrc; $/;"	m	struct:_inst_info
 sb	ascommand.c	/^char * sb(char * tokens[]){$/;"	f
 sb	emcommand.c	/^int sb(int base , int rt, int offset){$/;"	f
-sh	ascommand.c	/^char * sh(char * tokens[]){$/;"	f
-sh	emcommand.c	/^int sh(int base , int rt, int offset){$/;"	f
 sll	ascommand.c	/^char * sll(char * tokens[]){$/;"	f
 sll	emcommand.c	/^int sll(int rt, int rd, int sa){$/;"	f
 sllv	ascommand.c	/^char * sllv(char * tokens[]){$/;"	f
@@ -185,6 +185,7 @@ slt	ascommand.c	/^char * slt(char * tokens[]){$/;"	f
 slt	emcommand.c	/^int slt(int rs, int rt, int rd){$/;"	f
 slti	ascommand.c	/^char * slti(char * tokens[]){$/;"	f
 slti	emcommand.c	/^int slti(int rs, int rt, int imm){$/;"	f
+sp	emcommand.c	/^int sp = STACK_BASE; $/;"	v
 sra	ascommand.c	/^char * sra(char * tokens[]){$/;"	f
 sra	emcommand.c	/^int sra(int rt, int rd, int sa){$/;"	f
 srav	ascommand.c	/^char * srav(char * tokens[]){$/;"	f
@@ -193,13 +194,11 @@ srl	ascommand.c	/^char * srl(char * tokens[]){$/;"	f
 srl	emcommand.c	/^int srl(int rt, int rd, int sa){$/;"	f
 srlv	ascommand.c	/^char * srlv(char * tokens[]){$/;"	f
 srlv	emcommand.c	/^int srlv(int rs, int rt, int rd){$/;"	f
-store_string	assembler.c	/^int store_string(char *str){$/;"	f
+store_number	assembler.c	/^int store_number(char *str){$/;"	f
 sub	ascommand.c	/^char * sub(char * tokens[]){$/;"	f
 sub	emcommand.c	/^int sub(int rs, int rt, int rd){$/;"	f
 sw	ascommand.c	/^char * sw(char * tokens[]){$/;"	f
 sw	emcommand.c	/^int sw(int base , int rt, int offset){$/;"	f
-swl	ascommand.c	/^char * swl(char * tokens[]){$/;"	f
-swr	ascommand.c	/^char * swr(char * tokens[]){$/;"	f
 sym_skip_list	assembler.c	/^static char *sym_skip_list[100] = {$/;"	v	file:
 symbol_table	aslib.h	/^} symbol_table;$/;"	t	typeref:struct:_symbol_table
 symbols	aslib.c	/^symbol_table symbols[MAX_SYMBOL_SIZE];$/;"	v

@@ -1,2 +1,0 @@
-nmap <S-M> <S-V><S-}>:w! /tmp/one<cr>
-nmap <S-C> :r /tmp/one<cr>

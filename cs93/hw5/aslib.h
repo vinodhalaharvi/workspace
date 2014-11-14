@@ -1,8 +1,17 @@
 #include <stdint.h>
 #include <ctype.h>
 #include <assert.h>
-#define MIF_FILE_SIZE 32768
+//#define MIF_FILE_SIZE 32768
+#define MIF_FILE_SIZE 65288
 #define MAX_SYMBOL_SIZE 100
+
+#define REG_IOCONTROL 0x00FF00
+#define REG_IOBUFFER_1 0x00FF04
+#define REG_IOBUFFER_2 0x00FF08
+#define STACK_BASE   (REG_IOCONTROL - 0x00A000)
+#define HEAP_BASE    (STACK_BASE - 0x000A00)
+
+
 //#define MEMORY_START_ADDRESS 0x0
 
 typedef struct _symbol_table {
@@ -211,4 +220,6 @@ int register_offset(char * input);
 void outputMIFfile(FILE *MIFfile);
 void dump_memory(); 
 char * register_name(char * input);
+int lower_16_byte(int word32bit); 
+int higher_16_byte(int word32bit); 
 char * newstr(int len); 

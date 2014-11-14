@@ -24,8 +24,8 @@ char * nop(char * tokens[]){
 char * sub(char * tokens[]){
 	return type6(
 		getOpcodebits("sub"), 
-		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[1]), 
 		"00000", 
 		getAluOpcodeBits("sub")
@@ -214,7 +214,7 @@ char * la(char * tokens[]){
                 getOpcodebits("lui"), 
                 "00000", 
                 getRegisterBits(tokens[1]), 
-                getBits(higher_byte(verify_atoi(tokens[2])), 16)
+                getBits(higher_16_byte(verify_atoi(tokens[2])), 16)
         ); 
 	int t = bin32toint(bits);
 	memory[wordaddress] = t & 0xFFFF; 
@@ -224,7 +224,7 @@ char * la(char * tokens[]){
                 getOpcodebits("ori"), 
                 getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[1]), 
-                getBits(lower_byte(verify_atoi(tokens[2])), 16)
+                getBits(lower_16_byte(verify_atoi(tokens[2])), 16)
         ); 
 }
 
@@ -255,45 +255,10 @@ char * lh(char * tokens[]){
         ); 
 }
 
-char * lwl(char * tokens[]){
-	return type4(
-                getOpcodebits("lwl"), 
-                getRegisterBits(eval_register(tokens[2])), 
-                getRegisterBits(tokens[1]), 
-                getBits(register_offset(tokens[2]), 16)
-        ); 
-}
 
 char * lw(char * tokens[]){
 	return type4(
                 getOpcodebits("lw"), 
-                getRegisterBits(eval_register(tokens[2])), 
-                getRegisterBits(tokens[1]), 
-                getBits(register_offset(tokens[2]), 16)
-        ); 
-}
-
-char * lbu(char * tokens[]){
-	return type4(
-                getOpcodebits("lbu"), 
-                getRegisterBits(eval_register(tokens[2])), 
-                getRegisterBits(tokens[1]), 
-                getBits(register_offset(tokens[2]), 16)
-        ); 
-}
-
-char * lhu(char * tokens[]){
-	return type4(
-                getOpcodebits("lhu"), 
-                getRegisterBits(eval_register(tokens[2])), 
-                getRegisterBits(tokens[1]), 
-                getBits(register_offset(tokens[2]), 16)
-        ); 
-}
-
-char * lwr(char * tokens[]){
-	return type4(
-                getOpcodebits("lwr"), 
                 getRegisterBits(eval_register(tokens[2])), 
                 getRegisterBits(tokens[1]), 
                 getBits(register_offset(tokens[2]), 16)
@@ -309,15 +274,6 @@ char * sb(char * tokens[]){
         ); 
 }
 
-char * sh(char * tokens[]){
-	return type4(
-                getOpcodebits("sh"), 
-                getRegisterBits(eval_register(tokens[2])), 
-                getRegisterBits(tokens[1]), 
-                getBits(register_offset(tokens[2]), 16)
-        ); 
-}
-
 char * sw(char * tokens[]){
 	return type4(
                 getOpcodebits("sw"), 
@@ -326,25 +282,6 @@ char * sw(char * tokens[]){
                 getBits(register_offset(tokens[2]), 16)
         ); 
 }
-
-char * swl(char * tokens[]){
-	return type4(
-                getOpcodebits("swl"), 
-                getRegisterBits(eval_register(tokens[2])), 
-                getRegisterBits(tokens[1]), 
-                getBits(register_offset(tokens[2]), 16)
-        ); 
-}
-
-char * swr(char * tokens[]){
-	return type4(
-                getOpcodebits("swr"), 
-                getRegisterBits(eval_register(tokens[2])), 
-                getRegisterBits(tokens[1]), 
-                getBits(register_offset(tokens[2]), 16)
-        ); 
-}
-
 char * jr(char * tokens[]){
 	return type4(
                 getOpcodebits("jr"), 
@@ -357,8 +294,8 @@ char * jr(char * tokens[]){
 char * beq(char * tokens[]){
 	return type4(
                 getOpcodebits("beq"), 
-                getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
+                getRegisterBits(tokens[1]), 
                 getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
@@ -366,8 +303,8 @@ char * beq(char * tokens[]){
 char * bne(char * tokens[]){
 	return type4(
                 getOpcodebits("bne"), 
-                getRegisterBits(tokens[1]), 
                 getRegisterBits(tokens[2]), 
+                getRegisterBits(tokens[1]), 
                 getBits(verify_atoi(tokens[3]), 16)
         ); 
 }

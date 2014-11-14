@@ -6,6 +6,9 @@
 #include "simpleoutput.h"
 #include <curses.h>
 
+int sp = STACK_BASE; 
+int hp = HEAP_BASE; 
+
 char *regmap[32] =  {
 	"$zero",
 	"$at",
@@ -47,6 +50,7 @@ typedef struct _location {
 } location;
 
 location command = {.x = 20, .y = 0}; 
+location loglocation = {.x = 21, .y = 0}; 
 
 unsigned get(int num, int start, int end){
 	unsigned int res = 0; 
@@ -57,9 +61,16 @@ unsigned get(int num, int start, int end){
 }
 
 int registers[32]; 
-unsigned short memory[MEMORY_MAX]; 
+unsigned short memory[MIF_FILE_SIZE]; 
 unsigned int pc; 
 unsigned int ir; 
+
+void init_registers(){
+	for (int i = 0; i < 31; i++) {
+		registers[i] = 0;
+	}
+	registers[29] = sp;
+}
 
 char * newstr(int len){
 	assert(len >= 0);
@@ -91,6 +102,7 @@ void refresh_state(){
 		else 
 			//sprintf(printstr, "    0x%04X = 0x%08X", i, memory[i]);
 			sprintf(printstr, "    %d = %d", i, memory[i]);
+		mvaddstr(0 + k, 0 + j, "       "); 
 		mvaddstr(0 + k++, 0 + j, printstr); 
 	}
 	j += 12; 
@@ -100,12 +112,24 @@ void refresh_state(){
 			k = 0; 
 			j += 28; 
 		}
+		mvaddstr(0 + k, 0 + j, "                    "); 
 		mvaddstr(0 + k++, 0 + j, printstr); 
 	}
 	sprintf(printstr, "$%s = %d", "PC", pc);
+	mvaddstr(0 + k, 0 + j, "                    "); 
 	mvaddstr(0 + k++, 0 + j, printstr); 
 	sprintf(printstr, "$%s = %d", "IR", ir);
+	mvaddstr(0 + k, 0 + j, "                    "); 
 	mvaddstr(0 + k++, 0 + j, printstr); 
+
+	//TODO test this 
+	char * stackStr = newstr(31); 
+	for (int i = 0; i < 30; i++) {
+		*stackStr++ = (char) memory[0x5500+i];
+	}
+	*stackStr = '\0';
+	mvaddstr(21, 0, stackStr); 
+
 	free(printstr); 
 	refresh();
 }
@@ -118,16 +142,12 @@ void print_output(const char *str){
 	refresh();
 }
 
-char * getBits1(int num, unsigned int SIZE) { 
-	char * bits = (char * ) malloc(SIZE+1);
-	memset(bits, '\0', SIZE+1); 
-	for (int i = 0; i < SIZE; i++) {
-		if ( num >> i & 1)
-			bits[SIZE-i-1] = '1'; 
-		else 
-			bits[SIZE-i-1] = '0'; 
-	}   
-	return bits; 
+void logstring(const char *str){
+	assert (loglocation.x > 0 ) ; 
+	assert (loglocation.y >= 0 ) ; 
+	mvaddstr(loglocation.x, loglocation.y, "                                             "); 
+	mvaddstr(loglocation.x, loglocation.y, str); 
+	refresh();
 }
 
 char * getBits(int num, unsigned int SIZE) { 
@@ -156,12 +176,12 @@ unsigned int regint(char * bits){
 
 unsigned int immint(char * bits){
 	assert(strlen(bits) == 16); 
-	return (int) strtol(bits, NULL,  2); 
+	return (short) strtol(bits, NULL,  2); 
 }
 
 unsigned int offsetint(char * bits){
 	assert(strlen(bits) == 16); 
-	return (int) strtol(bits, NULL,  2); 
+	return (short) strtol(bits, NULL,  2); 
 }
 
 unsigned int instint(char * bits){
@@ -231,18 +251,10 @@ int doinst(char * inst){
 		return lui(regint(rt), immint(imm)); 
 	if(sscanf(inst, "100000%5s%5s%16s%1s", base, rt, offset, ig) ==4)
 		return lb(regint(base), regint(rt), offsetint(offset));
-	if(sscanf(inst, "100001%5s%5s%16s%1s", base, rt, offset, ig) ==4)
-		return lh(regint(base), regint(rt), offsetint(offset));
-	if(sscanf(inst, "100011%5s%5s%16s%1s", base, rt, offset, ig) ==4)
-		return lw(regint(base), regint(rt), offsetint(offset));
-	if(sscanf(inst, "100100%5s%5s%16s%1s", base, rt, offset, ig) ==4)
-		return lbu(regint(base), regint(rt), offsetint(offset));
-	if(sscanf(inst, "100101%5s%5s%16s%1s", base, rt, offset, ig) ==4)
-		return lhu(regint(base), regint(rt), offsetint(offset));
 	if(sscanf(inst, "101000%5s%5s%16s%1s", base, rt, offset, ig) ==4)
 		return sb(regint(base), regint(rt), offsetint(offset));
-	if(sscanf(inst, "101001%5s%5s%16s%1s", base, rt, offset, ig) ==4)
-		return sh(regint(base), regint(rt), offsetint(offset));
+	if(sscanf(inst, "100011%5s%5s%16s%1s", base, rt, offset, ig) ==4)
+		return lw(regint(base), regint(rt), offsetint(offset));
 	if(sscanf(inst, "101010%5s%5s%16s%1s", base, rt, offset, ig) ==4)
 		return sw(regint(base), regint(rt), offsetint(offset));
 	assert(1 == 0); 
@@ -392,7 +404,8 @@ int jal(int inst_index){
 #ifdef DONTEMULATE
 	return 0;
 #endif
-	registers[31] = pc + 4; 
+	//registers[31] = pc + 4; 
+	registers[31] = pc; 
 	//pc = (get(pc, 31, 28) << 28) | (inst_index << 2); 
 	pc = inst_index;  // not accurate. 
 	return 0;
@@ -404,7 +417,8 @@ int beq(int rs, int rt, int offset){
 	return 0;
 #endif
 	if (registers[rs] == registers[rt])
-		pc = pc + (offset << 2);
+		//pc = pc + (offset << 2); 
+		pc = offset;  // not accurate.
 	return 0;
 }
 
@@ -414,7 +428,8 @@ int bne(int rs, int rt, int offset){
 	return 0;
 #endif
 	if (registers[rs] != registers[rt])
-		pc = pc + (offset << 2);
+		//pc = pc + (offset << 2); 
+		pc = offset;  // not accurate.
 	return 0;
 }
 
@@ -480,48 +495,9 @@ int lb(int base , int rt, int offset){
 #ifdef DONTEMULATE
 	return 0;
 #endif
-	lbu(base, rt, offset); 
-	return 0;
-}
-
-int lh(int base , int rt, int offset){
-	pr_base_rt_offset("lhu", base, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
-#endif
-	lhu(base, rt, offset); 
-	return 0;
-}
-
-int lw(int base , int rt, int offset){
-	pr_base_rt_offset("lw", base, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
-#endif
-	assert((base + offset) % 4 == 0); 
-	registers[rt] = ((memory[base + offset + 2]) << 16) 
-			| (memory[base + offset]); 
-	return 0;
-}
-
-int lhu(int base , int rt, int offset){
-	pr_base_rt_offset("lhu", base, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
-#endif
-	assert((base + offset) % 4 == 0); 
-	registers[rt] = memory[base + offset]; 
-	return 0;
-}
-
-
-int lbu(int base , int rt, int offset){
-	pr_base_rt_offset("lbu", base, rt, offset); 
-#ifdef DONTEMULATE
-	return 0;
-#endif
-	assert((base + offset) % 4 == 0); 
-	registers[rt] = memory[base + offset] & 0xFF; 
+	//assert((registers[base] + offset) % 2 == 0); 
+	//registers[rt] = memory[registers[base] + offset] & 0xFF; 
+	registers[rt] =  (char) memory[registers[base] + offset]; 
 	return 0;
 }
 
@@ -531,28 +507,30 @@ int sb(int base , int rt, int offset){
 #ifdef DONTEMULATE
 	return 0;
 #endif
-	assert((base + offset) % 4 == 0); 
-	memory[base + offset] = registers[rt] & 0xFF; 
+	//assert((base + offset) % 4 == 0); 
+	memory[registers[base] + offset] = registers[rt] & 0xFF; 
 	return 0;
 }
 
-int sh(int base , int rt, int offset){
-	pr_base_rt_offset("sh", base, rt, offset); 
+int lw(int base , int rt, int offset){
+	pr_base_rt_offset("lw", base, rt, offset); 
 #ifdef DONTEMULATE
 	return 0;
 #endif
-	assert((base + offset) % 4 == 0); 
-	memory[base + offset] = registers[rt] & 0xFFFF; 
+	//assert((registers[base] + offset) % 4 == 0); 
+	registers[rt] = ((memory[registers[base] + offset + 2]) << 16) 
+			| (memory[registers[base] + offset]); 
 	return 0;
 }
+
 
 int sw(int base , int rt, int offset){
 	pr_base_rt_offset("sw", base, rt, offset); 
 #ifdef DONTEMULATE
 	return 0;
 #endif
-	assert((registers[base] + offset) % 2 == 0); 
-	memory[base + offset + 2] = (registers[rt] >> 16) & 0xFFFF; 
-	memory[base + offset] = registers[rt] & 0xFFFF; 
+	//assert((registers[base] + offset) % 2 == 0); 
+	memory[registers[base] + offset + 2] = (registers[rt] >> 16) & 0xFFFF; 
+	memory[registers[base] + offset] = registers[rt] & 0xFFFF; 
 	return 0;
 }

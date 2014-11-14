@@ -1,9 +1,18 @@
-#define MEMORY_MAX 32627
+#define MIF_FILE_SIZE 65288
 extern int registers[32];
 extern unsigned int  pc;
 extern unsigned int  ir; 
-extern unsigned short  memory[MEMORY_MAX];
+extern unsigned short  memory[MIF_FILE_SIZE];
 extern char currInst[100]; 
+
+#define REG_IOCONTROL 0x00FF00
+#define REG_IOBUFFER_1 0x00FF04
+#define REG_IOBUFFER_2 0x00FF08
+#define STACK_BASE   (REG_IOCONTROL - 0x00A000)
+#define HEAP_BASE    (STACK_BASE - 0x000A00)
+
+extern int sp; 
+extern int hp; 
 
 int doinst(char * inst);
 int sll(int rt, int rd, int sa);

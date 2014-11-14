@@ -1,8 +1,0 @@
-DEPTH = 32;                   -- The size of memory in words\n
-WIDTH = 8;                    -- The size of data in bits\n
-ADDRESS_RADIX = HEX;          -- The radix for address values\n
-DATA_RADIX = BIN;             -- The radix for data values\n
-CONTENT                       -- start of (address : data pairs)\n
-BEGIN\n
-%s\n
-END;\n

@@ -1,7 +1,0 @@
-1,$s/\t\t/\t/g
-1,$s/imm/%16s/g
-1,$s/offset/%16s/g
-1,$s/rt/%5s/g
-1,$s/rs/%5s/g
-1,$s/rd/%5s/g
-1,$s/inst_index/%26s/g

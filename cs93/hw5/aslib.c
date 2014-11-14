@@ -429,7 +429,8 @@ void dump_memory() {
 
 void outputMIFfile(FILE *MIFfile) {
 	printHeaders(MIFfile); 
-	for (int i = 0; i <= wordaddress; i++) {
+	//for (int i = 0; i <= wordaddress; i++) {
+	for (int i = 0; i <= MIF_FILE_SIZE; i++) {
 		fprintf(MIFfile, "  %04X: %04X;\n", i, memory[i]); 
 	}
 	fflush(MIFfile); 
@@ -490,7 +491,7 @@ int register_offset(char * input){
 	int offset; 
 	char reg[2];
 	int t = sscanf(input, "%i(%6s)", &offset, reg); 
-	assert(t != -1); 
+	assert(t == 2); 
 	return offset; 
 }
 
@@ -554,6 +555,10 @@ int lower_byte(int word16bit){
 	return  (word16bit  & 0xFF);
 }
 
+int lower_16_byte(int word32bit){
+	return  (word32bit  & 0xFFFF);
+}
+
 /*
  * Description:  get higher byte from 16 bit word
  * @param  
@@ -561,4 +566,8 @@ int lower_byte(int word16bit){
  */
 int higher_byte(int word16bit) {
 	return word16bit >> 8;
+}
+
+int higher_16_byte(int word32bit) {
+	return word32bit >> 16;
 }

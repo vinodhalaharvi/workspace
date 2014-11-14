@@ -3,11 +3,9 @@
 #include <assert.h>
 #include <string.h>
 #include "emcommand.h"
-#include "emlib.h"
 #include <curses.h>
 unsigned int memindex = 0;
 char currInst[100];
-
 
 void getFiles(int argc, const char * argv[], FILE **rfile){
 	assert(argc == 2); 
@@ -16,6 +14,7 @@ void getFiles(int argc, const char * argv[], FILE **rfile){
 	assert (rfile != NULL); 
 	return ; 
 }
+
 
 int main(int argc, const char *argv[])
 {
@@ -36,6 +35,7 @@ int main(int argc, const char *argv[])
 		memory[hextoint(address)] = hextoint(value);
 		memindex = hextoint(address); 
 	}
+	init_registers(); 
 #ifdef DISASSEMBLY
 	getchar(); 
 	pc = 0;
@@ -46,7 +46,6 @@ int main(int argc, const char *argv[])
 		printf("[0x%06X]:0x%08X\n", pc, 
 				(memory[pc + 1] << 16)
 				|  memory[pc]);
-
 		getchar();  //wait for the user input
 	}
 	return 0; 

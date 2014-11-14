@@ -12,12 +12,6 @@
 #include <limits.h>
 #include <errno.h>
 
-#define REG_IOCONTROL 0x00FF00
-#define REG_IOBUFFER_1 0x00FF04
-#define REG_IOBUFFER_2 0x00FF08
-#define STACK_BASE   (REG_IOCONTROL - 0x00A000)
-#define HEAP_BASE    (STACK_BASE - 0x000A00)
-
 //static int sp = STACK_BASE; 
 static int hp = HEAP_BASE; 
 
@@ -52,16 +46,9 @@ struct inst_table insts[] = {
 	{"lui", &lui},
 	{"lb", &lb},
 	{"lh", &lh},
-	{"lwl", &lwl},
 	{"lw", &lw},
-	{"lbu", &lbu},
-	{"lhu", &lhu},
-	{"lwr", &lwr},
 	{"sb", &sb},
-	{"sh", &sh},
 	{"sw", &sw},
-	{"swl", &swl},
-	{"swr", &swr},
 	{"jr", &jr},
 	{"beq", &beq},
 	{"bne", &bne},
@@ -209,14 +196,15 @@ int  align4(int address){
  * @param  
  * @returns
  */
-int store_string(char *str){
+int store_number(char *str){
 	int value; 
 	int store_address = hp; 
-	//make sure heap location is initialized
-	//and make sure heap is 4 byte memory aligned
-	assert(hp >= 0 && hp % 4 == 0);  
+	assert(hp >= 0 && hp % 4 == 0);   //not accurate?
 	while (*str){
-		memory[hp++] = *str++;
+		assert ((char)*str != 32);  //no spaces allowed
+		//either a '-' or a valid digit
+		assert(((char) *str == 45) || ((char)*str  >= 48 && (char)*str <=57)); 
+		memory[hp++] = (char) *str++;
 	}
 	memory[hp] = '\0';
 	hp = align4(hp);  //memory align to 4 byte boundary
@@ -264,7 +252,7 @@ void do_first_pass(int argc, const char *argv[]){
 				char * label = getlabel(line); 
 				//store the string at a location
 				//and store that location in the symbol table
-				int tmpaddr = store_string(getasciiz(line)); 
+				int tmpaddr = store_number(getasciiz(line)); 
 				put_sym(label, tmpaddr); 
 			} else {
 				char * label = getlabel(line); 
