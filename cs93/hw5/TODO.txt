@@ -21,6 +21,13 @@ make clean ; make runem CFLAGS+=-DDISASSEMBLY=1 CFLAGS+=-DDONTEMULATE=1 # do not
 make clean ; make runem CFLAGS+=-DDISASSEMBLY=1 # emulate but regular display
 make clean ; make runem CFLAGS+=-DEMULATE=1 # emulate and curses display 
 
+sub $t1, $t0, $zero
+rs rt rd
+rs =  2
+rt =  3 
+rd =  1
+
+rd = rs - rt
 
 testing notes
 #####################

@@ -18,7 +18,7 @@ void pr_rs(const char * inst, int rs){
 void pr_rs_rt_rd(const char * inst, int rs, int rt, int rd){
 	char * printstr = newstr(40);
 	sprintf(printstr, "                                       ");                   
-	sprintf(printstr, "%s %s, %s, %s", inst, regmap[rd], regmap[rt], regmap[rs]); 
+	sprintf(printstr, "%s %s, %s, %s", inst, regmap[rd], regmap[rs], regmap[rt]); 
 #ifdef DISASSEMBLY
 	printf("%40s ; ", printstr);
 #endif

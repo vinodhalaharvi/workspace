@@ -35,8 +35,8 @@ char * sub(char * tokens[]){
 char * add(char * tokens[]){
 	return type6(
 		getOpcodebits("add"), 
-		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[1]), 
 		"00000", 
 		getAluOpcodeBits("add")
@@ -46,8 +46,8 @@ char * add(char * tokens[]){
 char * and(char * tokens[]){
 	return	type6(
 		getOpcodebits("and"), 
-		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[1]), 
 		"00000", 
 		getAluOpcodeBits("and")
@@ -57,8 +57,8 @@ char * and(char * tokens[]){
 char * or(char * tokens[]){
 	return type6(
 		getOpcodebits("or"), 
-		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[1]), 
 		"00000", 
 		getAluOpcodeBits("or")
@@ -68,8 +68,8 @@ char * or(char * tokens[]){
 char * xor(char * tokens[]){
 	return type6(
 		getOpcodebits("xor"), 
-		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[1]), 
 		"00000", 
 		getAluOpcodeBits("xor")
@@ -79,8 +79,8 @@ char * xor(char * tokens[]){
 char * nor(char * tokens[]){
 	return type6(
 		getOpcodebits("nor"), 
-		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[1]), 
 		"00000", 
 		getAluOpcodeBits("nor")
@@ -90,8 +90,8 @@ char * nor(char * tokens[]){
 char * slt(char * tokens[]){
 	return type6(
 		getOpcodebits("slt"), 
-		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[2]), 
+		getRegisterBits(tokens[3]), 
 		getRegisterBits(tokens[1]), 
 		"00000", 
 		getAluOpcodeBits("slt")
