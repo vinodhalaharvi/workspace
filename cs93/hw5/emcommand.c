@@ -508,7 +508,8 @@ int sb(int base , int rt, int offset){
 	return 0;
 #endif
 	//assert((base + offset) % 4 == 0); 
-	memory[registers[base] + offset] = registers[rt] & 0xFF; 
+	//memory[registers[base] + offset] = registers[rt] & 0xFF; 
+	memory[registers[base] + offset] = (char) registers[rt]; 
 	return 0;
 }
 
@@ -534,3 +535,28 @@ int sw(int base , int rt, int offset){
 	memory[registers[base] + offset] = registers[rt] & 0xFFFF; 
 	return 0;
 }
+
+
+char * getheapStr(){
+	int i = 21760; 
+	char * printStr = newstr(100); 
+	char * res = printStr; 
+	while(memory[i]){
+		*printStr++ = memory[i++];
+	}
+	*printStr++ = ' ';
+	i = 21764; 
+	while(memory[i]){
+		*printStr++ = memory[i++];
+	}
+	*printStr++ = ' ';
+	//i = 21768; 
+	for (int i = 21768; i < 21768 + 5; i++) {
+		*printStr++ = memory[i++];
+	}
+	/*while(memory[i]){
+		*printStr++ = memory[i++];
+	}*/
+	return res; 
+}
+

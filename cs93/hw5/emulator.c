@@ -16,6 +16,31 @@ void getFiles(int argc, const char * argv[], FILE **rfile){
 }
 
 
+void print_heap(){
+	printf("%s\n", getheapStr());
+	return; 
+	printf("%s\n", "Printing heap .. ");
+	printf("%s\n", "firstNumber");
+	int i = 21760; 
+	while(memory[i]){
+		printf("%c", memory[i++]);
+	}
+	printf("\n");
+	printf("%s\n", "secondNumber");
+	i = 21764; 
+	while(memory[i]){
+		printf("%c", memory[i++]);
+	}
+	printf("\n");
+	printf("%s\n", "outputString");
+	i = 21768; 
+	while(memory[i]){
+		printf("%c", memory[i++]);
+	}
+	printf("\n");
+}
+
+
 int main(int argc, const char *argv[])
 {
 	FILE *rfile; 
@@ -65,6 +90,7 @@ int main(int argc, const char *argv[])
 		doinst(getBits(ir, 32));
 		refresh_state();	
 		print_output(currInst); 
+		logstring(getheapStr());
 		getchar();  //wait for the user input
 	}
 	fclose(rfile);

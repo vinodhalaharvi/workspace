@@ -68,3 +68,7 @@ void print_output(const char *str);
 char * getBits(int num, unsigned int SIZE); 
 unsigned int hextoint(char * hex);
 extern char *regmap[32]; 
+char * getheapStr(); 
+void init_registers(); 
+void logstring(const char *str); 
+

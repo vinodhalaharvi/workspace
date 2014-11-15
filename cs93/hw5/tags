@@ -71,12 +71,14 @@ getBits	emcommand.c	/^char * getBits(int num, unsigned int SIZE) { $/;"	f
 getFiles	aslib.c	/^void getFiles(int argc, const char * argv[], $/;"	f
 getFiles	emulator.c	/^void getFiles(int argc, const char * argv[], FILE **rfile){$/;"	f
 getFunc	assembler.c	/^function_type getFunc(const char * name){$/;"	f
+getInstName	assembler.c	/^char * getInstName(const char *line){$/;"	f
 getOpcodebits	aslib.c	/^char * getOpcodebits(char *name){$/;"	f
 getRegisterBits	aslib.c	/^char * getRegisterBits(char *registername){$/;"	f
 getTokens	aslib.c	/^void getTokens(const char * line, char * tokens[]){$/;"	f
 get_string_from_memory	assembler.c	/^char * get_string_from_memory(int address){$/;"	f
 get_sym_address	aslib.c	/^unsigned int get_sym_address(const char * name){$/;"	f
 getasciiz	aslib.c	/^char * getasciiz(const char *input){$/;"	f
+getheapStr	emcommand.c	/^char * getheapStr(){$/;"	f
 getlabel	aslib.c	/^char * getlabel(const char *string){$/;"	f
 hex	aslib.h	/^	char * hex; $/;"	m	struct:_encoding
 hextoint	aslib.c	/^unsigned int hextoint(char * hex){$/;"	f
@@ -89,6 +91,7 @@ hp	emcommand.c	/^int hp = HEAP_BASE; $/;"	v
 ifParen	aslib.c	/^unsigned int ifParen(const char *exp){$/;"	f
 immint	emcommand.c	/^unsigned int immint(char * bits){$/;"	f
 index	aslib.h	/^	unsigned int index; $/;"	m	struct:_symbol_table
+init_registers	emcommand.c	/^void init_registers(){$/;"	f
 inst	aslib.h	/^} inst; $/;"	t	typeref:struct:_inst
 inst_data	aslib.h	/^static inst inst_data[100] = {$/;"	v
 inst_info	aslib.h	/^} inst_info;$/;"	t	typeref:struct:_inst_info
@@ -156,6 +159,7 @@ pr_rt_imm	simpleoutput.c	/^void pr_rt_imm(const char * inst, int rt, int imm){$/
 pr_rt_rd_sa	simpleoutput.c	/^void pr_rt_rd_sa(const char * inst, int rt, int rd, int sa){$/;"	f
 printHeaders	aslib.c	/^void printHeaders(FILE *MIFfile){$/;"	f
 printTail	aslib.c	/^void printTail(FILE *MIFfile){$/;"	f
+print_heap	emulator.c	/^void print_heap(){$/;"	f
 print_output	emcommand.c	/^void print_output(const char *str){$/;"	f
 processLine	assembler.c	/^char *  processLine(char * line, FILE *rfile, FILE *MIFfile){$/;"	f
 ptr	aslib.h	/^	char * (*ptr)(char *[]);$/;"	m	struct:inst_table

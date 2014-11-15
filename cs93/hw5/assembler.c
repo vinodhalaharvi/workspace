@@ -92,8 +92,25 @@ unsigned int is_valid_inst(const char *line){
 	if (func) {
 		return 1;
 	}
+	//printf("%s not a valid instruction line\n", line);
+	//assert(1 == 0); 
 	return 0;
 }
+
+char * getInstName(const char *line){
+	char *tokens[4]; 
+	for (int i = 0; i < 4; i++) {
+		tokens[i] = ""; 
+	}
+	getTokens(line, tokens); 
+	function_type func = getFunc(tokens[0]); 
+	if (func) {
+		return strdup(tokens[0]); 
+	} else { 
+		return NULL; 
+	}
+}
+
 
 
 /* Is the string a valid int? 
@@ -143,8 +160,11 @@ char *  processLine(char * line, FILE *rfile, FILE *MIFfile){
 		memory[wordaddress] = t & 0xFFFF; 
 		memory[wordaddress + 1] = (t >> 16) & 0xFFFF; 
 		sprintf(printstr, "%s", line);
-		printf("%60s ; ", printstr);
-		printf("[0x%06X]:0x%08X\n", wordaddress, 
+		printf("%s ; ", printstr);
+		printf("(%d)[0x%06X]:(%d)0x%08X\n", 
+				wordaddress, wordaddress, 
+				(memory[wordaddress + 1] << 16)
+				|  memory[wordaddress],
 				(memory[wordaddress + 1] << 16)
 				|  memory[wordaddress]);
 		free(printstr);
@@ -245,8 +265,13 @@ void do_first_pass(int argc, const char *argv[]){
 		if (filter(&line))
 			continue; 
 		if(is_valid_inst(line)){
-			tmpaddr += 2; 
-		 }
+			char * inst = getInstName(line); 
+			if (strcmp(inst, "la") == 0)
+				tmpaddr += 4; 
+			else 
+				tmpaddr += 2; 
+			free(inst);
+		 } 
 		if (islabel(line)){
 			if (isasciiz(line)) {
 				char * label = getlabel(line); 
