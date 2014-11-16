@@ -169,7 +169,8 @@ char * addi(char * tokens[]){
                 getOpcodebits("addi"), 
                 getRegisterBits(tokens[2]), 
                 getRegisterBits(tokens[1]), 
-                getBits(atoi(tokens[3]), 16)
+                //getBits(atoi(tokens[3]), 16)
+                getBits(verify_atoi(tokens[3]), 16)
         ); 
 }
 
