@@ -490,8 +490,11 @@ char * eval_register(char *expWithParen)
 int register_offset(char * input){
 	int offset; 
 	char reg[2];
+	int address; 
 	int t = sscanf(input, "%i(%6s)", &offset, reg); 
-	assert(t == 2); 
+	//assert(t == 2); 
+	if(t != 2) 
+		return get_sym_address(input);
 	return offset; 
 }
 

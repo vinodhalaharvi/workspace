@@ -10,11 +10,12 @@ outputChar:
 	checkOutputReady:	
 		la $t1, REG_IOCONTROL # t1 <- REG_IOCONTROL address
 		lw $t0, ($t1) # $t0 <- loadWord($t1) 
+		nop
 		andi $t1, $t0, 0x2 # $t1 <- is the bit 1 of $t0 set ? 
 		beq $t1, $0, checkOutputReady # if not then busy wait
 	writeAChar:
 		la $t1, REG_IOBUFFER_2
-		sh $v0 ($t1) # store $a0 to REG_IOBUFFER_2
+		sb $v0 ($t1) # store $a0 to REG_IOBUFFER_2
 		jr $ra
 # prob3
 inputChar:
