@@ -1,7 +1,6 @@
 # Vinod Halaharvi
 # HUID: 80778287
 # vinod.halaharvi@gmai.com, halavin@iit.edu
-
 # prob2
 .data  # no relevance to the assembler.
 	outputString: .asciiz "            \n"
@@ -17,8 +16,6 @@ outputChar:
 		la $t1, REG_IOBUFFER_2
 		sh $v0 ($t1) # store $a0 to REG_IOBUFFER_2
 		jr $ra
-
-
 # prob3
 inputChar:
 	nop
@@ -31,9 +28,6 @@ inputChar:
 		la $t1, REG_IOBUFFER_1
 		lhu $v0 ($t1) # store $a0 to REG_IOBUFFER_2
 		jr $ra
-
-
-
 # prob4
 # $a0 has location of the null terminated string to output
 outputStringToDevice:
@@ -46,9 +40,6 @@ outputStringToDevice:
 		j loop1 # loop again
 	return1:
 		jr $t0 # return to caller
-
-
-
 # prob5
 # Store the input string at location $a0 and null terminate it
 inputStringFromDevice:
