@@ -58,7 +58,7 @@
 		sw $s1, 28($sp) 
 		sw $ra, 32($sp) 
 		#addi $a1, $zero, 0x1999 
-		addi $a1, $zero, 0x19 
+		addi $a1, $zero, 0x199 
 		nop
 		jal multiply 
 		srl $a0, $v0, 16 

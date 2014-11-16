@@ -1,7 +1,7 @@
 .data
         firstNumber:  .asciiz "-11"
         secondNumber: .asciiz "11"
-	outputString: .asciiz ""
+	outputString: .asciiz "0000"
 .text
 	jal main
 	# $a0 <- $a0

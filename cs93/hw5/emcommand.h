@@ -71,4 +71,6 @@ extern char *regmap[32];
 char * getheapStr(); 
 void init_registers(); 
 void logstring(const char *str); 
+void instcountstring(const char *str); 
+int nop(); 
 

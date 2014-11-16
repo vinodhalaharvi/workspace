@@ -40,6 +40,16 @@ void print_heap(){
 	printf("\n");
 }
 
+void waitmaybe(const char * inst, 
+		int count, int waitat){
+		if (inst != NULL && 
+			strstr(currInst, inst)  != NULL)
+			getchar();  
+		if (count % waitat == 0 )
+			getchar(); 
+		return; 
+}
+
 
 int main(int argc, const char *argv[])
 {
@@ -47,6 +57,7 @@ int main(int argc, const char *argv[])
 	char *line = newstr(100);
 	char *address = newstr(100);
 	char *value = newstr(100);
+	char *countStr = newstr(100);
 	size_t len = 0; 
 	getFiles(argc, argv, &rfile); 
 	int lineno = 0; 
@@ -84,6 +95,7 @@ int main(int argc, const char *argv[])
 	}
 	refresh_state();	
 	getchar();  //wait for the user input
+	int count = 0;  int waitat = 590; 
 	while(1) {
 		ir = (memory[pc+1] << 16) | memory[pc]; 
 		pc += 2; 
@@ -91,7 +103,10 @@ int main(int argc, const char *argv[])
 		refresh_state();	
 		print_output(currInst); 
 		logstring(getheapStr());
-		getchar();  //wait for the user input
+		sprintf(countStr, "instr count :%d", count); 
+		instcountstring(countStr); 
+		count++;
+		waitmaybe("nop", count, waitat); 
 	}
 	fclose(rfile);
 	delwin(window);

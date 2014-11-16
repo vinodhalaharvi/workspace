@@ -51,6 +51,7 @@ typedef struct _location {
 
 location command = {.x = 20, .y = 0}; 
 location loglocation = {.x = 21, .y = 0}; 
+location instcountlocation = {.x = 22, .y = 0}; 
 
 unsigned get(int num, int start, int end){
 	unsigned int res = 0; 
@@ -150,6 +151,14 @@ void logstring(const char *str){
 	refresh();
 }
 
+void instcountstring(const char *str){
+	assert (instcountlocation.x > 0 ) ; 
+	assert (instcountlocation.y >= 0 ) ; 
+	mvaddstr(instcountlocation.x, instcountlocation.y, "                                             "); 
+	mvaddstr(instcountlocation.x, instcountlocation.y, str); 
+	refresh();
+}
+
 char * getBits(int num, unsigned int SIZE) { 
 	char * bits = (char * ) malloc(SIZE+2);
 	memset(bits, '\0', SIZE+2); 
@@ -201,6 +210,8 @@ int doinst(char * inst){
 	char * inst_index = newstr(26);
 	assert(strlen(inst) == 33); 
 
+	if(sscanf(inst, "00000000000000000000000000000000%1s", ig) == 1)
+		return nop(); 
 	if(sscanf(inst, "00000000000%5s%5s%5s000000%1s", rt, rd, sa, ig) ==4)
 		return sll(regint(rt), regint(rd), regint(sa)); 
 	if(sscanf(inst, "00000000000%5s%5s%5s000010%1s", rt, rd, sa, ig) ==4)
@@ -275,7 +286,8 @@ int srl(int rt, int rd, int sa){
 #ifdef DONTEMULATE
 	return 0;
 #endif
-	registers[rd] = (unsigned int) registers[rt] >> sa; 
+	//registers[rd] = (unsigned int) registers[rt] >> sa; 
+	registers[rd] =  registers[rt] >> sa; 
 	return 0;
 }
 
@@ -524,6 +536,14 @@ int lw(int base , int rt, int offset){
 	return 0;
 }
 
+int nop(){
+	pr_nop(); 
+#ifdef DONTEMULATE
+	return 0;
+#endif
+	return 0;
+}
+
 
 int sw(int base , int rt, int offset){
 	pr_base_rt_offset("sw", base, rt, offset); 
@@ -551,8 +571,8 @@ char * getheapStr(){
 	}
 	*printStr++ = ' ';
 	//i = 21768; 
-	for (int i = 21768; i < 21768 + 5; i++) {
-		*printStr++ = memory[i++];
+	for (int i = 21768; i < 21768 + 10; i++) {
+		*printStr++ = memory[i];
 	}
 	/*while(memory[i]){
 		*printStr++ = memory[i++];

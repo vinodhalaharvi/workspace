@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 void pr_rs(const char * inst, int rs){
 	char * printstr = newstr(40);
@@ -112,3 +113,18 @@ void pr_rs_rt_offset(const char * inst, int rs, int rt, int offset){
 	memcpy(currInst, printstr, strlen(printstr));
 	free(printstr); 
 }
+
+
+void pr_nop(){
+	char * printstr = newstr(40);
+	sprintf(printstr, "                                       ");                   
+	sprintf(printstr, "nop"); 
+#ifdef DISASSEMBLY
+	printf("%40s ; ", printstr);
+#endif
+	memset(currInst, '\0', 100);
+	memcpy(currInst, printstr, strlen(printstr));
+	free(printstr); 
+}
+
+

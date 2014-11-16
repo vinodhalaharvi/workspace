@@ -96,6 +96,8 @@ inst	aslib.h	/^} inst; $/;"	t	typeref:struct:_inst
 inst_data	aslib.h	/^static inst inst_data[100] = {$/;"	v
 inst_info	aslib.h	/^} inst_info;$/;"	t	typeref:struct:_inst_info
 inst_table	aslib.h	/^struct inst_table {$/;"	s
+instcountlocation	emcommand.c	/^location instcountlocation = {.x = 22, .y = 0}; $/;"	v
+instcountstring	emcommand.c	/^void instcountstring(const char *str){$/;"	f
 instint	emcommand.c	/^unsigned int instint(char * bits){$/;"	f
 instname	aslib.h	/^	char * instname; $/;"	m	struct:_inst
 insts	assembler.c	/^struct inst_table insts[] = {$/;"	v	typeref:struct:inst_table
@@ -138,6 +140,7 @@ name	aslib.h	/^	char * name;$/;"	m	struct:inst_table
 newstr	aslib.c	/^char * newstr(int len){$/;"	f
 newstr	emcommand.c	/^char * newstr(int len){$/;"	f
 nop	ascommand.c	/^char * nop(char * tokens[]){$/;"	f
+nop	emcommand.c	/^int nop(char * tokens[]){$/;"	f
 nor	ascommand.c	/^char * nor(char * tokens[]){$/;"	f
 nor	emcommand.c	/^int nor(int rs, int rt, int rd){$/;"	f
 offsetint	emcommand.c	/^unsigned int offsetint(char * bits){$/;"	f
@@ -151,6 +154,7 @@ pc	emcommand.c	/^unsigned int pc; $/;"	v
 pr_base_rt_inst_index	simpleoutput.c	/^void pr_base_rt_inst_index(const char * inst, int rt, int inst_index){$/;"	f
 pr_base_rt_offset	simpleoutput.c	/^void pr_base_rt_offset(const char * inst, int base, int rt, int offset){$/;"	f
 pr_inst_index	simpleoutput.c	/^void pr_inst_index(const char * inst, int inst_index){$/;"	f
+pr_nop	simpleoutput.c	/^void pr_nop(){$/;"	f
 pr_rs	simpleoutput.c	/^void pr_rs(const char * inst, int rs){$/;"	f
 pr_rs_rt_imm	simpleoutput.c	/^void pr_rs_rt_imm(const char * inst, int rs, int rt, int imm){$/;"	f
 pr_rs_rt_offset	simpleoutput.c	/^void pr_rs_rt_offset(const char * inst, int rs, int rt, int offset){$/;"	f
@@ -213,6 +217,7 @@ type4	ascommand.c	/^char * type4(char * arg0, char * arg1, char *arg2, char *arg
 type5	ascommand.c	/^char * type5(char * arg0, char * arg1, char *arg2, char *arg3, char *arg4){$/;"	f
 type6	ascommand.c	/^char * type6(char * arg0, char * arg1, char *arg2, char *arg3, char *arg4, char *arg5){$/;"	f
 verify_atoi	ascommand.c	/^int verify_atoi(char *token){$/;"	f
+waitmaybe	emulator.c	/^void waitmaybe(const char * inst, $/;"	f
 wordaddress	aslib.c	/^unsigned int wordaddress; $/;"	v
 x	emcommand.c	/^	int x, y; $/;"	m	struct:_location	file:
 xor	ascommand.c	/^char * xor(char * tokens[]){$/;"	f
