@@ -6,6 +6,10 @@
 #include "simpleoutput.h"
 #include <curses.h>
 
+/* Vinod Halaharvi
+ * HUID 80778287
+ */
+
 //hard initial location for stack and data heap
 int sp = STACK_BASE; 
 int hp = HEAP_BASE; 

@@ -7,6 +7,10 @@
 unsigned int memindex = 0;
 char currInst[100];
 
+/* Vinod Halaharvi
+ * HUID 80778287
+ */
+
 
 /* Get files discriptors by opening the underlying files 
  * @param 
@@ -132,7 +136,7 @@ int main(int argc, const char *argv[])
 		//display instruction count
 		instcountstring(countStr); 
 		count++;
-#ifdef SINGLSTEP
+#ifdef SINGLESTEP
 			getchar();  //sigle step each instruction
 #endif
 		waitmaybe("nop");  //stop at every nop for debugging

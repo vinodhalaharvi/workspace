@@ -1,5 +1,4 @@
 override CFLAGS += -Wall -ggdb -std=gnu99
-#CFLAGS+=-DDEBUG=1
 
 CC=gcc
 O=0
