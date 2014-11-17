@@ -6,9 +6,11 @@
 #include "simpleoutput.h"
 #include <curses.h>
 
+//hard initial location for stack and data heap
 int sp = STACK_BASE; 
 int hp = HEAP_BASE; 
 
+//register map from number to name
 char *regmap[32] =  {
 	"$zero",
 	"$at",
@@ -45,27 +47,31 @@ char *regmap[32] =  {
 }; 
 
 
+//location data type for curses location 
+//on the screen
 typedef struct _location {
 	int x, y; 
 } location;
 
+//three different locations for 
+//command, log and instr printing
 location command = {.x = 20, .y = 0}; 
 location loglocation = {.x = 21, .y = 0}; 
 location instcountlocation = {.x = 22, .y = 0}; 
 
-unsigned get(int num, int start, int end){
-	unsigned int res = 0; 
-	for (int i = end; i <= start; i++) {
-		res |= (num & ( 1 << i )); 
-	}
-	return (res >> end); 
-}
-
+// datatype to store register values
 int registers[32]; 
+// array to store memory
 unsigned short memory[MIF_FILE_SIZE]; 
+//program counter
 unsigned int pc; 
+//instruction register
 unsigned int ir; 
 
+/*   Initialize registers
+ * @param 
+ * @returns
+ */
 void init_registers(){
 	for (int i = 0; i < 31; i++) {
 		registers[i] = 0;
@@ -73,6 +79,11 @@ void init_registers(){
 	registers[29] = sp;
 }
 
+/*  
+ * @param  Helper function to get new string
+ * and initialize to all zeros
+ * @returns
+ */
 char * newstr(int len){
 	assert(len >= 0);
 	char * str = (char *) malloc(len + 1); 
@@ -82,6 +93,11 @@ char * newstr(int len){
 }
 
 
+/*  
+ * @param  refresh register state information in the 
+ * curses window
+ * @returns
+ */
 void refresh_state(){
 	WINDOW * window;
 	if ((window = initscr()) == NULL ) {
@@ -135,6 +151,10 @@ void refresh_state(){
 	refresh();
 }
 
+/* Helper function to print disassembled instruction 
+ * @param 
+ * @returns
+ */
 void print_output(const char *str){
 	assert (command.x > 0 ) ; 
 	assert (command.y >= 0 ) ; 
@@ -143,6 +163,10 @@ void print_output(const char *str){
 	refresh();
 }
 
+/* 
+ * @param  
+ * @returns
+ */
 void logstring(const char *str){
 	assert (loglocation.x > 0 ) ; 
 	assert (loglocation.y >= 0 ) ; 
@@ -151,6 +175,10 @@ void logstring(const char *str){
 	refresh();
 }
 
+/*  Display instruction counter information
+ * @param 
+ * @returns
+ */
 void instcountstring(const char *str){
 	assert (instcountlocation.x > 0 ) ; 
 	assert (instcountlocation.y >= 0 ) ; 
@@ -159,6 +187,10 @@ void instcountstring(const char *str){
 	refresh();
 }
 
+/* Get bits correspondng to the input integer  
+ * @param 
+ * @returns
+ */
 char * getBits(int num, unsigned int SIZE) { 
 	char * bits = (char * ) malloc(SIZE+2);
 	memset(bits, '\0', SIZE+2); 
@@ -172,10 +204,18 @@ char * getBits(int num, unsigned int SIZE) {
 	return bits; 
 }
 
+/* Helper function to convert hex string to int 
+ * @param 
+ * @returns
+ */
 unsigned int hextoint(char * hex){
 	return (int)strtol(hex, NULL, 16);
 }
 
+/* get register index based on the binary bits 
+ * @param 
+ * @returns
+ */
 unsigned int regint(char * bits){
 	assert(strlen(bits) == 5); 
 	int res =  (int) strtol(bits, NULL,  2); 
@@ -183,21 +223,39 @@ unsigned int regint(char * bits){
 	return res; 
 }
 
+/* Immediate field value
+ * @param 
+ * @returns
+ */
 unsigned int immint(char * bits){
 	assert(strlen(bits) == 16); 
 	return (short) strtol(bits, NULL,  2); 
 }
 
+/* get offset from instruction  
+ * @param 
+ * @returns
+ */
 unsigned int offsetint(char * bits){
 	assert(strlen(bits) == 16); 
 	return (short) strtol(bits, NULL,  2); 
 }
 
+/*
+ * @param 
+ * @returns
+ */
 unsigned int instint(char * bits){
 	assert(strlen(bits) == 26); 
 	return (int) strtol(bits, NULL,  2); 
 }
 
+/* emulate the instruction.
+ * Do all the operations that emulates the instruction
+ * like update register values, update pc, etc
+ * @param 
+ * @returns
+ */
 int doinst(char * inst){
 	char * rs = newstr(10); 
 	char * rt = newstr(10); 
@@ -210,6 +268,9 @@ int doinst(char * inst){
 	char * inst_index = newstr(26);
 	assert(strlen(inst) == 33); 
 
+	// Use scanf to parse instruction bits.
+	// each bit pattern uniquely identifies an instruction
+	// call the instruction once it has been identified
 	if(sscanf(inst, "00000000000000000000000000000000%1s", ig) == 1)
 		return nop(); 
 	if(sscanf(inst, "00000000000%5s%5s%5s000000%1s", rt, rd, sa, ig) ==4)
@@ -272,6 +333,10 @@ int doinst(char * inst){
 	return 0; 
 }
 
+
+/*Individual function with names that emulate
+ * the corresponding instruction
+ */
 int sll(int rt, int rd, int sa){
 	pr_rt_rd_sa("sll", rt, rd, sa); 
 #ifdef DONTEMULATE
@@ -570,13 +635,11 @@ char * getheapStr(){
 		*printStr++ = memory[i++];
 	}
 	*printStr++ = ' ';
-	//i = 21768; 
 	for (int i = 21768; i < 21768 + 10; i++) {
 		*printStr++ = memory[i];
 	}
-	/*while(memory[i]){
-		*printStr++ = memory[i++];
-	}*/
+	//memcpy(printStr, "(output digits reversed)", 
+	//		strlen( " (output digits reversed)")); 
 	return res; 
 }
 

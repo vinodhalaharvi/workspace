@@ -7,6 +7,11 @@
 unsigned int memindex = 0;
 char currInst[100];
 
+
+/* Get files discriptors by opening the underlying files 
+ * @param 
+ * @returns
+ */
 void getFiles(int argc, const char * argv[], FILE **rfile){
 	assert(argc == 2); 
 	const char * inputfilepath =  argv[1]; 
@@ -16,6 +21,10 @@ void getFiles(int argc, const char * argv[], FILE **rfile){
 }
 
 
+/* Helper function to print heap, REG_IOCONTROL, and REG_IOBUFFER_* locations 
+ * @param 
+ * @returns
+ */
 void print_heap(){
 	printf("%s\n", getheapStr());
 	return; 
@@ -40,6 +49,10 @@ void print_heap(){
 	printf("\n");
 }
 
+/* call getchar() depending on an input instruction  
+ * @param 
+ * @returns
+ */
 void waitmaybe(const char * inst){
 	if (inst != NULL && 
 		strstr(currInst, inst)  != NULL)
@@ -48,6 +61,14 @@ void waitmaybe(const char * inst){
 }
 
 
+/* Open the mif file,read instructions and load it to memory
+ * start emulating or just disassembling. 
+ * doinstr() parses the bits and emulates 
+ * the underlying function
+ * Optionally call curses display
+ * @param 
+ * @returns
+ */
 int main(int argc, const char *argv[])
 {
 	FILE *rfile; 
@@ -58,6 +79,7 @@ int main(int argc, const char *argv[])
 	size_t len = 0; 
 	getFiles(argc, argv, &rfile); 
 	int lineno = 0; 
+	//read each line and fill memory structure
 	while(getline(&line, &len, rfile) != EOF){
 		lineno++; 
 		line[strlen(line)-1] = '\0';
@@ -68,13 +90,17 @@ int main(int argc, const char *argv[])
 		memory[hextoint(address)] = hextoint(value);
 		memindex = hextoint(address); 
 	}
+	//initialize all registers and pc
 	init_registers(); 
 #ifdef DISASSEMBLY
 	getchar(); 
 	pc = 0;
 	while(1) {
+		//get the instructioon
 		ir = (memory[pc+1] << 16) | memory[pc]; 
+		//increment program counter
 		pc += 2; 
+		//emulate the instruction
 		doinst(getBits(ir, 32));
 		printf("[0x%06X]:0x%08X\n", pc, 
 				(memory[pc + 1] << 16)
@@ -90,6 +116,8 @@ int main(int argc, const char *argv[])
 		fprintf(stderr, "Error initializing curses.\n");
 		exit(EXIT_FAILURE);
 	}
+	//print updated register information 
+	//on the screen
 	refresh_state();	
 	getchar();  //wait for the user input
 	int count = 0; 
@@ -101,9 +129,13 @@ int main(int argc, const char *argv[])
 		print_output(currInst); 
 		logstring(getheapStr());
 		sprintf(countStr, "instr count :%d", count); 
+		//display instruction count
 		instcountstring(countStr); 
 		count++;
-		waitmaybe("nop"); 
+#ifdef SINGLSTEP
+			getchar();  //sigle step each instruction
+#endif
+		waitmaybe("nop");  //stop at every nop for debugging
 	}
 	fclose(rfile);
 	delwin(window);

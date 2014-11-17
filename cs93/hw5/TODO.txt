@@ -20,6 +20,7 @@ make clean ; make runas
 make clean ; make runem CFLAGS+=-DDISASSEMBLY=1 CFLAGS+=-DDONTEMULATE=1 # do not emulate just print as inst
 make clean ; make runem CFLAGS+=-DDISASSEMBLY=1 # emulate but regular display
 make clean ; make runem CFLAGS+=-DEMULATE=1 # emulate and curses display 
+make clean ; make runem CFLAGS+=-DEMULATE=1  CFLAGS+=-DSINGLSTEP=1  # emulate single step and curses display 
 
 sub $t1, $t0, $zero
 rs rt rd
