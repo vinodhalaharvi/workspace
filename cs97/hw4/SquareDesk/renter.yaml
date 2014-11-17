@@ -1,0 +1,35 @@
+account:
+    payPalAccountNumber: "777888777"
+contact: katie@gmail.com
+gender: female
+name: "Katie"
+picture: "http://static.giantbomb.com/uploads/square_small/15/155745/2179159-agent_smith.jpg"
+ratings:
+    - rating:
+        authorsId: Fred
+        comment: "great renter"
+        date: 2014-9-19
+        stars: 5
+searchCriteria:
+    category: ~
+    endDate: 2014-10-29
+    facility:
+             type: home
+             category: kitchen table
+    features:
+            - Whiteboard
+            - WIFI
+            - Windows
+            - Parking
+            - Free Coffee
+    minAvgRating: 5
+    startDate: 2014-10-27
+    location:
+             lat: 27.175015
+             lng: 78.042155
+             address:
+             street1: 1 story street
+             street2:
+             city: cambridge
+             state: MA
+             zipCode: "02138"

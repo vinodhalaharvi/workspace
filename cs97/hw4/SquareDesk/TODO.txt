@@ -1,0 +1,8 @@
+1) Search for officeSpaces (make sure to apply AND condition)
+2) create a Booking using renter and officeSpaces
+3) CRUD on Booking
+4) CRUD of Renter
+Noon. 
+
+Design document
+

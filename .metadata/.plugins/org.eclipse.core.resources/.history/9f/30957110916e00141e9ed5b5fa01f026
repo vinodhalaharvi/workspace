@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package AuthenticationService;
+
+/**
+ * @author vinodhalaharvi
+ *
+ */
+public abstract class Entitlement {
+
+}

@@ -1,0 +1,13 @@
+/**
+ * 
+ */
+package cscie97.asn3.squaredesk.provider;
+
+import java.util.HashMap;
+
+/**
+ * The Class Provider.
+ */
+public class Provider extends Profile {
+
+}

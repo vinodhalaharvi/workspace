@@ -1,0 +1,20 @@
+package cscie97.asn3.squaredesk.authentication;
+
+public class AuthenticationService {
+
+	public void createUser(){
+		
+	}
+	
+	public void addEntitlement(){
+		
+	}
+	
+	public void addEntitlementToRole(){
+		
+	}
+	
+	public void addRoleToUser(){
+		
+	}
+}
