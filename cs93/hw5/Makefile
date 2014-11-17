@@ -26,7 +26,7 @@ assembler: $(asobjects)
 runas:  assembler
 	./assembler  asm/test.asm mif/test.mif
 
-runem:  emulator
+runem:  emulator runas
 	./emulator  mif/test.mif
 
 cleanobj:
@@ -36,7 +36,7 @@ cleanobj:
 tags: 
 	ctags *.[ch]
 
-debugem:  emulator
+debugem:  emulator runas
 	echo 'set confirm off' > .gdbinit
 	echo 'run mif/test.mif' >> .gdbinit
 	gdb ./emulator
