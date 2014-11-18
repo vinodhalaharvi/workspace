@@ -3,12 +3,12 @@
  */
 package cscie97.asn3.squaredesk.authentication;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AuthenticationService.
  */
@@ -18,30 +18,99 @@ public final class AuthenticationService {
 	 * Creates the user.
 	 */
 	public static void createUser(){
-		
+
 	}
-	
+
+	public boolean isValidPassword(String userName, String passwordHash){
+		if(userPasswordMap.containsKey(userName) 
+				&& userPasswordMap.get(userName).equals(passwordHash))
+			return true; 
+		else 
+			return false; 	
+	}
+
+	public boolean isValidUsername(String userName){
+		return userPasswordMap.containsKey(userName); 
+	}
+
+
+
+	/**
+	 * Gets the uuid.
+	 *
+	 * @return the uuid
+	 */
+	protected String getUUID() {
+		String uuidStr = UUID.randomUUID().toString(); 
+		return uuidStr; 	
+	}
+
+	//check user name and password
+	//and create a authotoken with an expiration and state set to active
+
+	public AccessToken login(String userName, String passwordHash) 
+			throws AuthenticationException{
+		if(!(isValidUsername(userName) && 
+				isValidPassword(userName, passwordHash))){
+			throw new AuthenticationException("userName or Password is NOT valid!");
+		} 
+		return createToken(userName, passwordHash);
+	}
+
+	public boolean isAccessTokenTimedOut(AccessToken accessToken){
+		Calendar cal = Calendar.getInstance();
+		return accessToken.getExpirationTime().before(cal.getTime()); 
+	}
+
+	private AccessToken createToken(String loginName, String passwordHash) {
+		Calendar cal = Calendar.getInstance();
+		AccessToken accessToken =  new AccessToken(getUUID(), cal.getTime(), "active");
+		User user = new User(loginName, loginName, passwordHash);
+		accessTokenUserMap.put(accessToken, user);
+		return accessToken;
+	}
+
+	public void logout(String accessToken) 
+			throws AccessTokenException{
+		if(!accessTokenUserMap.containsKey(accessToken))
+			throw new AccessTokenException();
+		for(AccessToken accessTokenIter : accessTokenUserMap.keySet()){
+			if(accessTokenIter.equals(accessToken))
+				accessTokenIter.setState("expired");
+		}
+		return; 
+	}
+
+
 	/**
 	 * Adds the entitlement.
 	 */
 	public static void addEntitlement(){
-		
+
 	}
-	
+
 	/**
 	 * Adds the entitlement to role.
 	 */
 	public static void addEntitlementToRole(){
-		
+
 	}
-	
+
 	/**
 	 * Adds the role to user.
 	 */
 	public static void addRoleToUser(){
-		
+
 	}
 	
+	public static boolean hasAccess(String authToken, 
+			String permissionName){
+		//from accessToken get a valid user
+		//check for all the roles of this user to see if the entitlementId is found
+				return false;
+		
+	}
+
 	/**
 	 * Gets the UUID from string.
 	 *
@@ -204,4 +273,7 @@ public final class AuthenticationService {
 
 	/** The users. */
 	private static Map<String, User> users = new HashMap<String, User>();
+	private static Map<String, String> userPasswordMap = new HashMap<String, String>();
+	private static Map<AccessToken, User> accessTokenUserMap = new HashMap<AccessToken, User>();
+
 }

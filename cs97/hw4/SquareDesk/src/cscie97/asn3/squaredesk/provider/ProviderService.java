@@ -2,12 +2,14 @@
  * 
  */
 package cscie97.asn3.squaredesk.provider;
+import java.nio.file.AccessDeniedException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import cscie97.asn3.squaredesk.authentication.AccessException;
+import cscie97.asn3.squaredesk.authentication.AuthenticationService;
 import cscie97.asn3.squaredesk.renter.ProfileFactory;
 import cscie97.asn3.squaredesk.renter.RenterAlreadyExistException;
 
@@ -115,12 +117,15 @@ public final class ProviderService {
 	 *             the provider already exist exception
 	 * @throws AccessException
 	 *             the access exception
+	 * @throws AccessDeniedException 
 	 * @throws RenterAlreadyExistException 
 	 * @throws ProfileAlreadyExistsException 
 	 */
 	public static Provider createProvider(String authToken, String name, 
 			ContactInfo contactInfo, Image picture
-			) throws ProviderAlreadyExistException, AccessException{ 
+			) throws ProviderAlreadyExistException, AccessException, AccessDeniedException{ 
+		if (!AuthenticationService.hasAccess(authToken, "createProvider"))
+			throw new AccessDeniedException("Access Denied"); 
 		String uuidName = getUUIDFromString(name); 
 		if (providers.containsKey(uuidName)){
 			throw new ProviderAlreadyExistException("This Provider Already Exists");
