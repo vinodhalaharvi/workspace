@@ -1,0 +1,7 @@
+visitor pattern
+class dictionary 
+
+class diagram
+activity diagram
+sequence diagram
+use case diagram
