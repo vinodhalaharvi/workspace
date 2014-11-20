@@ -27,64 +27,60 @@ public final class AuthenticationDataImporter {
 	public static void defineServices() throws ServiceAlreadyExistException{
 		//AuthenticationService.addService(new Service("ProviderService", "Provider Service", "The awesome provider service!!"));
 		AuthenticationService.addService(ServiceFactory.createService("ProviderService", "Provider Service", "The awesome provider service!!"));
-		//new Service(getUUID(), "RenterService"," RenterService");
-		//new Service(getUUID(), "AuthenticationService","AuthenticationService");
+		AuthenticationService.addService(ServiceFactory.createService("RenterService", "Renter Service", "The awesome Renter service!!"));
+		AuthenticationService.addService(ServiceFactory.createService("AuthenticationService", "Authentication Service", "The awesome Authentication service!!"));
 	}
 	
 	public static void definePermissions() throws PermissionAlreadyExistException{
-		//AuthenticationService.addPermission(new Permission("getCategory", "ProviderService", "get Category", "get  the Category of officeSpace"));
-		AuthenticationService.addPermission(PermissionFactory.createPermission("getCategory", "ProviderService", "get Category", "get  the Category of officeSpace"));
-		AuthenticationService.addPermission(PermissionFactory.createPermission("createProvider", "ProviderService", "create the provider", "create this awesome provider!!"));
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "getFacilityType", "getFacilityType");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "getProvider", "getProvider");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "deleteProvider", "deleteProvider");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "updateProviderName", "updateProviderName");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "addRatingToProvider", "addRatingToProvider");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "removeRatingFromProvider", "removeRatingFromProvider");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "getRatingListForProvider", "getRatingListForProvider");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "getProviderList", "getProviderList");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "updateProviderContactInfo", "updateProviderContactInfo");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "updateProviderPicture", "updateProviderPicture");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "addOfficeSpaceToProvider", "addOfficeSpaceToProvider");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "removeOfficeSpaceFromProvider", "removeOfficeSpaceFromProvider");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "getOfficeSpaceListForProvider", "getOfficeSpaceListForProvider");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "getOfficeSpace", "getOfficeSpace");
-//
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "getBookingService", "getBookingService");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "setBookingService", "setBookingService");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "createRenter", "createRenter");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "getRenterList", "getRenterList");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "updateRenterName", "updateRenterName");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "updateRenterContactInfo", "updateRenterContactInfo");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "updateRenterPicture", "updateRenterPicture");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "deleteRemter", "deleteRemter");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "addRatingToRenter", "addRatingToRenter");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "removeRatingFromRenter", "removeRatingFromRenter");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "getRatingListForRenter", "getRatingListForRenter");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "getRatingListForRenter", "getRatingListForRenter");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "searchKGUsingFeatures", "searchKGUsingFeatures");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "searchKGUsingLocation", "searchKGUsingLocation");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "searchKGUsingFacilityAndCategory", "searchKGUsingFacilityAndCategory");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "searchKGUsingRating", "searchKGUsingRating");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "searchKGUsingDates", "searchKGUsingDates");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("RenterService", "searchKGCriteria", "searchKGCriteria");
-
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "getCategory", "get Category", "get  the Category of officeSpace"));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "createProvider", "create the provider", "create this awesome provider!!"));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "getFacilityType", "getFacilityType", "getFacilityType"));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "getProvider", "getProvider" ,"getProvider"));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "deleteProvider", "deleteProvider", "deleteProvider"));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "updateProviderName", "updateProviderName", "updateProviderName"));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "addRatingToProvider", "addRatingToProvider", "addRatingToProvider"));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "removeRatingFromProvider", "removeRatingFromProvider", "removeRatingFromProvider"));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "getRatingListForProvider", "getRatingListForProvider", "getRatingListForProvider"));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "getProviderList", "getProviderList", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "updateProviderContactInfo", "updateProviderContactInfo", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "updateProviderPicture", "updateProviderPicture", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "addOfficeSpaceToProvider", "addOfficeSpaceToProvider", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "removeOfficeSpaceFromProvider", "removeOfficeSpaceFromProvider", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "getOfficeSpaceListForProvider", "getOfficeSpaceListForProvider", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "getOfficeSpace", "getOfficeSpace",""));
 		
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "getBookingService", "getBookingService", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "setBookingService", "setBookingService", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "createRenter", "createRenter", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "getRenterList", "getRenterList", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "getRenter", "getRenter", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "updateRenterName", "updateRenterName", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "updateRenterContactInfo", "updateRenterContactInfo", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "updateRenterPicture", "updateRenterPicture", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "deleteRemter", "deleteRemter", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "addRatingToRenter", "addRatingToRenter", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "removeRatingFromRenter", "removeRatingFromRenter", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "getRatingListForRenter", "getRatingListForRenter", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "getRatingListForRenter", "getRatingListForRenter", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "searchKGUsingFeatures", "searchKGUsingFeatures", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "searchKGUsingLocation", "searchKGUsingLocation", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "searchKGUsingFacilityAndCategory", "searchKGUsingFacilityAndCategory", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "searchKGUsingRating", "searchKGUsingRating", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "searchKGUsingDates", "searchKGUsingDates", ""));
+				AuthenticationService.addPermission(PermissionFactory.createPermission("RenterService", "searchKGCriteria", "searchKGCriteria", ""));
+		
+				
 	}
 	
 	public static void defineRoles() throws RoleAlreadyExistException{
-		//AuthenticationService.addRole(new Role(getUUID(), AuthenticationService.getServiceByName("ProviderService",  "ProviderRole", "ProviderRole"));
-		//AuthenticationService.addEntitlement(new Role("ProviderRole", "Provider Role", "The amazing role of a provider .. "));
 		AuthenticationService.addEntitlement(RoleFactory.createRole("ProviderRole", "Provider Role", "The amazing role of a provider .. "));
-		//new Role(getUUID(), AuthenticationService.getServiceByName("RenterService",  "RenterRole", "RenterRole");
-		//new Role(getUUID(), AuthenticationService.getServiceByName("AuthenticationService",  "AuthenticationRole", "AuthenticationRole");		
+		AuthenticationService.addEntitlement(RoleFactory.createRole("RenterRole", "Renter Role", "The amazing role of a Renter .. "));
+		AuthenticationService.addEntitlement(RoleFactory.createRole("AuthenticationRole", "Authentication Role", "The amazing role of a Authentication .. "));
 	}
 	
 	
 	public static void defineUsers() throws UserAlreadyExistException{
-		User user = AuthenticationService.addUser(UserFactory.createUser("testUser1", "testPassword1", getUUID()));
+		User user = AuthenticationService.addUser(UserFactory.createUser("testUser1", "JLKJLKSJLU*&(*^^&*^", getUUID()));
 		user.setUserDescription("test user in the system"); 
-		//AuthenticationService.addUser(UserFactory.createUser("testUser2", "testPassword2", getUUID()));
-		//AuthenticationService.addUser(UserFactory.createUser("testUser3", "testPassword3", getUUID()));
 	}
 }

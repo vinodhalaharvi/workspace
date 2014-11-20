@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import cscie97.asn3.squaredesk.authentication.AccessException;
+import cscie97.asn3.squaredesk.authentication.AuthenticationService;
 import cscie97.asn3.squaredesk.provider.ContactInfo;
 import cscie97.asn3.squaredesk.provider.Facility;
 import cscie97.asn3.squaredesk.provider.Feature;
@@ -82,6 +83,8 @@ public final class RenterService {
 	public static Renter createRenter(String authToken, String name, 
 			ContactInfo contactInfo, Image picture
 			) throws RenterAlreadyExistException, AccessException{ 
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","createRenter"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		String uuidName = getUUIDFromString(name); 
 		if (renters.containsKey(uuidName)){
 			throw new RenterAlreadyExistException("This Renter Already Exists");
@@ -105,6 +108,8 @@ public final class RenterService {
 	 */
 	public static Renter getRenter(String authToken, String renterId) 
 			throws RenterNotFoundException, AccessException {
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","getRenter"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		return getRenter(renterId); 
 	}
 
@@ -118,6 +123,8 @@ public final class RenterService {
 	 */
 	public static Collection<Renter> getRenterList(String authToken)
 			throws AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","getRenterList"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		return renters.values();  
 	}
 
@@ -150,6 +157,8 @@ public final class RenterService {
 	 */
 	public static Renter updateRenterName(String authToken, String renterId, String name) 
 			throws RenterNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","updateRenterName"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Renter renterObj = getRenter(renterId);
 		String renterOldName = renterObj.getName(); 
 		renterObj.setName(name);
@@ -174,6 +183,8 @@ public final class RenterService {
 	 */
 	public static Renter updateRenterContactInfo(String authToken, String renterId, 
 			ContactInfo contactInfo) throws RenterNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","updateRenterContactInfo"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Renter renterObj = getRenter(renterId); 
 		renterObj.setContactInfo(contactInfo);
 		return renterObj;	
@@ -192,6 +203,8 @@ public final class RenterService {
 	 */
 	public static Renter updateRenterPicture(String authToken, String renterId, 
 			Image picture) throws RenterNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","updateRenterPicture"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Renter renterObj = getRenter(renterId); 
 		renterObj.setImage(picture);  
 		return renterObj;
@@ -207,6 +220,8 @@ public final class RenterService {
 	 */
 	public static void deleteRenter(String authToken, String renterId) 
 			throws RenterNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","deleteRenter"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		renters.remove(renterId);
 	}
 
@@ -222,9 +237,12 @@ public final class RenterService {
 	 * @return the rating
 	 * @throws RenterNotFoundException
 	 *             the renter not found exception
+	 * @throws AccessException 
 	 */
 	public static Rating addRatingToRenter(String authToken, String renterId, Rating rating)
-			throws RenterNotFoundException{
+			throws RenterNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","addRatingToRenter"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Renter renterObj = getRenter(renterId); 
 		renterObj.addRatingToList(rating); 
 		return rating; 
@@ -243,9 +261,12 @@ public final class RenterService {
 	 *             the renter not found exception
 	 * @throws RatingNotFoundException
 	 *             the rating not found exception
+	 * @throws AccessException 
 	 */
 	public static void removeRatingFromRenter(String authToken, String renterId, String ratingId) 
-			throws RenterNotFoundException, RatingNotFoundException{
+			throws RenterNotFoundException, RatingNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","removeRatingFromRenter"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Renter renterObj = getRenter(renterId); 
 		renterObj.removeRatingfromList(ratingId); 
 	}
@@ -260,9 +281,12 @@ public final class RenterService {
 	 * @return the rating list for renter
 	 * @throws RenterNotFoundException
 	 *             the renter not found exception
+	 * @throws AccessException 
 	 */
 	public static Collection<Rating> getRatingListForRenter(String authToken, String renterId)
-			throws RenterNotFoundException{
+			throws RenterNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","getRatingListForRenter"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Renter renterObj = getRenter(renterId); 
 		return renterObj.getRatings();
 	}
@@ -276,11 +300,14 @@ public final class RenterService {
 	 * @param list
 	 *            the list
 	 * @return the collection
+	 * @throws AccessException 
 	 */
 	public static Collection<OfficeSpace> 
-	searchKGUsingFeatures(String authToken, List<Feature> list){
+	searchKGUsingFeatures(String authToken, List<Feature> list) throws AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","searchKGUsingFeatures"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		ArrayList<OfficeSpace> officeSpaces = new ArrayList<OfficeSpace>(); 
-		
+
 		for (Feature feature : list){
 			String query = "?" + " has_feature " + feature.getName(); 
 			System.out.println("Query was: " + query);
@@ -306,8 +333,11 @@ public final class RenterService {
 	 * @param location
 	 *            the location
 	 * @return the collection
+	 * @throws AccessException 
 	 */
-	public static Collection<OfficeSpace> searchKGUsingLocation(String authToken, Location location){ 
+	public static Collection<OfficeSpace> searchKGUsingLocation(String authToken, Location location) throws AccessException{ 
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","searchKGUsingLocation"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		String query = "?" + " has_lat_long " + (int)Math.floor(location.getLat()) + "_"
 				+ (int)Math.floor(location.getlng()); 
 		System.out.println("Query was: " + query);
@@ -328,8 +358,11 @@ public final class RenterService {
 	 * @param facility
 	 *            the facility
 	 * @return the collection
+	 * @throws AccessException 
 	 */
-	public static Collection<OfficeSpace> searchKGUsingFacilityAndCategory(String authToken, Facility facility){ 
+	public static Collection<OfficeSpace> searchKGUsingFacilityAndCategory(String authToken, Facility facility) throws AccessException{ 
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","searchKGUsingFacilityAndCategory"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		String query; 
 		if (facility.getCategory() == ""){
 			query = "?" + " has_facility_type_category " +
@@ -356,8 +389,11 @@ public final class RenterService {
 	 * @param minRating
 	 *            the min rating
 	 * @return the collection
+	 * @throws AccessException 
 	 */
-	public static Collection<OfficeSpace> searchKGUsingRating(String authToken, int minRating){
+	public static Collection<OfficeSpace> searchKGUsingRating(String authToken, int minRating) throws AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","searchKGUsingRating"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		String query; 
 		ArrayList<OfficeSpace> officeSpaces = new ArrayList<OfficeSpace>(); 
 		for (int i = 5; i >= minRating; i--) {
@@ -382,8 +418,11 @@ public final class RenterService {
 	 * @param endDate
 	 *            the end date
 	 * @return the collection
+	 * @throws AccessException 
 	 */
-	public static Collection<OfficeSpace> searchKGUsingDates(String authToken, Date startDate, Date endDate){
+	public static Collection<OfficeSpace> searchKGUsingDates(String authToken, Date startDate, Date endDate) throws AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","searchKGUsingDates"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		ArrayList<OfficeSpace> officeSpaces = new ArrayList<OfficeSpace>();  
 		for(OfficeSpace officeSpace : ProviderService.getOfficeSpaces()){
 			if(BookingService.checkAvailability(officeSpace, startDate, endDate)){
@@ -392,7 +431,7 @@ public final class RenterService {
 		}
 		return officeSpaces; 
 	}
-	
+
 	/**
 	 * Search kg criteria.
 	 *
@@ -401,8 +440,11 @@ public final class RenterService {
 	 * @param criteria
 	 *            the criteria
 	 * @return the collection
+	 * @throws AccessException 
 	 */
-	public static Collection<OfficeSpace> searchKGCriteria(String authToken, Criteria criteria){
+	public static Collection<OfficeSpace> searchKGCriteria(String authToken, Criteria criteria) throws AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "RenterService","searchKGCriteria"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		ArrayList<OfficeSpace> officeSpaces = new ArrayList<OfficeSpace>();
 		//perform intersection to have "AND" criteria
 		officeSpaces = (ArrayList<OfficeSpace>) searchKGUsingFeatures(authToken, criteria.getFeatures());
@@ -412,8 +454,6 @@ public final class RenterService {
 		officeSpaces.retainAll(searchKGUsingDates(authToken, criteria.getStartDate(), criteria.getEndDate())); 
 		return officeSpaces; 
 	}	
-	
-	
 
 	/**
 	 * Instantiates a new renter service.

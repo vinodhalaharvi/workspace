@@ -103,8 +103,14 @@ public final class AuthenticationService {
 	public static boolean hasAccess(String authToken, String serviceId,
 			String permissionId){
 		User user = getUserByAuthToken(authToken); 
-		if (user == null)
+		Calendar cal = Calendar.getInstance(); 
+		if (user == null){
 			return false;
+		}
+		if (user.getAuthToken().getState() != "active" ||
+				user.getAuthToken().getExpirationTime().before(cal.getTime())){
+			return false;
+		}
 		Permission permission = getPermissionById(permissionId, serviceId);
 		if (permission == null)
 			return false; 
@@ -280,6 +286,7 @@ public final class AuthenticationService {
 
 	private static AccessToken createToken(User user) {
 		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, 90); //token will expire in 90 days
 		AccessToken authToken =  new AccessToken(getUUID(), cal.getTime(), "active");
 		user.setAuthToken(authToken);
 		return authToken;

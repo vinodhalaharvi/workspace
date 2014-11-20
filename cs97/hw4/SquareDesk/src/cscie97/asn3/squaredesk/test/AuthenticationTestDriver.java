@@ -46,6 +46,8 @@ public class AuthenticationTestDriver extends TestDriverBase  {
 			RoleAlreadyExistException, AuthenticationException, UserNotFoundException, AccessTokenException {
 		
 		super.createTest();
+		System.out.println();
+		System.out.println("Defining service, permission/roles and users in the system");
 		AuthenticationDataImporter.defineServices();
 		AuthenticationDataImporter.definePermissions();
 		AuthenticationDataImporter.defineUsers();
@@ -53,40 +55,35 @@ public class AuthenticationTestDriver extends TestDriverBase  {
 		AuthenticationDataImporter.defineRoles();
 		role = AuthenticationService.getRoles().iterator().next();
 		permission = AuthenticationService.getPermissions().iterator().next();
-		AuthenticationService.addEntitlementToRole(role, (Entitlement) permission); 		
+		AuthenticationService.addEntitlementToRole(role, (Entitlement) permission);
+		System.out.println("Adding permisions to role");
 		for(Permission permissionIter : AuthenticationService.getPermissions()){
 			AuthenticationService.addEntitlementToRole(role, (Entitlement) permissionIter); 
 		}
+		System.out.println("Adding role to the user");
 		AuthenticationService.addRoleToUser(user, role);
-		//System.out.println(AuthenticationService.doesUserHasPermissions(user, permission));
-		//System.out.println("Has access to createProvider?: " 
-			//	+ AuthenticationService.hasAccess(user.getAuthToken().getAccessTokenId(), "ProviderService"
-			//	,"createProvider")); 
-		//user will now try to create a provider
 	}
 
 	public void loginUser() throws AuthenticationException, UserNotFoundException{
 		System.out.println();
 		System.out.println("logging in user .. " + user.getLoginName());
 		AuthenticationService.login(user);
-		System.out.println("getPassword :"+ user.getPassword());
-		System.out.println("getUserId :"+ user.getUserId());
-		System.out.println(user.getAuthToken() + " : " + user.getAuthToken().getState());
-		System.out.println("getUserDescription :"+ user.getUserDescription());
-		System.out.println(user.getUserDescription());
-		System.out.println("User logged in");
+		System.out.println("\tUser attributes after login");
+		System.out.println("\tgetUserId :"+ user.getUserId());
+		System.out.println("\t" + user.getAuthToken() + " : " + user.getAuthToken().getState());
+		System.out.println("\tgetUserDescription :"+ user.getUserDescription());
+		System.out.println("\tUser logged in");
 	}
 	
 	public void logoutUser() throws AccessTokenException{
 		System.out.println();
 		System.out.println("logging out user .. " + user.getLoginName());
-		AuthenticationService.logout(user); 
-		System.out.println("getPassword :"+ user.getPassword());
-		System.out.println("getUserId :"+ user.getUserId());
-		System.out.println(user.getAuthToken() + " : " + user.getAuthToken().getState());
-		System.out.println("getUserDescription :"+ user.getUserDescription());
-		System.out.println(user.getUserDescription());
-		System.out.println("User logged out");
+		AuthenticationService.logout(user);
+		
+		System.out.println("\tgetUserId :"+ user.getUserId());
+		System.out.println("\t" + user.getAuthToken() + " : " + user.getAuthToken().getState());
+		System.out.println("\tgetUserDescription :"+ user.getUserDescription());
+		System.out.println("\tUser logged out");
 		
 	}
 	

@@ -5,6 +5,7 @@ package cscie97.asn3.squaredesk.test;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.AccessDeniedException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
 import cscie97.asn3.squaredesk.authentication.AccessException;
 import cscie97.asn3.squaredesk.authentication.AccessTokenException;
 import cscie97.asn3.squaredesk.authentication.AuthenticationException;
+import cscie97.asn3.squaredesk.authentication.AuthenticationService;
 import cscie97.asn3.squaredesk.authentication.PermissionAlreadyExistException;
 import cscie97.asn3.squaredesk.authentication.RoleAlreadyExistException;
 import cscie97.asn3.squaredesk.authentication.ServiceAlreadyExistException;
@@ -82,11 +84,9 @@ public class TestDriver {
 		authenticationTestDeriver.createTest();
 		authenticationTestDeriver.loginUser();
 		User user = authenticationTestDeriver.getUser();
-		System.out.println(user);
 
 		//Import provider from provider.yaml file
 		ContextProvider.importFile(args[0]); 
-
 		
 		//Import from renter.yaml file
 		ContextRenter.importFile(args[1]);
@@ -98,18 +98,20 @@ public class TestDriver {
 		provider = ProviderService.createProvider(user.getAuthToken().getAccessTokenId(), "Vinod Halaharvi", 
 				new ContactInfo("vinod.halaharvi@gmail.com"), 
 				new Image("Amazing Picture", new URI("https://images.google.com")));
-		System.out.println(provider);
-		
+		System.out.println();
+		System.out.println("Successfully created the provider using valid token from User " + user.getLoginName());
+
 		//this call will fail since the token is invalid
+		System.out.println();
+		System.out.println("Providing invalid token to createProvider: " + "wrongToken");
 		try {
 			provider = ProviderService.createProvider("wrongToken", "Sheldon Cooper", 
 					new ContactInfo("sheldon.cooper@gmail.com"), 
 					new Image("Amazing Picture", new URI("https://images.google.com")));
 				
 		} catch (AccessException e) {
-			System.out.println("Successfully captured the Access Denied Exception");
+			System.out.println("Successfully captured the Access Denied Exception, where the token value is invalid");
 		}
-		System.exit(0);
 
 		OfficeSpace officeSpace = new OfficeSpace("Amazon OfficeSpace!", 
 				ContextProvider.getLocation(), 
@@ -117,35 +119,33 @@ public class TestDriver {
 				ContextProvider.getFacility(), 
 				ContextProvider.getRates().get(0));
 		for(Rating rating : ContextProvider.getRatings()){
-			officeSpace.addRating(ContextProvider.getAuthToken(), rating);
+			officeSpace.addRating(user.getAuthToken().getAccessTokenId(), rating);
 		}
-		String authToken = ContextProvider.getAuthToken();
-		officeSpace.addRate(ContextProvider.getAuthToken(), ContextProvider.getRates().get(1));
-		ProviderService.addOfficeSpaceToProvider(authToken, provider.getProviderId(), officeSpace);
+		officeSpace.addRate(user.getAuthToken().getAccessTokenId(), ContextProvider.getRates().get(1));
+		ProviderService.addOfficeSpaceToProvider(user.getAuthToken().getAccessTokenId(), provider.getProviderId(), officeSpace);
 		for(Feature feature : ContextProvider.getFeatures()){
-			officeSpace.addFeature(ContextProvider.getAuthToken(), feature.getName());
+			officeSpace.addFeature(user.getAuthToken().getAccessTokenId(), feature.getName());
 		}
 		
 		officeSpace = provider.addOfficeSpaceToKnowledgeGraph(officeSpace);
-		
+				
 		//Search the officeSpaces based on the following criteria below
 		System.out.println();
 		System.out.println("Search using features..!!");
-		for(OfficeSpace offSpace : RenterService.searchKGUsingFeatures(ContextProvider.getAuthToken(),
+		for(OfficeSpace offSpace : RenterService.searchKGUsingFeatures(user.getAuthToken().getAccessTokenId(),
 				ContextProvider.getFeatures())){
 			System.out.println("SEARCH FOUND: " + offSpace.getOffId());
 		}
 		
 		System.out.println();
 		System.out.println("Search using location..!!");
-		for(OfficeSpace offSpace : RenterService.searchKGUsingLocation(authToken, ContextProvider.getLocation())){
+		for(OfficeSpace offSpace : RenterService.searchKGUsingLocation(user.getAuthToken().getAccessTokenId(), ContextProvider.getLocation())){
 			System.out.println("SEARCH FOUND: " + offSpace.getOffId());
 		}
 		
-		
 		System.out.println();
 		System.out.println("Search using facility..!!");
-		for(OfficeSpace offSpace : RenterService.searchKGUsingFacilityAndCategory(authToken,  
+		for(OfficeSpace offSpace : RenterService.searchKGUsingFacilityAndCategory(user.getAuthToken().getAccessTokenId(),  
 				ContextProvider.getFacility())){
 			System.out.println("SEARCH FOUND: " + offSpace.getOffId());
 		}
@@ -153,13 +153,12 @@ public class TestDriver {
 		System.out.println();
 		System.out.println("Search using Average Rating..!!");
 		int minRating = 2; 
-		for(OfficeSpace offSpace : RenterService.searchKGUsingRating(authToken, minRating)){
+		for(OfficeSpace offSpace : RenterService.searchKGUsingRating(user.getAuthToken().getAccessTokenId(), minRating)){
 			System.out.println("SEARCH FOUND: " + offSpace.getOffId());
 		}
-
 		
 		//Create a Renter
-		Renter renter = RenterService.createRenter(ContextRenter.getAuthToken(), 
+		Renter renter = RenterService.createRenter(user.getAuthToken().getAccessTokenId(), 
 				ContextRenter.getName(), 
 				new ContactInfo("halavin@iit.edu"), 
 				ContextRenter.getImage()
@@ -175,7 +174,7 @@ public class TestDriver {
 		//Now check if the officeSpace is visible in our BookingServiceAPI
 		System.out.println();
 		System.out.println("Search using Dates..!!");
-		for(OfficeSpace offSpace : RenterService.searchKGUsingDates(authToken, startDate, endDate)){
+		for(OfficeSpace offSpace : RenterService.searchKGUsingDates(user.getAuthToken().getAccessTokenId(), startDate, endDate)){
 			System.out.println("SEARCH FOUND: " + offSpace.getOffId());
 		}
 		
@@ -185,14 +184,14 @@ public class TestDriver {
 		System.out.println("Search using Criteria object..!!");
 		Criteria criteria = new Criteria(ContextProvider.getFeatures(), ContextProvider.getLocation()
 				, ContextProvider.getFacility(), 2, startDate, endDate);
-		for(OfficeSpace offSpace : RenterService.searchKGCriteria(authToken, criteria)){
+		for(OfficeSpace offSpace : RenterService.searchKGCriteria(user.getAuthToken().getAccessTokenId(), criteria)){
 			System.out.println("SEARCH FOUND: " + offSpace.getOffId());
 		}	
 				
 		//Trying out few exception classes
 		try {
 			//Create a Renter
-			RenterService.createRenter(ContextRenter.getAuthToken(), 
+			RenterService.createRenter(user.getAuthToken().getAccessTokenId(), 
 					ContextRenter.getName(), 
 					new ContactInfo("halavin@iit.edu"), 
 					ContextRenter.getImage()
@@ -202,14 +201,25 @@ public class TestDriver {
 			System.out.println("Successfully caught RenterAlreadyExistException exception");
 		}
 		
-		
 		try {
-			RenterService.getRenter(authToken, "NonExistingID"); 
+			RenterService.getRenter(user.getAuthToken().getAccessTokenId(), "NonExistingID"); 
 		} catch (RenterNotFoundException e) {
 			System.out.println();
 			System.out.println("Successfully caught RenterNotFoundException exception");
 		}
 		
-		System.exit(0); 
+		System.out.println();
+		System.out.println("Logging user out and then trying to createProvider");
+		AuthenticationService.logout(user);
+		//this will fail since the user is logged out
+		try {
+			provider = ProviderService.createProvider(user.getAuthToken().getAccessTokenId(), "Sheldon Cooper", 
+					new ContactInfo("sheldon.cooper@gmail.com"), 
+					new Image("Amazing Picture", new URI("https://images.google.com")));
+				
+		} catch (AccessException e) {
+			System.out.println("Successfully captured the Access Denied Exception, where the user was already logged out");
+		}
+		
 	}
 }

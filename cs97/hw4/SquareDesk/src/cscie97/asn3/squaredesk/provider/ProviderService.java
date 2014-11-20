@@ -149,6 +149,8 @@ public final class ProviderService {
 	 */
 	public static Provider getProvider(String authToken, String providerId) 
 			throws ProviderNotFoundException, AccessException {
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService","getProvider"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		return getProvider(providerId); 
 	}
 
@@ -163,6 +165,8 @@ public final class ProviderService {
 	 */
 	public static void deleteProvider(String authToken, String providerId) 
 			throws ProviderNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService","deleteProvider"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Provider provider = getProvider(providerId); 
 		//first remove all office space mappings
 		for(OfficeSpace officeSpace : provider.getOfficeSpaces()){
@@ -183,6 +187,8 @@ public final class ProviderService {
 	 */
 	public static Provider updateProviderName(String authToken, String providerId, String name) 
 			throws ProviderNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService","updateProviderName"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Provider providerObj = getProvider(providerId);
 		String providerOldName = providerObj.getName(); 
 		providerObj.setName(name);
@@ -203,9 +209,12 @@ public final class ProviderService {
 	 * @param rating the rating
 	 * @return the rating
 	 * @throws ProviderNotFoundException the provider not found exception
+	 * @throws AccessException 
 	 */
 	public static Rating addRatingToProvider(String authToken, String providerId, Rating rating)
-			throws ProviderNotFoundException{
+			throws ProviderNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService","addRatingToProvider"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Provider providerObj = getProvider(providerId); 
 		providerObj.addRatingToList(rating); 
 		return rating; 
@@ -219,9 +228,12 @@ public final class ProviderService {
 	 * @param ratingId the rating id
 	 * @throws ProviderNotFoundException the provider not found exception
 	 * @throws RatingNotFoundException the rating not found exception
+	 * @throws AccessException 
 	 */
 	public static void removeRatingFromProvider(String authToken, String providerId, String ratingId) 
-			throws ProviderNotFoundException, RatingNotFoundException{
+			throws ProviderNotFoundException, RatingNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService","removeRatingFromProvider"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Provider providerObj = getProvider(providerId); 
 		providerObj.removeRatingfromList(ratingId); 
 	}
@@ -233,9 +245,12 @@ public final class ProviderService {
 	 * @param providerId the provider id
 	 * @return the rating list for provider
 	 * @throws ProviderNotFoundException the provider not found exception
+	 * @throws AccessException 
 	 */
 	public static Collection<Rating> getRatingListForProvider(String authToken, String providerId)
-			throws ProviderNotFoundException{
+			throws ProviderNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService","getRatingListForProvider"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Provider providerObj = getProvider(providerId); 
 		return providerObj.getRatings();
 	}
@@ -249,6 +264,8 @@ public final class ProviderService {
 	 */
 	public static Collection<Provider> getProviderList(String authToken)
 			throws AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService","getProviderList"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		return providers.values();  
 	}
 
@@ -281,6 +298,8 @@ public final class ProviderService {
 	 */
 	public static Provider updateProviderContactInfo(String authToken, String providerId, 
 			ContactInfo contactInfo) throws ProviderNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService","updateProviderContactInfo"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Provider providerObj = getProvider(providerId); 
 		providerObj.setContactInfo(contactInfo);
 		return providerObj;	
@@ -299,6 +318,8 @@ public final class ProviderService {
 	 */
 	public static Provider updateProviderPicture(String authToken, String providerId, 
 			Image picture) throws ProviderNotFoundException, AccessException{
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService","updateProviderPicture"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Provider providerObj = getProvider(providerId); 
 		providerObj.setImage(picture);  
 		return providerObj;
@@ -312,9 +333,12 @@ public final class ProviderService {
 	 * @param officeSpace the office space
 	 * @return the office space
 	 * @throws ProviderNotFoundException the provider not found exception
+	 * @throws AccessException 
 	 */
 	public static OfficeSpace addOfficeSpaceToProvider(String authToken, String providerId, 
-			OfficeSpace officeSpace) throws ProviderNotFoundException {
+			OfficeSpace officeSpace) throws ProviderNotFoundException, AccessException {
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService","addOfficeSpaceToProvider"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Provider providerObj = getProvider(providerId); 
 		providerObj.addOfficeSpaceToList(officeSpace); 
 		System.out.println("ADDING office space ");
@@ -331,9 +355,12 @@ public final class ProviderService {
 	 * @param officeSpaceId the office space id
 	 * @throws ProviderNotFoundException the provider not found exception
 	 * @throws OfficeSpaceNotFoundException the office space not found exception
+	 * @throws AccessException 
 	 */
 	public static void  removeOfficeSpaceFromProvider(String authToken, String providerId, 
-			String officeSpaceId) throws ProviderNotFoundException, OfficeSpaceNotFoundException {
+			String officeSpaceId) throws ProviderNotFoundException, OfficeSpaceNotFoundException, AccessException {
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService","removeOfficeSpaceFromProvider"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Provider providerObj = getProvider(providerId); 
 		providerObj.removeOfficeSpaceFromList(officeSpaceId);
 		officeSpaces.remove(officeSpaceId);
@@ -346,9 +373,12 @@ public final class ProviderService {
 	 * @param providerId the provider id
 	 * @return the office space list for provider
 	 * @throws ProviderNotFoundException the provider not found exception
+	 * @throws AccessException 
 	 */
 	public static Collection<OfficeSpace> getOfficeSpaceListForProvider(String authToken, String providerId) 
-			throws ProviderNotFoundException {
+			throws ProviderNotFoundException, AccessException {
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService","getOfficeSpaceListForProvider"))
+			throw new AccessException("Access Denied, Invaid authToken found!");
 		Provider providerObj = getProvider(providerId); 
 		return providerObj.getOfficeSpaces(); 	
 	}
