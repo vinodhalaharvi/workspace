@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="javax.management.relation.RoleNotFoundException"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.UserFactory"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.AccessException"/>
+<fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.AccessToken"/>
+<fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.Entitlement"/>
+<fullyQualifiedTypeName name="java.nio.file.AccessDeniedException"/>
+<fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.AuthenticationService"/>
+</qualifiedTypeNameHistroy>

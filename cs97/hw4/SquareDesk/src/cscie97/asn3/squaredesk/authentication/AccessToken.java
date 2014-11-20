@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package cscie97.asn3.squaredesk.authentication;
 
 import java.util.Date;

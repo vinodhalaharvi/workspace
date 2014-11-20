@@ -5,7 +5,6 @@ package cscie97.asn3.squaredesk.test;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.AccessDeniedException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +15,7 @@ import cscie97.asn3.squaredesk.authentication.AuthenticationException;
 import cscie97.asn3.squaredesk.authentication.PermissionAlreadyExistException;
 import cscie97.asn3.squaredesk.authentication.RoleAlreadyExistException;
 import cscie97.asn3.squaredesk.authentication.ServiceAlreadyExistException;
+import cscie97.asn3.squaredesk.authentication.User;
 import cscie97.asn3.squaredesk.authentication.UserAlreadyExistException;
 import cscie97.asn3.squaredesk.authentication.UserNotFoundException;
 import cscie97.asn3.squaredesk.provider.ContactInfo;
@@ -65,6 +65,7 @@ public class TestDriver {
 	 * @throws UserNotFoundException 
 	 * @throws AuthenticationException 
 	 * @throws AccessTokenException 
+	 * @throws AccessDeniedException 
 	 */
 	public static void main(String[] args) 
 			throws FileNotFoundException, 
@@ -72,30 +73,44 @@ public class TestDriver {
 			ProviderAlreadyExistException, AccessException, 
 			ProviderNotFoundException, RatingNotFoundException, 
 			OfficeSpaceNotFoundException, RenterAlreadyExistException, 
-			RenterNotFoundException, BookingAlreadyExistException, UserAlreadyExistException, ServiceAlreadyExistException, PermissionAlreadyExistException, RoleAlreadyExistException, AuthenticationException, UserNotFoundException, AccessTokenException {
+			RenterNotFoundException, BookingAlreadyExistException, UserAlreadyExistException, ServiceAlreadyExistException, 
+			PermissionAlreadyExistException, RoleAlreadyExistException, AuthenticationException, 
+			UserNotFoundException, AccessTokenException {
 		
 		//AuthenticationService test cases
 		AuthenticationTestDriver authenticationTestDeriver = new AuthenticationTestDriver(); 
 		authenticationTestDeriver.createTest();
-		System.exit(0); 
+		authenticationTestDeriver.loginUser();
+		User user = authenticationTestDeriver.getUser();
+		System.out.println(user);
 
 		//Import provider from provider.yaml file
 		ContextProvider.importFile(args[0]); 
+
 		
 		//Import from renter.yaml file
 		ContextRenter.importFile(args[1]);
 		
 		Provider provider = null; 
 		//first insert some features
+		
+		//this call will be successful since the token is valid
+		provider = ProviderService.createProvider(user.getAuthToken().getAccessTokenId(), "Vinod Halaharvi", 
+				new ContactInfo("vinod.halaharvi@gmail.com"), 
+				new Image("Amazing Picture", new URI("https://images.google.com")));
+		System.out.println(provider);
+		
+		//this call will fail since the token is invalid
 		try {
-			provider = ProviderService.createProvider(ContextProvider.getAuthToken(), "Vinod Halaharvi", 
-					new ContactInfo("vinod.halaharvi@gmail.com"), 
-					new Image("Amazing Picture", new URI("https://images.google.com"))
-					);
-		} catch (AccessDeniedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}		
+			provider = ProviderService.createProvider("wrongToken", "Sheldon Cooper", 
+					new ContactInfo("sheldon.cooper@gmail.com"), 
+					new Image("Amazing Picture", new URI("https://images.google.com")));
+				
+		} catch (AccessException e) {
+			System.out.println("Successfully captured the Access Denied Exception");
+		}
+		System.exit(0);
+
 		OfficeSpace officeSpace = new OfficeSpace("Amazon OfficeSpace!", 
 				ContextProvider.getLocation(), 
 				ContextProvider.getCapacity(), 

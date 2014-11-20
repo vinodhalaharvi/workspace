@@ -103,10 +103,12 @@ public final class AuthenticationService {
 	public static boolean hasAccess(String authToken, String serviceId,
 			String permissionId){
 		User user = getUserByAuthToken(authToken); 
+		if (user == null)
+			return false;
 		Permission permission = getPermissionById(permissionId, serviceId);
-		doesUserHasPermissions(user, permission);
-		return false;
-
+		if (permission == null)
+			return false; 
+		return doesUserHasPermissions(user, permission);
 	}
 
 	public static Permission addPermission(Permission perimission)
@@ -259,14 +261,21 @@ public final class AuthenticationService {
 	}
 
 	private static boolean hasPermission(Role role, String permissionId){
-		for(Permission permission : role.getPermissions()){ 
-			if (permission.getPermissionId().equals(permissionId))
-				return true; 
+		if (role.getPermissions() != null) {
+			for(Permission permission : role.getPermissions()){ 
+				if (permission.getPermissionId().equals(permissionId)){
+					return true;
+				}
+			}
+			
 		}
-		for (Role roleIter : role.getRoles()){ 
-			return hasPermission(roleIter, permissionId); 
+		if (role.getRoles() != null){
+			for (Role roleIter : role.getRoles()){
+				if (hasPermission(roleIter, permissionId))
+					return true; //call recursively 
+			}
 		}
-		return false; 
+		return false; //return default as false 
 	}
 
 	private static AccessToken createToken(User user) {

@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package cscie97.asn3.squaredesk.provider;
 
 public class EntitlementNotFoundException extends Exception {

@@ -1,0 +1,37 @@
+/*
+ * 
+ */
+package cscie97.asn3.squaredesk.authentication;
+
+
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating Role objects.
+ */
+public final class RoleFactory {
+
+	/**
+	 * Instantiates a new role factory.
+	 */
+	public RoleFactory() {
+	}
+	
+	/**
+	 * Creates a new Role object.
+	 *
+	 * @param roleName the role name
+	 * @param loginName the login name
+	 * @param password the password
+	 * @param uuidName the uuid name
+	 * @param roleDescription 
+	 * @return the role
+	 */
+	public static Role createRole( String roleId, String roleName, String roleDescription ) {
+		
+		new Role(roleId, roleName, roleDescription);
+		Role roleObj = new Role(loginName, password);
+		roleObj.setRoleId(uuidName); 
+		return roleObj; 
+	}
+
+}

@@ -1,0 +1,37 @@
+/*
+ * 
+ */
+package cscie97.asn3.squaredesk.authentication;
+
+
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating Permission objects.
+ */
+public final class PermissionFactory {
+
+	/**
+	 * Instantiates a new Permission factory.
+	 */
+	public PermissionFactory() {
+	}
+	
+	/**
+	 * Creates a new Permission object.
+	 *
+	 * @param PermissionName the Permission name
+	 * @param loginName the login name
+	 * @param password the password
+	 * @param uuidName the uuid name
+	 * @param PermissionDescription 
+	 * @return the Permission
+	 */
+	public static Permission createPermission( String loginName, String password, String uuidName 
+			) {
+		Permission PermissionObj = new Permission("getCategory", 
+				"ProviderService", "get Category", 
+				"get  the Category of officeSpace");
+		return PermissionObj; 
+	}
+
+}

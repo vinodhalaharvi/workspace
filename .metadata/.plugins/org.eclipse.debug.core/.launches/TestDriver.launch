@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/RenterService/src/cscie97/asn3/squaredesk/test/TestDriver.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="cscie97.asn3.squaredesk.test.TestDriver"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="/Users/vinodhalaharvi/harvard/workspace/cs97/hw4/SquareDesk/provider.yaml /Users/vinodhalaharvi/harvard/workspace/cs97/hw4/SquareDesk/renter.yaml"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="RenterService"/>
+</launchConfiguration>

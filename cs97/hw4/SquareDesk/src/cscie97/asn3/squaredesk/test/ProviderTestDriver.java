@@ -6,7 +6,6 @@ package cscie97.asn3.squaredesk.test;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.AccessDeniedException;
 import java.text.ParseException;
 
 import cscie97.asn3.squaredesk.authentication.AccessException;
@@ -28,10 +27,10 @@ import cscie97.asn3.squaredesk.renter.Triple;
  * The Class ProviderTestDriver.
  */
 public class ProviderTestDriver extends TestDriverBase { 
-	
+
 	/** The office space. */
 	private OfficeSpace officeSpace; 
-	
+
 	/** The provider. */
 	private Provider provider;
 	/**
@@ -49,15 +48,10 @@ public class ProviderTestDriver extends TestDriverBase {
 			throws ProviderAlreadyExistException, AccessException, URISyntaxException, 
 			FileNotFoundException, ParseException {
 		beginTest("createTest");
-		try {
-			provider = ProviderService.createProvider(ContextProvider.getAuthToken(), "Vinod Halaharvi", 
-					new ContactInfo("vinod.halaharvi@gmail.com"), 
-					new Image("Amazing Picture", new URI("https://images.google.com"))
-					);
-		} catch (AccessDeniedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		provider = ProviderService.createProvider(ContextProvider.getAuthToken(), "Vinod Halaharvi", 
+				new ContactInfo("vinod.halaharvi@gmail.com"), 
+				new Image("Amazing Picture", new URI("https://images.google.com"))
+				);
 		officeSpace = new OfficeSpace("Amazon OfficeSpace!", 
 				ContextProvider.getLocation(), ContextProvider.getCapacity(), ContextProvider.getFacility(), 
 				ContextProvider.getRates().get(0));
@@ -152,7 +146,7 @@ public class ProviderTestDriver extends TestDriverBase {
 		System.out.println(officeSpace.getName());
 		System.out.println(officeSpace1.getName());		
 		System.out.println();	
-		
+
 		System.out.println("Provider before name change");
 		System.out.println(provider.getName());
 		System.out.println(provider.getContactInfo().getEmail());

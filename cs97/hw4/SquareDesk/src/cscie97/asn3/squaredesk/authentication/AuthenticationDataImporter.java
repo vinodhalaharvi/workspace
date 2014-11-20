@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package cscie97.asn3.squaredesk.authentication;
 
 import java.util.UUID;
@@ -22,15 +25,17 @@ public final class AuthenticationDataImporter {
 	
 	
 	public static void defineServices() throws ServiceAlreadyExistException{
-		AuthenticationService.addService(new Service("ProviderService", "Provider Service", "The awesome provider service!!"));
+		//AuthenticationService.addService(new Service("ProviderService", "Provider Service", "The awesome provider service!!"));
+		AuthenticationService.addService(ServiceFactory.createService("ProviderService", "Provider Service", "The awesome provider service!!"));
 		//new Service(getUUID(), "RenterService"," RenterService");
 		//new Service(getUUID(), "AuthenticationService","AuthenticationService");
 	}
 	
 	public static void definePermissions() throws PermissionAlreadyExistException{
-		AuthenticationService.addPermission(new Permission("getCategory", "ProviderService", "get Category", "get  the Category of officeSpace"));
+		//AuthenticationService.addPermission(new Permission("getCategory", "ProviderService", "get Category", "get  the Category of officeSpace"));
+		AuthenticationService.addPermission(PermissionFactory.createPermission("getCategory", "ProviderService", "get Category", "get  the Category of officeSpace"));
+		AuthenticationService.addPermission(PermissionFactory.createPermission("createProvider", "ProviderService", "create the provider", "create this awesome provider!!"));
 //		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "getFacilityType", "getFacilityType");
-//		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "createProvider", "createProvider");
 //		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "getProvider", "getProvider");
 //		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "deleteProvider", "deleteProvider");
 //		new Permission(getUUID(), AuthenticationService.getServiceByName("ProviderService", "updateProviderName", "updateProviderName");
@@ -69,7 +74,8 @@ public final class AuthenticationDataImporter {
 	
 	public static void defineRoles() throws RoleAlreadyExistException{
 		//AuthenticationService.addRole(new Role(getUUID(), AuthenticationService.getServiceByName("ProviderService",  "ProviderRole", "ProviderRole"));
-		AuthenticationService.addEntitlement(new Role("ProviderRole", "Provider Role", "The amazing role of a provider .. "));
+		//AuthenticationService.addEntitlement(new Role("ProviderRole", "Provider Role", "The amazing role of a provider .. "));
+		AuthenticationService.addEntitlement(RoleFactory.createRole("ProviderRole", "Provider Role", "The amazing role of a provider .. "));
 		//new Role(getUUID(), AuthenticationService.getServiceByName("RenterService",  "RenterRole", "RenterRole");
 		//new Role(getUUID(), AuthenticationService.getServiceByName("AuthenticationService",  "AuthenticationRole", "AuthenticationRole");		
 	}
@@ -81,5 +87,4 @@ public final class AuthenticationDataImporter {
 		//AuthenticationService.addUser(UserFactory.createUser("testUser2", "testPassword2", getUUID()));
 		//AuthenticationService.addUser(UserFactory.createUser("testUser3", "testPassword3", getUUID()));
 	}
-
 }

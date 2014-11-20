@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package cscie97.asn3.squaredesk.authentication;
 
 public class PermissionAlreadyExistException extends Exception {
