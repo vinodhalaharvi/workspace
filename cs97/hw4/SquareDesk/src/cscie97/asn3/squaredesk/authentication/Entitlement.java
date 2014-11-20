@@ -28,9 +28,6 @@ public abstract class Entitlement {
 		this.entitlementId = entitlementId;
 	}
 
-	/** The entitlement id. */
-	private String entitlementId;
-
 	/**
 	 * Gets the entitlement id.
 	 *
@@ -47,6 +44,9 @@ public abstract class Entitlement {
 	 */
 	public void setEntitlementId(String entitlementId) {
 		this.entitlementId = entitlementId;
-	} 
+	}
+
+	/** The entitlement id. */
+	private String entitlementId; 
 	
 }

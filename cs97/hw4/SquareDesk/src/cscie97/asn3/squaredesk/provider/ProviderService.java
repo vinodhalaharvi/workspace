@@ -124,7 +124,7 @@ public final class ProviderService {
 	public static Provider createProvider(String authToken, String name, 
 			ContactInfo contactInfo, Image picture
 			) throws ProviderAlreadyExistException, AccessException, AccessDeniedException{ 
-		if (!AuthenticationService.hasAccess(authToken, "createProvider"))
+		if (!AuthenticationService.hasAccess(authToken, "ProviderService",  "createProvider"))
 			throw new AccessDeniedException("Access Denied"); 
 		String uuidName = getUUIDFromString(name); 
 		if (providers.containsKey(uuidName)){

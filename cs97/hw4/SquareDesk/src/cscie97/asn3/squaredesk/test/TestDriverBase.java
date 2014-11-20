@@ -8,6 +8,13 @@ import java.net.URISyntaxException;
 import java.text.ParseException;
 
 import cscie97.asn3.squaredesk.authentication.AccessException;
+import cscie97.asn3.squaredesk.authentication.AccessTokenException;
+import cscie97.asn3.squaredesk.authentication.AuthenticationException;
+import cscie97.asn3.squaredesk.authentication.PermissionAlreadyExistException;
+import cscie97.asn3.squaredesk.authentication.RoleAlreadyExistException;
+import cscie97.asn3.squaredesk.authentication.ServiceAlreadyExistException;
+import cscie97.asn3.squaredesk.authentication.UserAlreadyExistException;
+import cscie97.asn3.squaredesk.authentication.UserNotFoundException;
 import cscie97.asn3.squaredesk.provider.OfficeSpaceNotFoundException;
 import cscie97.asn3.squaredesk.provider.ProviderAlreadyExistException;
 import cscie97.asn3.squaredesk.provider.ProviderNotFoundException;
@@ -45,12 +52,23 @@ public abstract class TestDriverBase {
 	 * @throws RenterAlreadyExistException 
 	 * @throws ParseException 
 	 * @throws FileNotFoundException 
+	 * @throws UserAlreadyExistException 
+	 * @throws ServiceAlreadyExistException 
+	 * @throws PermissionAlreadyExistException 
+	 * @throws RoleAlreadyExistException 
+	 * @throws UserNotFoundException 
+	 * @throws AuthenticationException 
+	 * @throws AccessTokenException 
 	 */
 	public void createTest() 
 			throws ProviderAlreadyExistException, AccessException, 
 			URISyntaxException, ProviderNotFoundException, 
 			RenterAlreadyExistException, 
-			RenterNotFoundException, FileNotFoundException, ParseException{
+			RenterNotFoundException, 
+			FileNotFoundException, ParseException, UserAlreadyExistException, 
+			ServiceAlreadyExistException, PermissionAlreadyExistException, 
+			RoleAlreadyExistException, AuthenticationException, UserNotFoundException, 
+			AccessTokenException{
 	}
 	
 	/**

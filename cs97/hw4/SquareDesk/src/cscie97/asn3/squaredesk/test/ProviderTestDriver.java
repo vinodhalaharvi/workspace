@@ -6,6 +6,7 @@ package cscie97.asn3.squaredesk.test;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.AccessDeniedException;
 import java.text.ParseException;
 
 import cscie97.asn3.squaredesk.authentication.AccessException;
@@ -48,10 +49,15 @@ public class ProviderTestDriver extends TestDriverBase {
 			throws ProviderAlreadyExistException, AccessException, URISyntaxException, 
 			FileNotFoundException, ParseException {
 		beginTest("createTest");
-		provider = ProviderService.createProvider(ContextProvider.getAuthToken(), "Vinod Halaharvi", 
-				new ContactInfo("vinod.halaharvi@gmail.com"), 
-				new Image("Amazing Picture", new URI("https://images.google.com"))
-				);		
+		try {
+			provider = ProviderService.createProvider(ContextProvider.getAuthToken(), "Vinod Halaharvi", 
+					new ContactInfo("vinod.halaharvi@gmail.com"), 
+					new Image("Amazing Picture", new URI("https://images.google.com"))
+					);
+		} catch (AccessDeniedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		officeSpace = new OfficeSpace("Amazon OfficeSpace!", 
 				ContextProvider.getLocation(), ContextProvider.getCapacity(), ContextProvider.getFacility(), 
 				ContextProvider.getRates().get(0));

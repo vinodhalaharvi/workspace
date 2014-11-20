@@ -4,6 +4,7 @@
 package cscie97.asn3.squaredesk.test;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.AccessDeniedException;
 
 import cscie97.asn3.squaredesk.authentication.AccessException;
 import cscie97.asn3.squaredesk.provider.ContactInfo;
@@ -34,10 +35,15 @@ public class ProviderServiceTestDriver extends TestDriverBase {
 	public void createTest() throws ProviderAlreadyExistException,
 	AccessException, URISyntaxException, ProviderNotFoundException {
 		beginTest("createTest");
-		provider = ProviderService.createProvider(ContextProvider.getAuthToken(), "Vinod Halaharvi", 
-				new ContactInfo("vinod.halaharvi@gmail.com"), 
-				new Image("Amazing Picture", new URI("https://images.google.com"))
-				);	
+		try {
+			provider = ProviderService.createProvider(ContextProvider.getAuthToken(), "Vinod Halaharvi", 
+					new ContactInfo("vinod.halaharvi@gmail.com"), 
+					new Image("Amazing Picture", new URI("https://images.google.com"))
+					);
+		} catch (AccessDeniedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}	
 		String providerGUID = provider.getProviderId(); 
 		ProviderService.deleteProvider(ContextProvider.getAuthToken(), providerGUID);
 		try {

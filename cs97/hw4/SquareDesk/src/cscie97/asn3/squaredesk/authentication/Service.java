@@ -3,6 +3,7 @@
  */
 package cscie97.asn3.squaredesk.authentication;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class Service.
@@ -70,6 +71,29 @@ public class Service {
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
+	
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+            Service t = (Service) obj;
+            return (
+                            (obj != null) &&
+                            (obj instanceof User) &&
+                            t.getServiceId().equals((getServiceId()))
+                            );
+
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+            return getServiceId().hashCode();
+    }
+
 	
 	/**
 	 * Gets the service description.

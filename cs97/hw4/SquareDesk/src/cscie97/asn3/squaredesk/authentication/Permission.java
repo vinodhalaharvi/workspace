@@ -32,7 +32,7 @@ public class Permission extends Entitlement {
 	 *
 	 * @return the role id
 	 */
-	public String getRoleId() {
+	public String getPermissionId() {
 		return getEntitlementId();
 	}
 
@@ -41,10 +41,35 @@ public class Permission extends Entitlement {
 	 *
 	 * @param roleId the new role id
 	 */
-	public void setRoleId(String roleId) {
+	public void setPermissionId(String roleId) {
 		setEntitlementId(roleId);
 	} 
 	
+	
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+            Permission t = (Permission) obj;
+            return (
+                            (obj != null) &&
+                            (obj instanceof User) &&
+                            t.getPermissionId().equals((getPermissionId()))
+                            );
+
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+            return getPermissionId().hashCode();
+    }
+
+    
+    
 	
 	/**
 	 * Gets the service id.

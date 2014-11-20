@@ -5,8 +5,7 @@ package cscie97.asn3.squaredesk.authentication;
 
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.UUID;
 
 /**
@@ -21,63 +20,38 @@ public final class AuthenticationService {
 
 	}
 
-	public boolean isValidPassword(String userName, String passwordHash){
-		if(userPasswordMap.containsKey(userName) 
-				&& userPasswordMap.get(userName).equals(passwordHash))
-			return true; 
-		else 
-			return false; 	
-	}
-
-	public boolean isValidUsername(String userName){
-		return userPasswordMap.containsKey(userName); 
-	}
-
-
-
-	/**
-	 * Gets the uuid.
-	 *
-	 * @return the uuid
-	 */
-	protected String getUUID() {
-		String uuidStr = UUID.randomUUID().toString(); 
-		return uuidStr; 	
-	}
+	public static boolean isValidUser(String userName, String passwordHash){
+		for(User user : users){
+			if(user.getLoginName().equals(userName) 
+					&& user.getPassword().equals(passwordHash))
+				return true; 
+		}
+		return false; 	
+	}	
 
 	//check user name and password
-	//and create a authotoken with an expiration and state set to active
+	//and create a authToken with an expiration and state set to active
 
-	public AccessToken login(String userName, String passwordHash) 
-			throws AuthenticationException{
-		if(!(isValidUsername(userName) && 
-				isValidPassword(userName, passwordHash))){
+	public static AccessToken login(User user) 
+			throws AuthenticationException, UserNotFoundException{
+		String loginName = user.getLoginName();
+		String passwordHash = user.getPassword(); 
+		if(!isValidUser(loginName, passwordHash)){
 			throw new AuthenticationException("userName or Password is NOT valid!");
-		} 
-		return createToken(userName, passwordHash);
-	}
-
-	public boolean isAccessTokenTimedOut(AccessToken accessToken){
-		Calendar cal = Calendar.getInstance();
-		return accessToken.getExpirationTime().before(cal.getTime()); 
-	}
-
-	private AccessToken createToken(String loginName, String passwordHash) {
-		Calendar cal = Calendar.getInstance();
-		AccessToken accessToken =  new AccessToken(getUUID(), cal.getTime(), "active");
-		User user = new User(loginName, loginName, passwordHash);
-		accessTokenUserMap.put(accessToken, user);
-		return accessToken;
-	}
-
-	public void logout(String accessToken) 
-			throws AccessTokenException{
-		if(!accessTokenUserMap.containsKey(accessToken))
-			throw new AccessTokenException();
-		for(AccessToken accessTokenIter : accessTokenUserMap.keySet()){
-			if(accessTokenIter.equals(accessToken))
-				accessTokenIter.setState("expired");
 		}
+		return createToken(user);
+	}
+
+	public boolean isAccessTokenTimedOut(AccessToken authToken){
+		Calendar cal = Calendar.getInstance();
+		return authToken.getExpirationTime().before(cal.getTime()); 
+	}
+
+	public static void logout(User user) 
+			throws AccessTokenException{
+		if(user.getAuthToken() == null)
+			return; 
+		user.getAuthToken().setState("expired");
 		return; 
 	}
 
@@ -85,30 +59,142 @@ public final class AuthenticationService {
 	/**
 	 * Adds the entitlement.
 	 */
-	public static void addEntitlement(){
-
+	public static void addEntitlement(Entitlement entitlement){
+		entitlements.add(entitlement); 
 	}
 
 	/**
 	 * Adds the entitlement to role.
 	 */
-	public static void addEntitlementToRole(){
-
+	public static void addEntitlementToRole(Role role, Entitlement entitlement){
+		for(Role roleIter : getRoles()){
+			if(roleIter.getRoleId().equals(role.getRoleId()))
+				roleIter.addEntitlementToList(entitlement); 
+		}
 	}
 
 	/**
 	 * Adds the role to user.
 	 */
-	public static void addRoleToUser(){
+	public static void addRoleToUser(User user, Role role){
+		user.addRoleToList(role); 
+	}
+
+	public static Service getServiceById(String serviceId){
+		for(Service service : services){
+			if(service.getServiceId().equals(serviceId)){
+				return service; 
+			}
+		}
+		return null; 
+	}
+
+	public static Permission getPermissionById(String permissionId, String serviceId){
+		Service service = getServiceById(serviceId);  
+		for(Permission permission : getPermissions()){
+			if(permission.getPermissionId().equals(permissionId) &&
+					permission.getServiceId().equals(service.getServiceId())){
+				return permission;
+			}
+		}
+		return null;
+	}
+
+	public static boolean hasAccess(String authToken, String serviceId,
+			String permissionId){
+		User user = getUserByAuthToken(authToken); 
+		Permission permission = getPermissionById(permissionId, serviceId);
+		doesUserHasPermissions(user, permission);
+		return false;
 
 	}
+
+	public static Permission addPermission(Permission perimission)
+			throws PermissionAlreadyExistException{
+		for(Entitlement entitlement : entitlements){
+			Permission perimissionIter = (Permission) entitlement;
+			if(perimissionIter.equals(perimission)){
+				throw new PermissionAlreadyExistException();
+			}
+		}
+		entitlements.add(perimission);
+		return perimission;
+	}
+
+
+	public static HashSet<Service> getServices(){
+		return services; 
+	}
+
 	
-	public static boolean hasAccess(String authToken, 
-			String permissionName){
-		//from accessToken get a valid user
-		//check for all the roles of this user to see if the entitlementId is found
-				return false;
-		
+	public static HashSet<User> getUsers(){
+		return users; 
+	}
+	
+	public static HashSet<Entitlement> getEntitlements(){
+		return entitlements;
+	}
+	
+
+	public static User addUser(User user) 
+			throws UserAlreadyExistException{
+		for(User userIter : users){
+			if(userIter.equals(user)){
+				throw new UserAlreadyExistException(); 
+			}	
+		}
+		users.add(user);
+		return user;
+	}
+
+	public static Service addService(Service service)
+			throws ServiceAlreadyExistException{
+		for(Service serviceIter : services){
+			if(serviceIter.equals(service)){
+				throw new ServiceAlreadyExistException();
+			}
+		}
+		services.add(service);
+		return service;
+	}
+
+	
+
+    /**
+     * Gets the uuid.
+     *
+     * @return the uuid
+     */
+    protected static String getUUID() {
+            String uuidStr = UUID.randomUUID().toString();
+            return uuidStr;
+    }
+
+    
+    
+	/**
+	 * Creates the user.
+	 *
+	 * @param authToken            the auth token
+	 * @param name            the name
+	 * @param loginName the login name
+	 * @param password the password
+	 * @return the user
+	 * @throws UserAlreadyExistException             the user already exist exception
+	 * @throws AccessException             the access exception
+	 * @throws UserNotFoundException 
+	 */
+	public static User createUser(String authToken, String loginName, String passwordHash
+			) throws UserAlreadyExistException, AccessException, UserNotFoundException{ 
+		User user = getUserByName(loginName, passwordHash);
+		if (user != null){
+			throw new UserAlreadyExistException("This User Already Exists");
+		} else {
+			String uuidName = getUUIDFromString(loginName); 
+			User userObj = (User) UserFactory.createUser(loginName, passwordHash, uuidName); 
+			users.add(userObj);
+			return userObj; 
+		}
 	}
 
 	/**
@@ -122,45 +208,8 @@ public final class AuthenticationService {
 		return uuidStr; 	
 	}
 
-	/**
-	 * Creates the user.
-	 *
-	 * @param authToken            the auth token
-	 * @param name            the name
-	 * @param loginName the login name
-	 * @param password the password
-	 * @return the user
-	 * @throws UserAlreadyExistException             the user already exist exception
-	 * @throws AccessException             the access exception
-	 */
-	public static User createUser(String authToken, String name, 
-			String loginName, String password
-			) throws UserAlreadyExistException, AccessException{ 
-		String uuidName = getUUIDFromString(name); 
-		if (users.containsKey(uuidName)){
-			throw new UserAlreadyExistException("This User Already Exists");
-		} else {
-			User userObj = (User) UserFactory.createUser(uuidName,
-					name, loginName, password); 
-			users.put(uuidName, userObj);
-			return userObj; 
-		}
-	}
-
-	/**
-	 * Gets the user.
-	 *
-	 * @param authToken the auth token
-	 * @param userId the user id
-	 * @return the user
-	 * @throws UserNotFoundException the user not found exception
-	 * @throws AccessException the access exception
-	 */
-	public static User getUser(String authToken, String userId) 
-			throws UserNotFoundException, AccessException {
-		return getUser(userId); 
-	}
-
+	
+	
 	/**
 	 * Delete user.
 	 *
@@ -169,64 +218,9 @@ public final class AuthenticationService {
 	 * @throws UserNotFoundException the user not found exception
 	 * @throws AccessException the access exception
 	 */
-	public static void deleteUser(String authToken, String userId) 
+	public static void deleteUser(String authToken, User user) 
 			throws UserNotFoundException, AccessException{
-		users.remove(userId);
-	}
-
-	/**
-	 * Update user name.
-	 *
-	 * @param authToken the auth token
-	 * @param userId the user id
-	 * @param name the name
-	 * @return the user
-	 * @throws UserNotFoundException the user not found exception
-	 * @throws AccessException the access exception
-	 */
-	public static User updateUserName(String authToken, String userId, String name) 
-			throws UserNotFoundException, AccessException{
-		User userObj = getUser(userId);
-		String userOldName = userObj.getLoginName(); 
-		userObj.setLoginName(name);
-		String userNewId = getUUIDFromString(name);
-		userObj.setUserId(userNewId);
-		//remove the mapping with old name since the user name got changed
-		users.remove(getUUIDFromString(userOldName)); 
-		//reinsert a new entry with new user name
-		users.put(userNewId, userObj); 
-		return userObj;	
-	}
-
-	/**
-	 * Adds the rating to user.
-	 *
-	 * @param authToken the auth token
-	 * @param userId the user id
-	 * @param rating the rating
-	 * @return the rating
-	 * @throws UserNotFoundException the user not found exception
-	 */
-	public static Role addRoleToUser(String authToken, String userId, Role rating)
-			throws UserNotFoundException{
-		User userObj = getUser(userId); 
-		userObj.addRoleToList(rating); 
-		return rating; 
-	}
-
-	/**
-	 * Removes the rating from user.
-	 *
-	 * @param authToken the auth token
-	 * @param userId the user id
-	 * @param ratingId the rating id
-	 * @throws UserNotFoundException the user not found exception
-	 * @throws RoleNotFoundException the rating not found exception
-	 */
-	public static void removeRoleFromUser(String authToken, String userId, String ratingId) 
-			throws UserNotFoundException, RoleNotFoundException{
-		User userObj = getUser(userId); 
-		userObj.removeRoleFromList(ratingId); 
+		users.remove(user);
 	}
 
 	/**
@@ -237,10 +231,9 @@ public final class AuthenticationService {
 	 * @return the rating list for user
 	 * @throws UserNotFoundException the user not found exception
 	 */
-	public static Collection<Role> getRoleListForUser(String authToken, String userId)
+	public static Collection<Role> getRoleListForUser(User user)
 			throws UserNotFoundException{
-		User userObj = getUser(userId); 
-		return userObj.getRoles();
+		return user.getRoles();
 	}
 
 	/**
@@ -252,28 +245,79 @@ public final class AuthenticationService {
 	 */
 	public static Collection<User> getUserList(String authToken)
 			throws AccessException{
-		return users.values();  
+		return users;  
 	}
 
-	/**
-	 * Gets the user.
-	 *
-	 * @param userId the user id
-	 * @return the user
-	 * @throws UserNotFoundException the user not found exception
-	 */
-	private static User getUser(String userId) 
-			throws UserNotFoundException {
-		if (!users.containsKey(userId)){
-			throw new UserNotFoundException("This User Already Exists"); 
-		} else { 
-			return users.get(userId); 
+
+	private static boolean doesUserHasPermissions(User user, Permission permission){
+		for(Role role : user.getRoles()){
+			if (hasPermission(role, permission.getPermissionId())){
+				return true; 
+			}
 		}
+		return false; 
 	}
+
+	private static boolean hasPermission(Role role, String permissionId){
+		for(Permission permission : role.getPermissions()){ 
+			if (permission.getPermissionId().equals(permissionId))
+				return true; 
+		}
+		for (Role roleIter : role.getRoles()){ 
+			return hasPermission(roleIter, permissionId); 
+		}
+		return false; 
+	}
+
+	private static AccessToken createToken(User user) {
+		Calendar cal = Calendar.getInstance();
+		AccessToken authToken =  new AccessToken(getUUID(), cal.getTime(), "active");
+		user.setAuthToken(authToken);
+		return authToken;
+	}
+
+	private static User getUserByName(String loginName, String passwordHash) throws UserNotFoundException{
+		for(User user : users){
+			if(user.getLoginName().equals(loginName) && 
+					user.getPassword().equals(passwordHash))
+				return user;
+		}
+		return null;
+	}
+
+	private static User getUserByAuthToken(String authToken){
+		for(User user : users){
+			if(user.getAuthToken().getAccessTokenId().equals(authToken)){ 
+				return user; 
+			}
+		}
+		return null; 
+	}
+
 
 	/** The users. */
-	private static Map<String, User> users = new HashMap<String, User>();
-	private static Map<String, String> userPasswordMap = new HashMap<String, String>();
-	private static Map<AccessToken, User> accessTokenUserMap = new HashMap<AccessToken, User>();
+	private static HashSet<User> users = new HashSet<User>();
+	private static HashSet<Service> services = new HashSet<Service>();
+	private static HashSet<Entitlement> entitlements = new HashSet<Entitlement>();
+	
 
+	public static HashSet<Role> getRoles() {
+		HashSet<Role> roles = new HashSet<Role>(); 
+		for(Entitlement entitlement : entitlements){
+			if (entitlement instanceof Role){
+				roles.add((Role) entitlement); 
+			}
+		}
+		return roles; 
+	}
+
+	public static  HashSet<Permission> getPermissions() {
+		HashSet<Permission> permissions = new HashSet<Permission>();
+		for(Entitlement entitlement : entitlements){
+			if (entitlement instanceof Permission){
+				permissions.add((Permission) entitlement);
+			}
+		}
+		return permissions;
+	}
 }

@@ -3,9 +3,7 @@
  */
 package cscie97.asn3.squaredesk.authentication;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.UUID;
+import java.util.HashSet;
 
 import cscie97.asn3.squaredesk.provider.EntitlementNotFoundException;
 
@@ -15,7 +13,7 @@ import cscie97.asn3.squaredesk.provider.EntitlementNotFoundException;
  * @author vinodhalaharvi
  */
 public class Role extends Entitlement {
-	
+
 	/**
 	 * Instantiates a new role.
 	 *
@@ -23,47 +21,18 @@ public class Role extends Entitlement {
 	 *            the entitlement id
 	 * @param serviceId
 	 *            the service id
-	 * @param permissionName
-	 *            the permission name
-	 * @param permissionDescription
-	 *            the permission description
+	 * @param roleName
+	 *            the role name
+	 * @param roleDescription
+	 *            the role description
 	 */
-	public Role(String entitlementId, String serviceId,
-			String permissionName, String permissionDescription) {
-		super(entitlementId);
-		this.serviceId = serviceId;
-		this.permissionName = permissionName;
-		this.permissionDescription = permissionDescription;
+	public Role(String roleId, String roleName, String roleDescription) {
+		super(roleId);
+		this.roleName = roleName;
+		this.roleDescription = roleDescription;
 	}
-	
-	/**
-	 * Gets the service id.
-	 *
-	 * @return the service id
-	 */
-	public String getServiceId() {
-		return serviceId;
-	}
-	
-	/**
-	 * Sets the service id.
-	 *
-	 * @param serviceId
-	 *            the new service id
-	 */
-	public void setServiceId(String serviceId) {
-		this.serviceId = serviceId;
-	}
-	
-	/**
-	 * Gets the role name.
-	 *
-	 * @return the role name
-	 */
-	public String getRoleName() {
-		return permissionName;
-	}
-	
+
+
 	/**
 	 * Gets the role id.
 	 *
@@ -81,36 +50,70 @@ public class Role extends Entitlement {
 	public void setRoleId(String roleId) {
 		setEntitlementId(roleId);
 	} 
-	
+
+	/**
+	 * Gets the role name.
+	 *
+	 * @return the role name
+	 */
+	public String getRoleName() {
+		return roleName;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		Role t = (Role) obj; 
+		return (
+				(obj != null) &&
+				(obj instanceof User) &&
+				t.getRoleId().equals((getRoleId()))
+				);
+
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return getRoleId().hashCode();  
+	}
+
+
 	/**
 	 * Sets the role name.
 	 *
-	 * @param permissionName
+	 * @param roleName
 	 *            the new role name
 	 */
-	public void setRoleName(String permissionName) {
-		this.permissionName = permissionName;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
-	
+
+
 	/**
 	 * Gets the role description.
 	 *
 	 * @return the role description
 	 */
 	public String getRoleDescription() {
-		return permissionDescription;
+		return roleDescription;
 	}
-	
+
 	/**
 	 * Sets the role description.
 	 *
-	 * @param permissionDescription
+	 * @param roleDescription
 	 *            the new role description
 	 */
-	public void setRoleDescription(String permissionDescription) {
-		this.permissionDescription = permissionDescription;
+	public void setRoleDescription(String roleDescription) {
+		this.roleDescription = roleDescription;
 	}
-	
+
 	/**
 	 * Adds the entitlement to list.
 	 *
@@ -118,36 +121,8 @@ public class Role extends Entitlement {
 	 * @return the entitlement
 	 */
 	public Entitlement addEntitlementToList(Entitlement entitlement) {	
-		String uuidName = getUUID(); 
-		entitlement.setEntitlementId(uuidName); 
-		entitlements.put(uuidName, entitlement); 
+		entitlements.add(entitlement);
 		return entitlement;
-	}
-
-	/**
-	 * Gets the uuid.
-	 *
-	 * @return the uuid
-	 */
-	protected String getUUID() {
-		String uuidStr = UUID.randomUUID().toString(); 
-		return uuidStr; 	
-	}
-
-	/**
-	 * Gets the entitlementfrom list.
-	 *
-	 * @param entitlementId the entitlement id
-	 * @return the entitlementfrom list
-	 * @throws EntitlementNotFoundException the entitlement not found exception
-	 */
-	public Entitlement getEntitlementfromList(String entitlementId) 
-			throws EntitlementNotFoundException {
-		if (!entitlements.containsKey(entitlementId)){ 
-			throw new EntitlementNotFoundException("Entitlement you are looking is Not Found!"); 
-		} else { 
-			return entitlements.get(entitlementId); 
-		}		
 	}
 
 	/**
@@ -156,35 +131,54 @@ public class Role extends Entitlement {
 	 * @param entitlementId the entitlement id
 	 * @throws EntitlementNotFoundException the entitlement not found exception
 	 */
-	public void removeEntitlementFromList(String entitlementId)
+	public void removeEntitlementFromList(Entitlement entitlement)
 			throws EntitlementNotFoundException{
-		if (!entitlements.containsKey(entitlementId)){ 
+		if (!entitlements.contains(entitlement)){ 
 			throw new EntitlementNotFoundException("Entitlement you are looking is Not Found!"); 
 		} else { 
-			entitlements.remove(entitlementId); 
+			entitlements.remove(entitlement); 
 		}	
 	}
+
 
 	/**
 	 * Gets the entitlements.
 	 *
 	 * @return the entitlements
 	 */
-	public Collection<Entitlement> getEntitlements() {
-		return entitlements.values(); 
+	public HashSet<Entitlement> getEntitlements() {
+		return entitlements; 
 	}
 
-	/** The service id. */
-	private String serviceId;  
-	
-	/** The permission name. */
-	private String permissionName; 
-	
-	/** The permission description. */
-	private String permissionDescription;
 
+	private String roleName; 
+	private String roleDescription; 
+
+	
+
+	public HashSet<Role> getRoles() {
+		HashSet<Role> roles = new HashSet<Role>(); 
+		for(Entitlement entitlement : entitlements){
+			if (entitlement instanceof Role){
+				roles.add((Role) entitlement); 
+			}
+		}
+		return roles; 
+	}
+
+	public  HashSet<Permission> getPermissions() {
+		HashSet<Permission> permissions = new HashSet<Permission>();
+		for(Entitlement entitlement : entitlements){
+			if (entitlement instanceof Permission){
+				permissions.add((Permission) entitlement);
+			}
+		}
+		return permissions;
+	}
+
+	
 	/** The entitlements. */
-	private Map<String, Entitlement> entitlements;
+	private static HashSet<Entitlement> entitlements = new HashSet<Entitlement>();
 
 
 }

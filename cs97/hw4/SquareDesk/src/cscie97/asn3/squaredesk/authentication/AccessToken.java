@@ -86,12 +86,7 @@ public class AccessToken {
 		return (
 				(obj != null) &&
 				(obj instanceof AccessToken) &&
-				t.getAccessTokenId().equals(getAccessTokenId()));
-
-				//t.getExpirationTime().equals(getExpirationTime()) &&
-				//t.getState().equals(getState())
-				//);
-				
+				t.getAccessTokenId().equals(getAccessTokenId()));				
 	}
 	
 	/* (non-Javadoc)

@@ -4,7 +4,7 @@
 package cscie97.asn3.squaredesk.authentication;
 
 import java.util.Collection;
-import java.util.Map;
+import java.util.HashSet;
 /**
  * 
  */
@@ -32,10 +32,8 @@ public class User {
 	 * @param loginName the login name
 	 * @param password the password
 	 */
-	public User(String userName,
-			String loginName, String password) {
+	public User(String loginName, String password) {
 		super();
-		this.userName = userName;
 		this.loginName = loginName;
 		this.password = password;
 	}
@@ -56,24 +54,6 @@ public class User {
 	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	
-	/**
-	 * Gets the user name.
-	 *
-	 * @return the user name
-	 */
-	public String getUserName() {
-		return userName;
-	}
-	
-	/**
-	 * Sets the user name.
-	 *
-	 * @param userName the new user name
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 	
 	/**
@@ -136,9 +116,7 @@ public class User {
 	 * @return the role
 	 */
 	public Role addRoleToList(Role role) {	
-		String uuidName = getUUID(); 
-		role.setEntitlementId(uuidName); 
-		roles.put(uuidName, role); 
+		roles.add(role); 
 		return role;
 	}
 
@@ -162,9 +140,7 @@ public class User {
 		return (
 				(obj != null) &&
 				(obj instanceof User) &&
-				t.getUserName().equals(getUserName()) &&
-				t.getPassword().equals(getPassword())
-				);
+				t.getUserId().equals(getUserId()));
 				
 	}
 	
@@ -173,38 +149,23 @@ public class User {
 	 */
 	@Override
 	public int hashCode() {
-		return userName.hashCode() + password.hashCode();  
+		return userId.hashCode();  
 	}
 	
 	
 
-	/**
-	 * Gets the rolefrom list.
-	 *
-	 * @param roleId the role id
-	 * @return the rolefrom list
-	 * @throws RoleNotFoundException the role not found exception
-	 */
-	public Role getRolefromList(String roleId) 
-			throws RoleNotFoundException {
-		if (!roles.containsKey(roleId)){ 
-			throw new RoleNotFoundException("Role you are looking is Not Found!"); 
-		} else { 
-			return roles.get(roleId); 
-		}		
-	}
 	/**
 	 * Removes the role from list.
 	 *
 	 * @param roleId the role id
 	 * @throws RoleNotFoundException the role not found exception
 	 */
-	public void removeRoleFromList(String roleId)
+	public void removeRoleFromList(Role role)
 			throws RoleNotFoundException{
-		if (!roles.containsKey(roleId)){ 
+		if (!roles.contains(role)){ 
 			throw new RoleNotFoundException("Role you are looking is Not Found!"); 
 		} else { 
-			roles.remove(roleId); 
+			roles.remove(role); 
 		}	
 	}
 	/**
@@ -213,14 +174,11 @@ public class User {
 	 * @return the roles
 	 */
 	public Collection<Role> getRoles() {
-		return roles.values(); 
+		return roles;
 	}
 	
 	/** The user id. */
 	private String userId; 
-	
-	/** The user name. */
-	private String userName; 
 	
 	/** The user description. */
 	private String userDescription; 
@@ -230,6 +188,17 @@ public class User {
 	
 	/** The password. */
 	private String password;
+	
+	private AccessToken authToken;
+	
+	public AccessToken getAuthToken() {
+		return authToken;
+	}
+
+	public void setAuthToken(AccessToken authToken) {
+		this.authToken = authToken;
+	}
+
 	/** The roles. */
-	private Map<String, Role> roles; 
+	private static HashSet<Role> roles = new HashSet<Role>();
 }
