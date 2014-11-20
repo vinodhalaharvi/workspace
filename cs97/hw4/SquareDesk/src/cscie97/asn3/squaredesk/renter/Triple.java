@@ -3,6 +3,7 @@
  */
 package cscie97.asn3.squaredesk.renter;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Triple.
  */
@@ -94,9 +95,11 @@ public class Triple {
 	private String identifier; 
 
 	/**
-	 * @param subject
-	 * @param predicate
-	 * @param object
+	 * Instantiates a new triple.
+	 *
+	 * @param subject the subject
+	 * @param predicate the predicate
+	 * @param object the object
 	 */
 	public Triple(Node subject, Predicate predicate, Node object) {
 		// TODO Auto-generated constructor stub
@@ -109,6 +112,9 @@ public class Triple {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		Triple t = (Triple) obj; 
@@ -117,12 +123,18 @@ public class Triple {
 				t.identifier.equals(identifier);
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		return identifier.hashCode();  
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
@@ -132,7 +144,9 @@ public class Triple {
 	}
 	
 	/**
-	 * @param identifier
+	 * Instantiates a new triple.
+	 *
+	 * @param identifier the identifier
 	 */
 	public Triple(String identifier) {
 		this.identifier = identifier; 

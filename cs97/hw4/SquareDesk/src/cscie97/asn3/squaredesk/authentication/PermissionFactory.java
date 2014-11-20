@@ -19,8 +19,8 @@ public final class PermissionFactory {
 	/**
 	 * Creates a new Permission object.
 	 *
-	 * @param entitlementId the entitlement id
 	 * @param serviceId the service id
+	 * @param entitlementId the entitlement id
 	 * @param permissionName the permission name
 	 * @param permissionDescription the permission description
 	 * @return the Permission

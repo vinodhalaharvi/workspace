@@ -10,6 +10,7 @@ import cscie97.asn3.squaredesk.provider.Facility;
 import cscie97.asn3.squaredesk.provider.Feature;
 import cscie97.asn3.squaredesk.provider.Location;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Criteria.
  */
@@ -153,6 +154,16 @@ public class Criteria {
 
 
 
+	/**
+	 * Instantiates a new criteria.
+	 *
+	 * @param features the features
+	 * @param location the location
+	 * @param facility the facility
+	 * @param minRating the min rating
+	 * @param startDate the start date
+	 * @param endDate the end date
+	 */
 	public Criteria(List<Feature> features, Location location,
 			Facility facility, int minRating, Date startDate, Date endDate) {
 		super();
@@ -187,7 +198,7 @@ public class Criteria {
 	
 	
 	/**
-	 * 
+	 * Instantiates a new criteria.
 	 */
 	public Criteria() {
 		// TODO Auto-generated constructor stub

@@ -7,6 +7,7 @@ import cscie97.asn3.squaredesk.provider.ContactInfo;
 import cscie97.asn3.squaredesk.provider.Image;
 import cscie97.asn3.squaredesk.provider.Provider;
 
+// TODO: Auto-generated Javadoc
 /**
  * A factory for creating Profile objects.
  */

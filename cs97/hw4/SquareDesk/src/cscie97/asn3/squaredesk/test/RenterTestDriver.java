@@ -17,20 +17,26 @@ import cscie97.asn3.squaredesk.renter.RenterAlreadyExistException;
 import cscie97.asn3.squaredesk.renter.RenterNotFoundException;
 import cscie97.asn3.squaredesk.renter.RenterService;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class RenterTestDriver.
  */
 public class RenterTestDriver extends TestDriverBase { 
+	
 	/**
-	 * @throws ParseException 
-	 * @throws FileNotFoundException 
-	 * 
+	 * Instantiates a new renter test driver.
+	 *
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws ParseException the parse exception
 	 */
 	public RenterTestDriver() 
 			throws FileNotFoundException, ParseException { 
 		//RenterService = new RenterService(); 
 	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#createTest()
+	 */
 	@Override
 	public void createTest() 
 			throws RenterAlreadyExistException, AccessException, URISyntaxException {
@@ -48,17 +54,26 @@ public class RenterTestDriver extends TestDriverBase {
 		endTest("createTest");
 	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#readTest()
+	 */
 	@Override
 	public void readTest() {
 		beginTest("readTest"); 
 		endTest("readTest"); 
 	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#init()
+	 */
 	@Override
 	public void init() {
 		//RenterService.getInstance();
 	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#deleteTest()
+	 */
 	@Override
 	public void deleteTest() 
 			throws RatingNotFoundException {
@@ -66,6 +81,9 @@ public class RenterTestDriver extends TestDriverBase {
 		endTest("deleteTest"); 
 	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#updateTest()
+	 */
 	@Override
 	public void updateTest() 
 			throws OfficeSpaceNotFoundException, RenterNotFoundException, AccessException, 

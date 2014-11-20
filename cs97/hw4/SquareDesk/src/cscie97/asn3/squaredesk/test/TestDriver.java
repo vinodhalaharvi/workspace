@@ -5,7 +5,6 @@ package cscie97.asn3.squaredesk.test;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.AccessDeniedException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,6 +39,7 @@ import cscie97.asn3.squaredesk.renter.RenterAlreadyExistException;
 import cscie97.asn3.squaredesk.renter.RenterNotFoundException;
 import cscie97.asn3.squaredesk.renter.RenterService;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TestDriver.
  */
@@ -57,17 +57,16 @@ public class TestDriver {
 	 * @throws ProviderNotFoundException the provider not found exception
 	 * @throws RatingNotFoundException the rating not found exception
 	 * @throws OfficeSpaceNotFoundException the office space not found exception
-	 * @throws RenterNotFoundException 
-	 * @throws RenterAlreadyExistException 
-	 * @throws BookingAlreadyExistException 
-	 * @throws UserAlreadyExistException 
-	 * @throws ServiceAlreadyExistException 
-	 * @throws PermissionAlreadyExistException 
-	 * @throws RoleAlreadyExistException 
-	 * @throws UserNotFoundException 
-	 * @throws AuthenticationException 
-	 * @throws AccessTokenException 
-	 * @throws AccessDeniedException 
+	 * @throws RenterAlreadyExistException the renter already exist exception
+	 * @throws RenterNotFoundException the renter not found exception
+	 * @throws BookingAlreadyExistException the booking already exist exception
+	 * @throws UserAlreadyExistException the user already exist exception
+	 * @throws ServiceAlreadyExistException the service already exist exception
+	 * @throws PermissionAlreadyExistException the permission already exist exception
+	 * @throws RoleAlreadyExistException the role already exist exception
+	 * @throws AuthenticationException the authentication exception
+	 * @throws UserNotFoundException the user not found exception
+	 * @throws AccessTokenException the access token exception
 	 */
 	public static void main(String[] args) 
 			throws FileNotFoundException, 

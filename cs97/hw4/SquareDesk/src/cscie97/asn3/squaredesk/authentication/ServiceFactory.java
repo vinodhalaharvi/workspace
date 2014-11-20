@@ -19,11 +19,9 @@ public final class ServiceFactory {
 	/**
 	 * Creates a new Service object.
 	 *
+	 * @param serviceId the service id
 	 * @param serviceName the service name
-	 * @param loginName the login name
-	 * @param password the password
-	 * @param uuidName the uuid name
-	 * @param serviceDescription 
+	 * @param serviceDescription the service description
 	 * @return the service
 	 */
 	public static Service createService( String serviceId, String serviceName,

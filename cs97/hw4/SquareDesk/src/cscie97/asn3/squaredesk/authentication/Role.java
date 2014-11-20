@@ -7,6 +7,7 @@ import java.util.HashSet;
 
 import cscie97.asn3.squaredesk.provider.EntitlementNotFoundException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Role.
  *
@@ -17,14 +18,9 @@ public class Role extends Entitlement {
 	/**
 	 * Instantiates a new role.
 	 *
-	 * @param entitlementId
-	 *            the entitlement id
-	 * @param serviceId
-	 *            the service id
-	 * @param roleName
-	 *            the role name
-	 * @param roleDescription
-	 *            the role description
+	 * @param roleId the role id
+	 * @param roleName            the role name
+	 * @param roleDescription            the role description
 	 */
 	public Role(String roleId, String roleName, String roleDescription) {
 		super(roleId);
@@ -128,7 +124,7 @@ public class Role extends Entitlement {
 	/**
 	 * Removes the entitlement from list.
 	 *
-	 * @param entitlementId the entitlement id
+	 * @param entitlement the entitlement
 	 * @throws EntitlementNotFoundException the entitlement not found exception
 	 */
 	public void removeEntitlementFromList(Entitlement entitlement)
@@ -151,11 +147,19 @@ public class Role extends Entitlement {
 	}
 
 
+	/** The role name. */
 	private String roleName; 
+	
+	/** The role description. */
 	private String roleDescription; 
 
 	
 
+	/**
+	 * Gets the roles.
+	 *
+	 * @return the roles
+	 */
 	public HashSet<Role> getRoles() {
 		HashSet<Role> roles = new HashSet<Role>(); 
 		for(Entitlement entitlement : entitlements){
@@ -166,6 +170,11 @@ public class Role extends Entitlement {
 		return roles; 
 	}
 
+	/**
+	 * Gets the permissions.
+	 *
+	 * @return the permissions
+	 */
 	public  HashSet<Permission> getPermissions() {
 		HashSet<Permission> permissions = new HashSet<Permission>();
 		for(Entitlement entitlement : entitlements){

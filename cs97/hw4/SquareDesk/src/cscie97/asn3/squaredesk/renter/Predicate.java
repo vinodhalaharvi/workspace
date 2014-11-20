@@ -3,6 +3,7 @@
  */
 package cscie97.asn3.squaredesk.renter;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Predicate.
  */
@@ -17,11 +18,17 @@ public class Predicate {
 	private String identifier; 
 	
 	/**
-	 * @param indentifier 
+	 * Instantiates a new predicate.
+	 *
+	 * @param identifier the identifier
 	 */
 	public Predicate(String identifier) {
 		this.identifier = identifier; 
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

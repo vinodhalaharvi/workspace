@@ -6,6 +6,7 @@ package cscie97.asn3.squaredesk.test;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Context.
  */
@@ -16,9 +17,10 @@ public class Context {
 
 
 	/**
-	 * @throws ParseException 
-	 * @throws FileNotFoundException 
-	 * 
+	 * Instantiates a new context.
+	 *
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws ParseException the parse exception
 	 */
 	public Context() 
 			throws FileNotFoundException, ParseException {
@@ -26,9 +28,11 @@ public class Context {
 
 
 	/**
-	 * @param inputfilepath
-	 * @throws FileNotFoundException
-	 * @throws ParseException
+	 * Import file.
+	 *
+	 * @param inputfilepath the inputfilepath
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws ParseException the parse exception
 	 */
 	public static void importFile(String inputfilepath) 
 			throws FileNotFoundException, ParseException{

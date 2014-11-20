@@ -15,6 +15,7 @@ import cscie97.asn3.squaredesk.provider.Location;
 import cscie97.asn3.squaredesk.provider.Rate;
 import cscie97.asn3.squaredesk.provider.Rating;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ContextProvider.
  */
@@ -24,9 +25,10 @@ public final class ContextProvider extends Context {
 	private static ContextProvider context; 
 
 	/**
-	 * @throws ParseException 
-	 * @throws FileNotFoundException 
-	 * 
+	 * Instantiates a new context provider.
+	 *
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws ParseException the parse exception
 	 */
 	public ContextProvider() 
 			throws FileNotFoundException, ParseException {

@@ -8,6 +8,7 @@ import java.util.Date;
 import cscie97.asn3.squaredesk.provider.OfficeSpace;
 import cscie97.asn3.squaredesk.provider.Rate;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Booking.
  */
@@ -171,6 +172,18 @@ public class Booking {
 		this.paymentStatus = paymentStatus;
 	}
 
+	/**
+	 * Instantiates a new booking.
+	 *
+	 * @param bookingId the booking id
+	 * @param renter the renter
+	 * @param officeSpace the office space
+	 * @param period the period
+	 * @param rate the rate
+	 * @param startDate the start date
+	 * @param endDate the end date
+	 * @param paymentStatus the payment status
+	 */
 	public Booking(String bookingId, Renter renter, OfficeSpace officeSpace, String period,
 			Rate rate, Date startDate, Date endDate, String paymentStatus) {
 		this.bookingId = bookingId; 

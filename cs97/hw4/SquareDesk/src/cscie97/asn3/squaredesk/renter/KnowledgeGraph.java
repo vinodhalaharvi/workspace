@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class KnowledgeGraph.
  */
@@ -30,7 +31,11 @@ public final class KnowledgeGraph {
 
 	/**
 	 * Helper function (NOT in the design document) to get the triples
-	 * associated with a query line like "Joe ? ?"
+	 * associated with a query line like "Joe ? ?".
+	 *
+	 * @param ts the ts
+	 * @param t the t
+	 * @return the triple set
 	 */
 	public static Set<Triple> getTripleSet(Set<Triple> ts, Triple t){ 
 		String [] b = t.getIdentifier().split(" "); 
@@ -56,6 +61,11 @@ public final class KnowledgeGraph {
 		return ts; 
 	}
 
+	/**
+	 * Adds the triple.
+	 *
+	 * @param t the t
+	 */
 	public static void addTriple(Triple t) {
 		String [] tokens = t.getIdentifier().split(" ");
 		Node n = new Node(tokens[0]);
@@ -91,6 +101,11 @@ public final class KnowledgeGraph {
 	}
 
 
+	/**
+	 * Removes the triple.
+	 *
+	 * @param t the t
+	 */
 	public static void removeTriple(Triple t) {
 		Set<Triple> ts = new HashSet<Triple>();
 		getTripleSet(ts, t);
@@ -109,6 +124,9 @@ public final class KnowledgeGraph {
 	/**
 	 * execute the query. A Triple set is already formed for this query to get O(1) performance
 	 * this methods just's returns that entry from queryMapSet
+	 *
+	 * @param query the query
+	 * @return the sets the
 	 */
 	public static Set<Triple> executeQuery(Triple query) {
 		if (queryMapSet.containsKey(query.getIdentifier())){ 			
@@ -120,7 +138,10 @@ public final class KnowledgeGraph {
 
 
 	/**
-	 * Get node using pre calculated nodeMap
+	 * Get node using pre calculated nodeMap.
+	 *
+	 * @param identifier the identifier
+	 * @return the node
 	 */
 	public static Node getNode(String identifier) {
 		if (nodeMap.containsKey(identifier)){ 
@@ -132,7 +153,10 @@ public final class KnowledgeGraph {
 
 
 	/**
-	 * Get predicate using pre calculated predicateMap 
+	 * Get predicate using pre calculated predicateMap.
+	 *
+	 * @param identifier the identifier
+	 * @return the predicate
 	 */
 	public static Predicate getPredicate(String identifier) {
 		if (predicateMap.containsKey(identifier)){ 
@@ -143,7 +167,10 @@ public final class KnowledgeGraph {
 	}
 
 	/**
-	 * Get triple using pre calculated tripleMap
+	 * Get triple using pre calculated tripleMap.
+	 *
+	 * @param identifier the identifier
+	 * @return the triple
 	 */
 	public static Triple getTriple(String identifier) {
 		return tripleMap.get(identifier); 

@@ -9,6 +9,7 @@ import java.util.List;
 import cscie97.asn3.squaredesk.renter.KnowledgeGraph;
 import cscie97.asn3.squaredesk.renter.Triple;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class OfficeSpace.
  */
@@ -35,6 +36,9 @@ public class OfficeSpace {
 
 	
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		OfficeSpace t = (OfficeSpace) obj; 
@@ -43,6 +47,9 @@ public class OfficeSpace {
 				t.offId.equals(offId);
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		return offId.hashCode();  

@@ -22,6 +22,7 @@ import cscie97.asn3.squaredesk.provider.RatingNotFoundException;
 import cscie97.asn3.squaredesk.renter.RenterAlreadyExistException;
 import cscie97.asn3.squaredesk.renter.RenterNotFoundException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TestDriverBase.
  */
@@ -44,21 +45,21 @@ public abstract class TestDriverBase {
 	 * Creates the test.
 	 *
 	 * @return the object
-	 * @throws URISyntaxException 
-	 * @throws AccessException 
-	 * @throws ProviderAlreadyExistException 
-	 * @throws ProviderNotFoundException 
-	 * @throws RenterNotFoundException 
-	 * @throws RenterAlreadyExistException 
-	 * @throws ParseException 
-	 * @throws FileNotFoundException 
-	 * @throws UserAlreadyExistException 
-	 * @throws ServiceAlreadyExistException 
-	 * @throws PermissionAlreadyExistException 
-	 * @throws RoleAlreadyExistException 
-	 * @throws UserNotFoundException 
-	 * @throws AuthenticationException 
-	 * @throws AccessTokenException 
+	 * @throws ProviderAlreadyExistException the provider already exist exception
+	 * @throws AccessException the access exception
+	 * @throws URISyntaxException the URI syntax exception
+	 * @throws ProviderNotFoundException the provider not found exception
+	 * @throws RenterAlreadyExistException the renter already exist exception
+	 * @throws RenterNotFoundException the renter not found exception
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws ParseException the parse exception
+	 * @throws UserAlreadyExistException the user already exist exception
+	 * @throws ServiceAlreadyExistException the service already exist exception
+	 * @throws PermissionAlreadyExistException the permission already exist exception
+	 * @throws RoleAlreadyExistException the role already exist exception
+	 * @throws AuthenticationException the authentication exception
+	 * @throws UserNotFoundException the user not found exception
+	 * @throws AccessTokenException the access token exception
 	 */
 	public void createTest() 
 			throws ProviderAlreadyExistException, AccessException, 
@@ -102,7 +103,8 @@ public abstract class TestDriverBase {
 	
 	/**
 	 * Read test.
-	 * @throws UserNotFoundException 
+	 *
+	 * @throws UserNotFoundException the user not found exception
 	 */
 	public void readTest() throws UserNotFoundException{
 		

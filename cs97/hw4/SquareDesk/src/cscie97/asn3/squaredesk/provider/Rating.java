@@ -4,6 +4,7 @@
 package cscie97.asn3.squaredesk.provider;
 import java.util.Date;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Rating.
  */

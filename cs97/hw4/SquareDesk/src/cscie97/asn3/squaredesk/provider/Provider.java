@@ -11,6 +11,7 @@ import cscie97.asn3.squaredesk.renter.KnowledgeGraph;
 import cscie97.asn3.squaredesk.renter.Profile;
 import cscie97.asn3.squaredesk.renter.Triple;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Provider.
  */
@@ -109,10 +110,21 @@ public class Provider extends Profile {
 	}
 
 
+	/**
+	 * Make office space searchable.
+	 *
+	 * @param officeSpace the office space
+	 */
 	public void makeOfficeSpaceSearchable(OfficeSpace officeSpace) {
 		officeSpace.setSearchable(true); 
 	}	
 	
+	/**
+	 * Adds the office space to knowledge graph.
+	 *
+	 * @param officeSpace the office space
+	 * @return the office space
+	 */
 	public OfficeSpace addOfficeSpaceToKnowledgeGraph(OfficeSpace officeSpace) {
 		if (officeSpace.getFacility().getCategory() == ""){
 			KnowledgeGraph.addTriple(new Triple(officeSpace.getOffId() + " has_facility_type_category " +
@@ -136,6 +148,12 @@ public class Provider extends Profile {
 	}
 
 
+	/**
+	 * Removes the office space to knowledge graph.
+	 *
+	 * @param officeSpace the office space
+	 * @return the office space
+	 */
 	public OfficeSpace removeOfficeSpaceToKnowledgeGraph(OfficeSpace officeSpace) {
 		if (!officeSpace.isSearchable())
 			return officeSpace; 

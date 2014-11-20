@@ -12,6 +12,7 @@ import cscie97.asn3.squaredesk.provider.Image;
 import cscie97.asn3.squaredesk.provider.Rating;
 import cscie97.asn3.squaredesk.provider.RatingNotFoundException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Profile.
  */

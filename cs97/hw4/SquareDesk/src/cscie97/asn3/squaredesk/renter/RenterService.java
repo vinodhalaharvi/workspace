@@ -22,6 +22,7 @@ import cscie97.asn3.squaredesk.provider.ProviderService;
 import cscie97.asn3.squaredesk.provider.Rating;
 import cscie97.asn3.squaredesk.provider.RatingNotFoundException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class RenterService.
  */
@@ -228,16 +229,12 @@ public final class RenterService {
 	/**
 	 * Adds the rating to renter.
 	 *
-	 * @param authToken
-	 *            the auth token
-	 * @param renterId
-	 *            the renter id
-	 * @param rating
-	 *            the rating
+	 * @param authToken            the auth token
+	 * @param renterId            the renter id
+	 * @param rating            the rating
 	 * @return the rating
-	 * @throws RenterNotFoundException
-	 *             the renter not found exception
-	 * @throws AccessException 
+	 * @throws RenterNotFoundException             the renter not found exception
+	 * @throws AccessException the access exception
 	 */
 	public static Rating addRatingToRenter(String authToken, String renterId, Rating rating)
 			throws RenterNotFoundException, AccessException{
@@ -251,17 +248,12 @@ public final class RenterService {
 	/**
 	 * Removes the rating from renter.
 	 *
-	 * @param authToken
-	 *            the auth token
-	 * @param renterId
-	 *            the renter id
-	 * @param ratingId
-	 *            the rating id
-	 * @throws RenterNotFoundException
-	 *             the renter not found exception
-	 * @throws RatingNotFoundException
-	 *             the rating not found exception
-	 * @throws AccessException 
+	 * @param authToken            the auth token
+	 * @param renterId            the renter id
+	 * @param ratingId            the rating id
+	 * @throws RenterNotFoundException             the renter not found exception
+	 * @throws RatingNotFoundException             the rating not found exception
+	 * @throws AccessException the access exception
 	 */
 	public static void removeRatingFromRenter(String authToken, String renterId, String ratingId) 
 			throws RenterNotFoundException, RatingNotFoundException, AccessException{
@@ -274,14 +266,11 @@ public final class RenterService {
 	/**
 	 * Gets the rating list for renter.
 	 *
-	 * @param authToken
-	 *            the auth token
-	 * @param renterId
-	 *            the renter id
+	 * @param authToken            the auth token
+	 * @param renterId            the renter id
 	 * @return the rating list for renter
-	 * @throws RenterNotFoundException
-	 *             the renter not found exception
-	 * @throws AccessException 
+	 * @throws RenterNotFoundException             the renter not found exception
+	 * @throws AccessException the access exception
 	 */
 	public static Collection<Rating> getRatingListForRenter(String authToken, String renterId)
 			throws RenterNotFoundException, AccessException{
@@ -295,12 +284,10 @@ public final class RenterService {
 	/**
 	 * Search kg using features.
 	 *
-	 * @param authToken
-	 *            the auth token
-	 * @param list
-	 *            the list
+	 * @param authToken            the auth token
+	 * @param list            the list
 	 * @return the collection
-	 * @throws AccessException 
+	 * @throws AccessException the access exception
 	 */
 	public static Collection<OfficeSpace> 
 	searchKGUsingFeatures(String authToken, List<Feature> list) throws AccessException{
@@ -328,12 +315,10 @@ public final class RenterService {
 	/**
 	 * Search kg using location.
 	 *
-	 * @param authToken
-	 *            the auth token
-	 * @param location
-	 *            the location
+	 * @param authToken            the auth token
+	 * @param location            the location
 	 * @return the collection
-	 * @throws AccessException 
+	 * @throws AccessException the access exception
 	 */
 	public static Collection<OfficeSpace> searchKGUsingLocation(String authToken, Location location) throws AccessException{ 
 		if (!AuthenticationService.hasAccess(authToken, "RenterService","searchKGUsingLocation"))
@@ -353,12 +338,10 @@ public final class RenterService {
 	/**
 	 * Search kg using facility and category.
 	 *
-	 * @param authToken
-	 *            the auth token
-	 * @param facility
-	 *            the facility
+	 * @param authToken            the auth token
+	 * @param facility            the facility
 	 * @return the collection
-	 * @throws AccessException 
+	 * @throws AccessException the access exception
 	 */
 	public static Collection<OfficeSpace> searchKGUsingFacilityAndCategory(String authToken, Facility facility) throws AccessException{ 
 		if (!AuthenticationService.hasAccess(authToken, "RenterService","searchKGUsingFacilityAndCategory"))
@@ -384,12 +367,10 @@ public final class RenterService {
 	/**
 	 * Search kg using rating.
 	 *
-	 * @param authToken
-	 *            the auth token
-	 * @param minRating
-	 *            the min rating
+	 * @param authToken            the auth token
+	 * @param minRating            the min rating
 	 * @return the collection
-	 * @throws AccessException 
+	 * @throws AccessException the access exception
 	 */
 	public static Collection<OfficeSpace> searchKGUsingRating(String authToken, int minRating) throws AccessException{
 		if (!AuthenticationService.hasAccess(authToken, "RenterService","searchKGUsingRating"))
@@ -411,14 +392,11 @@ public final class RenterService {
 	/**
 	 * Search kg using dates.
 	 *
-	 * @param authToken
-	 *            the auth token
-	 * @param startDate
-	 *            the start date
-	 * @param endDate
-	 *            the end date
+	 * @param authToken            the auth token
+	 * @param startDate            the start date
+	 * @param endDate            the end date
 	 * @return the collection
-	 * @throws AccessException 
+	 * @throws AccessException the access exception
 	 */
 	public static Collection<OfficeSpace> searchKGUsingDates(String authToken, Date startDate, Date endDate) throws AccessException{
 		if (!AuthenticationService.hasAccess(authToken, "RenterService","searchKGUsingDates"))
@@ -435,12 +413,10 @@ public final class RenterService {
 	/**
 	 * Search kg criteria.
 	 *
-	 * @param authToken
-	 *            the auth token
-	 * @param criteria
-	 *            the criteria
+	 * @param authToken            the auth token
+	 * @param criteria            the criteria
 	 * @return the collection
-	 * @throws AccessException 
+	 * @throws AccessException the access exception
 	 */
 	public static Collection<OfficeSpace> searchKGCriteria(String authToken, Criteria criteria) throws AccessException{
 		if (!AuthenticationService.hasAccess(authToken, "RenterService","searchKGCriteria"))

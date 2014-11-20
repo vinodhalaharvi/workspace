@@ -27,16 +27,31 @@ import cscie97.asn3.squaredesk.provider.ProviderNotFoundException;
 import cscie97.asn3.squaredesk.renter.RenterAlreadyExistException;
 import cscie97.asn3.squaredesk.renter.RenterNotFoundException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AuthenticationTestDriver.
+ */
 public class AuthenticationTestDriver extends TestDriverBase  {
 
+	/**
+	 * Instantiates a new authentication test driver.
+	 */
 	public AuthenticationTestDriver() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/** The user. */
 	private User user; 
+	
+	/** The role. */
 	private Role role;
+	
+	/** The permission. */
 	private Permission permission;
 	
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#createTest()
+	 */
 	@Override
 	public void createTest() throws ProviderAlreadyExistException,
 			AccessException, URISyntaxException, ProviderNotFoundException,
@@ -64,6 +79,12 @@ public class AuthenticationTestDriver extends TestDriverBase  {
 		AuthenticationService.addRoleToUser(user, role);
 	}
 
+	/**
+	 * Login user.
+	 *
+	 * @throws AuthenticationException the authentication exception
+	 * @throws UserNotFoundException the user not found exception
+	 */
 	public void loginUser() throws AuthenticationException, UserNotFoundException{
 		System.out.println();
 		System.out.println("logging in user .. " + user.getLoginName());
@@ -75,6 +96,11 @@ public class AuthenticationTestDriver extends TestDriverBase  {
 		System.out.println("\tUser logged in");
 	}
 	
+	/**
+	 * Logout user.
+	 *
+	 * @throws AccessTokenException the access token exception
+	 */
 	public void logoutUser() throws AccessTokenException{
 		System.out.println();
 		System.out.println("logging out user .. " + user.getLoginName());
@@ -87,6 +113,9 @@ public class AuthenticationTestDriver extends TestDriverBase  {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#readTest()
+	 */
 	@Override
 	public void readTest() throws UserNotFoundException {
 		// TODO Auto-generated method stub
@@ -124,6 +153,11 @@ public class AuthenticationTestDriver extends TestDriverBase  {
 		System.out.println(AuthenticationService.getRoleListForUser(user));
 	}
 
+	/**
+	 * Gets the user.
+	 *
+	 * @return the user
+	 */
 	public User getUser() {
 		return user;
 	}

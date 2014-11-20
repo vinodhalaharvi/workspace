@@ -28,7 +28,6 @@ public class User {
 	/**
 	 * Instantiates a new user.
 	 *
-	 * @param userName the user name
 	 * @param loginName the login name
 	 * @param password the password
 	 */
@@ -157,7 +156,7 @@ public class User {
 	/**
 	 * Removes the role from list.
 	 *
-	 * @param roleId the role id
+	 * @param role the role
 	 * @throws RoleNotFoundException the role not found exception
 	 */
 	public void removeRoleFromList(Role role)
@@ -189,12 +188,23 @@ public class User {
 	/** The password. */
 	private String password;
 	
+	/** The auth token. */
 	private AccessToken authToken;
 	
+	/**
+	 * Gets the auth token.
+	 *
+	 * @return the auth token
+	 */
 	public AccessToken getAuthToken() {
 		return authToken;
 	}
 
+	/**
+	 * Sets the auth token.
+	 *
+	 * @param authToken the new auth token
+	 */
 	public void setAuthToken(AccessToken authToken) {
 		this.authToken = authToken;
 	}

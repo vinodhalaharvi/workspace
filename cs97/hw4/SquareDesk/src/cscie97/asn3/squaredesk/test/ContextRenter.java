@@ -15,6 +15,7 @@ import cscie97.asn3.squaredesk.provider.Image;
 import cscie97.asn3.squaredesk.provider.Location;
 import cscie97.asn3.squaredesk.provider.Rating;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ContextRenter.
  */
@@ -87,15 +88,23 @@ public class ContextRenter extends Context {
 	}
 
 	/**
-	 * @throws ParseException 
-	 * @throws FileNotFoundException 
-	 * 
+	 * Instantiates a new context renter.
+	 *
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws ParseException the parse exception
 	 */
 	public ContextRenter() 
 			throws FileNotFoundException, ParseException {
 	}
 
 
+	/**
+	 * Import file.
+	 *
+	 * @param inputfilepath the inputfilepath
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws ParseException the parse exception
+	 */
 	public static void importFile(String inputfilepath) 
 			throws FileNotFoundException, ParseException{
 		@SuppressWarnings("unused")

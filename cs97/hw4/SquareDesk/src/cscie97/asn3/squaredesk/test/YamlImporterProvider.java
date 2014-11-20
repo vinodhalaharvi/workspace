@@ -23,6 +23,7 @@ import cscie97.asn3.squaredesk.provider.Rate;
 import cscie97.asn3.squaredesk.provider.Rating;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class YamlImporterProvider.
  */
@@ -58,6 +59,7 @@ public class YamlImporterProvider {
 	/** The ratings yaml. */
 	private static ArrayList<Map<Object, Object>> ratingsYaml; 
 	
+	/** The yaml importer provider. */
 	private static YamlImporterProvider yamlImporterProvider;   
 
 	/**
@@ -85,6 +87,11 @@ public class YamlImporterProvider {
 	}
 
 	
+	/**
+	 * Gets the single instance of YamlImporterProvider.
+	 *
+	 * @return single instance of YamlImporterProvider
+	 */
 	public static YamlImporterProvider getInstance() {
 		if (yamlImporterProvider == null){
 			yamlImporterProvider = new YamlImporterProvider();

@@ -5,8 +5,15 @@ package cscie97.asn3.squaredesk.authentication;
 
 import java.util.UUID;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AuthenticationDataImporter.
+ */
 public final class AuthenticationDataImporter {
 
+	/**
+	 * Instantiates a new authentication data importer.
+	 */
 	public AuthenticationDataImporter() {
 		// TODO Auto-generated constructor stub
 	}
@@ -24,6 +31,11 @@ public final class AuthenticationDataImporter {
 	
 	
 	
+	/**
+	 * Define services.
+	 *
+	 * @throws ServiceAlreadyExistException the service already exist exception
+	 */
 	public static void defineServices() throws ServiceAlreadyExistException{
 		//AuthenticationService.addService(new Service("ProviderService", "Provider Service", "The awesome provider service!!"));
 		AuthenticationService.addService(ServiceFactory.createService("ProviderService", "Provider Service", "The awesome provider service!!"));
@@ -31,6 +43,11 @@ public final class AuthenticationDataImporter {
 		AuthenticationService.addService(ServiceFactory.createService("AuthenticationService", "Authentication Service", "The awesome Authentication service!!"));
 	}
 	
+	/**
+	 * Define permissions.
+	 *
+	 * @throws PermissionAlreadyExistException the permission already exist exception
+	 */
 	public static void definePermissions() throws PermissionAlreadyExistException{
 				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "getCategory", "get Category", "get  the Category of officeSpace"));
 				AuthenticationService.addPermission(PermissionFactory.createPermission("ProviderService", "createProvider", "create the provider", "create this awesome provider!!"));
@@ -72,6 +89,11 @@ public final class AuthenticationDataImporter {
 				
 	}
 	
+	/**
+	 * Define roles.
+	 *
+	 * @throws RoleAlreadyExistException the role already exist exception
+	 */
 	public static void defineRoles() throws RoleAlreadyExistException{
 		AuthenticationService.addEntitlement(RoleFactory.createRole("ProviderRole", "Provider Role", "The amazing role of a provider .. "));
 		AuthenticationService.addEntitlement(RoleFactory.createRole("RenterRole", "Renter Role", "The amazing role of a Renter .. "));
@@ -79,6 +101,11 @@ public final class AuthenticationDataImporter {
 	}
 	
 	
+	/**
+	 * Define users.
+	 *
+	 * @throws UserAlreadyExistException the user already exist exception
+	 */
 	public static void defineUsers() throws UserAlreadyExistException{
 		User user = AuthenticationService.addUser(UserFactory.createUser("testUser1", "JLKJLKSJLU*&(*^^&*^", getUUID()));
 		user.setUserDescription("test user in the system"); 

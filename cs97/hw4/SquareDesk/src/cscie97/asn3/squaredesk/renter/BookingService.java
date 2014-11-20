@@ -10,6 +10,7 @@ import cscie97.asn3.squaredesk.authentication.AccessException;
 import cscie97.asn3.squaredesk.provider.OfficeSpace;
 import cscie97.asn3.squaredesk.provider.Rate;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class BookingService.
  */
@@ -52,6 +53,20 @@ public final class BookingService {
 	}
 
 
+	/**
+	 * Creates the booking.
+	 *
+	 * @param renter the renter
+	 * @param officeSpace the office space
+	 * @param period the period
+	 * @param rate the rate
+	 * @param startDate the start date
+	 * @param endDate the end date
+	 * @param paymentStatus the payment status
+	 * @return the booking
+	 * @throws BookingAlreadyExistException the booking already exist exception
+	 * @throws AccessException the access exception
+	 */
 	public static Booking createBooking(Renter renter, 
 			OfficeSpace officeSpace, String period, Rate rate, Date startDate, Date endDate, 
 			String paymentStatus) throws BookingAlreadyExistException, AccessException{
@@ -66,6 +81,14 @@ public final class BookingService {
 	}
 
 	
+	/**
+	 * Check availability.
+	 *
+	 * @param officeSpace the office space
+	 * @param startDate the start date
+	 * @param endDate the end date
+	 * @return true, if successful
+	 */
 	public static boolean checkAvailability(OfficeSpace officeSpace, Date startDate, Date endDate){
 		for (Booking booking : getBookings()){
 			OfficeSpace thisOfficeSpace = booking.getOfficeSpace(); 
@@ -79,10 +102,18 @@ public final class BookingService {
 		return true; 
 	}
 	
+	/**
+	 * Removes the booking.
+	 *
+	 * @param booking the booking
+	 */
 	public static void removeBooking(Booking booking){
 		bookings.remove(booking);
 	}
 	
+	/**
+	 * List bookings.
+	 */
 	public static void listBookings(){
 		for(Booking booking : bookings){
 			System.out.println(booking);

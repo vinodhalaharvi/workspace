@@ -6,6 +6,7 @@ package cscie97.asn3.squaredesk.renter;
 import cscie97.asn3.squaredesk.provider.ContactInfo;
 import cscie97.asn3.squaredesk.provider.Image;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Renter.
  */
@@ -31,6 +32,9 @@ public class Renter extends Profile{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		Renter t = (Renter) obj; 
@@ -39,6 +43,9 @@ public class Renter extends Profile{
 				t.renterId.equals(renterId);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		return renterId.hashCode();  

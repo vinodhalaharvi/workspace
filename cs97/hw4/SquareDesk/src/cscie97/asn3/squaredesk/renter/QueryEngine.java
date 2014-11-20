@@ -4,20 +4,23 @@
 package cscie97.asn3.squaredesk.renter;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class QueryEngine.
  */
 public class QueryEngine {
 
 	/**
-	 * 
+	 * Instantiates a new query engine.
 	 */
 	public QueryEngine() {
 	}
 	
 	/**
-	 * @param query
-	 * @throws QueryEngineException
+	 * Execute query.
+	 *
+	 * @param query the query
+	 * @throws QueryEngineException the query engine exception
 	 */
 	public void executeQuery(String query) throws QueryEngineException {
 		if (query == null){ 

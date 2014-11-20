@@ -23,6 +23,7 @@ import cscie97.asn3.squaredesk.provider.RatingNotFoundException;
 import cscie97.asn3.squaredesk.renter.KnowledgeGraph;
 import cscie97.asn3.squaredesk.renter.Triple;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ProviderTestDriver.
  */
@@ -33,16 +34,21 @@ public class ProviderTestDriver extends TestDriverBase {
 
 	/** The provider. */
 	private Provider provider;
+	
 	/**
-	 * @throws ParseException 
-	 * @throws FileNotFoundException 
-	 * 
+	 * Instantiates a new provider test driver.
+	 *
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws ParseException the parse exception
 	 */
 	public ProviderTestDriver() 
 			throws FileNotFoundException, ParseException { 
 		//providerService = new ProviderService(); 
 	}
 
+	/* (non-Javadoc)
+	 * @see cscie97.asn3.squaredesk.test.TestDriverBase#createTest()
+	 */
 	@Override
 	public void createTest() 
 			throws ProviderAlreadyExistException, AccessException, URISyntaxException, 

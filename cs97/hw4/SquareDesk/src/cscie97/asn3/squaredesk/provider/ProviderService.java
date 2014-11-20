@@ -13,6 +13,7 @@ import cscie97.asn3.squaredesk.authentication.AuthenticationService;
 import cscie97.asn3.squaredesk.renter.ProfileFactory;
 import cscie97.asn3.squaredesk.renter.RenterAlreadyExistException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ProviderService.
  */
@@ -104,22 +105,13 @@ public final class ProviderService {
 	/**
 	 * Creates the provider.
 	 *
-	 * @param authToken
-	 *            the auth token
-	 * @param name
-	 *            the name
-	 * @param contactInfo
-	 *            the contact info
-	 * @param picture
-	 *            the picture
+	 * @param authToken            the auth token
+	 * @param name            the name
+	 * @param contactInfo            the contact info
+	 * @param picture            the picture
 	 * @return the provider
-	 * @throws ProviderAlreadyExistException
-	 *             the provider already exist exception
-	 * @throws AccessException
-	 *             the access exception
-	 * @throws AccessDeniedException 
-	 * @throws RenterAlreadyExistException 
-	 * @throws ProfileAlreadyExistsException 
+	 * @throws ProviderAlreadyExistException             the provider already exist exception
+	 * @throws AccessException             the access exception
 	 */
 	public static Provider createProvider(String authToken, String name, 
 			ContactInfo contactInfo, Image picture
@@ -209,7 +201,7 @@ public final class ProviderService {
 	 * @param rating the rating
 	 * @return the rating
 	 * @throws ProviderNotFoundException the provider not found exception
-	 * @throws AccessException 
+	 * @throws AccessException the access exception
 	 */
 	public static Rating addRatingToProvider(String authToken, String providerId, Rating rating)
 			throws ProviderNotFoundException, AccessException{
@@ -228,7 +220,7 @@ public final class ProviderService {
 	 * @param ratingId the rating id
 	 * @throws ProviderNotFoundException the provider not found exception
 	 * @throws RatingNotFoundException the rating not found exception
-	 * @throws AccessException 
+	 * @throws AccessException the access exception
 	 */
 	public static void removeRatingFromProvider(String authToken, String providerId, String ratingId) 
 			throws ProviderNotFoundException, RatingNotFoundException, AccessException{
@@ -245,7 +237,7 @@ public final class ProviderService {
 	 * @param providerId the provider id
 	 * @return the rating list for provider
 	 * @throws ProviderNotFoundException the provider not found exception
-	 * @throws AccessException 
+	 * @throws AccessException the access exception
 	 */
 	public static Collection<Rating> getRatingListForProvider(String authToken, String providerId)
 			throws ProviderNotFoundException, AccessException{
@@ -333,7 +325,7 @@ public final class ProviderService {
 	 * @param officeSpace the office space
 	 * @return the office space
 	 * @throws ProviderNotFoundException the provider not found exception
-	 * @throws AccessException 
+	 * @throws AccessException the access exception
 	 */
 	public static OfficeSpace addOfficeSpaceToProvider(String authToken, String providerId, 
 			OfficeSpace officeSpace) throws ProviderNotFoundException, AccessException {
@@ -355,7 +347,7 @@ public final class ProviderService {
 	 * @param officeSpaceId the office space id
 	 * @throws ProviderNotFoundException the provider not found exception
 	 * @throws OfficeSpaceNotFoundException the office space not found exception
-	 * @throws AccessException 
+	 * @throws AccessException the access exception
 	 */
 	public static void  removeOfficeSpaceFromProvider(String authToken, String providerId, 
 			String officeSpaceId) throws ProviderNotFoundException, OfficeSpaceNotFoundException, AccessException {
@@ -373,7 +365,7 @@ public final class ProviderService {
 	 * @param providerId the provider id
 	 * @return the office space list for provider
 	 * @throws ProviderNotFoundException the provider not found exception
-	 * @throws AccessException 
+	 * @throws AccessException the access exception
 	 */
 	public static Collection<OfficeSpace> getOfficeSpaceListForProvider(String authToken, String providerId) 
 			throws ProviderNotFoundException, AccessException {
@@ -384,6 +376,12 @@ public final class ProviderService {
 	}
 
 
+	/**
+	 * Gets the office space.
+	 *
+	 * @param offId the off id
+	 * @return the office space
+	 */
 	public static OfficeSpace getOfficeSpace(String offId){
 		return officeSpaces.get(offId); 
 	}

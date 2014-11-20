@@ -3,6 +3,7 @@
  */
 package cscie97.asn3.squaredesk.authentication;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AccessException.
  */
