@@ -118,17 +118,6 @@ public class User {
 		return role;
 	}
 
-	/**
-	 * Gets the uuid.
-	 *
-	 * @return the uuid
-	 */
-	protected String getUUID() {
-		String uuidStr = UUID.randomUUID().toString(); 
-		return uuidStr; 	
-	}
-	
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -175,21 +164,6 @@ public class User {
 		return roles;
 	}
 	
-	/** The user id. */
-	private String userId; 
-	
-	/** The user description. */
-	private String userDescription; 
-	
-	/** The login name. */
-	private String loginName; 
-	
-	/** The password. */
-	private String password;
-	
-	/** The auth token. */
-	private AccessToken authToken;
-	
 	/**
 	 * Gets the auth token.
 	 *
@@ -207,6 +181,31 @@ public class User {
 	public void setAuthToken(AccessToken authToken) {
 		this.authToken = authToken;
 	}
+
+	/**
+	 * Gets the uuid.
+	 *
+	 * @return the uuid
+	 */
+	protected String getUUID() {
+		String uuidStr = UUID.randomUUID().toString(); 
+		return uuidStr; 	
+	}
+
+	/** The user id. */
+	private String userId;
+
+	/** The user description. */
+	private String userDescription;
+
+	/** The login name. */
+	private String loginName;
+
+	/** The password. */
+	private String password;
+
+	/** The auth token. */
+	private AccessToken authToken;
 
 	/** The roles. */
 	private static HashSet<Role> roles = new HashSet<Role>();
