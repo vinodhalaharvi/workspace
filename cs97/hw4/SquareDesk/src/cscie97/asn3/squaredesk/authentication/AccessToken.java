@@ -5,7 +5,6 @@ package cscie97.asn3.squaredesk.authentication;
 
 import java.util.Date;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AccessToken.
  */

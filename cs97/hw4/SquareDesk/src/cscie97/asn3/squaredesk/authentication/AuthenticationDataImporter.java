@@ -5,7 +5,6 @@ package cscie97.asn3.squaredesk.authentication;
 
 import java.util.UUID;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AuthenticationDataImporter.
  */
@@ -15,7 +14,6 @@ public final class AuthenticationDataImporter {
 	 * Instantiates a new authentication data importer.
 	 */
 	public AuthenticationDataImporter() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	
