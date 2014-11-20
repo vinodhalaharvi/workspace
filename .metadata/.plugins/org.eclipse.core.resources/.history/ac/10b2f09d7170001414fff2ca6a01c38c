@@ -2,6 +2,7 @@
  * 
  */
 package cscie97.asn3.squaredesk.provider;
+import java.nio.file.AccessDeniedException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.UUID;
 import cscie97.asn3.squaredesk.authentication.AccessException;
 import cscie97.asn3.squaredesk.authentication.AuthenticationService;
 import cscie97.asn3.squaredesk.renter.ProfileFactory;
+import cscie97.asn3.squaredesk.renter.RenterAlreadyExistException;
 
 /**
  * The Class ProviderService.

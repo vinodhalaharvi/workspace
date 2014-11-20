@@ -9,7 +9,7 @@ import java.util.Date;
  * The Class AccessToken.
  */
 public class AccessToken {
-
+	
 	/**
 	 * Instantiates a new access token.
 	 *
@@ -32,7 +32,7 @@ public class AccessToken {
 	public String getAccessTokenId() {
 		return accessTokenId;
 	}
-
+	
 	/**
 	 * Sets the access token id.
 	 *
@@ -41,7 +41,7 @@ public class AccessToken {
 	public void setAccessTokenId(String accessTokenId) {
 		this.accessTokenId = accessTokenId;
 	}
-
+	
 	/**
 	 * Gets the expiration time.
 	 *
@@ -50,7 +50,7 @@ public class AccessToken {
 	public Date getExpirationTime() {
 		return expirationTime;
 	}
-
+	
 	/**
 	 * Sets the expiration time.
 	 *
@@ -59,7 +59,7 @@ public class AccessToken {
 	public void setExpirationTime(Date expirationTime) {
 		this.expirationTime = expirationTime;
 	}
-
+	
 	/**
 	 * Gets the state.
 	 *
@@ -68,7 +68,7 @@ public class AccessToken {
 	public String getState() {
 		return state;
 	}
-
+	
 	/**
 	 * Sets the state.
 	 *
@@ -77,8 +77,8 @@ public class AccessToken {
 	public void setState(String state) {
 		this.state = state;
 	}
-
-
+	
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -90,7 +90,7 @@ public class AccessToken {
 				(obj instanceof AccessToken) &&
 				t.getAccessTokenId().equals(getAccessTokenId()));				
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -98,14 +98,14 @@ public class AccessToken {
 	public int hashCode() {
 		return accessTokenId.hashCode();
 	}
-
+	
 	/** The access token id. */
 	private String accessTokenId;
-
+	
 	/** The expiration time. */
 	private Date expirationTime; 
-
+	
 	/** The state. */
 	private String state;
-
+	
 }

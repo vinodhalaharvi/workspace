@@ -9,7 +9,7 @@ package cscie97.asn3.squaredesk.authentication;
  * @author vinodhalaharvi
  */
 public class Permission extends Entitlement {
-
+	
 	/**
 	 * Instantiates a new permission.
 	 *
@@ -25,7 +25,7 @@ public class Permission extends Entitlement {
 		this.permissionName = permissionName;
 		this.permissionDescription = permissionDescription;
 	}
-
+	
 	/**
 	 * Gets the role id.
 	 *
@@ -43,33 +43,33 @@ public class Permission extends Entitlement {
 	public void setPermissionId(String roleId) {
 		setEntitlementId(roleId);
 	} 
+	
+	
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+            Permission t = (Permission) obj;
+            return (
+                            (obj != null) &&
+                            (obj instanceof User) &&
+                            t.getPermissionId().equals((getPermissionId()))
+                            );
 
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		Permission t = (Permission) obj;
-		return (
-				(obj != null) &&
-				(obj instanceof User) &&
-				t.getPermissionId().equals((getPermissionId()))
-				);
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+            return getPermissionId().hashCode();
+    }
 
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		return getPermissionId().hashCode();
-	}
-
-
-
-
+    
+    
+	
 	/**
 	 * Gets the service id.
 	 *
@@ -78,7 +78,7 @@ public class Permission extends Entitlement {
 	public String getServiceId() {
 		return serviceId;
 	}
-
+	
 	/**
 	 * Sets the service id.
 	 *
@@ -87,7 +87,7 @@ public class Permission extends Entitlement {
 	public void setServiceId(String serviceId) {
 		this.serviceId = serviceId;
 	}
-
+	
 	/**
 	 * Gets the permission name.
 	 *
@@ -96,7 +96,7 @@ public class Permission extends Entitlement {
 	public String getPermissionName() {
 		return permissionName;
 	}
-
+	
 	/**
 	 * Sets the permission name.
 	 *
@@ -105,7 +105,7 @@ public class Permission extends Entitlement {
 	public void setPermissionName(String permissionName) {
 		this.permissionName = permissionName;
 	}
-
+	
 	/**
 	 * Gets the permission description.
 	 *
@@ -114,7 +114,7 @@ public class Permission extends Entitlement {
 	public String getPermissionDescription() {
 		return permissionDescription;
 	}
-
+	
 	/**
 	 * Sets the permission description.
 	 *
@@ -123,15 +123,15 @@ public class Permission extends Entitlement {
 	public void setPermissionDescription(String permissionDescription) {
 		this.permissionDescription = permissionDescription;
 	}
-
+	
 	/** The service id. */
 	private String serviceId;  
-
+	
 	/** The permission name. */
 	private String permissionName; 
-
+	
 	/** The permission description. */
 	private String permissionDescription; 
-
-
+	
+	
 }

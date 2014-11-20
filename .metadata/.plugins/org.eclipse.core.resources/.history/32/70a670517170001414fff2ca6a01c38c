@@ -202,7 +202,7 @@ public final class AuthenticationService {
 		return services; 
 	}
 
-
+	
 	/**
 	 * Gets the users.
 	 *
@@ -211,7 +211,7 @@ public final class AuthenticationService {
 	public static HashSet<User> getUsers(){
 		return users; 
 	}
-
+	
 	/**
 	 * Gets the entitlements.
 	 *
@@ -220,7 +220,7 @@ public final class AuthenticationService {
 	public static HashSet<Entitlement> getEntitlements(){
 		return entitlements;
 	}
-
+	
 
 	/**
 	 * Adds the user.
@@ -258,20 +258,20 @@ public final class AuthenticationService {
 		return service;
 	}
 
+	
 
+    /**
+     * Gets the uuid.
+     *
+     * @return the uuid
+     */
+    protected static String getUUID() {
+            String uuidStr = UUID.randomUUID().toString();
+            return uuidStr;
+    }
 
-	/**
-	 * Gets the uuid.
-	 *
-	 * @return the uuid
-	 */
-	protected static String getUUID() {
-		String uuidStr = UUID.randomUUID().toString();
-		return uuidStr;
-	}
-
-
-
+    
+    
 	/**
 	 * Creates the user.
 	 *
@@ -307,8 +307,8 @@ public final class AuthenticationService {
 		return uuidStr; 	
 	}
 
-
-
+	
+	
 	/**
 	 * Delete user.
 	 *
@@ -377,7 +377,7 @@ public final class AuthenticationService {
 					return true;
 				}
 			}
-
+			
 		}
 		if (role.getRoles() != null){
 			for (Role roleIter : role.getRoles()){
@@ -437,13 +437,13 @@ public final class AuthenticationService {
 
 	/** The users. */
 	private static HashSet<User> users = new HashSet<User>();
-
+	
 	/** The services. */
 	private static HashSet<Service> services = new HashSet<Service>();
-
+	
 	/** The entitlements. */
 	private static HashSet<Entitlement> entitlements = new HashSet<Entitlement>();
-
+	
 
 	/**
 	 * Gets the roles.
