@@ -133,7 +133,7 @@ void refresh_state(){
 			k = 0; 
 			j += 28; 
 		}
-		mvaddstr(0 + k, 0 + j, "                    "); 
+		mvaddstr(0 + k, 0 + j, "                            "); 
 		mvaddstr(0 + k++, 0 + j, printstr); 
 	}
 	sprintf(printstr, "$%s = %d", "PC", pc);

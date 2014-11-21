@@ -188,4 +188,8 @@
 		add $a0, $v0, $zero
 		jal intToString # convert int to string 
 		add $a0, $v0, $zero
+		li $v0, 4
+		syscall
+		li $v0, 10 
+		syscall
 		nop
