@@ -1,8 +1,9 @@
 .data
-        firstNumber:  .asciiz "32767"
+        firstNumber:  .asciiz "-32767"
         secondNumber: .asciiz "32767"
-	outputString: .asciiz "                 "
+	outputString: .asciiz "00000000000"
 .text
+	jal main
 	# $a0 <- $a0
 	mul10:
 		sll $t0, $a0, 3
@@ -55,16 +56,6 @@
 	toChar:
 		addi $a0, $a0, 48
 		jr $ra
-	printIntAndExit:
-		li $v0, 1
-		syscall
-		li $v0, 10 
-		syscall
-	printStringAndExit:
-		li $v0, 4
-		syscall
-		li $v0, 10 
-		syscall
 	intToString:
 		addi $sp, $sp, -60
 		# callee saved convention
@@ -75,7 +66,6 @@
 		sw $ra, 40($sp) 
 		# do work 
 		la   $s3, outputString
-		addi $s3, $s3, 11
 		slt  $t4, $a0, $zero # check if the first number is negative
 		beq  $t4, $zero, intToStringskip
 		addi $t4, $zero, 0 # check if the first number is negative
@@ -84,6 +74,7 @@
 		addi $s3, $s3, -1
 		sub  $a0, $zero, $a0 # flip sign  of $a0
 		intToStringskip:
+		addi $s3, $s3, 11
 		add $s0, $a0, $zero
 		mainLoop:	
 			add  $a0, $s0, $zero
@@ -197,10 +188,8 @@
 		add $a0, $v0, $zero
 		jal intToString # convert int to string 
 		add $a0, $v0, $zero
-		li $v0, 4 # print the string
+		li $v0, 4
 		syscall
-		li $v0, 10  # exit 
+		li $v0, 10 
 		syscall
-		li $v0, 1 # print the int  in $a0
-		syscall
-
+		nop
