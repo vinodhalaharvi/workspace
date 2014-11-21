@@ -46,7 +46,7 @@ void print_heap(){
 	}
 	printf("\n");
 	printf("%s\n", "outputString");
-	i = 21768; 
+	i = 21776; 
 	while(memory[i]){
 		printf("%c", memory[i++]);
 	}

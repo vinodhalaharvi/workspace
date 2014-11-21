@@ -1,9 +1,8 @@
 .data
         firstNumber:  .asciiz "32767"
         secondNumber: .asciiz "32767"
-	outputString: .asciiz "000000000000"
+	outputString: .asciiz "                 "
 .text
-	jal main
 	# $a0 <- $a0
 	mul10:
 		sll $t0, $a0, 3
@@ -56,6 +55,16 @@
 	toChar:
 		addi $a0, $a0, 48
 		jr $ra
+	printIntAndExit:
+		li $v0, 1
+		syscall
+		li $v0, 10 
+		syscall
+	printStringAndExit:
+		li $v0, 4
+		syscall
+		li $v0, 10 
+		syscall
 	intToString:
 		addi $sp, $sp, -60
 		# callee saved convention
@@ -188,6 +197,10 @@
 		add $a0, $v0, $zero
 		jal intToString # convert int to string 
 		add $a0, $v0, $zero
-		#li $v0, 4
-		#syscall
-		nop
+		li $v0, 4 # print the string
+		syscall
+		li $v0, 10  # exit 
+		syscall
+		li $v0, 1 # print the int  in $a0
+		syscall
+
