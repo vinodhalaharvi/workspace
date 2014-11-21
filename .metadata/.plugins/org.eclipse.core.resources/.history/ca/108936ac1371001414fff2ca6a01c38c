@@ -146,6 +146,14 @@ public class Role extends Entitlement {
 	}
 
 
+	/** The role name. */
+	private String roleName; 
+	
+	/** The role description. */
+	private String roleDescription; 
+
+	
+
 	/**
 	 * Gets the roles.
 	 *
@@ -177,12 +185,6 @@ public class Role extends Entitlement {
 	}
 
 	
-	/** The role name. */
-	private String roleName;
-
-	/** The role description. */
-	private String roleDescription;
-
 	/** The entitlements. */
 	private static HashSet<Entitlement> entitlements = new HashSet<Entitlement>();
 
