@@ -1,9 +1,8 @@
 .data
-        firstNumber:  .asciiz "12"
-        secondNumber: .asciiz "13"
-	outputString: .asciiz ""
+        firstNumber:  .asciiz "32767"
+        secondNumber: .asciiz "32767"
+	outputString: .asciiz "            "
 .text
-	jal main
 	# $a0 <- $a0
 	mul10:
 		sll $t0, $a0, 3
@@ -14,17 +13,39 @@
 	# $a0 <- $a0
 	div10:
 		addi $sp, $sp, -60
-		# callee saved convention
 		sw $s0, 24($sp)  # first on argument parameter
 		sw $s1, 28($sp) 
-		# save return address
 		sw $ra, 32($sp) 
-		# call another function
-		addi $a1, $zero, 0x1999 # divisor, dividend is already in $a0
-		jal multiply # the output is in $v0
-		srl $a0, $v0, 16 # dividend
-		#add restore saved registers
-		# and return
+		addi $t0, $zero, 0
+		addi $t1, $zero, 0
+		addi $t3, $zero, 0
+		addi $t4, $zero, 0
+		#$t0 = ($a0 >> 1) + ($a0 >> 2);
+		srl $t3, $a0, 1
+		add $t0, $t3, $zero
+		srl $t4, $a0, 2
+		add $t0, $t3, $t4
+		#$t0 = $t0 + ($t0 >> 4);
+		srl $t3, $t0, 4
+		add $t0, $t3, $t0
+		#$t0 = $t0 + ($t0 >> 8);
+		srl $t3, $t0, 8
+		add $t0, $t3, $t0
+		#$t0 = $t0 + ($t0 >> 16);
+		srl $t3, $t0, 16
+		add $t0, $t3, $t0
+		#$t0 = $t0 >> 3;
+		srl $t0, $t0, 3
+		#$t1 = $a0 - ((($t0 << 2) + $t0) << 1);
+		sll $t3, $t0, 2 
+		add $t3, $t3, $t0
+		sll $t3, $t3, 1 
+		sub $t1, $a0, $t3
+		#return $t0 + ($t1 > 9);
+		addi $t4, $zero, 9
+		sgt  $t3, $t1, $t4
+		add $t0, $t0, $t3
+		add $v0, $t0, $zero
 		lw $s0, 24($sp)
 		lw $s1, 28($sp)
 		lw $ra, 32($sp)
@@ -34,10 +55,16 @@
 	toChar:
 		addi $a0, $a0, 48
 		jr $ra
-	# $a0 <- $a0
-	toDigit:
-		addi $a0, $a0, -48 
-		jr $ra
+	printIntAndExit:
+		li $v0, 1
+		syscall
+		li $v0, 10 
+		syscall
+	printStringAndExit:
+		li $v0, 4
+		syscall
+		li $v0, 10 
+		syscall
 	intToString:
 		addi $sp, $sp, -60
 		# callee saved convention
@@ -57,23 +84,22 @@
 		sub  $a0, $zero, $a0 # flip sign  of $a0
 		intToStringskip:
 		add $s0, $a0, $zero
-		#addi $s0, $zero, 8679
 		mainLoop:	
 			add  $a0, $s0, $zero
-			jal  div10 # output is in $a0
-			add  $s1, $a0, $zero
-			jal  mul10 # output is in $a0
-			sub  $t0, $s0, $a0
-			add  $s0, $s1, $zero
-			add  $a0, $t0, $zero
-			jal  toChar
+			jal  div10 # output is in $v0
+			add $a0, $v0, $zero
+			add $s1, $v0, $zero
+			jal  mul10 # output is in $v0
+			sub $t0, $s0, $a0
+			add $a0, $t0, $zero
+			jal toChar
 			sb   $a0, 0($s3)
 			addi $s3, $s3, 1
+			add  $s0, $s1, $zero
 			beq  $s0, $zero, exit
-			j    mainLoop
+			j mainLoop
 		exit:
-			la     $a0, outputString #output is in $a0
-			# and return
+			la     $v0, outputString #output is in $a0
 			lw $s0, 24($sp)
 			lw $s1, 28($sp)
 			lw $s2, 32($sp) 
@@ -162,15 +188,20 @@
                 jal stringToInt
                 add $s0, $v0, $zero
                 la $a0, secondNumber 
-                jal stringToInt
+                jal stringToInt # strings to ints 
                 add $s1, $v0, $zero
                 add $a0, $s0, $zero
                 add $a1, $s1, $zero
-		jal multiply
-		nop
+		jal multiply # multiply 
 		add $a0, $v0, $zero
-		jal intToString
-		nop
-		#li $v0, 4
-		#syscall
+		jal intToString # convert int to string 
+		add $a0, $v0, $zero
+		li $v0, 4 # print the string
+		syscall
+		li $v0, 10  # exit 
+		syscall
+
+
+		li $v0, 1 # print the int  in $a0
+		syscall
 
