@@ -1,0 +1,50 @@
+name: Bill
+contact: bill@gmail.com
+picture: "http://static.giantbomb.com/uploads/square_small/15/155745/2179159-agent_smith.jpg"
+officeSpaces:
+            name: "Bills kitchen table"
+            features:
+                    - Whiteboard
+                    - WIFI
+                    - Windows
+                    - Parking
+                    - Free Coffee
+            location:
+                     lat: 27.175015
+                     lng: 78.042155
+                     address:
+                     street1: 1 story street
+                     street2:
+                     city: cambridge
+                     state: MA
+                     zipCode: "02138"
+            capacity:
+                     numOfPeople: 1
+                     squareFootage: 25.0
+                     numOfWorkSpaces: 1
+            facility:
+                     type: home
+                     category: kitchen table
+            rates:
+                      - rate:
+                           period: week
+                           cost: 40.0
+                      - rate:
+                           period: day
+                           cost: 10.0
+            images:
+                    - image:
+                            name: kitchen area
+                            description: spacious kitchen table work area
+                            uri: "http://www.designdazzle.com/wp-content/uploads/2013/05/66_9thave_KitchenEatingArea-600x763.jpg"
+            ratings:
+                    - rating:
+                            stars: 5
+                            comment: productive place to work
+                            date: 2014-9-19
+                            authorsId: Shelley
+                    - rating:
+                            stars: 5
+                            comment: very quiet and easy to focus on work
+                            date: 2014-9-29
+                            authorsId: Frank

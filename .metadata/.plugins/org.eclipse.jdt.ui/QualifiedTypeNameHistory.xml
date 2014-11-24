@@ -6,9 +6,13 @@
 <fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.UserFactory"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
-<fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.AccessException"/>
 <fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.AccessToken"/>
 <fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.Entitlement"/>
 <fullyQualifiedTypeName name="java.nio.file.AccessDeniedException"/>
+<fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.PermissionFactory"/>
+<fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.User"/>
+<fullyQualifiedTypeName name="javax.security.sasl.AuthenticationException"/>
+<fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.AccessException"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="cscie97.asn3.squaredesk.authentication.AuthenticationService"/>
 </qualifiedTypeNameHistroy>

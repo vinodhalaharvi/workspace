@@ -1,0 +1,13 @@
+add
+sub
+and
+nor
+or
+xor
+slt
+sll
+sra
+srl
+srlv
+sllv
+srav

@@ -1,0 +1,1 @@
+fifo_adt.tmpl
