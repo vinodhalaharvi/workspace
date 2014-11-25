@@ -638,7 +638,7 @@ char * getheapStrOutput(const char * str, int i){
 	return res; 
 }
 
-/*char * getheapStr(){
+char * getheapStr(){
 	int i = 21760; 
 	char * printStr = newstr(100); 
 	char * res = printStr; 
@@ -657,5 +657,5 @@ char * getheapStrOutput(const char * str, int i){
 	//memcpy(printStr, "(output digits reversed)", 
 	//		strlen( " (output digits reversed)")); 
 	return res; 
-}*/
+}
 
