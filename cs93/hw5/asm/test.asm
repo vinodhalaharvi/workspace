@@ -181,11 +181,14 @@
                 add $s0, $v0, $zero
                 la $a0, secondNumber 
                 jal stringToInt # strings to ints 
+		nop
                 add $s1, $v0, $zero
                 add $a0, $s0, $zero
                 add $a1, $s1, $zero
 		jal multiply # multiply 
+		nop
 		add $a0, $v0, $zero
 		jal intToString # convert int to string 
+		nop
 		add $a0, $v0, $zero
 		nop
