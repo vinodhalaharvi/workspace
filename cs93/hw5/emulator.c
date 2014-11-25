@@ -131,7 +131,9 @@ int main(int argc, const char *argv[])
 		doinst(getBits(ir, 32));
 		refresh_state();	
 		print_output(currInst); 
-		logstring(getheapStr());
+		logstring(getheapStrOutput("firstNumber: ", 21760), 0);
+		logstring(getheapStrOutput("secondNumber: ", 21768), 1);
+		logstring(getheapStrOutput("result: ", 21776), 2);
 		sprintf(countStr, "instr count :%d", count); 
 		//display instruction count
 		instcountstring(countStr); 

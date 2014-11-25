@@ -64,7 +64,6 @@ exitOnNull	aslib.c	/^void exitOnNull(void * ptr, char * msg){$/;"	f
 filter	aslib.c	/^int filter(char **lineptr){$/;"	f
 found_sym	aslib.c	/^unsigned found_sym(const char * name) {$/;"	f
 function_type	aslib.h	/^typedef char * (*function_type)(char *[]); $/;"	t
-get	emcommand.c	/^unsigned get(int num, int start, int end){$/;"	f
 getAluOpcodeBits	aslib.c	/^char * getAluOpcodeBits(char *name){$/;"	f
 getBits	aslib.c	/^char * getBits(int num, unsigned int SIZE) { $/;"	f
 getBits	emcommand.c	/^char * getBits(int num, unsigned int SIZE) { $/;"	f
@@ -79,6 +78,7 @@ get_string_from_memory	assembler.c	/^char * get_string_from_memory(int address){
 get_sym_address	aslib.c	/^unsigned int get_sym_address(const char * name){$/;"	f
 getasciiz	aslib.c	/^char * getasciiz(const char *input){$/;"	f
 getheapStr	emcommand.c	/^char * getheapStr(){$/;"	f
+getheapStrOutput	emcommand.c	/^char * getheapStrOutput(const char * str, int i){$/;"	f
 getlabel	aslib.c	/^char * getlabel(const char *string){$/;"	f
 hex	aslib.h	/^	char * hex; $/;"	m	struct:_encoding
 hextoint	aslib.c	/^unsigned int hextoint(char * hex){$/;"	f
@@ -96,7 +96,7 @@ inst	aslib.h	/^} inst; $/;"	t	typeref:struct:_inst
 inst_data	aslib.h	/^static inst inst_data[100] = {$/;"	v
 inst_info	aslib.h	/^} inst_info;$/;"	t	typeref:struct:_inst_info
 inst_table	aslib.h	/^struct inst_table {$/;"	s
-instcountlocation	emcommand.c	/^location instcountlocation = {.x = 22, .y = 0}; $/;"	v
+instcountlocation	emcommand.c	/^location instcountlocation = {.x = 28, .y = 0}; $/;"	v
 instcountstring	emcommand.c	/^void instcountstring(const char *str){$/;"	f
 instint	emcommand.c	/^unsigned int instint(char * bits){$/;"	f
 instname	aslib.h	/^	char * instname; $/;"	m	struct:_inst
@@ -121,7 +121,7 @@ lh	ascommand.c	/^char * lh(char * tokens[]){$/;"	f
 lineno	aslib.c	/^unsigned int lineno; $/;"	v
 location	emcommand.c	/^} location;$/;"	t	typeref:struct:_location	file:
 loglocation	emcommand.c	/^location loglocation = {.x = 21, .y = 0}; $/;"	v
-logstring	emcommand.c	/^void logstring(const char *str){$/;"	f
+logstring	emcommand.c	/^void logstring(const char *str, int i){$/;"	f
 lower_16_byte	aslib.c	/^int lower_16_byte(int word32bit){$/;"	f
 lower_byte	aslib.c	/^int lower_byte(int word16bit){$/;"	f
 lowertoint	aslib.c	/^unsigned int lowertoint(char * bits){$/;"	f
@@ -140,7 +140,7 @@ name	aslib.h	/^	char * name;$/;"	m	struct:inst_table
 newstr	aslib.c	/^char * newstr(int len){$/;"	f
 newstr	emcommand.c	/^char * newstr(int len){$/;"	f
 nop	ascommand.c	/^char * nop(char * tokens[]){$/;"	f
-nop	emcommand.c	/^int nop(char * tokens[]){$/;"	f
+nop	emcommand.c	/^int nop(){$/;"	f
 nor	ascommand.c	/^char * nor(char * tokens[]){$/;"	f
 nor	emcommand.c	/^int nor(int rs, int rt, int rd){$/;"	f
 offsetint	emcommand.c	/^unsigned int offsetint(char * bits){$/;"	f
@@ -217,7 +217,7 @@ type4	ascommand.c	/^char * type4(char * arg0, char * arg1, char *arg2, char *arg
 type5	ascommand.c	/^char * type5(char * arg0, char * arg1, char *arg2, char *arg3, char *arg4){$/;"	f
 type6	ascommand.c	/^char * type6(char * arg0, char * arg1, char *arg2, char *arg3, char *arg4, char *arg5){$/;"	f
 verify_atoi	ascommand.c	/^int verify_atoi(char *token){$/;"	f
-waitmaybe	emulator.c	/^void waitmaybe(const char * inst, $/;"	f
+waitmaybe	emulator.c	/^void waitmaybe(const char * inst){$/;"	f
 wordaddress	aslib.c	/^unsigned int wordaddress; $/;"	v
 x	emcommand.c	/^	int x, y; $/;"	m	struct:_location	file:
 xor	ascommand.c	/^char * xor(char * tokens[]){$/;"	f

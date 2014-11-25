@@ -61,7 +61,7 @@ typedef struct _location {
 //command, log and instr printing
 location command = {.x = 20, .y = 0}; 
 location loglocation = {.x = 21, .y = 0}; 
-location instcountlocation = {.x = 22, .y = 0}; 
+location instcountlocation = {.x = 28, .y = 0}; 
 
 // datatype to store register values
 int registers[32]; 
@@ -171,11 +171,11 @@ void print_output(const char *str){
  * @param  
  * @returns
  */
-void logstring(const char *str){
+void logstring(const char *str, int i){
 	assert (loglocation.x > 0 ) ; 
 	assert (loglocation.y >= 0 ) ; 
-	mvaddstr(loglocation.x, loglocation.y, "                                             "); 
-	mvaddstr(loglocation.x, loglocation.y, str); 
+	mvaddstr(loglocation.x + i, loglocation.y, "                                             "); 
+	mvaddstr(loglocation.x + i, loglocation.y, str); 
 	refresh();
 }
 
@@ -626,7 +626,19 @@ int sw(int base , int rt, int offset){
 }
 
 
-char * getheapStr(){
+char * getheapStrOutput(const char * str, int i){
+	char * printStr = newstr(100); 
+	char * res = printStr; 
+	memcpy(printStr, str, strlen(str)); 
+	printStr += strlen(str); 
+	while(memory[i]){
+		*printStr++ = memory[i++];
+	}
+	*printStr++ = '\0';
+	return res; 
+}
+
+/*char * getheapStr(){
 	int i = 21760; 
 	char * printStr = newstr(100); 
 	char * res = printStr; 
@@ -645,5 +657,5 @@ char * getheapStr(){
 	//memcpy(printStr, "(output digits reversed)", 
 	//		strlen( " (output digits reversed)")); 
 	return res; 
-}
+}*/
 

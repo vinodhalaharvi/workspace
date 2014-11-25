@@ -70,7 +70,8 @@ unsigned int hextoint(char * hex);
 extern char *regmap[32]; 
 char * getheapStr(); 
 void init_registers(); 
-void logstring(const char *str); 
+void logstring(const char *str, int i); 
 void instcountstring(const char *str); 
 int nop(); 
+char * getheapStrOutput(const char * str, int i);
 
