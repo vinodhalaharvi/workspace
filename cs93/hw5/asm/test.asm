@@ -1,3 +1,5 @@
+# Vinod Halaharvi
+# halavin@iit.edu
 .data
         firstNumber:  .asciiz "-32767"
         secondNumber: .asciiz "32767"
@@ -56,6 +58,9 @@
 	toChar:
 		addi $a0, $a0, 48
 		jr $ra
+	#credit to @elemakil at  stackoverflow
+	#to convert int to a string using bit operations only
+	#http://stackoverflow.com/questions/5558492/divide-by-10-using-bit-shifts
 	intToString:
 		addi $sp, $sp, -60
 		# callee saved convention

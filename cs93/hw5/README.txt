@@ -8,9 +8,6 @@ Known issues:
 ###################################
 Currently the IO interface has not been implemented. 
 The input numbers are harded code in the asm/test.asm file. 
-The multiplication routine works fine for all numbers but there are some issues with converting the result of negative number multiplication to string output. 
-There is an option to make the emulator stop at each "nop" instruction. Other options are as shown below
-The output of the multiplication is printed in the reverse digit order. 
 
 How to run:
 ###################################
@@ -34,4 +31,3 @@ make clean ; make runem CFLAGS+=-DEMULATE=1
 
 # emulate and curses display and single step the progress
 make clean ; make runem CFLAGS+=-DEMULATE=1  CFLAGS+=-DSINGLESTEP=1  
-
