@@ -1,3 +1,4 @@
+--Vinod Halaharvi
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -6,10 +7,9 @@ use work.all;
 
 entity  fetchStateTesting is
 	port (
-		     clk : in std_logic; 
 		     fsmStateCode : out std_logic_vector(5 downto 0); 
-		     IR : out std_logic_vector(31 downto 0); 
-		     clock_step : in std_logic
+		     IR : out std_logic_vector(31 downto 0) := X"00000000"; 
+		     clock_step : in std_logic; 
 
 		     --testing display
 		     seg0 : out std_logic_vector (6 downto 0); 
@@ -33,8 +33,8 @@ architecture fetchStateTesting_arch of fetchStateTesting  is
 	attribute chip_pin of seg5 : signal is "AD18, AC18, AB18, AH19, AG19, AF18, AH18";
 	attribute chip_pin of seg6 : signal is "AA17, AB16, AA16, AB17, AB15, AA15, AC17";
 	attribute chip_pin of seg7 : signal is "AD17, AE17, AG17, AH17, AF17, AG18, AA14";
-	attribute chip_pin of clk : signal is "AB28"; 
-
+	attribute chip_pin of clock_step : signal is "M23"; 
+	
 	-- for memory
 	signal mem_data_read :  std_logic_vector(31 downto 0);
 	signal mem_dataready_inv :  std_logic;
@@ -56,7 +56,7 @@ architecture fetchStateTesting_arch of fetchStateTesting  is
 	signal ps2_character_ready :  std_logic := '0' ;
 
 	--fsm states
-	type states is (pc_increment, fetch_state); 
+	type states is (pc_increment, fetch_state, decode_state, execute_state, mem_wait); 
 	currentState states := fetch_state; 
 begin
 	--this inside the entity declaration
@@ -144,11 +144,12 @@ begin
 	IR(15 downto 0) <= mem_data_read;
 
 	FSM :
-	process(clk, reset) is
+	--process(sysclk1, reset) is
+	process(sysclk1, mem_data_read, mem_dataready_inv, mem_ready) is
 	begin
 		if reset = '1' then
 			currentState <= fetch_state;
-		elsif rising_edge(clk) then
+		elsif rising_edge(sysclk1) then  
 			case currentState is
 				when pc_increment =>
 					PC <= std_logic_vector(unsigned(PC) + 2); 
@@ -162,6 +163,8 @@ begin
 					if mem_dataready_inv = '0' then 
 						currentState <= pc_increment; 
 					end if;
+				--when decode_state =>
+
 			end case;
 		end if;
 	end process;
@@ -170,5 +173,8 @@ begin
 		fsmStateCode <=
 	       "000000" when pc_increment,
 	       "000001" when fetch_state,
+	       "000010" when decode_state,
+	       "000011" when execute_state,
+	       "000100" when mem_wait,
 	       "111111" when others;
 end architecture fetchStateTesting_arch;
