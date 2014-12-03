@@ -31,14 +31,12 @@ entity de2_115_shell is
 		sram_lb_N : out std_logic;
 
 		--my debugging output
-		seg0 : out std_logic_vector (6 downto 0); 
-		seg1 : out std_logic_vector (6 downto 0); 
-		seg2 : out std_logic_vector (6 downto 0); 
-		seg3 : out std_logic_vector (6 downto 0); 
-		seg4 : out std_logic_vector (6 downto 0); 
-		seg5 : out std_logic_vector (6 downto 0); 
-		seg6 : out std_logic_vector (6 downto 0); 
-		seg7 : out std_logic_vector (6 downto 0);
+		fsmStateCodeSeg :  out std_logic_vector(6 downto 0); 
+		fsmStateCodeSeg0 : out std_logic_vector(6 downto 0); 
+		fsmStateCodeSeg1 : out std_logic_vector(6 downto 0); 
+		fsmStateCodeSeg2 : out std_logic_vector(6 downto 0);
+		fsmStateCodeSeg3 : out std_logic_vector(6 downto 0);
+		fsmStateCodeSeg4 : out std_logic_vector(6 downto 0);
 		clock_step : in std_logic
 	     );
 
@@ -93,18 +91,13 @@ architecture default of de2_115_shell is
 	signal ps2_character_ready :  std_logic := '0' ;
 
 	-- seven segment
-	attribute chip_pin of seg0 : signal is "G18, F22, E17, L26, L25, J22, H22";
-	attribute chip_pin of seg1 : signal is "M24, Y22, W21, W22, W25, U23, U24";
-	attribute chip_pin of seg2 : signal is "AA25, AA26, Y25, W26, Y26, W27, W28";
-	attribute chip_pin of seg3 : signal is "V21, U21, AB20, AA21, AD24, AF23, Y19";
-	attribute chip_pin of seg4 : signal is "AB19, AA19, AG21, AH21, AE19, AF19, AE18";
-	attribute chip_pin of seg5 : signal is "AD18, AC18, AB18, AH19, AG19, AF18, AH18";
-	attribute chip_pin of seg6 : signal is "AA17, AB16, AA16, AB17, AB15, AA15, AC17";
-	attribute chip_pin of seg7 : signal is "AD17, AE17, AG17, AH17, AF17, AG18, AA14";
+	attribute chip_pin of fsmStateCodeSeg0 : signal is "G18, F22, E17, L26, L25, J22, H22";
+	attribute chip_pin of fsmStateCodeSeg1 : signal is "M24, Y22, W21, W22, W25, U23, U24";
+	attribute chip_pin of fsmStateCodeSeg2 : signal is "AA25, AA26, Y25, W26, Y26, W27, W28";
+	attribute chip_pin of fsmStateCodeSeg3 : signal is "V21, U21, AB20, AA21, AD24, AF23, Y19";
+	attribute chip_pin of fsmStateCodeSeg4 : signal is "AB19, AA19, AG21, AH21, AE19, AF19, AE18";
 	attribute chip_pin of clock_step : signal is "M23";
-	signal IR :  std_logic_vector(31 downto 0); 
-		signal PC :  std_logic_vector(19 downto 0) := X"00000";
-
+	signal outputData :  std_logic_vector(31 downto 0); 
 	signal fsmStateCode :  std_logic_vector(3 downto 0);
 	
 begin
@@ -158,53 +151,29 @@ begin
 			mem_sixteenbit =>  mem_sixteenbit, 
 			mem_thirtytwobit =>  mem_thirtytwobit, 
 			mem_addressready =>  mem_addressready, 
-			IR =>  IR, 
+			outputData =>  outputData, 
 			fsmStateCode =>  fsmStateCode
 		); 
-	sevenSegTesting0_inst: entity sevenSegTesting 
-	port map (
-			 bcd => IR(3 downto 0), 
-			 seg => seg0 
-		 ); 
-	sevenSegTesting1: entity sevenSegTesting 
-	port map (
-			 bcd => IR(7 downto 4), 
-			 seg => seg1 
-		 ); 
-	sevenSegTesting2: entity sevenSegTesting 
-	port map (
-			 bcd => IR(11 downto 8), 
-			 seg => seg2 
-		 ); 
-	sevenSegTesting3: entity sevenSegTesting 
-	port map (
-			 bcd => IR(15 downto 12), 
-			 seg => seg3 
-		 ); 
-	sevenSegTesting4: entity sevenSegTesting 
-	port map (
-			 bcd => IR(19 downto 16), 
-			 seg => seg4 
-		 ); 
-	sevenSegTesting5: entity sevenSegTesting 
-	port map (
-			 bcd => IR(23 downto 20), 
-			 seg => seg5 
-		 ); 
-		 
-	sevenSegTesting6: entity sevenSegTesting 
-	port map (
-			 bcd => PC(3 downto 0), 
-			 seg => seg6 
-		 ); 
-	sevenSegTesting7: entity sevenSegTesting 
-	port map (
-			 bcd => fsmStateCode, 
-			 seg => seg7 
-		 ); 
 
-
+        sevenSegTesting0_inst: entity sevenSegTesting port map (
+                        bcd => outputData(3 downto 0), 
+                        seg => fsmStateCodeSeg0
+                );
+        sevenSegTesting1_inst: entity sevenSegTesting port map (
+                        bcd => outputData(7 downto 4), 
+                        seg => fsmStateCodeSeg1
+                );
+        sevenSegTesting2_inst: entity sevenSegTesting port map (
+                        bcd => outputData(11 downto 8), 
+                        seg => fsmStateCodeSeg2
+                );
+        sevenSegTesting3_inst: entity sevenSegTesting port map (
+                        bcd => outputData(15 downto 12), 
+                        seg => fsmStateCodeSeg3
+                );
+        sevenSegTesting4_inst: entity sevenSegTesting port map (
+                        bcd => fsmStateCode, 
+                        seg => fsmStateCodeSeg4
+                );
 end;
-
-
 
