@@ -1,0 +1,215 @@
+<?xml version="1.0" ?>
+<ResourceResponse>
+	<Status>Success</Status>
+	<Resource description="Red Hat Enterprise Linux 6" id="11312" instanceId="10003" location="" name="lnx20767.csxt.csx.com" typeId="1">
+		<ResourceConfig key="top_processes.enable" value="true"/>
+		<ResourceConfig key="top_processes.interval" value="1"/>
+		<ResourceConfig key="top_processes.number" value="10"/>
+		<ResourceConfig key="platform.log_track.enable" value="true"/>
+		<ResourceConfig key="platform.log_track.level" value="Warn"/>
+		<ResourceConfig key="platform.log_track.include" value=""/>
+		<ResourceConfig key="platform.log_track.exclude" value=""/>
+		<ResourceConfig key="platform.log_track.files" value=""/>
+		<ResourceConfig key="platform.config_track.enable" value="true"/>
+		<ResourceConfig key="platform.config_track.files" value=""/>
+		<ResourceProperty key="arch" value="x86_64"/>
+		<ResourceProperty key="version" value="2.6.32-358.el6.x86_64"/>
+		<ResourceProperty key="vendor" value="Red Hat"/>
+		<ResourceProperty key="vendorVersion" value="Enterprise Linux 6"/>
+		<ResourceProperty key="ram" value="24032 MB"/>
+		<ResourceProperty key="cpuSpeed" value="4 @ 2261 MHz"/>
+		<ResourceProperty key="ip" value="10.101.37.134"/>
+		<ResourceProperty key="primaryDNS" value="10.92.134.13"/>
+		<ResourceProperty key="secondaryDNS" value="10.92.162.117"/>
+		<ResourceProperty key="defaultGateway" value="10.101.32.1"/>
+		<ResourceProperty key="MOID" value=""/>
+		<ResourceProperty key="VCUUID" value=""/>
+		<Resource description="Hyperic HQ monitor Agent" id="11313" instanceId="10017" location="" name="lnx20767 HQ Agent 5.8.1" typeId="2">
+			<ResourceConfig key="server.log_track.enable" value=""/>
+			<ResourceConfig key="server.log_track.level" value=""/>
+			<ResourceConfig key="server.log_track.include" value=""/>
+			<ResourceConfig key="server.log_track.exclude" value=""/>
+			<ResourceConfig key="server.config_track.enable" value=""/>
+			<ResourceConfig key="server.config_track.files" value=""/>
+			<ResourceProperty key="version" value="5.8.1"/>
+			<ResourceProperty key="build" value=""/>
+			<ResourceProperty key="JavaVersion" value="1.7.0_40"/>
+			<ResourceProperty key="JavaVendor" value="Oracle Corporation"/>
+			<ResourceProperty key="UserHome" value="/root"/>
+			<ResourceProperty key="SigarVersion" value="1.6.6.0"/>
+			<ResourceProperty key="SigarNativeVersion" value="1.6.6.0"/>
+			<ResourceProperty key="AgentBundleVersion" value="agent-x86-64-linux-5.8.1"/>
+			<ResourcePrototype id="10424" instanceId="10086" name="HQ Agent" resourceTypeId="2"/>
+			<ResourceInfo key="installPath" value="/opt/emc/hyperic/hyperic-hqee-agent-5.8.1"/>
+			<ResourceInfo key="autoIdentifier" value="CAM Agent Server"/>
+		</Resource>
+		<Resource description="" id="11314" instanceId="10018" location="" name="lnx20767 Linux FileServer" typeId="2">
+			<Resource description="/" id="11481" instanceId="10164" location="" name="/" typeId="3">
+				<ResourceConfig key="mount" value="/"/>
+				<ResourceConfig key="service.log_track.enable" value="false"/>
+				<ResourceConfig key="service.log_track.level" value="Error"/>
+				<ResourceConfig key="service.log_track.include" value=""/>
+				<ResourceConfig key="service.log_track.exclude" value=""/>
+				<ResourcePrototype id="10019" instanceId="10006" name="FileServer Mount" resourceTypeId="3"/>
+				<ResourceInfo key="autoIdentifier" value="/"/>
+			</Resource>
+			<Resource description="/opt/emc/hyperic" id="11482" instanceId="10165" location="" name="/opt/emc/hyperic" typeId="3">
+				<ResourceConfig key="mount" value="/opt/emc/hyperic"/>
+				<ResourceConfig key="service.log_track.enable" value="false"/>
+				<ResourceConfig key="service.log_track.level" value="Error"/>
+				<ResourceConfig key="service.log_track.include" value=""/>
+				<ResourceConfig key="service.log_track.exclude" value=""/>
+				<ResourcePrototype id="10019" instanceId="10006" name="FileServer Mount" resourceTypeId="3"/>
+				<ResourceInfo key="autoIdentifier" value="/opt/emc/hyperic"/>
+			</Resource>
+			<Resource description="/opt/local/software/ionix/myextremelylonglogfile123456789.log exists" id="11483" instanceId="10166" location="" name="/opt/local/software/ionix/myextremelylonglogfile123456789.log exists" typeId="3">
+				<ResourceConfig key="path" value="/opt/local/software/ionix/myextremelylonglogfile123456789.log"/>
+				<ResourceConfig key="service.log_track.enable" value="true"/>
+				<ResourceConfig key="service.log_track.level" value="Error"/>
+				<ResourceConfig key="service.log_track.include" value=""/>
+				<ResourceConfig key="service.log_track.exclude" value=""/>
+				<ResourceConfig key="prefix" value=""/>
+				<ResourceConfig key="timeout" value="30"/>
+				<ResourceProperty key="md5" value=""/>
+				<ResourceProperty key="fs" value=""/>
+				<ResourceProperty key="permissions" value=""/>
+				<ResourceProperty key="user" value=""/>
+				<ResourceProperty key="group" value=""/>
+				<ResourcePrototype id="10023" instanceId="10010" name="FileServer File" resourceTypeId="3"/>
+				<ResourceInfo key="autoIdentifier" value="/etc/hosts exists"/>
+			</Resource>
+			<Resource description="/tmp/myextremelylonglogfile123456789.log exists" id="11484" instanceId="10167" location="" name="/tmp/myextremelylonglogfile123456789.log exists" typeId="3">
+				<ResourceConfig key="path" value="/tmp/myextremelylonglogfile123456789.log"/>
+				<ResourceConfig key="service.log_track.enable" value="true"/>
+				<ResourceConfig key="service.log_track.level" value="Error"/>
+				<ResourceConfig key="service.log_track.include" value=""/>
+				<ResourceConfig key="service.log_track.exclude" value=""/>
+				<ResourceConfig key="prefix" value=""/>
+				<ResourceConfig key="timeout" value="30"/>
+				<ResourceProperty key="md5" value=""/>
+				<ResourceProperty key="fs" value=""/>
+				<ResourceProperty key="permissions" value=""/>
+				<ResourceProperty key="user" value=""/>
+				<ResourceProperty key="group" value=""/>
+				<ResourcePrototype id="10023" instanceId="10010" name="FileServer File" resourceTypeId="3"/>
+				<ResourceInfo key="autoIdentifier" value="/tmp/myextremelylonglogfile123456789.log exists"/>
+			</Resource>
+			<ResourcePrototype id="10011" instanceId="10002" name="FileServer" resourceTypeId="2"/>
+			<ResourceInfo key="installPath" value="/"/>
+			<ResourceInfo key="autoIdentifier" value="lnx20767.csxt.csx.com Linux FileServer"/>
+		</Resource>
+		<Resource description="" id="11315" instanceId="10019" location="" name="lnx20767.csxt.csx.com Net Services" typeId="2">
+			<Resource description="Local mount point: /opt/CSXsudo/etc" id="11490" instanceId="10173" location="" name="lnx20767 NFS mount vcssudo:/opt/CSXsudo/etc" typeId="3">
+				<ResourceConfig key="hostname" value="vcssudo"/>
+				<ResourceConfig key="program" value="nfs"/>
+				<ResourceConfig key="version" value="2"/>
+				<ResourceConfig key="protocol" value=""/>
+				<ResourceConfig key="service.log_track.enable" value=""/>
+				<ResourceConfig key="service.log_track.level" value=""/>
+				<ResourceConfig key="service.log_track.include" value=""/>
+				<ResourceConfig key="service.log_track.exclude" value=""/>
+				<ResourcePrototype id="10120" instanceId="10067" name="RPC" resourceTypeId="3"/>
+				<ResourceInfo key="autoIdentifier" value="lnx20767 NFS mount vcssudo:/opt/CSXsudo/etc"/>
+			</Resource>
+			<Resource description="Local mount point: /home/s2056" id="11492" instanceId="10174" location="" name="lnx20767 NFS mount vcsopshome:/export/home01d/s2056" typeId="3">
+				<ResourceConfig key="hostname" value="vcsopshome"/>
+				<ResourceConfig key="program" value="nfs"/>
+				<ResourceConfig key="version" value="2"/>
+				<ResourceConfig key="protocol" value=""/>
+				<ResourceConfig key="service.log_track.enable" value=""/>
+				<ResourceConfig key="service.log_track.level" value=""/>
+				<ResourceConfig key="service.log_track.include" value=""/>
+				<ResourceConfig key="service.log_track.exclude" value=""/>
+				<ResourcePrototype id="10120" instanceId="10067" name="RPC" resourceTypeId="3"/>
+				<ResourceInfo key="autoIdentifier" value="lnx20767 NFS mount vcsopshome:/export/home01d/s2056"/>
+			</Resource>
+			<Resource description="Local mount point: /home/t9365" id="11549" instanceId="10219" location="" name="lnx20767 NFS mount vcsopshome:/export/home01d/t9365" typeId="3">
+				<ResourceConfig key="hostname" value="vcsopshome"/>
+				<ResourceConfig key="program" value="nfs"/>
+				<ResourceConfig key="version" value="2"/>
+				<ResourceConfig key="protocol" value=""/>
+				<ResourceConfig key="service.log_track.enable" value=""/>
+				<ResourceConfig key="service.log_track.level" value=""/>
+				<ResourceConfig key="service.log_track.include" value=""/>
+				<ResourceConfig key="service.log_track.exclude" value=""/>
+				<ResourcePrototype id="10120" instanceId="10067" name="RPC" resourceTypeId="3"/>
+				<ResourceInfo key="autoIdentifier" value="lnx20767 NFS mount vcsopshome:/export/home01d/t9365"/>
+			</Resource>
+			<ResourcePrototype id="10114" instanceId="10034" name="Net Services" resourceTypeId="2"/>
+			<ResourceInfo key="installPath" value="/"/>
+			<ResourceInfo key="autoIdentifier" value="lnx20767.csxt.csx.com Net Services"/>
+		</Resource>
+		<Resource description="" id="11316" instanceId="10020" location="" name="lnx20767 Linux NetworkServer" typeId="2">
+			<Resource description="eth0" id="11488" instanceId="10171" location="" name="eth0" typeId="3">
+				<ResourceConfig key="interface" value="eth0"/>
+				<ResourceProperty key="mtu" value=""/>
+				<ResourceProperty key="flags" value=""/>
+				<ResourceProperty key="mac" value=""/>
+				<ResourceProperty key="address" value=""/>
+				<ResourceProperty key="netmask" value=""/>
+				<ResourceProperty key="broadcast" value=""/>
+				<ResourcePrototype id="10014" instanceId="10001" name="NetworkServer Interface" resourceTypeId="3"/>
+				<ResourceInfo key="autoIdentifier" value="eth0"/>
+			</Resource>
+			<Resource description="lo" id="11489" instanceId="10172" location="" name="lo" typeId="3">
+				<ResourceConfig key="interface" value="lo"/>
+				<ResourceProperty key="mtu" value=""/>
+				<ResourceProperty key="flags" value=""/>
+				<ResourceProperty key="mac" value=""/>
+				<ResourceProperty key="address" value=""/>
+				<ResourceProperty key="netmask" value=""/>
+				<ResourceProperty key="broadcast" value=""/>
+				<ResourcePrototype id="10014" instanceId="10001" name="NetworkServer Interface" resourceTypeId="3"/>
+				<ResourceInfo key="autoIdentifier" value="lo"/>
+			</Resource>
+			<ResourcePrototype id="10013" instanceId="10004" name="NetworkServer" resourceTypeId="2"/>
+			<ResourceInfo key="installPath" value="/"/>
+			<ResourceInfo key="autoIdentifier" value="lnx20767.csxt.csx.com Linux NetworkServer"/>
+		</Resource>
+		<Resource description="" id="11317" instanceId="10021" location="" name="lnx20767 Linux ProcessServer" typeId="2">
+			<Resource description="CPU1" id="11485" instanceId="10168" location="" name="CPU1" typeId="3">
+				<ResourceConfig key="cpu" value="0"/>
+				<ResourcePrototype id="10020" instanceId="10007" name="CPU" resourceTypeId="3"/>
+				<ResourceInfo key="autoIdentifier" value="CPU1"/>
+			</Resource>
+			<Resource description="" id="11486" instanceId="10169" location="" name="java hq-agent" typeId="3">
+				<ResourceConfig key="process.query" value="Args.0.eq=/opt/emc/hyperic/hyperic-hqee-agent-5.8.1/bundles/agent-x86-64-linux-5.8.1/jre/bin/java"/>
+				<ResourcePrototype id="10022" instanceId="10009" name="MultiProcess" resourceTypeId="3"/>
+				<ResourceInfo key="autoIdentifier" value="java hq-agent"/>
+			</Resource>
+			<Resource description="" id="11487" instanceId="10170" location="" name="ntpd" typeId="3">
+				<ResourceConfig key="process.query" value="Args.0.eq=ntpd"/>
+				<ResourcePrototype id="10022" instanceId="10009" name="MultiProcess" resourceTypeId="3"/>
+				<ResourceInfo key="autoIdentifier" value="ntpd"/>
+			</Resource>
+			<ResourcePrototype id="10012" instanceId="10003" name="ProcessServer" resourceTypeId="2"/>
+			<ResourceInfo key="installPath" value="/"/>
+			<ResourceInfo key="autoIdentifier" value="lnx20767.csxt.csx.com Linux ProcessServer"/>
+		</Resource>
+		<Resource description="" id="11319" instanceId="10023" location="" name="lnx20767 Linux HyperVServer" typeId="2">
+			<ResourcePrototype id="11217" instanceId="10209" name="HyperVServer" resourceTypeId="2"/>
+			<ResourceInfo key="installPath" value="/"/>
+			<ResourceInfo key="autoIdentifier" value="lnx20767.csxt.csx.com Linux HyperVServer"/>
+		</Resource>
+		<Resource description="multilogtrac /tmp/test.log" id="11491" instanceId="10039" location="" name="multilogtrac /tmp/test.log" typeId="2">
+			<ResourceConfig key="basedir" value="/tmp/"/>
+			<ResourceConfig key="logfilepattern" value="test.log"/>
+			<ResourceConfig key="includepattern" value="my error"/>
+			<ResourceConfig key="excludepattern" value=""/>
+			<ResourceConfig key="includepattern_2" value="my clear"/>
+			<ResourceConfig key="excludepattern_2" value=""/>
+			<ResourceConfig key="server.log_track.enable" value="true"/>
+			<ResourceConfig key="server.enable_log_services" value="false"/>
+			<ResourceConfig key="enable_only_metrics" value="true"/>
+			<ResourceConfig key="override_file_checks" value="false"/>
+			<ResourcePrototype id="11126" instanceId="10197" name="MultiLogTracker 1.0" resourceTypeId="2"/>
+			<ResourceInfo key="installPath" value="/tmp"/>
+			<ResourceInfo key="autoIdentifier" value="/tmp_1398779966150_multilogtrac /etc/hosts"/>
+		</Resource>
+		<ResourcePrototype id="10001" instanceId="10001" name="Linux" resourceTypeId="1"/>
+		<Agent address="10.101.37.134" id="10002" port="2144" unidirectional="false" version="5.8.1"/>
+		<Ip address="10.101.37.134" mac="00:50:56:AB:0C:47" netmask="255.255.240.0"/>
+		<Ip address="127.0.0.1" mac="00:00:00:00:00:00" netmask="255.0.0.0"/>
+		<ResourceInfo key="fqdn" value="lnx20767.csxt.csx.com"/>
+	</Resource>
+</ResourceResponse>

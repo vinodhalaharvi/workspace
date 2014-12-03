@@ -20,6 +20,7 @@ entity  mycpu is
 		     mem_addressready : buffer std_logic;
 
 		     ALU_result : buffer std_logic_vector(31 downto 0); 
+		     destination_register : buffer std_logic_vector(31 downto 0); 
 		     IR : buffer std_logic_vector(31 downto 0); 
 		     PC :  buffer std_logic_vector(19 downto 0) := X"00000";
 		     fsmStateCode : out std_logic_vector(3 downto 0)
@@ -61,7 +62,7 @@ architecture mycpu_arch of mycpu  is
 		IR_decode_alu_reg,
 		IR_decode_jump,
 		IR_decode_branch,
-		IR_decode_misc : std_logic;
+		IR_decode_misc : std_logic := '0';
 	signal D_state : std_logic;
 	signal cc_Z : std_logic;
 	signal cc_C : std_logic;
@@ -90,6 +91,8 @@ begin
 
 	IR_decode_add <= '1';
 	IR_decode_sub <= '0';
+
+
 	--IR_decode_sub <= IR(31 downto 26) ?= "000000" and IR(5 downto 0) ?= "100010"; 
 	--IR_decode_sll <= IR(31 downto 26) ?= "000000" and IR(5 downto 0) ?= "000000"; 
 	--IR_decode_srl <= IR(31 downto 26) ?= "000000" and IR(5 downto 0) ?= "000010"; 
@@ -145,6 +148,7 @@ begin
 						write_data := ALU_result;
 					end if;
 					GPR(to_integer(IR_rd)) := write_data;
+					destination_register <= write_data; 
 				end if;
 				if currentState = decode_state then
 					if IR_decode_mem then 

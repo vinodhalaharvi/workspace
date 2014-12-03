@@ -110,6 +110,7 @@ architecture MyDefault of de2_115_shell is
 	signal IR :  std_logic_vector(31 downto 0); 
 	signal PC :  std_logic_vector(19 downto 0);
 	signal ALU_result : std_logic_vector(31 downto 0);
+	signal destination_register : std_logic_vector(31 downto 0);
 	signal fsmStateCode :  std_logic_vector(3 downto 0);
 	
 begin
@@ -167,6 +168,7 @@ begin
 
 			-- for debuging only
 			ALU_result => ALU_result, 
+			destination_register => destination_register, 
 			IR =>  IR, 
 			PC => PC,
 			fsmStateCode =>  fsmStateCode
@@ -193,12 +195,12 @@ begin
 		 ); 
 	sevenSegTesting4: entity sevenSegTesting 
 	port map (
-			 bcd => ALU_result(3 downto 0), 
+			 bcd => destination_register(3 downto 0), 
 			 seg => seg4 
 		 ); 
 	sevenSegTesting5: entity sevenSegTesting 
 	port map (
-			 bcd => ALU_result(7 downto 4), 
+			 bcd => destination_register(7 downto 4), 
 			 seg => seg5 
 		 ); 
 		 

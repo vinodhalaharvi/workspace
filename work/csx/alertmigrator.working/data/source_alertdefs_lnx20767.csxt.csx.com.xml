@@ -1,0 +1,281 @@
+<?xml version="1.0" ?>
+<AlertDefinitionsResponse>
+	<Status>Success</Status>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398358071917" description="Agent down alert" enabled="false" frequency="0" id="10029" mtime="1398358095848" name="Agent down alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11088" name="lnx20767.csxt.csx.com"/>
+		<AlertCondition required="true" thresholdComparator="=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10008">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="11" ctime="1398358791011" description="Cpu Usage alert" enabled="true" frequency="2" id="10031" mtime="1398358798746" name="Cpu Usage alert" notifyFiltered="false" priority="3" range="3600" willRecover="true">
+		<Resource id="11088" name="lnx20767.csxt.csx.com"/>
+		<AlertCondition required="true" thresholdComparator="&gt;" thresholdMetric="Cpu Usage" thresholdValue="0.9490000000000001" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10013">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398358892708" description="Cpu Usage clear" enabled="true" frequency="0" id="10032" mtime="1398358903595" name="Cpu Usage clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11088" name="lnx20767.csxt.csx.com"/>
+		<AlertCondition required="true" thresholdComparator="&lt;" thresholdMetric="Cpu Usage" thresholdValue="0.95" type="1"/>
+		<AlertCondition recover="Cpu Usage alert" recoverId="10031" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10016">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="5" ctime="1398359164923" description="Free Memory alert" enabled="false" frequency="2" id="10033" mtime="1398359176930" name="Free Memory alert" notifyFiltered="false" priority="2" range="1800" willRecover="true">
+		<Resource id="11088" name="lnx20767.csxt.csx.com"/>
+		<AlertCondition required="true" thresholdComparator="&gt;" thresholdMetric="Free Memory" thresholdValue="1.049624576E8" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10018">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398359296204" description="Free Memory clear" enabled="true" frequency="0" id="10034" mtime="1398359302026" name="Free Memory clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11088" name="lnx20767.csxt.csx.com"/>
+		<AlertCondition required="true" thresholdComparator="&lt;" thresholdMetric="Free Memory" thresholdValue="1.048576E8" type="1"/>
+		<AlertCondition recover="Free Memory alert" recoverId="10033" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10021">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398359383025" description="Percent Free Swap alert" enabled="true" frequency="0" id="10035" mtime="1398359397842" name="Percent Free Swap alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11088" name="lnx20767.csxt.csx.com"/>
+		<AlertCondition required="true" thresholdComparator="&lt;" thresholdMetric="Percent Free Swap" thresholdValue="0.051" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10023">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398359443826" description="Percent Free Swap clear" enabled="true" frequency="0" id="10036" mtime="1398359453154" name="Percent Free Swap clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11088" name="lnx20767.csxt.csx.com"/>
+		<AlertCondition required="true" thresholdComparator="&gt;" thresholdMetric="Percent Free Swap" thresholdValue="0.05" type="1"/>
+		<AlertCondition recover="Percent Free Swap alert" recoverId="10035" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10026">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398359495104" description="Zombie Processes alert" enabled="true" frequency="0" id="10037" mtime="1398359502674" name="Zombie Processes alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11088" name="lnx20767.csxt.csx.com"/>
+		<AlertCondition required="true" thresholdComparator="&gt;" thresholdMetric="Zombie Processes" thresholdValue="500.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10028">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398359555010" description="Zombie Processes clear" enabled="true" frequency="0" id="10038" mtime="1398359563610" name="Zombie Processes clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11088" name="lnx20767.csxt.csx.com"/>
+		<AlertCondition required="true" thresholdComparator="&lt;" thresholdMetric="Zombie Processes" thresholdValue="501.0" type="1"/>
+		<AlertCondition recover="Zombie Processes alert" recoverId="10037" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10031">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398360357202" description="cpu Availability alert" enabled="true" frequency="0" id="10039" mtime="1398360393578" name="cpu Availability alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11622" name="CPU1"/>
+		<AlertCondition required="true" thresholdComparator="=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10033">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398360440817" description="cpu Availability clear" enabled="true" frequency="0" id="10040" mtime="1398360451000" name="cpu Availability clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11622" name="CPU1"/>
+		<AlertCondition required="true" thresholdComparator="!=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertCondition recover="cpu Availability alert" recoverId="10039" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10036">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398361828269" description="Number of Processes alert" enabled="true" frequency="0" id="10067" mtime="1398361844847" name="Number of Processes alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11631" name="java hq-agent"/>
+		<AlertCondition required="true" thresholdComparator="=" thresholdMetric="Number of Processes" thresholdValue="0.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10103">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398361877863" description="Number of Processes clear" enabled="true" frequency="0" id="10068" mtime="1398361887638" name="Number of Processes clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11631" name="java hq-agent"/>
+		<AlertCondition required="true" thresholdComparator="!=" thresholdMetric="Number of Processes" thresholdValue="0.0" type="1"/>
+		<AlertCondition recover="Number of Processes alert" recoverId="10067" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10106">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398362120333" description="Number of Processes alert" enabled="true" frequency="0" id="10069" mtime="1398362137686" name="Number of Processes alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11632" name="ntpd"/>
+		<AlertCondition required="true" thresholdComparator="=" thresholdMetric="Number of Processes" thresholdValue="0.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10108">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398362165449" description="Number of Processes clear" enabled="true" frequency="0" id="10070" mtime="1398362175492" name="Number of Processes clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11632" name="ntpd"/>
+		<AlertCondition required="true" thresholdComparator="!=" thresholdMetric="Number of Processes" thresholdValue="0.0" type="1"/>
+		<AlertCondition recover="Number of Processes alert" recoverId="10069" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10111">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398692114345" description="interface Availability alert" enabled="true" frequency="0" id="10071" mtime="1398790295171" name="interface Availability alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11634" name="eth0"/>
+		<AlertCondition required="true" thresholdComparator="=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10113">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398692162373" description="interface Availability clear" enabled="true" frequency="0" id="10072" mtime="1398692176407" name="interface Availability clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11634" name="eth0"/>
+		<AlertCondition required="true" thresholdComparator="!=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertCondition recover="interface Availability alert" recoverId="10071" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10116">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398692326718" description="interface Availability alert" enabled="true" frequency="0" id="10075" mtime="1398886381684" name="interface Availability alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11636" name="lo"/>
+		<AlertCondition required="true" thresholdComparator="=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10123">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398692326760" description="interface Availability clear" enabled="true" frequency="0" id="10076" mtime="1398692326760" name="interface Availability clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11636" name="lo"/>
+		<AlertCondition required="true" thresholdComparator="!=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertCondition recover="interface Availability alert" recoverId="10075" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10126">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398789370343" description="error" enabled="true" frequency="0" id="10080" mtime="1398789370343" name="error alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11640" name="multilogtrac /tmp/test.log"/>
+		<AlertCondition required="true" thresholdComparator="&gt;" thresholdMetric="Number Of Captured Logs Per Interval" thresholdValue="0.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10135">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1398789370398" description="error clear" enabled="true" frequency="0" id="10081" mtime="1398789370398" name="error clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11640" name="multilogtrac /tmp/test.log"/>
+		<AlertCondition required="true" thresholdComparator="&gt;" thresholdMetric="Secondary Number Of Captured Logs Per Interval" thresholdValue="0.0" type="1"/>
+		<AlertCondition recover="error alert" recoverId="10080" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10138">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1399986642157" description="filesystem Availability alert " enabled="true" frequency="0" id="10114" mtime="1399986693326" name="filesystem Availability alert " notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11888" name="/"/>
+		<AlertCondition required="true" thresholdComparator="=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10220">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1399986743678" description="filesystem Availability clear" enabled="true" frequency="0" id="10115" mtime="1399986761086" name="filesystem Availability clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11888" name="/"/>
+		<AlertCondition required="true" thresholdComparator="!=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertCondition recover="filesystem Availability alert " recoverId="10114" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10223">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1399986792597" description="filesystem Use Percent alert" enabled="false" frequency="0" id="10116" mtime="1399986857304" name="filesystem Use Percent alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11888" name="/"/>
+		<AlertCondition required="true" thresholdComparator="&gt;" thresholdMetric="Use Percent" thresholdValue="0.9490000000000001" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10225">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1399986908679" description="filesystem Use Percent clear" enabled="true" frequency="0" id="10117" mtime="1399986932557" name="filesystem Use Percent clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11888" name="/"/>
+		<AlertCondition required="true" thresholdComparator="&lt;" thresholdMetric="Use Percent" thresholdValue="0.95" type="1"/>
+		<AlertCondition recover="filesystem Use Percent alert" recoverId="10116" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10228">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1399987106894" description="filesystem Availability alert " enabled="true" frequency="0" id="10122" mtime="1399987106894" name="filesystem Availability alert " notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11890" name="/opt/emc/hyperic"/>
+		<AlertCondition required="true" thresholdComparator="=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10239">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1399987106923" description="filesystem Use Percent alert" enabled="false" frequency="0" id="10123" mtime="1399987106923" name="filesystem Use Percent alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11890" name="/opt/emc/hyperic"/>
+		<AlertCondition required="true" thresholdComparator="&lt;" thresholdMetric="Use Percent" thresholdValue="0.9490000000000001" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10241">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1399987106962" description="filesystem Availability clear" enabled="true" frequency="0" id="10124" mtime="1399987106962" name="filesystem Availability clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11890" name="/opt/emc/hyperic"/>
+		<AlertCondition required="true" thresholdComparator="!=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertCondition recover="filesystem Availability alert " recoverId="10122" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10243">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1399987107005" description="filesystem Use Percent clear" enabled="true" frequency="0" id="10125" mtime="1399987107005" name="filesystem Use Percent clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11890" name="/opt/emc/hyperic"/>
+		<AlertCondition required="true" thresholdComparator="&gt;" thresholdMetric="Use Percent" thresholdValue="0.95" type="1"/>
+		<AlertCondition recover="filesystem Use Percent alert" recoverId="10123" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10246">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1400000980587" description="File Exists alert" enabled="true" frequency="0" id="10132" mtime="1400000980587" name="File Exists alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11892" name="/opt/local/software/ionix/myextremelylonglogfile123456789.log exists"/>
+		<AlertCondition required="true" thresholdComparator="=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10265">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1400000980626" description="File Exists clear" enabled="true" frequency="0" id="10133" mtime="1400000980626" name="File Exists clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11892" name="/opt/local/software/ionix/myextremelylonglogfile123456789.log exists"/>
+		<AlertCondition required="true" thresholdComparator="!=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertCondition recover="File Exists alert" recoverId="10132" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10268">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1400001111972" description="File Size alert" enabled="true" frequency="0" id="10134" mtime="1400001129584" name="File Size alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11892" name="/opt/local/software/ionix/myextremelylonglogfile123456789.log exists"/>
+		<AlertCondition required="true" thresholdComparator="&gt;" thresholdMetric="Size" thresholdValue="2097152.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10270">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1400001184739" description="File Size clear" enabled="true" frequency="0" id="10135" mtime="1400005494323" name="File Size clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11892" name="/opt/local/software/ionix/myextremelylonglogfile123456789.log exists"/>
+		<AlertCondition required="true" thresholdComparator="&lt;" thresholdMetric="Size" thresholdValue="2202009.6" type="1"/>
+		<AlertCondition recover="File Size alert" recoverId="10134" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10273">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1400005290845" description="File Exists alert" enabled="false" frequency="0" id="10148" mtime="1400005290845" name="File Exists alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11897" name="/tmp/myextremelylonglogfile123456789.log exists"/>
+		<AlertCondition required="true" thresholdComparator="=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10305">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1400005290878" description="File Size alert" enabled="true" frequency="0" id="10149" mtime="1400005290878" name="File Size alert" notifyFiltered="false" priority="3" range="0" willRecover="true">
+		<Resource id="11897" name="/tmp/myextremelylonglogfile123456789.log exists"/>
+		<AlertCondition required="true" thresholdComparator="&gt;" thresholdMetric="Size" thresholdValue="2097152.0" type="1"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10307">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alert.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1400005290921" description="File Exists clear" enabled="true" frequency="0" id="10150" mtime="1400005290921" name="File Exists clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11897" name="/tmp/myextremelylonglogfile123456789.log exists"/>
+		<AlertCondition required="true" thresholdComparator="!=" thresholdMetric="Availability" thresholdValue="0.0" type="1"/>
+		<AlertCondition recover="File Exists alert" recoverId="10148" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10310">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+	<AlertDefinition active="true" controlFiltered="false" count="0" ctime="1400005290971" description="This is a File Size clear" enabled="true" frequency="0" id="10151" mtime="1400005290971" name="This is a File Size clear" notifyFiltered="false" priority="3" range="0" willRecover="false">
+		<Resource id="11897" name="/tmp/myextremelylonglogfile123456789.log exists"/>
+		<AlertCondition required="true" thresholdComparator="&lt;" thresholdMetric="Size" thresholdValue="2202009.6" type="1"/>
+		<AlertCondition recover="File Size alert" recoverId="10149" required="true" type="5"/>
+		<AlertAction className="com.hyperic.hq.bizapp.server.action.control.ScriptAction" id="10313">
+			<AlertActionConfig key="script" value="/opt/hyperic/alertlog/alertrecover.sh"/>
+		</AlertAction>
+	</AlertDefinition>
+</AlertDefinitionsResponse>
