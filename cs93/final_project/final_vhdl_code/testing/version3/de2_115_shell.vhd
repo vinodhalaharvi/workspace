@@ -2,10 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 library cscie93;
 use work.all; 
-use mycpu_defs.all;
-
-
-
 -- This file should be used for the DE2-115 board ONLY
 --                                  ^^^^^^^
 entity de2_115_shell is
@@ -48,7 +44,7 @@ entity de2_115_shell is
 
 end;
 
-architecture MyDefault of de2_115_shell is
+architecture default of de2_115_shell is
 	attribute chip_pin : string;
 
 	attribute chip_pin of clk50mhz : signal is "Y2";
@@ -153,8 +149,7 @@ begin
 
 
 	mpcpu_inst : entity  mycpu port map (
-			sysclk1  => sysclk1, 
-			reset => '0',
+			clk  => sysclk1, 
 			mem_data_read =>  mem_data_read, 
 			mem_dataready_inv =>  mem_dataready_inv, 
 			mem_ready =>  mem_ready, 
