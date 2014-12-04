@@ -75,9 +75,6 @@ architecture MyDefault of de2_115_shell is
 	attribute chip_pin of sram_ub_N : signal is "AC4";
 	attribute chip_pin of sram_lb_N : signal is "AD4";	
 
-	signal displayOutput : std_logic_vector(31 downto 0); 
-	signal displaySwitches : std_logic_vector(4 downto 0); 
-	attribute chip_pin of displaySwitches : signal is "AB28, AC28, AC27, AD27, AB27"; 
 
 	signal mem_data_read :  std_logic_vector(31 downto 0);
 	signal mem_dataready_inv :  std_logic;
@@ -174,10 +171,8 @@ begin
 			mem_thirtytwobit =>  mem_thirtytwobit, 
 			mem_addressready =>  mem_addressready, 
 
-			-- for debugging only
+			-- for debuging only
 			ALU_result => ALU_result, 
-			displayOutput => displayOutput, 
-			displaySwitches => displaySwitches, 
 			destination_register => destination_register, 
 			IR =>  IR, 
 			PC => PC,
@@ -205,12 +200,12 @@ begin
 		 ); 
 	sevenSegTesting4: entity sevenSegTesting 
 	port map (
-			 bcd => displayOutput(3 downto 0), 
+			 bcd => destination_register(3 downto 0), 
 			 seg => seg4 
 		 ); 
 	sevenSegTesting5: entity sevenSegTesting 
 	port map (
-			 bcd => displayOutput(7 downto 4), 
+			 bcd => destination_register(7 downto 4), 
 			 seg => seg5 
 		 ); 
 		 

@@ -20,15 +20,12 @@ entity  mycpu is
 		     mem_sixteenbit : buffer std_logic;
 		     mem_thirtytwobit : buffer std_logic;
 		     mem_addressready : buffer std_logic;
-			
-		     --debug related, these are exported to main entity
+
 		     ALU_result : buffer std_logic_vector(31 downto 0); 
 		     destination_register : buffer std_logic_vector(31 downto 0); 
 		     IR : buffer std_logic_vector(31 downto 0); 
 		     PC :  buffer std_logic_vector(19 downto 0) := X"00000";
-		     fsmStateCode : out std_logic_vector(3 downto 0); 
-		     displayOutput : out std_logic_vector(31 downto 0); 
-		     displaySwitches : in std_logic_vector(4 downto 0)
+		     fsmStateCode : out std_logic_vector(3 downto 0)
 	     ); 
 end entity mycpu;
 
@@ -135,7 +132,6 @@ begin
 		ALU_result => ALU_result
 	);
 
-
 	-- add register file process here
 	GPR_mem : process (sysclk1, reset)
 		subtype reg_index is natural range 0 to 31;
@@ -162,8 +158,6 @@ begin
 				GPR_rs <= GPR(to_integer(IR_rs));
 				GPR_r2 <= GPR(to_integer(IR_r2));
 			end if;
-			--displayOutput <= GPR(to_integer(unsigned(displaySwitches))); 
-			displayOutput(4 downto 0) <= displaySwitches;
 		end if;
 end process GPR_mem;
 
@@ -178,6 +172,11 @@ begin
 		case currentState is
 			when Init =>
 				currentState <= WaitForMemDataReadyInvHigh;
+				--if mem_rw = '0' then
+					--mem_rw <= '1';
+				--else 
+					--mem_rw <= '0';
+				---end if;
 			when WaitForMemDataReadyInvHigh =>
 				if mem_dataready_inv = '1'  then 
 					currentState <= SetControlAndDataInputs; 
@@ -225,8 +224,6 @@ begin
 	end if;
 end process;
 
-
---debugging related
 with currentState select
 	fsmStateCode <=
        "0000" when Init,
