@@ -96,31 +96,32 @@ architecture mycpu_arch of mycpu  is
 	IR_decode_sw : std_logic := '0';
 begin
 
-	IR_decode_add <= '1';
-	IR_decode_sub <= '0';
+	--IR_decode_add <= '1';
+	--IR_decode_sub <= '0';
 
-
-	--IR_decode_sub <= IR(31 downto 26) ?= "000000" and IR(5 downto 0) ?= "100010"; 
-	--IR_decode_sll <= IR(31 downto 26) ?= "000000" and IR(5 downto 0) ?= "000000"; 
-	--IR_decode_srl <= IR(31 downto 26) ?= "000000" and IR(5 downto 0) ?= "000010"; 
-	--IR_decode_sllv <= IR(31 downto 26) ?= "000000" and IR(5 downto 0) ?= "000100"; 
-	--IR_decode_srav <= IR(31 downto 26) ?= "000000" and IR(5 downto 0) ?= "100000"; 
-	--IR_decode_slt <= IR(31 downto 26) ?= "000000" and IR(5 downto 0) ?= "101010"; 
-	--IR_decode_jr <= IR(31 downto 26) ?= "000000"  and IR(5 downto 0) ?= "001000" ;
-	--IR_decode_j <= IR(31 downto 26) ?= "000010";
-	--IR_decode_jal <= IR(31 downto 26) ?= "000011";
-	--IR_decode_beq <= IR(31 downto 26) ?= "000100";
-	--IR_decode_bne <= IR(31 downto 26) ?= "000101";
-	--IR_decode_addi <= IR(31 downto 26) ?= "001000";
-	--IR_decode_slti <= IR(31 downto 26) ?= "001010";
-	--IR_decode_andi <= IR(31 downto 26) ?= "001100";
-	--IR_decode_ori <= IR(31 downto 26) ?= "001101";
-	--IR_decode_lui <= IR(31 downto 26) ?= "001111";
-	--IR_decode_lw <= IR(31 downto 26) ?= "100011";
-	--IR_decode_sb <= IR(31 downto 26) ?= "101000";
-	--IR_decode_sw <= IR(31 downto 26) ?= "101010";
+	IR_decode_add <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "100000") else '0';
+	IR_decode_sub <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "100010") else '0';
+	IR_decode_sll <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "000000") else '0';
+	IR_decode_srl <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "000010") else '0';
+	IR_decode_sllv <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "000100") else '0';
+	IR_decode_srav <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "100000") else '0';
+	IR_decode_slt <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "101010") else '0';
+	IR_decode_jr <= '1' when (IR(31 downto 26) = "000000" ) and (IR(5 downto 0) = "001000" ) else '0';
+	IR_decode_j <= '1' when (IR(31 downto 26) = "000010") else '0';
+	IR_decode_jal <= '1' when (IR(31 downto 26) = "000011") else '0';
+	IR_decode_beq <= '1' when (IR(31 downto 26) = "000100") else '0';
+	IR_decode_bne <= '1' when (IR(31 downto 26) = "000101") else '0';
+	IR_decode_addi <= '1' when (IR(31 downto 26) = "001000") else '0';
+	IR_decode_slti <= '1' when (IR(31 downto 26) = "001010") else '0';
+	IR_decode_andi <= '1' when (IR(31 downto 26) = "001100") else '0';
+	IR_decode_ori <= '1' when (IR(31 downto 26) = "001101") else '0';
+	IR_decode_lui <= '1' when (IR(31 downto 26) = "001111") else '0';
+	IR_decode_lw <= '1' when (IR(31 downto 26) = "100011") else '0';
+	IR_decode_sb <= '1' when (IR(31 downto 26) = "101000") else '0';
+	IR_decode_sw <= '1' when (IR(31 downto 26) = "101010") else '0';
 
 	IR_decode_alu_reg <=   IR_decode_add or IR_decode_sub; 
+
 	IR <= mem_data_read_internal; 
 	-- add alu entity here here
 	alu_inst : entity alu port map
@@ -150,6 +151,7 @@ begin
 			--GPR := (others => (others => '0'));
 			GPR := (others => X"00000001"); 
 		elsif rising_edge(sysclk1) then
+		   --GPR(7) := std_logic_vector((unsigned(GPR(7)) + 1));
 			if currentState = write_back_state and IR_rd /= 0 then
 				if IR_decode_alu_reg then 
 					write_data := ALU_result;
@@ -158,12 +160,12 @@ begin
 				destination_register <= GPR(to_integer(IR_rd)); 
 			end if;
 			if currentState = decode_state then
-						--r2_addr := IR_r2;
+				--r2_addr := IR_r2;
 				GPR_rs <= GPR(to_integer(IR_rs));
 				GPR_r2 <= GPR(to_integer(IR_r2));
 			end if;
-			--displayOutput <= GPR(to_integer(unsigned(displaySwitches))); 
-			displayOutput(4 downto 0) <= displaySwitches;
+			displayOutput <= GPR(to_integer(unsigned(displaySwitches))); 
+			--displayOutput(4 downto 0) <= displaySwitches;
 		end if;
 end process GPR_mem;
 

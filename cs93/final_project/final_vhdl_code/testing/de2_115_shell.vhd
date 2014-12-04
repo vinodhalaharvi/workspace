@@ -43,6 +43,8 @@ entity de2_115_shell is
 		seg5 : out std_logic_vector (6 downto 0); 
 		seg6 : out std_logic_vector (6 downto 0); 
 		seg7 : out std_logic_vector (6 downto 0);
+		displaySwitches : in std_logic_vector(4 downto 0); 
+		displayOutput : buffer std_logic_vector(31 downto 0);
 		clock_step : in std_logic;
 		reset : in std_logic
 	     );
@@ -74,11 +76,10 @@ architecture MyDefault of de2_115_shell is
 	attribute chip_pin of sram_we_N : signal is "AE8";
 	attribute chip_pin of sram_ub_N : signal is "AC4";
 	attribute chip_pin of sram_lb_N : signal is "AD4";	
-
-	signal displayOutput : std_logic_vector(31 downto 0); 
-	signal displaySwitches : std_logic_vector(4 downto 0); 
 	attribute chip_pin of displaySwitches : signal is "AB28, AC28, AC27, AD27, AB27"; 
 
+	--signal displayOutput : std_logic_vector(31 downto 0); 
+	--signal displaySwitches : std_logic_vector(4 downto 0); 
 	signal mem_data_read :  std_logic_vector(31 downto 0);
 	signal mem_dataready_inv :  std_logic;
 	signal mem_ready :  std_logic;
