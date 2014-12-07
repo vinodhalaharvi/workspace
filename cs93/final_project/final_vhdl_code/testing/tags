@@ -1,0 +1,90 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AluTesting	aluTesting.vhd	/^entity  AluTesting is$/;"	e
+IMem_addr	mycpu_defs.vhd	/^	subtype IMem_addr is unsigned(IMem_addr_width - 1 downto 0);$/;"	T
+IMem_addr	mycpu_defsTesting.vhd	/^	subtype IMem_addr is unsigned(IMem_addr_width - 1 downto 0);$/;"	T
+IMem_addr_width	mycpu_defs.vhd	/^	constant IMem_addr_width : positive := 16;$/;"	c
+IMem_addr_width	mycpu_defsTesting.vhd	/^	constant IMem_addr_width : positive := 16;$/;"	c
+IMem_array	mycpu_defs.vhd	/^	subtype IMem_array is instruction_array(0 to IMem_size - 1);$/;"	T
+IMem_array	mycpu_defsTesting.vhd	/^	subtype IMem_array is instruction_array(0 to IMem_size - 1);$/;"	T
+IMem_size	mycpu_defs.vhd	/^	constant IMem_size : positive := 2**IMem_addr_width;$/;"	c
+IMem_size	mycpu_defsTesting.vhd	/^	constant IMem_size : positive := 2**IMem_addr_width;$/;"	c
+alu	alu.vhd	/^entity alu is$/;"	e
+aluSim	aluSim.vhd	/^entity  aluSim is$/;"	e
+aluSim_tb	aluSim_tb.vhd	/^entity  aluSim_tb is$/;"	e
+aluSim_tb	template_tb.vhd	/^entity  aluSim_tb is$/;"	e
+alu_fn_add	alu.vhd	/^	constant alu_fn_add : alu_fn_code_type := "100000";$/;"	c
+alu_fn_add	mycpu_defs.vhd	/^	constant alu_fn_add : alu_fn_code := "100000";$/;"	c
+alu_fn_and	alu.vhd	/^	constant alu_fn_and : alu_fn_code_type := "100100";$/;"	c
+alu_fn_and	mycpu_defs.vhd	/^	constant alu_fn_and : alu_fn_code := "100100";$/;"	c
+alu_fn_code	mycpu_defs.vhd	/^	subtype alu_fn_code is std_logic_vector(5 downto 0);	$/;"	T
+alu_fn_code_type	alu.vhd	/^	subtype alu_fn_code_type is std_logic_vector(5 downto 0);$/;"	T
+alu_fn_jr	mycpu_defs.vhd	/^	constant alu_fn_jr : alu_fn_code := "001000";$/;"	c
+alu_fn_or	alu.vhd	/^	constant alu_fn_or :  alu_fn_code_type := "100101";$/;"	c
+alu_fn_or	mycpu_defs.vhd	/^	constant alu_fn_or : alu_fn_code := "100101";$/;"	c
+alu_fn_srl	mycpu_defs.vhd	/^	constant alu_fn_srl : alu_fn_code := "000010";$/;"	c
+alu_fn_sub	alu.vhd	/^	constant alu_fn_sub : alu_fn_code_type := "100010";$/;"	c
+alu_fn_sub	mycpu_defs.vhd	/^	constant alu_fn_sub : alu_fn_code := "100010";$/;"	c
+alu_fn_xor	alu.vhd	/^	constant alu_fn_xor : alu_fn_code_type := "100110";$/;"	c
+counter	counter.vhd	/^entity  counter is$/;"	e
+counter_tb	counter_tb.vhd	/^entity  counter_tb is$/;"	e
+de2_115_shell	de2_115_shell.vhd	/^entity de2_115_shell is$/;"	e
+de2_115_shell	de2_115_shellTesting.vhd	/^entity de2_115_shell is$/;"	e
+disp	mycpu_defs.vhd	/^	subtype disp is unsigned(15 downto 0);$/;"	T
+disp	mycpu_defsTesting.vhd	/^	subtype disp is unsigned(15 downto 0);$/;"	T
+double_word	mycpu.vhd	/^		subtype double_word is std_logic_vector(31 downto 0); $/;"	T
+double_word	mycpuTesting.vhd	/^		subtype double_word is std_logic_vector(31 downto 0); $/;"	T
+immed	mycpu_defs.vhd	/^	subtype immed is unsigned(15 downto 0);$/;"	T
+immed	mycpu_defsTesting.vhd	/^	subtype immed is unsigned(15 downto 0);$/;"	T
+instruction	mycpu_defs.vhd	/^	subtype instruction is unsigned(31 downto 0);$/;"	T
+instruction	mycpu_defsTesting.vhd	/^	subtype instruction is unsigned(31 downto 0);$/;"	T
+instruction_array	mycpu_defs.vhd	/^	type instruction_array is array (natural range <>) of instruction;$/;"	t
+instruction_array	mycpu_defsTesting.vhd	/^	type instruction_array is array (natural range <>) of instruction;$/;"	t
+mycpu	mycpu.vhd	/^entity  mycpu is$/;"	e
+mycpu	mycpuTesting.vhd	/^entity  mycpu is$/;"	e
+mycpu_defs	mycpu_defs.vhd	/^package mycpu_defs is$/;"	P
+mycpu_defs	mycpu_defsTesting.vhd	/^package mycpu_defs is$/;"	P
+offset	mycpu_defs.vhd	/^	subtype offset is unsigned(15 downto 0);$/;"	T
+offset	mycpu_defsTesting.vhd	/^	subtype offset is unsigned(15 downto 0);$/;"	T
+op_fn_add	mycpu_defs.vhd	/^	constant op_fn_add : op_fn_code := "000000";$/;"	c
+op_fn_addi	mycpu_defs.vhd	/^	constant op_fn_addi : op_fn_code := "001000";$/;"	c
+op_fn_andi	mycpu_defs.vhd	/^	constant op_fn_andi : op_fn_code := "001100";$/;"	c
+op_fn_beq	mycpu_defs.vhd	/^	constant op_fn_beq : op_fn_code := "000100";$/;"	c
+op_fn_bne	mycpu_defs.vhd	/^	constant op_fn_bne : op_fn_code := "000101";$/;"	c
+op_fn_code	mycpu_defs.vhd	/^	subtype op_fn_code is std_logic_vector(5 downto 0);	$/;"	T
+op_fn_j	mycpu_defs.vhd	/^	constant op_fn_j : op_fn_code := "000010";$/;"	c
+op_fn_jal	mycpu_defs.vhd	/^	constant op_fn_jal : op_fn_code := "000011";$/;"	c
+op_fn_jr	mycpu_defs.vhd	/^	constant op_fn_jr : op_fn_code := "000000";$/;"	c
+op_fn_lui	mycpu_defs.vhd	/^	constant op_fn_lui : op_fn_code := "001111";$/;"	c
+op_fn_lw	mycpu_defs.vhd	/^	constant op_fn_lw : op_fn_code := "100011";$/;"	c
+op_fn_ori	mycpu_defs.vhd	/^	constant op_fn_ori : op_fn_code := "001101";$/;"	c
+op_fn_sb	mycpu_defs.vhd	/^	constant op_fn_sb : op_fn_code := "101000";$/;"	c
+op_fn_sll	mycpu_defs.vhd	/^	constant op_fn_sll : op_fn_code := "000000";$/;"	c
+op_fn_sllv	mycpu_defs.vhd	/^	constant op_fn_sllv : op_fn_code := "000000";$/;"	c
+op_fn_slt	mycpu_defs.vhd	/^	constant op_fn_slt : op_fn_code := "000000";$/;"	c
+op_fn_slti	mycpu_defs.vhd	/^	constant op_fn_slti : op_fn_code := "001010";$/;"	c
+op_fn_special	mycpu_defs.vhd	/^	constant op_fn_special : op_fn_code := "000000";$/;"	c
+op_fn_srav	mycpu_defs.vhd	/^	constant op_fn_srav : op_fn_code := "000000";$/;"	c
+op_fn_srl	mycpu_defs.vhd	/^	constant op_fn_srl : op_fn_code := "000000";$/;"	c
+op_fn_sub	mycpu_defs.vhd	/^	constant op_fn_sub : op_fn_code := "000000";$/;"	c
+op_fn_sw	mycpu_defs.vhd	/^	constant op_fn_sw : op_fn_code := "101010";$/;"	c
+reg_addr	mycpu_defs.vhd	/^	subtype reg_addr is unsigned(4 downto 0);$/;"	T
+reg_addr	mycpu_defsTesting.vhd	/^	subtype reg_addr is unsigned(4 downto 0);$/;"	T
+reg_index	mycpu.vhd	/^		subtype reg_index is natural range 0 to 31;$/;"	T
+reg_index	mycpuTesting.vhd	/^		subtype reg_index is natural range 0 to 31;$/;"	T
+shift_count	mycpu_defs.vhd	/^	subtype shift_count is unsigned(4 downto 0);$/;"	T
+shift_count	mycpu_defsTesting.vhd	/^	subtype shift_count is unsigned(4 downto 0);$/;"	T
+signed_byte	mycpu_defs.vhd	/^	subtype signed_byte is signed(7 downto 0);$/;"	T
+signed_byte_array	mycpu_defs.vhd	/^	type signed_byte_array is array (natural range <>) of signed_byte;$/;"	t
+states	mycpu.vhd	/^	type states is ($/;"	t
+states	mycpuTesting.vhd	/^	type states is ($/;"	t
+std_logic_vector_array	mycpu.vhd	/^		type std_logic_vector_array is array (reg_index) of double_word;$/;"	t
+std_logic_vector_array	mycpuTesting.vhd	/^		type std_logic_vector_array is array (reg_index) of double_word;$/;"	t
+unsigned_byte	mycpu_defs.vhd	/^	subtype unsigned_byte is unsigned(7 downto 0);$/;"	T
+unsigned_byte_array	mycpu_defs.vhd	/^	type unsigned_byte_array is array (natural range <>) of unsigned_byte;$/;"	t
+unsigned_double_word	mycpu_defs.vhd	/^	subtype unsigned_double_word is unsigned(31 downto 0);$/;"	T
+unsigned_double_word_array	mycpu_defs.vhd	/^	type unsigned_double_word_array is array (natural range <>) of unsigned_double_word;$/;"	t

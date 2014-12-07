@@ -43,6 +43,7 @@ entity de2_115_shell is
 		seg5 : out std_logic_vector (6 downto 0); 
 		seg6 : out std_logic_vector (6 downto 0); 
 		seg7 : out std_logic_vector (6 downto 0);
+		--ALU_result : buffer std_logic_vector(31 downto 0);
 		displaySwitches : in std_logic_vector(4 downto 0); 
 		displayOutput : buffer std_logic_vector(31 downto 0);
 		clock_step : in std_logic;
@@ -116,11 +117,12 @@ architecture MyDefault of de2_115_shell is
 	signal IR :  std_logic_vector(31 downto 0); 
 	signal PC :  std_logic_vector(19 downto 0);
 	signal not_reset : std_logic := '0';
-	signal ALU_result : std_logic_vector(31 downto 0);
+	signal ALU_result_internal : std_logic_vector(31 downto 0);
 	signal destination_register : std_logic_vector(31 downto 0);
 	signal fsmStateCode :  std_logic_vector(3 downto 0);
 	
 begin
+	--ALU_result <= ALU_result_internal; 
 	mem : cscie93.memory_controller port map (
 		 clk50mhz => clk50mhz,
 		 mem_addr => mem_addr, 
@@ -176,10 +178,10 @@ begin
 			mem_addressready =>  mem_addressready, 
 
 			-- for debugging only
-			ALU_result => ALU_result, 
+			ALU_result => ALU_result_internal, 
 			displayOutput => displayOutput, 
 			displaySwitches => displaySwitches, 
-			destination_register => destination_register, 
+			--destination_register => destination_register, 
 			IR =>  IR, 
 			PC => PC,
 			fsmStateCode =>  fsmStateCode
