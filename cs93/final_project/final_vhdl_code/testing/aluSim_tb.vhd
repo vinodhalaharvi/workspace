@@ -42,52 +42,38 @@ architecture aluSim_tb_arch of aluSim_tb  is
 
 	signal currentState : states := init; 
 	signal memory : memory_array := (
-		--jump testing 
-		-- 4, 4, 16, 2
 		X"0002",
 		X"0C00",
-		X"0008",
-		X"2008",
+		X"0000",
+		X"2004",
+		X"4807",
+		X"0105",
+		X"0001",
+		X"312A",
+		X"0001",
+		X"2009",
+		X"001A",
+		X"112A",
+		X"0001",
+		X"2108",
+		X"0020",
+		X"2918",
 		X"0004",
-		X"2009",
-		X"0003",
-		X"200B",
+		X"1418",
+		X"0016",
+		X"100C",
+		X"1022",
+		X"0002",
+		X"001A",
+		X"100D",
+		X"1022",
+		X"0002",
+		X"5804",
+		X"0104",
+		X"1020",
+		X"004B",
 		X"4020",
-		X"016A",
-		X"5020",
-		X"016A",
-		X"4820",
-		X"000A",
-		X"4020",
-		X"014A",
-		X"5022",
-		X"0109",
-		X"001C",
-		X"0800",
-		X"5020",
-		X"016A",
-		X"4820",
-		X"000A",
-		X"4020",
-		X"014A",
-		X"0005",
-		X"2009",
-		X"48C0",
-		X"0008",
-		X"5004",
-		X"0168",
-		X"5004",
-		X"0168",
-		X"000A",
-		X"2949",
-		X"5004",
-		X"0168",
-		X"4807",
-		X"016A",
-		X"4942",
-		X"0008",
-		X"4807",
-		X"016A",
+		X"0002",
 		others => (others => 'X')); 
 
 	signal IR_decode_alu_immed,
@@ -118,10 +104,7 @@ architecture aluSim_tb_arch of aluSim_tb  is
 		IR_decode_lw,
 		IR_decode_sb,
 		IR_decode_sw : std_logic := '0';
-
-
 begin
-
 	IR_decode_add <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "100000") else '0';
 	IR_decode_sub <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "100010") else '0';
 	IR_decode_sll <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "000000") else '0';
@@ -147,7 +130,7 @@ begin
 	IR_decode_shift <= '1' when (IR_decode_sll or IR_decode_srl or IR_decode_sllv or IR_decode_srav) else '0';
 	IR_decode_alu_reg <= '1' when (IR_decode_add or IR_decode_sub) else '0'; 
 	IR_decode_misc <= '1' when IR_decode_slt else '0';
-	IR_decode_jump <= '1' when (IR_decode_j or IR_decode_jal) else '0';
+	IR_decode_jump <= '1' when (IR_decode_j or IR_decode_jal or IR_decode_jr) else '0';
 	IR_decode_branch<= '1' when (IR_decode_beq or IR_decode_bne) else '0';
 	IR_decode_alu_immed<= '1' when (IR_decode_addi or IR_decode_slti  
 			      or IR_decode_andi or IR_decode_ori or IR_decode_lui) else '0';
@@ -190,8 +173,14 @@ begin
 						pc <= '0' & X"0" & IR_offset;
 						currentState <= fetch_state;
 					elsif IR_decode_jump  = '1' then
-						pc <= '0' & X"0" & IR_jumpaddr(15 downto 0);
-						currentState <= fetch_state;
+						--if IR_decode_j then  
+							pc <= '0' & X"0" & IR_jumpaddr(15 downto 0);
+							currentState <= fetch_state;
+					--	elsif IR_decode_jal then 
+					--		pc <= '0' & X"0" & IR_jumpaddr(15 downto 0);
+					--		currentState <= fetch_state;
+					--	elsif IR_decode_jr then  
+					--	end if; 
 					else
 						currentState <= write_back_state;
 					end if; 
