@@ -9,11 +9,9 @@ entity  mycpu is
 		     sysclk1 : in std_logic; 
 		     reset : in std_logic; 
 		     mem_reset : buffer std_logic;
-
 		     mem_data_read : in std_logic_vector(31 downto 0);
 		     mem_dataready_inv : in std_logic;
 		     mem_ready : in std_logic;
-
 		     mem_addr : out std_logic_vector(20 downto 0);
 		     mem_data_write : buffer std_logic_vector(31 downto 0);
 		     mem_rw : buffer std_logic;

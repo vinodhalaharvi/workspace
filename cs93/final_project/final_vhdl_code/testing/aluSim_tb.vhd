@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 use work.all; 
 
 entity  aluSim_tb is
-end entity aluSim_tb;
+	end entity aluSim_tb;
 
 architecture aluSim_tb_arch of aluSim_tb  is
 	signal sysclk1 : std_logic := '0';
@@ -20,6 +20,7 @@ architecture aluSim_tb_arch of aluSim_tb  is
 	signal GPR_left_operand : std_logic_vector(31 downto 0); 
 	signal GPR_right_operand : std_logic_vector(31 downto  0); 
 	signal dest_addr : std_logic_vector(4 downto 0);
+	signal jr_addr : std_logic_vector(20 downto 0); 
 	signal ALU_result : std_logic_vector(31 downto 0); 
 
 	-- just for testing
@@ -36,74 +37,54 @@ architecture aluSim_tb_arch of aluSim_tb  is
 	alias IR15_11 is IR(15 downto 11);
 	alias IR10_6 is IR(10 downto 6);
 	alias IR5_0 is IR(5 downto 0);
-	alias IR_jumpaddr is IR(25 downto 0); 
+	alias IR_jumpaddr is IR(25 downto 0);
 	signal branch_taken : std_logic := '0';
 	alias IR_offset is IR(15 downto 0); 
 
 	signal currentState : states := init; 
 	signal memory : memory_array := (
-		X"0002",
-		X"0C00",
-		X"0000",
-		X"2004",
-		X"4807",
-		X"0105",
-		X"0001",
-		X"312A",
-		X"0001",
-		X"2009",
-		X"001A",
-		X"112A",
-		X"0001",
-		X"2108",
-		X"0020",
-		X"2918",
-		X"0004",
-		X"1418",
-		X"0016",
-		X"100C",
-		X"1022",
-		X"0002",
-		X"001A",
-		X"100D",
-		X"1022",
-		X"0002",
-		X"5804",
-		X"0104",
-		X"1020",
-		X"004B",
-		X"4020",
-		X"0002",
-		others => (others => 'X')); 
+	X"0008",
+	X"0C00",
+	X"000A",
+	X"2008",
+	X"0001",
+	X"2009",
+	X"0008",
+	X"03E0",
+	X"0002",
+	X"0C00",
+	X"0002",
+	X"200A",
+	others => (others => 'X')); 
 
 	signal IR_decode_alu_immed,
-		IR_decode_mem, 
-		IR_decode_shift,
-		IR_decode_alu_reg,
-		IR_decode_jump,
-		IR_decode_branch,
-		IR_decode_misc : std_logic := '0';
+	IR_decode_mem, 
+	IR_decode_shift,
+	IR_decode_alu_reg,
+	IR_decode_jump,
+	IR_decode_branch,
+	IR_decode_misc : std_logic := '0';
 
 	signal IR_decode_sll,
-		IR_decode_srl,
-		IR_decode_sllv,
-		IR_decode_srav,
-		IR_decode_add,
-		IR_decode_sub,
-		IR_decode_slt,
-		IR_decode_jr,
-		IR_decode_j,
-		IR_decode_jal,
-		IR_decode_beq,
-		IR_decode_bne,
-		IR_decode_addi,
-		IR_decode_slti,
-		IR_decode_andi,
-		IR_decode_ori,
-		IR_decode_lui,
-		IR_decode_lw,
-		IR_decode_sb,
-		IR_decode_sw : std_logic := '0';
+	IR_decode_srl,
+	IR_decode_sllv,
+	IR_decode_srav,
+	IR_decode_add,
+	IR_decode_sub,
+	IR_decode_slt,
+	IR_decode_jr,
+	IR_decode_j,
+	IR_decode_jal,
+	IR_decode_beq,
+	IR_decode_bne,
+	IR_decode_addi,
+	IR_decode_slti,
+	IR_decode_andi,
+	IR_decode_ori,
+	IR_decode_lui,
+	IR_decode_lw,
+	IR_decode_sb,
+	IR_decode_sw : std_logic := '0';
 begin
 	IR_decode_add <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "100000") else '0';
 	IR_decode_sub <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "100010") else '0';
@@ -139,13 +120,13 @@ begin
 
 	aluSim_test: entity aluSim 
 	port map (
-		  GPR_left_operand => GPR_left_operand, 
-		  GPR_right_operand => GPR_right_operand, 
-		  IR => IR, 
-		  ALU_C => ALU_C,
-		  ALU_Z => ALU_Z,
-		  ALU_result => ALU_result
-	  );       
+			 GPR_left_operand => GPR_left_operand, 
+			 GPR_right_operand => GPR_right_operand, 
+			 IR => IR, 
+			 ALU_C => ALU_C,
+			 ALU_Z => ALU_Z,
+			 ALU_result => ALU_result
+		 );       
 
 	branch_taken <= ALU_Z when IR_decode_beq = '1' else
 			not ALU_Z when IR_decode_bne = '1' else 
@@ -162,6 +143,7 @@ begin
 					pc <= '0' & X"00000"; 
 					currentState <= fetch_state; 
 				when fetch_state =>
+					--get data from memory instead 
 					IR(15 downto 0) <= memory(to_integer(unsigned(pc))); 
 					IR(31 downto 16) <= memory(to_integer(unsigned(pc) + 1)); 
 					pc <= std_logic_vector(unsigned(pc) + 2); 
@@ -170,17 +152,16 @@ begin
 					currentState <= execute_state;
 				when execute_state =>
 					if IR_decode_branch = '1' and branch_taken = '1' then
-						pc <= '0' & X"0" & IR_offset;
+						pc <= "00000" & IR_offset;
 						currentState <= fetch_state;
 					elsif IR_decode_jump  = '1' then
-						--if IR_decode_j then  
-							pc <= '0' & X"0" & IR_jumpaddr(15 downto 0);
+						if IR_decode_j or IR_decode_jal then  
+							pc <= "00000" & IR_jumpaddr(15 downto 0);
 							currentState <= fetch_state;
-					--	elsif IR_decode_jal then 
-					--		pc <= '0' & X"0" & IR_jumpaddr(15 downto 0);
-					--		currentState <= fetch_state;
-					--	elsif IR_decode_jr then  
-					--	end if; 
+						elsif IR_decode_jr then 
+							pc <= jr_addr; 
+							currentState <= fetch_state;
+						end if; 
 					else
 						currentState <= write_back_state;
 					end if; 
@@ -194,21 +175,25 @@ begin
 		subtype reg_index is natural range 0 to 31;
 		subtype double_word is std_logic_vector(31 downto 0); 
 		type std_logic_vector_array is array (reg_index) of double_word;
-		variable GPR : std_logic_vector_array := (others => X"00000000");
+		variable GPR : std_logic_vector_array := (others => (others => '0')); 
 	begin
 		if reset = '1' then
-			GPR := (others => X"00000000"); 
+			GPR := (others => (others => '0'));
 		elsif rising_edge(sysclk1) then
 			t0 <= GPR(8);
 			t1 <= GPR(9); 
 			t2 <= GPR(10); 
 			t3 <= GPR(11); 
 			if currentState = decode_state then
+				if IR_decode_jal then
+					GPR(31) := X"00" & "000" & pc;
+				elsif IR_decode_jr then 
+					jr_addr <= GPR(31)(20 downto 0); 
+				end if; 
 				GPR_left_operand <= GPR(to_integer(unsigned(IR25_21)));
 				GPR_right_operand <= GPR(to_integer(unsigned(IR20_16)));
-				dest_addr <= IR15_11 when (IR_decode_alu_reg or IR_decode_shift)
-					     else IR20_16 when  (IR_decode_branch or IR_decode_alu_immed 
-						     or  IR_decode_mem);
+				dest_addr <= IR15_11 when (IR_decode_alu_reg or IR_decode_shift) else
+					     IR20_16 when  (IR_decode_branch or IR_decode_alu_immed or  IR_decode_mem);
 			elsif currentState = write_back_state and unsigned(dest_addr) /= 0 then
 				if IR_decode_alu_reg or IR_decode_alu_immed or IR_decode_shift
 				then 
@@ -219,23 +204,23 @@ begin
 	end process GPR_mem;
 
 
-	gen_clk: process is
-	begin
-		for i in 1 to 400 loop 
-			wait for 1 ms;
-			sysclk1 <= '1';
-			wait for 1 ms;
-			sysclk1 <= '0';
-		end loop;
-		wait;
-	end process gen_clk;
+		gen_clk: process is
+		begin
+			for i in 1 to 400 loop 
+				wait for 1 ms;
+				sysclk1 <= '1';
+				wait for 1 ms;
+				sysclk1 <= '0';
+			end loop;
+			wait;
+		end process gen_clk;
 
-	with currentState select
-		fsmStateCode <=
-	       "000000" when init,
-	       "000001" when fetch_state,
-	       "000010" when decode_state,
-	       "000011" when execute_state,
-	       "000100" when write_back_state,
-	       "111111" when others;
+		with currentState select
+			fsmStateCode <=
+		       "000000" when init,
+		       "000001" when fetch_state,
+		       "000010" when decode_state,
+		       "000011" when execute_state,
+		       "000100" when write_back_state,
+		       "111111" when others;
 end architecture aluSim_tb_arch;
