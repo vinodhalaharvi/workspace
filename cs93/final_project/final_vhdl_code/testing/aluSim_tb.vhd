@@ -12,6 +12,7 @@ architecture aluSim_tb_arch of aluSim_tb  is
 	type states is (init, fetch_state, decode_state, execute_state, write_back_state); 
 	signal reset : std_logic := '0';
 	type memory_array is array(0 to 32768) of std_logic_vector(15 downto 0);
+
 	signal pc : std_logic_vector(20 downto 0) := '0' & X"00000"; 
 
 
@@ -43,18 +44,16 @@ architecture aluSim_tb_arch of aluSim_tb  is
 
 	signal currentState : states := init; 
 	signal memory : memory_array := (
-	X"0008",
+	X"0002",
 	X"0C00",
-	X"000A",
-	X"2008",
-	X"0001",
+	X"0000",
 	X"2009",
-	X"0008",
-	X"03E0",
-	X"0002",
-	X"0C00",
-	X"0002",
-	X"200A",
+	X"0000",
+	X"8128",
+	X"0032",
+	X"2009",
+	X"0000",
+	X"A128",
 	others => (others => 'X')); 
 
 	signal IR_decode_alu_immed,
@@ -83,6 +82,7 @@ architecture aluSim_tb_arch of aluSim_tb  is
 	IR_decode_ori,
 	IR_decode_lui,
 	IR_decode_lw,
+	IR_decode_lb,
 	IR_decode_sb,
 	IR_decode_sw : std_logic := '0';
 begin
@@ -104,6 +104,7 @@ begin
 	IR_decode_ori <= '1' when (IR(31 downto 26) = "001101") else '0';
 	IR_decode_lui <= '1' when (IR(31 downto 26) = "001111") else '0';
 	IR_decode_lw <= '1' when (IR(31 downto 26) = "100011") else '0';
+	IR_decode_lb <= '1' when (IR(31 downto 26) = "100000") else '0';
 	IR_decode_sb <= '1' when (IR(31 downto 26) = "101000") else '0';
 	IR_decode_sw <= '1' when (IR(31 downto 26) = "101010") else '0';
 
@@ -115,7 +116,7 @@ begin
 	IR_decode_branch<= '1' when (IR_decode_beq or IR_decode_bne) else '0';
 	IR_decode_alu_immed<= '1' when (IR_decode_addi or IR_decode_slti  
 			      or IR_decode_andi or IR_decode_ori or IR_decode_lui) else '0';
-	IR_decode_mem<= '1' when (IR_decode_lw or IR_decode_sb or IR_decode_sw) else '0';
+	IR_decode_mem<= '1' when (IR_decode_lw or IR_decode_lb or IR_decode_sb or IR_decode_sw) else '0';
 
 
 	aluSim_test: entity aluSim 
@@ -198,22 +199,36 @@ begin
 				if IR_decode_alu_reg or IR_decode_alu_immed or IR_decode_shift
 				then 
 					GPR(to_integer(unsigned(dest_addr))) := ALU_result;
+				elsif IR_decode_mem then 
+					if IR_decode_lb then 
+						GPR(to_integer(unsigned(dest_addr)))(7 downto 0) 
+							:= memory(to_integer(unsigned(ALU_result)))(7 downto 0);
+					elsif IR_decode_sb then 
+						memory(to_integer(unsigned(ALU_result)))(7 downto 0) 
+							<= GPR(to_integer(unsigned(dest_addr)))(7 downto 0); 
+					elsif IR_decode_lw then 
+						GPR(to_integer(unsigned(dest_addr)))(15 downto 0) 
+							:= memory(to_integer(unsigned(ALU_result)));
+					elsif IR_decode_sw then 
+						memory(to_integer(unsigned(ALU_result))) 
+							<= GPR(to_integer(unsigned(dest_addr)))(15 downto 0); 
+					end if;
 				end if;
 			end if;
 		end if;
 	end process GPR_mem;
 
 
-		gen_clk: process is
-		begin
-			for i in 1 to 400 loop 
-				wait for 1 ms;
-				sysclk1 <= '1';
-				wait for 1 ms;
-				sysclk1 <= '0';
-			end loop;
-			wait;
-		end process gen_clk;
+	gen_clk: process is
+	begin
+		for i in 1 to 400 loop 
+			wait for 1 ms;
+			sysclk1 <= '1';
+			wait for 1 ms;
+			sysclk1 <= '0';
+		end loop;
+		wait;
+	end process gen_clk;
 
 		with currentState select
 			fsmStateCode <=

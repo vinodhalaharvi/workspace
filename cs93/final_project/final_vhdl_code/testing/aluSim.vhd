@@ -100,13 +100,11 @@ begin
 			ALU_result_internal <= std_logic_vector(unsigned(GPR_left_operand) 
 					       + unsigned(X"0000" & std_logic_vector(IR_offset))); 
 		else
-			--ALU_result_internal <= (others => 'X'); 
-			ALU_result_internal <= X"0000AAAA"; 
+			ALU_result_internal <= (others => 'X'); 
 		end if;
 
 		if ALU_result_internal = X"00000000" then 
 			ALU_Z_internal <= '1';
 		end if; 
-		--wait for 10 ns; 
 	end process ALU_Inst;
 end architecture aluSim_arch;
