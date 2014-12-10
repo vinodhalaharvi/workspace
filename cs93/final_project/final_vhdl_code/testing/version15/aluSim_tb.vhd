@@ -128,9 +128,12 @@ begin
 			 ALU_Z => ALU_Z,
 			 ALU_result => ALU_result
 		 );       
+
 	branch_taken <= ALU_Z when IR_decode_beq = '1' else
 			not ALU_Z when IR_decode_bne = '1' else 
 			'0'; 
+
+
 	fsm : process(sysclk1, reset) is
 	begin
 		if reset = '1' then

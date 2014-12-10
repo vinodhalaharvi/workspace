@@ -3,15 +3,14 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.all; 
 
-entity  aluSim_tb is
-	end entity aluSim_tb;
+entity  hardwareSim_tb is
+	end entity hardwareSim_tb;
 
-architecture aluSim_tb_arch of aluSim_tb  is
+architecture hardwareSim_tb_arch of hardwareSim_tb  is
 	signal sysclk1 : std_logic := '0';
 	signal fsmStateCode : std_logic_vector(5 downto 0); 
-	type states is (init, fetch_state, decode_state, execute_state, write_back_state); 
+	type states is (init, fetch_state, decode_state, execute_state, write_back_state, mem_state); 
 	signal reset : std_logic := '0';
-	type memory_array is array(0 to 32768) of std_logic_vector(15 downto 0);
 
 	signal pc : std_logic_vector(20 downto 0) := '0' & X"00000"; 
 
@@ -43,19 +42,7 @@ architecture aluSim_tb_arch of aluSim_tb  is
 	alias IR_offset is IR(15 downto 0); 
 
 	signal currentState : states := init; 
-	signal memory : memory_array := (
-	X"0002",
-	X"0C00",
-	X"0000",
-	X"2009",
-	X"0000",
-	X"8128",
-	X"0032",
-	X"2009",
-	X"0000",
-	X"A128",
-	others => (others => 'X')); 
-
+	signal previousState : states := init; 
 	signal IR_decode_alu_immed,
 	IR_decode_mem, 
 	IR_decode_shift,
@@ -85,7 +72,32 @@ architecture aluSim_tb_arch of aluSim_tb  is
 	IR_decode_lb,
 	IR_decode_sb,
 	IR_decode_sw : std_logic := '0';
+
+	signal mem_dataready_inv :  std_logic;
+	signal mem_data_read :  std_logic_vector(31 downto 0) := X"00000000";
+	signal mem_ready :  std_logic;
+	signal mem_addr :  std_logic_vector(20 downto 0);
+	signal mem_reset :  std_logic := '0';
+	signal mem_data_write :  std_logic_vector(31 downto 0);
+	signal mem_rw :  std_logic;
+	signal mem_sixteenbit :  std_logic;
+	signal mem_thirtytwobit :  std_logic;
+	signal mem_addressready :  std_logic;
 begin
+	memory_inst: entity memorySim port map (
+						       mem_dataready_inv => mem_dataready_inv,
+						       mem_data_read => mem_data_read,
+						       mem_ready => mem_ready,
+						       mem_addressready => mem_addressready,
+						       mem_addr => mem_addr,
+						       mem_reset => mem_reset,
+						       mem_data_write => mem_data_write,
+						       mem_rw => mem_rw,
+						       mem_sixteenbit => mem_sixteenbit,
+						       mem_thirtytwobit => mem_thirtytwobit,
+						       sysclk1 => sysclk1
+					       ); 
+
 	IR_decode_add <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "100000") else '0';
 	IR_decode_sub <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "100010") else '0';
 	IR_decode_sll <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "000000") else '0';
@@ -142,10 +154,27 @@ begin
 					currentState <= fetch_state; 
 				when fetch_state =>
 					--get data from memory instead 
-					IR(15 downto 0) <= memory(to_integer(unsigned(pc))); 
-					IR(31 downto 16) <= memory(to_integer(unsigned(pc) + 1)); 
-					pc <= std_logic_vector(unsigned(pc) + 2); 
-					currentState <= decode_state; 
+					--IR(15 downto 0) <= memory(to_integer(unsigned(pc))); 
+					--IR(31 downto 16) <= memory(to_integer(unsigned(pc) + 1)); 
+					if mem_dataready_inv = '1' and previousState /= fetch_state  then 
+						mem_rw <= '0';
+						mem_addr <= pc;
+						mem_sixteenbit <= '0';
+						mem_thirtytwobit <= '1';
+						mem_addressready <= '1';
+						previousState <= fetch_state; 
+						currentState <= mem_state; 
+					else
+						pc <= std_logic_vector(unsigned(pc) + 2); 
+						IR <= mem_data_read; 
+						currentState <= decode_state;
+						previousState <= init;
+					end if; 
+				when mem_state =>
+					if mem_dataready_inv = '0' then 
+						currentState <= previousState;
+					--currentState <= decode_state;
+					end if;
 				when decode_state =>
 					currentState <= execute_state;
 				when execute_state =>
@@ -198,17 +227,59 @@ begin
 					GPR(to_integer(unsigned(dest_addr))) := ALU_result;
 				elsif IR_decode_mem then 
 					if IR_decode_lb then 
-						GPR(to_integer(unsigned(dest_addr)))(7 downto 0) 
-							:= memory(to_integer(unsigned(ALU_result)))(7 downto 0);
+						if mem_dataready_inv = '1' and previousState /= write_back_state  then 
+							mem_rw <= '0';
+							mem_addr <= ALU_result(20 downto 0);
+							mem_sixteenbit <= '0';
+							mem_thirtytwobit <= '1';
+							mem_addressready <= '1';
+							previousState <= write_back_state; 
+							currentState <= mem_state; 
+						else
+							GPR(to_integer(unsigned(dest_addr)))(7 downto 0) 
+							:= mem_data_read(7 downto 0); 
+							GPR(to_integer(unsigned(dest_addr)))(31 downto 8) 
+							:=  X"000000";
+						end if; 
 					elsif IR_decode_sb then 
-						memory(to_integer(unsigned(ALU_result)))(7 downto 0) 
-							<= GPR(to_integer(unsigned(dest_addr)))(7 downto 0); 
+						if mem_dataready_inv = '1' and previousState /= write_back_state then 
+							mem_rw <= '1';
+							mem_addr <= ALU_result(20 downto 0); 
+							mem_sixteenbit <= '1';
+							mem_thirtytwobit <= '0';
+							mem_addressready <= '1';
+							mem_data_write(7 downto 0) <= GPR(to_integer(unsigned(dest_addr)))(7 downto 0); 
+							mem_data_write(31 downto 8) <= X"000000";
+							previousState <= write_back_state; 
+							currentState <= mem_state; 
+						end if; 
 					elsif IR_decode_lw then 
-						GPR(to_integer(unsigned(dest_addr)))(15 downto 0) 
-							:= memory(to_integer(unsigned(ALU_result)));
+						if mem_dataready_inv = '1' and previousState /= write_back_state  then 
+							mem_rw <= '0';
+							mem_addr <= ALU_result(20 downto 0); 
+							mem_sixteenbit <= '0';
+							mem_thirtytwobit <= '1';
+							mem_addressready <= '1';
+							previousState <= write_back_state; 
+							currentState <= mem_state; 
+						else
+							GPR(to_integer(unsigned(dest_addr)))(15 downto 0) 
+							:= mem_data_read(15 downto 0); 
+							GPR(to_integer(unsigned(dest_addr)))(31 downto 16) 
+							:=  X"0000";
+						end if; 
 					elsif IR_decode_sw then 
-						memory(to_integer(unsigned(ALU_result))) 
-							<= GPR(to_integer(unsigned(dest_addr)))(15 downto 0); 
+						if mem_dataready_inv = '1' and previousState /= write_back_state then 
+							mem_rw <= '1';
+							mem_addr <= ALU_result(20 downto 0); 
+							mem_sixteenbit <= '1';
+							mem_thirtytwobit <= '0';
+							mem_addressready <= '1';
+							mem_data_write(15 downto 0) <= GPR(to_integer(unsigned(dest_addr)))(15 downto 0); 
+							mem_data_write(31 downto 16) <= X"0000";
+							previousState <= write_back_state; 
+							currentState <= mem_state; 
+						end if; 
 					end if;
 				end if;
 			end if;
@@ -227,12 +298,12 @@ begin
 		wait;
 	end process gen_clk;
 
-		with currentState select
-			fsmStateCode <=
-		       "000000" when init,
-		       "000001" when fetch_state,
-		       "000010" when decode_state,
-		       "000011" when execute_state,
-		       "000100" when write_back_state,
-		       "111111" when others;
-end architecture aluSim_tb_arch;
+	with currentState select
+		fsmStateCode <=
+	       "000000" when init,
+	       "000001" when fetch_state,
+	       "000010" when decode_state,
+	       "000011" when execute_state,
+	       "000100" when write_back_state,
+	       "111111" when others;
+end architecture hardwareSim_tb_arch;
