@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity  memorySim is
 	port (
-		     mem_dataready_inv : out std_logic := '1';
+		     mem_dataready_inv : out std_logic; 
 		     mem_data_read : out std_logic_vector(31 downto 0); 
 		     mem_data_write : in std_logic_vector(31 downto 0);
 		     mem_ready : out std_logic;
@@ -25,70 +25,46 @@ architecture memorySim_arch of memorySim  is
 	X"0C00",
 	X"0000",
 	X"2009",
-	X"0000",
+	X"003C",
 	X"8128",
 	X"0032",
 	X"2009",
-	X"0000",
-	X"A128",
+	X"0050",
+	X"A929",
+	X"0050",
+	X"8D2A",
 	others => (others => 'X')); 
-
-	type states is (init, wait_for_addressready, set_data_ready_inv); 
-	signal currentState : states := init; 
-	signal fsmStateCode : std_logic_vector(5 downto 0); 
 begin
 
 	FSM :
-	process(sysclk1, mem_reset) is
+	process(mem_addressready) is
 	begin
-		if mem_reset = '1' then
-			currentState <= init;
-		elsif rising_edge(sysclk1) then
-			case currentState is
-				when init =>
-					currentState <= wait_for_addressready;
-					mem_dataready_inv <= '1';
-				when wait_for_addressready =>
-					if mem_addressready = '1' then
-						currentState <= set_data_ready_inv; 
-					end if; 
-				when set_data_ready_inv =>
-					if mem_rw = '0' then 
-						if mem_thirtytwobit = '1' then  
-							mem_data_read(15 downto 0) 
-								<= memory(to_integer(unsigned(mem_addr))); 
-							mem_data_read(31 downto 16) 
-								<= memory(to_integer(unsigned(mem_addr) + 1)); 
-						else 
-							mem_data_read(15 downto 0) 
-								<= memory(to_integer(unsigned(mem_addr))); 
-							mem_data_read(31 downto 16)  <= (others => '0'); 
-						end if;
-					else
-						if mem_thirtytwobit = '1'  then 
-							memory(to_integer(unsigned(mem_addr))) 
-								<= mem_data_write(15 downto 0); 
-							memory(to_integer(unsigned(mem_addr) + 1)) 
-								<= mem_data_write(31 downto 16); 
-						 else 
-							memory(to_integer(unsigned(mem_addr))) 
-								<= mem_data_write(15 downto 0); 
-						 end if;
-						
-					end if;
-					currentState <= init; 
-					mem_dataready_inv <= '0';
-			end case;
+		if mem_addressready = '1' then 
+			if mem_rw = '0' then 
+				if mem_thirtytwobit = '1' then  
+					mem_data_read(15 downto 0) 
+						<= memory(to_integer(unsigned(mem_addr))); 
+					mem_data_read(31 downto 16) 
+						<= memory(to_integer(unsigned(mem_addr) + 1)); 
+				else 
+					mem_data_read(15 downto 0) 
+						<= memory(to_integer(unsigned(mem_addr))); 
+					mem_data_read(31 downto 16)  <= (others => '0'); 
+				end if;
+			else
+				if mem_thirtytwobit = '1'  then 
+					memory(to_integer(unsigned(mem_addr))) 
+						<= mem_data_write(15 downto 0); 
+					memory(to_integer(unsigned(mem_addr) + 1)) 
+						<= mem_data_write(31 downto 16); 
+				 else 
+					memory(to_integer(unsigned(mem_addr))) 
+						<= mem_data_write(15 downto 0); 
+				 end if;
+			end if;
+			mem_dataready_inv <= '0';
+		else
+			mem_dataready_inv <= '1';
 		end if;
 	end process;
-
-
-	with currentState select
-		fsmStateCode <=
-	       "000000" when init,
-	       "000001" when wait_for_addressready,
-	       "000010" when set_data_ready_inv,
-	       "111111" when others;
-
-
 end architecture memorySim_arch;
