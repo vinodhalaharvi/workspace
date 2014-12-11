@@ -28,19 +28,11 @@
 		syscall
 		li $v0, 10 
 		syscall
-	jal main
 	main:
 		addi $t0, $zero, 10
-		addi $t1, $zero, 5
-		addi $t3, $zero, 2
-		sub  $t2, $t0, $t1
-		addi $t1, $zero, 5
-		sll  $t1, $t0, 3 
-		sllv $t2, $t0, $t3
-		sllv $t2, $t0, $t3
-		slti $t1, $t2, 10
-		sllv $t2, $t0, $t3
-		srav $t1, $t2, $t3
-		srl  $t1, $t0, 5
-		srav $t1, $t2, $t3
+		addi $t1, $zero, 9 
+		addi $t2, $zero, 8
+		add  $t3, $t1, $t2
+		sub  $t0, $t3, $t0
 		jal printAndExit
+

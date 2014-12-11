@@ -114,10 +114,10 @@ architecture MyDefault of de2_115_shell is
 	attribute chip_pin of clock_step : signal is "M23";
 	attribute chip_pin of reset : signal is "M21";
 
+	--signal ALU_result_internal : std_logic_vector(31 downto 0);
 	signal IR :  std_logic_vector(31 downto 0); 
-	signal PC :  std_logic_vector(19 downto 0);
+	signal pc :  std_logic_vector(20 downto 0);
 	signal not_reset : std_logic := '0';
-	signal ALU_result_internal : std_logic_vector(31 downto 0);
 	signal destination_register : std_logic_vector(31 downto 0);
 	signal fsmStateCode :  std_logic_vector(3 downto 0);
 	
@@ -178,12 +178,12 @@ begin
 			mem_addressready =>  mem_addressready, 
 
 			-- for debugging only
-			ALU_result => ALU_result_internal, 
+			--ALU_result => ALU_result_internal, 
 			displayOutput => displayOutput, 
 			displaySwitches => displaySwitches, 
 			--destination_register => destination_register, 
 			IR =>  IR, 
-			PC => PC,
+			pc => pc,
 			fsmStateCode =>  fsmStateCode
 		); 
 	sevenSegTesting0_inst: entity sevenSegTesting 
@@ -219,7 +219,7 @@ begin
 		 
 	sevenSegTesting6: entity sevenSegTesting 
 	port map (
-			 bcd => PC(3 downto 0), 
+			 bcd => pc(3 downto 0), 
 			 seg => seg6 
 		 ); 
 	sevenSegTesting7: entity sevenSegTesting 

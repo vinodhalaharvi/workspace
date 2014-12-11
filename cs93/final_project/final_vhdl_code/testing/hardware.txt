@@ -1,0 +1,4 @@
+hardwareSim_tb.vhd
+aluSim.vhd
+memorySim.vhd
+mycpu_defs.vhd

@@ -194,8 +194,13 @@ begin
 					end if; 
 					GPR_left_operand <= GPR(to_integer(unsigned(IR25_21)));
 					GPR_right_operand <= GPR(to_integer(unsigned(IR20_16)));
-					dest_addr <= IR15_11 when (IR_decode_alu_reg or IR_decode_shift) else
-						     IR20_16 when  (IR_decode_branch or IR_decode_alu_immed or  IR_decode_mem);
+					--dest_addr <= IR15_11 when (IR_decode_alu_reg or IR_decode_shift) else
+					--	     IR20_16 when  (IR_decode_branch or IR_decode_alu_immed or  IR_decode_mem);
+					if IR_decode_alu_reg or IR_decode_shift then 
+						dest_addr <= IR15_11; 
+					else 
+						dest_addr <= IR20_16; 
+					end if; 
 					currentState <= execute_state;
 				when execute_state =>
 					if IR_decode_branch = '1' and branch_taken = '1' then
@@ -309,6 +314,7 @@ begin
 	       "000001" when fetch_state,
 	       "000010" when decode_state,
 	       "000011" when execute_state,
-	       "000100" when write_back_state,
+	       "000100" when mem_state,
+	       "000101" when write_back_state,
 	       "111111" when others;
 end architecture hardwareSim_tb_arch;
