@@ -85,16 +85,6 @@ architecture mycpu_arch of mycpu  is
 	IR_decode_lb,
 	IR_decode_sb,
 	IR_decode_sw : std_logic := '0';
-	--signal mem_dataready_inv :  std_logic;
-	--signal mem_data_read :  std_logic_vector(31 downto 0) := X"00000000";
-	--signal mem_ready :  std_logic;
-	--signal mem_addr :  std_logic_vector(20 downto 0);
-	--signal mem_reset :  std_logic := '0';
-	--signal mem_data_write :  std_logic_vector(31 downto 0);
-	--signal mem_rw :  std_logic;
-	--signal mem_sixteenbit :  std_logic;
-	--signal mem_thirtytwobit :  std_logic;
-	--signal mem_addressready :  std_logic;
 begin
 	IR_decode_add <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "100000") else '0';
 	IR_decode_sub <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "100010") else '0';
@@ -134,9 +124,9 @@ begin
 			 ALU_Z => ALU_Z,
 			 ALU_result => ALU_result
 		 );       
-	branch_taken <= ALU_Z when IR_decode_beq = '1' else
-			not ALU_Z when IR_decode_bne = '1' else 
-			'0'; 
+
+	branch_taken <= ALU_Z when (IR_decode_beq = '1' or IR_decode_bne = '1' ) else '0';
+	--branch_taken <= ALU_Z when IR_decode_beq = '1' else '0'; 
 	fsm : process(sysclk1, reset, mem_data_read, mem_dataready_inv, mem_ready) is
 		subtype reg_index is natural range 0 to 31;
 		subtype double_word is std_logic_vector(31 downto 0); 
@@ -156,9 +146,6 @@ begin
 					pc <= '0' & X"00000"; 
 					currentState <= fetch_state; 
 				when fetch_state =>
-					--get data from memory instead 
-					--IR(15 downto 0) <= memory(to_integer(unsigned(pc))); 
-					--IR(31 downto 16) <= memory(to_integer(unsigned(pc) + 1)); 
 					if mem_dataready_inv = '1' and previousState /= fetch_state  then 
 						mem_rw <= '0';
 						mem_addr <= pc;
@@ -168,7 +155,6 @@ begin
 						previousState <= fetch_state; 
 						currentState <= mem_state; 
 					else
-						--pc <= std_logic_vector(unsigned(pc) + 2); 
 						pc <= std_logic_vector(unsigned(pc) + 4); 
 						IR <= mem_data_read; 
 						currentState <= decode_state;
@@ -213,7 +199,7 @@ begin
 						currentState <= write_back_state;
 					end if; 
 				when write_back_state =>
-					if IR_decode_alu_reg or IR_decode_alu_immed or IR_decode_shift
+					if IR_decode_alu_reg or IR_decode_alu_immed or IR_decode_shift or IR_decode_slt
 					then 
 						GPR(to_integer(unsigned(dest_addr))) := ALU_result;
 						currentState <= fetch_state; 

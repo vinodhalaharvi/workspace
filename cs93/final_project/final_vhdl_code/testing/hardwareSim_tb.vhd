@@ -141,9 +141,9 @@ begin
 			 ALU_result => ALU_result
 		 );       
 
-	branch_taken <= ALU_Z when IR_decode_beq = '1' else
-			not ALU_Z when IR_decode_bne = '1' else 
-			'0'; 
+	branch_taken <= ALU_Z when (IR_decode_beq = '1' or IR_decode_bne = '1' ) else '0';
+			--not ALU_Z when IR_decode_bne = '1' else 
+			--'0'; 
 
 	fsm : process(sysclk1, reset) is
 		subtype reg_index is natural range 0 to 31;
@@ -218,7 +218,7 @@ begin
 						currentState <= write_back_state;
 					end if; 
 				when write_back_state =>
-					if IR_decode_alu_reg or IR_decode_alu_immed or IR_decode_shift
+					if IR_decode_alu_reg or IR_decode_alu_immed or IR_decode_shift or IR_decode_slt
 					then 
 						GPR(to_integer(unsigned(dest_addr))) := ALU_result;
 						currentState <= fetch_state; 

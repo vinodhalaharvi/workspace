@@ -1,5 +1,4 @@
-#10 10 10 0
-jal main
+#10 10 40 2 
 main:
 	addi $t0, $zero, 10
 	addi $t1, $zero, 5
