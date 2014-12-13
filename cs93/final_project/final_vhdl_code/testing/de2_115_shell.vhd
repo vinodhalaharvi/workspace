@@ -219,12 +219,14 @@ begin
 		 
 	sevenSegTesting6: entity sevenSegTesting 
 	port map (
-			 bcd => pc(3 downto 0), 
+			 --bcd => pc(3 downto 0), 
+			 bcd => displayOutput(11 downto 8), 
 			 seg => seg6 
 		 ); 
 	sevenSegTesting7: entity sevenSegTesting 
 	port map (
-			 bcd => fsmStateCode, 
+			 --bcd => fsmStateCode, 
+			 bcd => displayOutput(15 downto 12), 
 			 seg => seg7 
 		 ); 
 end;
