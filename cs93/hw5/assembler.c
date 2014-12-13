@@ -266,10 +266,21 @@ void do_first_pass(int argc, const char *argv[]){
 			continue; 
 		if(is_valid_inst(line)){
 			char * inst = getInstName(line); 
+#ifdef WORDADDRESSABLE
 			if (strcmp(inst, "la") == 0)
 				tmpaddr += 4; 
 			else 
 				tmpaddr += 2; 
+#else
+			//otherwise this is a byte addressable
+			//currently modelSim, My emulator uses WORDADDRESSABLE
+			//and Altera memory_controller uses byte addressable
+			//so I need to make this distinction
+			if (strcmp(inst, "la") == 0)
+				tmpaddr += 8; 
+			else 
+				tmpaddr += 4; 
+#endif
 			free(inst);
 		 } 
 		if (islabel(line)){
