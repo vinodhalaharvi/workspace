@@ -1,5 +1,3 @@
-jal main
-nop
 main:
 	addi $t0, $t0, 7
 	addi $t1, $t1, 6
@@ -15,7 +13,7 @@ main:
 	srav $t1, $t2, $t3
 	srl $t1, $t0, 2 
 	sub $t1, $t0, $zero
-	# beq testing
+	#beq testing
 	addi $t0, $zero, 10
 	addi $t1, $zero, 5
 	addi $t3, $zero, 2
@@ -31,7 +29,6 @@ main:
 		srav $t1, $t2, $t3
 		srl  $t1, $t0, 5
 		srav $t1, $t2, $t3
-
 	addi $t0, $zero, 10
 	addi $t4, $zero, 7
 	add  $t0, $t3, $t2
@@ -54,4 +51,3 @@ main:
 			srav $t1, $t2, $t3
 			srl  $t1, $t0, 5
 			srav $t1, $t2, $t3
-

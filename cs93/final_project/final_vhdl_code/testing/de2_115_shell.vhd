@@ -92,12 +92,12 @@ architecture MyDefault of de2_115_shell is
 	signal mem_thirtytwobit :  std_logic;
 	signal mem_addressready :  std_logic;
 	--signal mem_reset :  std_logic := '0' ;
-	signal clock_hold :  std_logic := '1' ;
+	signal clock_hold :  std_logic := '0' ;
 	--signal clock_step :  std_logic := '1';
 	signal sysclk1 : std_logic;
 	signal sysclk2 : std_logic;
 	
-	signal clock_divide_limit :  std_logic_vector(19 downto 0) := (others => '0');
+	signal clock_divide_limit :  std_logic_vector(19 downto 0) := (others => '1');
 	signal mem_suspend :  std_logic := '0' ;
 	signal serial_character_ready :  std_logic := '0' ;
 	signal ps2_character_ready :  std_logic := '0' ;
@@ -136,7 +136,7 @@ begin
 		 ps2_data => ps2_data,
 		 clock_hold => clock_hold, 
 		 clock_step => clock_step, 
-		 --clock_divide_limit => clock_divide_limit, 
+		 clock_divide_limit => clock_divide_limit, 
 		 mem_suspend => mem_suspend,
 		 lcd_en => lcd_en,
 		 lcd_on => lcd_on,
