@@ -37,11 +37,11 @@ begin
 	ALU_Inst : process(all) is 
 	begin
 		if (IR31_26 = op_fn_special) and (IR5_0 = alu_fn_add) then
-			ALU_result_internal <= std_logic_vector(unsigned(GPR_left_operand) 
-					       + unsigned(GPR_right_operand));
+			ALU_result_internal <= std_logic_vector(signed(GPR_left_operand) 
+					       + signed(GPR_right_operand));
 		elsif (IR31_26 = op_fn_special) and (IR5_0 = alu_fn_sub) then
-			ALU_result_internal <= std_logic_vector(unsigned(GPR_left_operand) 
-					       - unsigned(GPR_right_operand));
+			ALU_result_internal <= std_logic_vector(signed(GPR_left_operand) 
+					       - signed(GPR_right_operand));
 		elsif (IR31_26 = op_fn_special) and (IR5_0 = alu_fn_sll) then
 			ALU_result_internal <= std_logic_vector(unsigned(GPR_right_operand) 
 					       sll to_integer(unsigned(IR_count)));
@@ -55,7 +55,7 @@ begin
 			ALU_result_internal <= std_logic_vector(unsigned(GPR_right_operand) 
 					       srl to_integer(unsigned(GPR_left_operand))); 
 		elsif (IR31_26 = op_fn_special) and (IR5_0 = alu_fn_slt) then 
-			if to_integer(unsigned(GPR_left_operand)) < to_integer(unsigned(GPR_right_operand)) 
+			if to_integer(signed(GPR_left_operand)) < to_integer(signed(GPR_right_operand)) 
 			then
 				ALU_result_internal <=  X"00000001";
 			else 
@@ -76,10 +76,10 @@ begin
 				ALU_Z_internal <= '0'; 
 			end if;
 		elsif (IR31_26 = op_fn_addi) then 
-			ALU_result_internal <= std_logic_vector(unsigned(GPR_left_operand) 
-					       +  unsigned(X"0000" & std_logic_vector(IR_immed)));
+			ALU_result_internal <= std_logic_vector(signed(GPR_left_operand) +  signed(IR_immed));
+					       --+  unsigned(X"0000" & std_logic_vector(IR_immed)));
 		elsif (IR31_26 = op_fn_slti) then 
-			if (unsigned(GPR_left_operand) < unsigned(IR_immed))  then 
+			if (signed(GPR_left_operand) < signed(IR_immed))  then 
 				ALU_result_internal <=  X"00000001";
 			else 
 				ALU_result_internal <= X"00000000";
@@ -91,20 +91,18 @@ begin
 		elsif (IR31_26 = op_fn_lui) then 
 			ALU_result_internal <= std_logic_vector(unsigned(X"0000" & std_logic_vector(IR_immed)) sll 16); 
 		elsif (IR31_26 = op_fn_lw) then 
-			ALU_result_internal <= std_logic_vector(unsigned(GPR_left_operand) 
-					       + unsigned(X"0000" & std_logic_vector(IR_offset))); 
+			ALU_result_internal <= std_logic_vector(signed(GPR_left_operand) +  signed(IR_offset));
+			--ALU_result_internal <= std_logic_vector(unsigned(GPR_left_operand) 
+			--		       + unsigned(X"0000" & std_logic_vector(IR_offset))); 
 		elsif (IR31_26 = op_fn_sb) then 
-			ALU_result_internal <= std_logic_vector(unsigned(GPR_left_operand) 
-					       + unsigned(X"0000" & std_logic_vector(IR_offset))); 
+			ALU_result_internal <= std_logic_vector(signed(GPR_left_operand) +  signed(IR_offset));
 		elsif (IR31_26 = op_fn_sw) then 
-			ALU_result_internal <= std_logic_vector(unsigned(GPR_left_operand) 
-					       + unsigned(X"0000" & std_logic_vector(IR_offset))); 
+			ALU_result_internal <= std_logic_vector(signed(GPR_left_operand) +  signed(IR_offset));
 		else
 			ALU_result_internal <= (others => 'X'); 
 		end if;
-
-		if ALU_result_internal = X"00000000" then 
-			ALU_Z_internal <= '1';
-		end if; 
+		--if ALU_result_internal = X"00000000" then 
+		--	ALU_Z_internal <= '1';
+		--end if; 
 	end process ALU_Inst;
 end architecture aluSim_arch;

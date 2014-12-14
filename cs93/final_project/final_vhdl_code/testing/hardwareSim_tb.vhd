@@ -194,8 +194,6 @@ begin
 					end if; 
 					GPR_left_operand <= GPR(to_integer(unsigned(IR25_21)));
 					GPR_right_operand <= GPR(to_integer(unsigned(IR20_16)));
-					--dest_addr <= IR15_11 when (IR_decode_alu_reg or IR_decode_shift) else
-					--	     IR20_16 when  (IR_decode_branch or IR_decode_alu_immed or  IR_decode_mem);
 					if IR_decode_alu_reg or IR_decode_shift then 
 						dest_addr <= IR15_11; 
 					else 
@@ -203,9 +201,14 @@ begin
 					end if; 
 					currentState <= execute_state;
 				when execute_state =>
-					if IR_decode_branch = '1' and branch_taken = '1' then
-						pc <= "00000" & IR_offset;
-						currentState <= fetch_state;
+					--if IR_decode_branch = '1' and branch_taken = '1' then
+					if IR_decode_branch = '1' then 
+						if branch_taken = '1' then
+							pc <= "00000" & IR_offset;
+							currentState <= fetch_state;
+						else 
+							currentState <= fetch_state;
+						end if;
 					elsif IR_decode_jump  = '1' then
 						if IR_decode_j or IR_decode_jal then  
 							pc <= "00000" & IR_jumpaddr(15 downto 0);
@@ -299,7 +302,7 @@ begin
 
 	gen_clk: process is
 	begin
-		for i in 1 to 400 loop 
+		for i in 1 to 9000 loop 
 			wait for 1 ms;
 			sysclk1 <= '1';
 			wait for 1 ms;

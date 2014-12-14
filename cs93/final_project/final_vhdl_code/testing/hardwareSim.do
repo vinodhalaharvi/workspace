@@ -16,4 +16,4 @@ vsim -t 10ns -L work hardwareSim_tb
 add wave /* 
 
 # run the simulation
-run 1000ms 
+run 10000ms 

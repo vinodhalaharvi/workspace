@@ -24,4 +24,3 @@ main:
 		srav $t1, $t2, $t3
 		srl  $t1, $t0, 5
 		srav $t1, $t2, $t3
-

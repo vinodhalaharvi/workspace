@@ -164,7 +164,6 @@ begin
 				when mem_state =>
 					if mem_dataready_inv = '0' then 
 						currentState <= previousState;
-					--currentState <= decode_state;
 					end if;
 				when decode_state =>
 					if IR_decode_jal then
@@ -174,19 +173,21 @@ begin
 					end if; 
 					GPR_left_operand <= GPR(to_integer(unsigned(IR25_21)));
 					GPR_right_operand <= GPR(to_integer(unsigned(IR20_16)));
-					--dest_addr <= IR15_11 when (IR_decode_alu_reg or IR_decode_shift) else
-					--IR20_16 when  (IR_decode_branch or IR_decode_alu_immed or  IR_decode_mem);
 					if IR_decode_alu_reg or IR_decode_shift then 
 						dest_addr <= IR15_11; 
 					else 
 						dest_addr <= IR20_16; 
 					end if; 
-
 					currentState <= execute_state;
 				when execute_state =>
-					if IR_decode_branch = '1' and branch_taken = '1' then
-						pc <= "00000" & IR_offset;
-						currentState <= fetch_state;
+					--if IR_decode_branch = '1' and branch_taken = '1' then
+					if IR_decode_branch = '1' then 
+						if branch_taken = '1' then
+							pc <= "00000" & IR_offset;
+							currentState <= fetch_state;
+						else 
+							currentState <= fetch_state;
+						end if;
 					elsif IR_decode_jump  = '1' then
 						if IR_decode_j or IR_decode_jal then  
 							pc <= "00000" & IR_jumpaddr(15 downto 0);
@@ -264,12 +265,12 @@ begin
 								mem_thirtytwobit <= '0';
 								mem_data_write(15 downto 0) <= GPR(to_integer(unsigned(dest_addr)))(15 downto 0); 
 								mem_data_write(31 downto 16) <= X"0000";
-								currentState <= mem_state; 
+								--currentState <= mem_state; 
 								mem_addressready <= '1';
-								previousState <= write_back_state; 
-							else 
-								previousState <= init;
-								mem_addressready <= '0';
+								--previousState <= write_back_state; 
+								--else 
+								--previousState <= init;
+								--mem_addressready <= '0';
 								currentState <= fetch_state; 
 							end if; 
 						end if;

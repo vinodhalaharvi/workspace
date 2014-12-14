@@ -15,7 +15,7 @@ How to run:
 # for modelSim and my emulator mif file gneration WORDADDRESSABLE should be 1
 make clean ; make runas CFLAGS+=-DDEBUG=1 CFLAGS+=-DWORDADDRESSABLE=1
 
-# debug assembler
+# run (no debug)  assembler
 # for modelSim and my emulator mif file gneration WORDADDRESSABLE should be 1
 make clean ; make runas  CFLAGS+=-DWORDADDRESSABLE=1
 
