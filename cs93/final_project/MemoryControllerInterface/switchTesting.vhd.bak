@@ -1,0 +1,28 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+entity  switchTesting is
+        port (
+                     displaySwitches : in std_logic_vector(4 downto 0); 
+                     displayOutput : out std_logic_vector(31 downto 0)
+); 
+end entity switchTesting;
+
+architecture switchTesting_arch of switchTesting  is
+        --signal displayOutput : std_logic_vector(31 downto 0); 
+        attribute chip_pin : string;
+        attribute chip_pin of displaySwitches : signal is "AB28, AC28, AC27, AD27, AB27"; 
+
+begin
+        displayOutput <= to_integer(unsigned(displaySwitches)); 
+        sevenSegTesting4: entity sevenSegTesting 
+        port map (
+                         bcd => displayOutput(3 downto 0), 
+                         seg => seg4 
+                 ); 
+        sevenSegTesting5: entity sevenSegTesting 
+        port map (
+                         bcd => displayOutput(7 downto 4), 
+                         seg => seg5 
+                 ); 
+end architecture switchTesting_arch;

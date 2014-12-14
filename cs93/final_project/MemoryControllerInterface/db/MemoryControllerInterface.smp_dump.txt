@@ -1,0 +1,146 @@
+
+State Machine - |de2_115_shell|mycpu:mpcpu_inst|previousState
+Name previousState.mem_state previousState.write_back_state previousState.execute_state previousState.decode_state previousState.fetch_state previousState.init 
+previousState.init 0 0 0 0 0 0 
+previousState.fetch_state 0 0 0 0 1 1 
+previousState.decode_state 0 0 0 1 0 1 
+previousState.execute_state 0 0 1 0 0 1 
+previousState.write_back_state 0 1 0 0 0 1 
+previousState.mem_state 1 0 0 0 0 1 
+
+State Machine - |de2_115_shell|mycpu:mpcpu_inst|currentState
+Name currentState.mem_state currentState.write_back_state currentState.execute_state currentState.decode_state currentState.fetch_state currentState.init 
+currentState.init 0 0 0 0 0 0 
+currentState.fetch_state 0 0 0 0 1 1 
+currentState.decode_state 0 0 0 1 0 1 
+currentState.execute_state 0 0 1 0 0 1 
+currentState.write_back_state 0 1 0 0 0 1 
+currentState.mem_state 1 0 0 0 0 1 
+
+State Machine - |de2_115_shell|memory_controller:mem|currentState
+Name currentState.SRAMFinishWrite currentState.SRAMContinueWrite_32 currentState.SRAMStartWrite_32 currentState.SRAMContinueWrite currentState.SRAMStartWrite currentState.SRAMWaitForWriteSignal currentState.SRAMFinishRead currentState.SRAMWaitRead_32_2 currentState.SRAMWaitRead_32_1 currentState.SRAMWaitRead2 currentState.SRAMWaitRead currentState.SRAMStartRead currentState.PutIoControl1 currentState.PutIoControl0 currentState.PutCharLcd1 currentState.PutCharLcd0 currentState.PutCharSerial1 currentState.PutCharSerial0 currentState.GetIoControl currentState.GetCharPs2_2 currentState.GetCharPs2_1 currentState.GetCharPs2_0 currentState.GetCharSerial2 currentState.GetCharSerial1 currentState.GetCharSerial0 currentState.ClockRamWrite32 currentState.ClockRamWrite currentState.WaitForWriteSignal currentState.ReadDataReady currentState.LatchReadOutputs32 currentState.ClockRamRead32 currentState.LatchReadOutputs currentState.ClockRamRead currentState.LatchControlInputs currentState.WaitForAddrReady currentState.Init 
+currentState.Init 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+currentState.WaitForAddrReady 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+currentState.LatchControlInputs 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+currentState.ClockRamRead 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+currentState.LatchReadOutputs 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+currentState.ClockRamRead32 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+currentState.LatchReadOutputs32 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+currentState.ReadDataReady 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+currentState.WaitForWriteSignal 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+currentState.ClockRamWrite 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+currentState.ClockRamWrite32 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+currentState.GetCharSerial0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+currentState.GetCharSerial1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.GetCharSerial2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.GetCharPs2_0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.GetCharPs2_1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.GetCharPs2_2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.GetIoControl 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.PutCharSerial0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.PutCharSerial1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.PutCharLcd0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.PutCharLcd1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.PutIoControl0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.PutIoControl1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.SRAMStartRead 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.SRAMWaitRead 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.SRAMWaitRead2 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.SRAMWaitRead_32_1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.SRAMWaitRead_32_2 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.SRAMFinishRead 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.SRAMWaitForWriteSignal 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.SRAMStartWrite 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.SRAMContinueWrite 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.SRAMStartWrite_32 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.SRAMContinueWrite_32 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+currentState.SRAMFinishWrite 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |de2_115_shell|memory_controller:mem|rs232_transmit:rs232_xmit|state
+Name state.SignalComplete state.TransmitStop state.Transmit7 state.Transmit6 state.Transmit5 state.Transmit4 state.Transmit3 state.Transmit2 state.Transmit1 state.Transmit0 state.TransmitStart state.Prep state.TxWait 
+state.TxWait 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.Prep 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.TransmitStart 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.Transmit0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.Transmit1 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.Transmit2 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.Transmit3 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.Transmit4 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.Transmit5 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.Transmit6 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.Transmit7 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.TransmitStop 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.SignalComplete 1 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |de2_115_shell|memory_controller:mem|rs232_receive:rs232_rcv|state
+Name state.WriteFifo state.RcvStop state.RcvData state.RcvStart state.Waiting 
+state.Waiting 0 0 0 0 0 
+state.RcvStart 0 0 0 1 1 
+state.RcvData 0 0 1 0 1 
+state.RcvStop 0 1 0 0 1 
+state.WriteFifo 1 0 0 0 1 
+
+State Machine - |de2_115_shell|memory_controller:mem|keyboard_interface:ps2_kb_ctrl|current_state
+Name current_state.Error current_state.KBIgnoreChar current_state.KBGotChar current_state.KBCompleteBreakCode current_state.KBGotF0Wait current_state.KBGotF0 current_state.WaitKBRecovered current_state.WaitKB current_state.Init 
+current_state.Init 0 0 0 0 0 0 0 0 0 
+current_state.WaitKB 0 0 0 0 0 0 0 1 1 
+current_state.WaitKBRecovered 0 0 0 0 0 0 1 0 1 
+current_state.KBGotF0 0 0 0 0 0 1 0 0 1 
+current_state.KBGotF0Wait 0 0 0 0 1 0 0 0 1 
+current_state.KBCompleteBreakCode 0 0 0 1 0 0 0 0 1 
+current_state.KBGotChar 0 0 1 0 0 0 0 0 1 
+current_state.KBIgnoreChar 0 1 0 0 0 0 0 0 1 
+current_state.Error 1 0 0 0 0 0 0 0 1 
+
+State Machine - |de2_115_shell|memory_controller:mem|keyboard_interface:ps2_kb_ctrl|ps2KeyboardReceiver:ps2rcv|currentBreakCodeState
+Name currentBreakCodeState.PostF0 currentBreakCodeState.GotF0 currentBreakCodeState.MyDefault 
+currentBreakCodeState.MyDefault 0 0 0 
+currentBreakCodeState.GotF0 0 1 1 
+currentBreakCodeState.PostF0 1 0 1 
+
+State Machine - |de2_115_shell|memory_controller:mem|keyboard_interface:ps2_kb_ctrl|ps2KeyboardReceiver:ps2rcv|currentShiftState
+Name currentShiftState.ShiftF0 currentShiftState.Shift currentShiftState.NoShift 
+currentShiftState.NoShift 0 0 0 
+currentShiftState.Shift 0 1 1 
+currentShiftState.ShiftF0 1 0 1 
+
+State Machine - |de2_115_shell|memory_controller:mem|keyboard_interface:ps2_kb_ctrl|ps2KeyboardReceiver:ps2rcv|currentState
+Name currentState.RCVERR currentState.RCVOK currentState.RCVSTOP currentState.RCVP currentState.RCV7 currentState.RCV6 currentState.RCV5 currentState.RCV4 currentState.RCV3 currentState.RCV2 currentState.RCV1 currentState.RCV0 currentState.WAITING 
+currentState.WAITING 0 0 0 0 0 0 0 0 0 0 0 0 0 
+currentState.RCV0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+currentState.RCV1 0 0 0 0 0 0 0 0 0 0 1 0 1 
+currentState.RCV2 0 0 0 0 0 0 0 0 0 1 0 0 1 
+currentState.RCV3 0 0 0 0 0 0 0 0 1 0 0 0 1 
+currentState.RCV4 0 0 0 0 0 0 0 1 0 0 0 0 1 
+currentState.RCV5 0 0 0 0 0 0 1 0 0 0 0 0 1 
+currentState.RCV6 0 0 0 0 0 1 0 0 0 0 0 0 1 
+currentState.RCV7 0 0 0 0 1 0 0 0 0 0 0 0 1 
+currentState.RCVP 0 0 0 1 0 0 0 0 0 0 0 0 1 
+currentState.RCVSTOP 0 0 1 0 0 0 0 0 0 0 0 0 1 
+currentState.RCVOK 0 1 0 0 0 0 0 0 0 0 0 0 1 
+currentState.RCVERR 1 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |de2_115_shell|memory_controller:mem|lcd_controller:lcd_ctrl|current_state
+Name current_state.AckFifo current_state.AckFifoCls current_state.GotEnterCls current_state.GotEnter current_state.GotCharWriteChar current_state.GotCharWriteAddrWait current_state.GotCharWriteAddr current_state.WaitCharComplete current_state.GrabbedChar current_state.GrabChar current_state.WaitChar2 current_state.WaitChar current_state.Init current_state.Error current_state.Done current_state.WriteAddr current_state.Init3 current_state.WaitCLS current_state.InitCLS current_state.Init2 current_state.Init1 current_state.Reinit 
+current_state.Reinit 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+current_state.Init1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+current_state.Init2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+current_state.InitCLS 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+current_state.WaitCLS 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+current_state.Init3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+current_state.WriteAddr 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+current_state.Done 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+current_state.Error 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+current_state.Init 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+current_state.WaitChar 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+current_state.WaitChar2 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+current_state.GrabChar 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+current_state.GrabbedChar 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+current_state.WaitCharComplete 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+current_state.GotCharWriteAddr 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+current_state.GotCharWriteAddrWait 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+current_state.GotCharWriteChar 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+current_state.GotEnter 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+current_state.GotEnterCls 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+current_state.AckFifoCls 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+current_state.AckFifo 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 

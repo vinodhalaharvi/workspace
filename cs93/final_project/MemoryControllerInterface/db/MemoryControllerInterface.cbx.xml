@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="MemoryControllerInterface">
+		<CBX_INST_ENTRY INSTANCE_NAME="|de2_115_shell|memory_controller:mem|keyboard_interface:ps2_kb_ctrl|char_fifo:fifo_kb|dcfifo:dcfifo_component" CBX_FILE_NAME="dcfifo_e1k1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|de2_115_shell|memory_controller:mem|rs232_receive:rs232_rcv|char_fifo:fifo_kb|dcfifo:dcfifo_component" CBX_FILE_NAME="dcfifo_e1k1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|de2_115_shell|memory_controller:mem|char_out_fifo:fifo_serial_out|dcfifo:dcfifo_component" CBX_FILE_NAME="dcfifo_jdl1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|de2_115_shell|memory_controller:mem|clockgen:clockgen|mem_pll_interface:pll|mem_pll:pll|altpll:altpll_component" CBX_FILE_NAME="mem_pll_altpll.v"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|de2_115_shell|memory_controller:mem|lcd_fifo:fifo_lcd|dcfifo:dcfifo_component" CBX_FILE_NAME="dcfifo_g1k1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|de2_115_shell|memory_controller:mem|ram_interface:ram|ram:ram|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_16j1.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

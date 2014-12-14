@@ -1,0 +1,5 @@
+# vsim hardwareSim_tb.do 
+# ** Error: (vsim-19) Failed to access library 'hardwareSim_tb' at "hardwareSim_tb".
+# 
+# No such file or directory. (errno = ENOENT)
+# Error loading design
