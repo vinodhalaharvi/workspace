@@ -1,21 +1,23 @@
 
 State Machine - |de2_115_shell|mycpu:mpcpu_inst|previousState
-Name previousState.mem_state previousState.write_back_state previousState.execute_state previousState.decode_state previousState.fetch_state previousState.init 
-previousState.init 0 0 0 0 0 0 
-previousState.fetch_state 0 0 0 0 1 1 
-previousState.decode_state 0 0 0 1 0 1 
-previousState.execute_state 0 0 1 0 0 1 
-previousState.write_back_state 0 1 0 0 0 1 
-previousState.mem_state 1 0 0 0 0 1 
+Name previousState.mem_state previousState.mul_state previousState.write_back_state previousState.execute_state previousState.decode_state previousState.fetch_state previousState.init 
+previousState.init 0 0 0 0 0 0 0 
+previousState.fetch_state 0 0 0 0 0 1 1 
+previousState.decode_state 0 0 0 0 1 0 1 
+previousState.execute_state 0 0 0 1 0 0 1 
+previousState.write_back_state 0 0 1 0 0 0 1 
+previousState.mul_state 0 1 0 0 0 0 1 
+previousState.mem_state 1 0 0 0 0 0 1 
 
 State Machine - |de2_115_shell|mycpu:mpcpu_inst|currentState
-Name currentState.mem_state currentState.write_back_state currentState.execute_state currentState.decode_state currentState.fetch_state currentState.init 
-currentState.init 0 0 0 0 0 0 
-currentState.fetch_state 0 0 0 0 1 1 
-currentState.decode_state 0 0 0 1 0 1 
-currentState.execute_state 0 0 1 0 0 1 
-currentState.write_back_state 0 1 0 0 0 1 
-currentState.mem_state 1 0 0 0 0 1 
+Name currentState.mem_state currentState.mul_state currentState.write_back_state currentState.execute_state currentState.decode_state currentState.fetch_state currentState.init 
+currentState.init 0 0 0 0 0 0 0 
+currentState.fetch_state 0 0 0 0 0 1 1 
+currentState.decode_state 0 0 0 0 1 0 1 
+currentState.execute_state 0 0 0 1 0 0 1 
+currentState.write_back_state 0 0 1 0 0 0 1 
+currentState.mul_state 0 1 0 0 0 0 1 
+currentState.mem_state 1 0 0 0 0 0 1 
 
 State Machine - |de2_115_shell|memory_controller:mem|currentState
 Name currentState.SRAMFinishWrite currentState.SRAMContinueWrite_32 currentState.SRAMStartWrite_32 currentState.SRAMContinueWrite currentState.SRAMStartWrite currentState.SRAMWaitForWriteSignal currentState.SRAMFinishRead currentState.SRAMWaitRead_32_2 currentState.SRAMWaitRead_32_1 currentState.SRAMWaitRead2 currentState.SRAMWaitRead currentState.SRAMStartRead currentState.PutIoControl1 currentState.PutIoControl0 currentState.PutCharLcd1 currentState.PutCharLcd0 currentState.PutCharSerial1 currentState.PutCharSerial0 currentState.GetIoControl currentState.GetCharPs2_2 currentState.GetCharPs2_1 currentState.GetCharPs2_0 currentState.GetCharSerial2 currentState.GetCharSerial1 currentState.GetCharSerial0 currentState.ClockRamWrite32 currentState.ClockRamWrite currentState.WaitForWriteSignal currentState.ReadDataReady currentState.LatchReadOutputs32 currentState.ClockRamRead32 currentState.LatchReadOutputs currentState.ClockRamRead currentState.LatchControlInputs currentState.WaitForAddrReady currentState.Init 

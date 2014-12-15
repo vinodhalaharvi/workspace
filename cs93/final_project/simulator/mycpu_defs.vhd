@@ -36,6 +36,7 @@ package mycpu_defs is
 	constant alu_fn_srl : alu_fn_code := "000010";
 	constant alu_fn_or : alu_fn_code := "100101";
 	constant alu_fn_jr : alu_fn_code := "001000";
+	constant alu_fn_mult : alu_fn_code := "011000";
 	--op codes
 	--subtype op_fn_code is unsigned(5 downto 0);	
 	subtype op_fn_code is std_logic_vector(5 downto 0);	
@@ -48,6 +49,7 @@ package mycpu_defs is
 	constant op_fn_sub : op_fn_code := "000000";
 	constant op_fn_slt : op_fn_code := "000000";
 	constant op_fn_jr : op_fn_code := "000000";
+	constant op_fn_mult : op_fn_code := "000000";
 	constant op_fn_j : op_fn_code := "000010";
 	constant op_fn_jal : op_fn_code := "000011";
 	constant op_fn_beq : op_fn_code := "000100";

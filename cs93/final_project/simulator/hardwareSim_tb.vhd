@@ -9,7 +9,7 @@ entity  hardwareSim_tb is
 architecture hardwareSim_tb_arch of hardwareSim_tb  is
 	signal sysclk1 : std_logic := '0';
 	signal fsmStateCode : std_logic_vector(5 downto 0); 
-	type states is (init, fetch_state, decode_state, execute_state, write_back_state, mem_state); 
+	type states is (init, fetch_state, decode_state, execute_state, write_back_state, mul_state, mem_state); 
 	signal reset : std_logic := '0';
 
 	signal pc : std_logic_vector(20 downto 0) := '0' & X"00000"; 
@@ -22,6 +22,7 @@ architecture hardwareSim_tb_arch of hardwareSim_tb  is
 	signal dest_addr : std_logic_vector(4 downto 0);
 	signal jr_addr : std_logic_vector(20 downto 0); 
 	signal ALU_result : std_logic_vector(31 downto 0); 
+	signal MULT_result : std_logic_vector(63 downto 0); 
 
 	-- just for testing
 	signal t0 : std_logic_vector(31 downto 0); 
@@ -59,6 +60,7 @@ architecture hardwareSim_tb_arch of hardwareSim_tb  is
 	IR_decode_sub,
 	IR_decode_slt,
 	IR_decode_jr,
+	IR_decode_mult,
 	IR_decode_j,
 	IR_decode_jal,
 	IR_decode_beq,
@@ -83,6 +85,8 @@ architecture hardwareSim_tb_arch of hardwareSim_tb  is
 	signal mem_sixteenbit :  std_logic;
 	signal mem_thirtytwobit :  std_logic;
 	signal mem_addressready :  std_logic;
+	signal start :  std_logic; 
+	signal done :  std_logic; 
 begin
 	memory_inst: entity memorySim port map (
 						       mem_dataready_inv => mem_dataready_inv,
@@ -106,6 +110,7 @@ begin
 	IR_decode_srav <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "000111") else '0';
 	IR_decode_slt <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "101010") else '0';
 	IR_decode_jr <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "001000" ) else '0';
+	IR_decode_mult <= '1' when (IR(31 downto 26) = "000000") and (IR(5 downto 0) = "011000" ) else '0';
 	IR_decode_j <= '1' when (IR(31 downto 26) = "000010") else '0';
 	IR_decode_jal <= '1' when (IR(31 downto 26) = "000011") else '0';
 	IR_decode_beq <= '1' when (IR(31 downto 26) = "000100") else '0';
@@ -140,6 +145,17 @@ begin
 			 ALU_Z => ALU_Z,
 			 ALU_result => ALU_result
 		 );       
+
+	multiplySim_inst : entity multiplySim 
+		port map (
+			sysclk1 => sysclk1,
+			start => start,
+			A => GPR_left_operand,
+			B => GPR_right_operand,
+			done => done,
+			result => MULT_result
+		); 
+
 
 	branch_taken <= ALU_Z when (IR_decode_beq = '1' or IR_decode_bne = '1' ) else '0';
 			--not ALU_Z when IR_decode_bne = '1' else 
@@ -196,13 +212,18 @@ begin
 					GPR_right_operand <= GPR(to_integer(unsigned(IR20_16)));
 					if IR_decode_alu_reg or IR_decode_shift then 
 						dest_addr <= IR15_11; 
+					elsif IR_decode_mult then 
+						dest_addr <= "00001"; 
 					else 
 						dest_addr <= IR20_16; 
 					end if; 
 					currentState <= execute_state;
 				when execute_state =>
 					--if IR_decode_branch = '1' and branch_taken = '1' then
-					if IR_decode_branch = '1' then 
+					if IR_decode_mult = '1' and previousState /= execute_state then 
+						previousState <= execute_state; 
+						currentState <= mul_state; 
+					elsif IR_decode_branch = '1' then 
 						if branch_taken = '1' then
 							pc <= "00000" & IR_offset;
 							currentState <= fetch_state;
@@ -220,8 +241,14 @@ begin
 					else
 						currentState <= write_back_state;
 					end if; 
+				when mul_state =>
+					start <= '1'; 
+					if done = '1' then 
+						currentState <= previousState; 
+						start <= '0'; 
+					end if; 
 				when write_back_state =>
-					if IR_decode_alu_reg or IR_decode_alu_immed or IR_decode_shift or IR_decode_slt
+					if IR_decode_alu_reg or IR_decode_alu_immed or IR_decode_shift or IR_decode_slt or IR_decode_mult
 					then 
 						GPR(to_integer(unsigned(dest_addr))) := ALU_result;
 						currentState <= fetch_state; 
@@ -318,6 +345,7 @@ begin
 	       "000010" when decode_state,
 	       "000011" when execute_state,
 	       "000100" when mem_state,
-	       "000101" when write_back_state,
+	       "000101" when mul_state,
+	       "000110" when write_back_state,
 	       "111111" when others;
 end architecture hardwareSim_tb_arch;

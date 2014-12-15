@@ -5,7 +5,7 @@ cModel Technology
 dC:\altera\13.0sp1\aluTesting
 Ealusim
 Z0 w1418578950
-Z1 DPx4 work 10 mycpu_defs 0 22 1z_PbVLGjf2eRgmgK]<HQ2
+Z1 DPx4 work 10 mycpu_defs 0 22 Od9H?[@=8RZK_Zi_L6dBJ3
 Z2 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
 Z3 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
 Z4 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
@@ -17,7 +17,7 @@ L6
 V5RSLjNB?2zI9F?KB^iaGI3
 Z8 OV;C;10.1d;51
 33
-Z9 !s108 1418664226.399000
+Z9 !s108 1418677511.475000
 Z10 !s90 -reportprogress|300|+cover|-2008|-just|e|aluSim.vhd|hardwareSim_tb.vhd|memorySim.vhd|multiplySim.vhd|multiplySim_tb.vhd|mycpu_defs.vhd|
 Z11 !s107 mycpu_defs.vhd|multiplySim_tb.vhd|multiplySim.vhd|memorySim.vhd|hardwareSim_tb.vhd|aluSim.vhd|
 Z12 !s102 +cover
@@ -33,40 +33,40 @@ R4
 Z15 DEx4 work 6 alusim 0 22 5RSLjNB?2zI9F?KB^iaGI3
 l32
 L17
-Z16 VnOYYh8Q7<V<28HLhJTkU^2
-Z17 !s100 =2oNli2LCHjJzP;ceOGQT0
+VnOYYh8Q7<V<28HLhJTkU^2
+Z16 !s100 =2oNli2LCHjJzP;ceOGQT0
 R8
 33
 !i10b 1
-Z18 !s108 1418664226.613000
-Z19 !s90 -reportprogress|300|+cover|-2008|-just|a|aluSim.vhd|hardwareSim_tb.vhd|memorySim.vhd|multiplySim.vhd|multiplySim_tb.vhd|mycpu_defs.vhd|
-Z20 !s107 mycpu_defs.vhd|multiplySim_tb.vhd|multiplySim.vhd|memorySim.vhd|hardwareSim_tb.vhd|aluSim.vhd|
+Z17 !s108 1418677511.680000
+Z18 !s90 -reportprogress|300|+cover|-2008|-just|a|aluSim.vhd|hardwareSim_tb.vhd|memorySim.vhd|multiplySim.vhd|multiplySim_tb.vhd|mycpu_defs.vhd|
+Z19 !s107 mycpu_defs.vhd|multiplySim_tb.vhd|multiplySim.vhd|memorySim.vhd|hardwareSim_tb.vhd|aluSim.vhd|
 R12
-Z21 o+cover -2008 -just a -O0
+Z20 o+cover -2008 -just a -O0
 R14
 Ealusim_tb
-Z22 w1418168190
+Z21 w1418168190
 R2
 R3
 R4
-Z23 dC:\altera\13.0sp1\aluTesting1
-Z24 8hardwareSim_tb.vhd
-Z25 FhardwareSim_tb.vhd
+Z22 dC:\altera\13.0sp1\aluTesting1
+Z23 8hardwareSim_tb.vhd
+Z24 FhardwareSim_tb.vhd
 l0
 L6
 VW@N]l5cdEWTC=YP4AnDo90
 R8
 33
-Z26 !s108 1418186521.566000
-Z27 !s90 -2008|mycpu_defs.vhd|memorySim.vhd|hardwareSim_tb.vhd|
-Z28 !s107 hardwareSim_tb.vhd|memorySim.vhd|mycpu_defs.vhd|
-Z29 o-2008 -O0
+Z25 !s108 1418186521.566000
+Z26 !s90 -2008|mycpu_defs.vhd|memorySim.vhd|hardwareSim_tb.vhd|
+Z27 !s107 hardwareSim_tb.vhd|memorySim.vhd|mycpu_defs.vhd|
+Z28 o-2008 -O0
 R14
 !s100 lGZU=QhIM8HA2FbS2J@6H3
 !i10b 1
 Aalusim_tb_arch
-Z30 DPx4 work 10 mycpu_defs 0 22 CJZH<IACZzDVW?ZW1l1Sg3
-Z31 DEx4 work 6 alusim 0 22 4_8nMb3RadHGHXdkMJALN0
+Z29 DPx4 work 10 mycpu_defs 0 22 CJZH<IACZzDVW?ZW1l1Sg3
+Z30 DEx4 work 6 alusim 0 22 4_8nMb3RadHGHXdkMJALN0
 DEx4 work 9 memorysim 0 22 IeRSoGQN;<NJJDZPd:nP93
 R2
 R3
@@ -77,21 +77,21 @@ L9
 VLYa^?j7@Q28Y5ho`GUVd`0
 R8
 33
+R25
 R26
 R27
 R28
-R29
 R14
 !s100 U1>HzEBT:P5m4W4gPAP9g3
 !i10b 1
 Ehardwaresim_tb
-Z32 w1418531455
+Z31 w1418677477
 R2
 R3
 R4
 R5
+R23
 R24
-R25
 l0
 L6
 V5kO1Ve=7XPSV@;0[I7NUQ3
@@ -106,34 +106,35 @@ R14
 !s100 ANk^T1HVC`J2KcBQKOZS90
 !i10b 1
 Ahardwaresim_tb_arch
+Z32 DEx4 work 11 multiplysim 0 22 2@Dd4QUjNnZE1dm1HWCA?3
 R1
 R15
 Z33 DEx4 work 9 memorysim 0 22 FWhEGOkz8Nc2;gk=^eUKc1
 R2
 R3
 R4
-Z34 DEx4 work 14 hardwaresim_tb 0 22 5kO1Ve=7XPSV@;0[I7NUQ3
-l86
+DEx4 work 14 hardwaresim_tb 0 22 5kO1Ve=7XPSV@;0[I7NUQ3
+l90
 L9
-Z35 V5CBIRH7kL^ecO^nPKLFog2
-Z36 !s100 O?D:BSCAS0TkmlHC@7GzE1
+VoA5h`lbNfX=]>5EeH2Nz53
+Z34 !s100 [<9YW>nb>`EAgKVQ8:^8M0
 R8
 33
 !i10b 1
+R17
 R18
 R19
-R20
 R12
-R21
+R20
 R14
 Ememorysim
-R32
+Z35 w1418674542
 R2
 R3
 R4
 R5
-Z37 8memorySim.vhd
-Z38 FmemorySim.vhd
+Z36 8memorySim.vhd
+Z37 FmemorySim.vhd
 l0
 L5
 VFWhEGOkz8Nc2;gk=^eUKc1
@@ -152,27 +153,27 @@ R2
 R3
 R4
 R33
-l95
+l33
 L21
-Z39 VMZA8Q@?zEi=XDBE6=VjHz3
-Z40 !s100 OIkg<0UWfb9[3`m]_g7R<3
+VFQmUUDH4O4]j^oLKf@f4O3
+Z38 !s100 df4n0gIlz<8<MEM3:zRX02
 R8
 33
 !i10b 1
+R17
 R18
 R19
-R20
 R12
-R21
+R20
 R14
 Emultiplysim
-Z41 w1418663918
+Z39 w1418663918
 R2
 R3
 R4
 R5
-Z42 8multiplySim.vhd
-Z43 FmultiplySim.vhd
+Z40 8multiplySim.vhd
+Z41 FmultiplySim.vhd
 l0
 L6
 V2@Dd4QUjNnZE1dm1HWCA?3
@@ -190,28 +191,28 @@ Amultiplysim_arch
 R2
 R3
 R4
-Z44 DEx4 work 11 multiplysim 0 22 2@Dd4QUjNnZE1dm1HWCA?3
+R32
 l21
 L17
-V0@^3WN`K4>eUaDKPT]PRl0
-Z45 !s100 TC_472ednX___T:_3KX`[3
+Z42 V0@^3WN`K4>eUaDKPT]PRl0
+Z43 !s100 TC_472ednX___T:_3KX`[3
 R8
 33
 !i10b 1
+R17
 R18
 R19
-R20
 R12
-R21
+R20
 R14
 Emultiplysim_tb
-Z46 w1418664219
+Z44 w1418668876
 R2
 R3
 R4
 R5
-Z47 8multiplySim_tb.vhd
-Z48 FmultiplySim_tb.vhd
+Z45 8multiplySim_tb.vhd
+Z46 FmultiplySim_tb.vhd
 l0
 L6
 V3fL0[]cZWFTV<CdUmTDUo2
@@ -226,36 +227,36 @@ R14
 !s100 0M11Q=fY:kIkiB@@jUB3Z0
 !i10b 1
 Amultiplysim_tb_arch
-R44
+R32
 R2
 R3
 R4
-Z49 DEx4 work 14 multiplysim_tb 0 22 3fL0[]cZWFTV<CdUmTDUo2
+Z47 DEx4 work 14 multiplysim_tb 0 22 3fL0[]cZWFTV<CdUmTDUo2
 l19
 L9
-V6U7fdVmOnXd5SNgIL27z91
-Z50 !s100 Iz?Do1aFQ18J;0ZPLfEX80
+Z48 V6U7fdVmOnXd5SNgIL27z91
+Z49 !s100 Iz?Do1aFQ18J;0ZPLfEX80
 R8
 33
 !i10b 1
+R17
 R18
 R19
-R20
 R12
-R21
+R20
 R14
 Amultiplysim_arch
 R2
 R3
 R4
-R49
+R47
 l19
 L9
 Vz]9X9DF8S;Kke[^DgWn0H2
 R8
 33
 R12
-R21
+R20
 R14
 w1418660893
 !s90 -reportprogress|300|+cover|-2008|-just|a|aluSim.vhd|hardwareSim_tb.vhd|memorySim.vhd|multiplySim_tb.vhd|mycpu_defs.vhd|
@@ -264,29 +265,29 @@ w1418660893
 !s100 Q0136I4M[@U3JC1JkZa9Y3
 !i10b 1
 Emycpu
-Z51 w1418262146
-R30
+Z50 w1418262146
+R29
 R2
 R3
 R4
-R23
-Z52 8mycpu.vhd
-Z53 Fmycpu.vhd
+R22
+Z51 8mycpu.vhd
+Z52 Fmycpu.vhd
 l0
 L7
 VHh5^TOWd8j;WhmI><@Fgh3
 R8
 33
-Z54 !s108 1418280150.122000
-Z55 !s90 -2008|mycpu_defs.vhd|aluSim.vhd|mycpu.vhd|de2_115_shell.vhd|
-Z56 !s107 de2_115_shell.vhd|mycpu.vhd|aluSim.vhd|mycpu_defs.vhd|
-R29
+Z53 !s108 1418280150.122000
+Z54 !s90 -2008|mycpu_defs.vhd|aluSim.vhd|mycpu.vhd|de2_115_shell.vhd|
+Z55 !s107 de2_115_shell.vhd|mycpu.vhd|aluSim.vhd|mycpu_defs.vhd|
+R28
 R14
 !s100 Zg9oamRBZSbSMJA]MOK_l0
 !i10b 1
 Amycpu_arch
-R31
 R30
+R29
 R2
 R3
 R4
@@ -296,10 +297,10 @@ L32
 V?TiN[5bS_lUjoQ:QJkQ993
 R8
 33
+R53
 R54
 R55
-R56
-R29
+R28
 R14
 !s100 B8Ud[@2b10^mM`nFjVaiR2
 !i10b 1
@@ -307,20 +308,20 @@ Pmycpu_defs
 R2
 R3
 R4
-Z57 w1418578950
+w1418672292
 R5
 8mycpu_defs.vhd
 Fmycpu_defs.vhd
 l0
 L3
-V1z_PbVLGjf2eRgmgK]<HQ2
+VOd9H?[@=8RZK_Zi_L6dBJ3
 R8
 33
 R12
 o+cover -2008 -just p -O0
 R14
 R11
-!s100 hz8B7RF?C^KI@?Mf`LOQo1
+!s100 cDNjl<N=@hKkj:hY=2k^W0
 !i10b 1
-!s108 1418664226.216000
+!s108 1418677511.287000
 !s90 -reportprogress|300|+cover|-2008|-just|p|aluSim.vhd|hardwareSim_tb.vhd|memorySim.vhd|multiplySim.vhd|multiplySim_tb.vhd|mycpu_defs.vhd|

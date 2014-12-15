@@ -1,5 +1,5 @@
 Flow report for MemoryControllerInterface
-Sun Dec 14 13:04:11 2014
+Mon Dec 15 17:20:45 2014
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -40,17 +40,17 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Flow Summary                                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Flow Status                        ; Successful - Sun Dec 14 13:03:54 2014           ;
+; Flow Status                        ; Successful - Mon Dec 15 17:20:30 2014           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; MemoryControllerInterface                       ;
 ; Top-level Entity Name              ; de2_115_shell                                   ;
 ; Family                             ; Cyclone IV E                                    ;
 ; Device                             ; EP4CE115F29C7                                   ;
 ; Timing Models                      ; Final                                           ;
-; Total logic elements               ; 5,437 / 114,480 ( 5 % )                         ;
-;     Total combinational functions  ; 5,019 / 114,480 ( 4 % )                         ;
-;     Dedicated logic registers      ; 1,938 / 114,480 ( 2 % )                         ;
-; Total registers                    ; 1938                                            ;
+; Total logic elements               ; 5,443 / 114,480 ( 5 % )                         ;
+;     Total combinational functions  ; 5,029 / 114,480 ( 4 % )                         ;
+;     Dedicated logic registers      ; 1,940 / 114,480 ( 2 % )                         ;
+; Total registers                    ; 1940                                            ;
 ; Total pins                         ; 154 / 529 ( 29 % )                              ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 524,544 / 3,981,312 ( 13 % )                    ;
@@ -64,7 +64,7 @@ applicable agreement for further details.
 +-------------------+---------------------------+
 ; Option            ; Setting                   ;
 +-------------------+---------------------------+
-; Start date & time ; 12/14/2014 13:01:06       ;
+; Start date & time ; 12/15/2014 17:17:43       ;
 ; Main task         ; Compilation               ;
 ; Revision Name     ; MemoryControllerInterface ;
 +-------------------+---------------------------+
@@ -75,7 +75,7 @@ applicable agreement for further details.
 +-------------------------------------+---------------------------------------+---------------------------+---------------+----------------------+
 ; Assignment Name                     ; Value                                 ; Default Value             ; Entity Name   ; Section Id           ;
 +-------------------------------------+---------------------------------------+---------------------------+---------------+----------------------+
-; COMPILER_SIGNATURE_ID               ; 52230658106.141858006603900           ; --                        ; --            ; --                   ;
+; COMPILER_SIGNATURE_ID               ; 52230658106.141868186305860           ; --                        ; --            ; --                   ;
 ; EDA_DESIGN_ENTRY_SYNTHESIS_TOOL     ; Design Compiler FPGA                  ; <None>                    ; mycpu.vhd     ; --                   ;
 ; EDA_INPUT_DATA_FORMAT               ; Edif                                  ; --                        ; mycpu.vhd     ; eda_design_synthesis ;
 ; EDA_INPUT_GND_NAME                  ; Gnd                                   ; --                        ; mycpu.vhd     ; eda_design_synthesis ;
@@ -103,11 +103,11 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:39     ; 1.0                     ; 566 MB              ; 00:00:32                           ;
-; Fitter                    ; 00:01:46     ; 1.0                     ; 938 MB              ; 00:01:35                           ;
-; Assembler                 ; 00:00:11     ; 1.0                     ; 453 MB              ; 00:00:09                           ;
-; TimeQuest Timing Analyzer ; 00:00:16     ; 1.0                     ; 597 MB              ; 00:00:10                           ;
-; Total                     ; 00:02:52     ; --                      ; --                  ; 00:02:26                           ;
+; Analysis & Synthesis      ; 00:00:40     ; 1.0                     ; 562 MB              ; 00:00:34                           ;
+; Fitter                    ; 00:01:46     ; 1.0                     ; 935 MB              ; 00:01:36                           ;
+; Assembler                 ; 00:00:11     ; 1.0                     ; 443 MB              ; 00:00:09                           ;
+; TimeQuest Timing Analyzer ; 00:00:13     ; 1.0                     ; 583 MB              ; 00:00:11                           ;
+; Total                     ; 00:02:50     ; --                      ; --                  ; 00:02:30                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

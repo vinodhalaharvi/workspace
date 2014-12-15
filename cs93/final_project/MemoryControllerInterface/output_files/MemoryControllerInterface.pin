@@ -147,7 +147,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AB22      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB23      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB24      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AB25      :        :                   :         : 5         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AB26      :        :                   :         : 5         :                
+displayOutput[18]            : AB26      : output : 2.5 V             :         : 5         : N              
 displaySwitches[0]           : AB27      : input  : 2.5 V             :         : 5         : Y              
 displaySwitches[4]           : AB28      : input  : 2.5 V             :         : 5         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AC1       :        :                   :         : 2         :                
@@ -163,12 +163,12 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AC10      :        :                   :      
 sram_addr[16]                : AC11      : output : 2.5 V             :         : 3         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AC12      :        :                   :         : 3         :                
 GND                          : AC13      : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC14      :        :                   :         : 3         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC15      :        :                   :         : 4         :                
+displayOutput[29]            : AC14      : output : 2.5 V             :         : 3         : N              
+displayOutput[19]            : AC15      : output : 2.5 V             :         : 4         : N              
 GND                          : AC16      : gnd    :                   :         :           :                
 seg6[0]                      : AC17      : output : 2.5 V             :         : 4         : Y              
 seg5[5]                      : AC18      : output : 2.5 V             :         : 4         : Y              
-displayOutput[24]            : AC19      : output : 2.5 V             :         : 4         : N              
+displayOutput[6]             : AC19      : output : 2.5 V             :         : 4         : N              
 GND                          : AC20      : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AC21      :        :                   :         : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AC22      :        :                   :         : 4         :                
@@ -191,12 +191,12 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AD10      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AD11      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AD12      :        :                   :         : 3         :                
 VCCIO3                       : AD13      : power  :                   : 2.5V    : 3         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD14      :        :                   :         : 3         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD15      :        :                   :         : 4         :                
+displayOutput[8]             : AD14      : output : 2.5 V             :         : 3         : N              
+displayOutput[3]             : AD15      : output : 2.5 V             :         : 4         : N              
 VCCIO4                       : AD16      : power  :                   : 2.5V    : 4         :                
 seg7[6]                      : AD17      : output : 2.5 V             :         : 4         : Y              
 seg5[6]                      : AD18      : output : 2.5 V             :         : 4         : Y              
-displayOutput[31]            : AD19      : output : 2.5 V             :         : 4         : N              
+displayOutput[7]             : AD19      : output : 2.5 V             :         : 4         : N              
 VCCIO4                       : AD20      : power  :                   : 2.5V    : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AD21      :        :                   :         : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AD22      :        :                   :         : 4         :                
@@ -220,17 +220,17 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AE11      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE12      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE13      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE14      :        :                   :         : 3         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AE15      :        :                   :         : 4         :                
-displayOutput[8]             : AE16      : output : 2.5 V             :         : 4         : N              
+displayOutput[0]             : AE15      : output : 2.5 V             :         : 4         : N              
+displayOutput[22]            : AE16      : output : 2.5 V             :         : 4         : N              
 seg7[5]                      : AE17      : output : 2.5 V             :         : 4         : Y              
 seg4[0]                      : AE18      : output : 2.5 V             :         : 4         : Y              
 seg4[2]                      : AE19      : output : 2.5 V             :         : 4         : Y              
-displayOutput[14]            : AE20      : output : 2.5 V             :         : 4         : N              
-displayOutput[3]             : AE21      : output : 2.5 V             :         : 4         : N              
-displayOutput[17]            : AE22      : output : 2.5 V             :         : 4         : N              
+displayOutput[12]            : AE20      : output : 2.5 V             :         : 4         : N              
+displayOutput[13]            : AE21      : output : 2.5 V             :         : 4         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE22      :        :                   :         : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE23      :        :                   :         : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE24      :        :                   :         : 4         :                
-displayOutput[23]            : AE25      : output : 2.5 V             :         : 4         : N              
+displayOutput[24]            : AE25      : output : 2.5 V             :         : 4         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE26      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE27      :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE28      :        :                   :         : 5         :                
@@ -248,18 +248,18 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AF11      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF12      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF13      :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF14      :        :                   :         : 3         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AF15      :        :                   :         : 4         :                
-displayOutput[13]            : AF16      : output : 2.5 V             :         : 4         : N              
+displayOutput[2]             : AF15      : output : 2.5 V             :         : 4         : N              
+displayOutput[1]             : AF16      : output : 2.5 V             :         : 4         : N              
 seg7[2]                      : AF17      : output : 2.5 V             :         : 4         : Y              
 seg5[1]                      : AF18      : output : 2.5 V             :         : 4         : Y              
 seg4[1]                      : AF19      : output : 2.5 V             :         : 4         : Y              
-displayOutput[0]             : AF20      : output : 2.5 V             :         : 4         : N              
-displayOutput[9]             : AF21      : output : 2.5 V             :         : 4         : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AF22      :        :                   :         : 4         :                
+displayOutput[14]            : AF20      : output : 2.5 V             :         : 4         : N              
+displayOutput[25]            : AF21      : output : 2.5 V             :         : 4         : N              
+displayOutput[4]             : AF22      : output : 2.5 V             :         : 4         : N              
 seg3[1]                      : AF23      : output : 2.5 V             :         : 4         : Y              
-displayOutput[11]            : AF24      : output : 2.5 V             :         : 4         : N              
-displayOutput[2]             : AF25      : output : 2.5 V             :         : 4         : N              
-displayOutput[27]            : AF26      : output : 2.5 V             :         : 4         : N              
+displayOutput[15]            : AF24      : output : 2.5 V             :         : 4         : N              
+displayOutput[28]            : AF25      : output : 2.5 V             :         : 4         : N              
+displayOutput[23]            : AF26      : output : 2.5 V             :         : 4         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF27      :        :                   :         : 5         :                
 GND                          : AF28      : gnd    :                   :         :           :                
 VCCIO2                       : AG1       : power  :                   : 2.5V    : 2         :                
@@ -283,10 +283,10 @@ seg7[1]                      : AG18      : output : 2.5 V             :         
 seg5[2]                      : AG19      : output : 2.5 V             :         : 4         : Y              
 GND                          : AG20      : gnd    :                   :         :           :                
 seg4[4]                      : AG21      : output : 2.5 V             :         : 4         : Y              
-displayOutput[15]            : AG22      : output : 2.5 V             :         : 4         : N              
-displayOutput[6]             : AG23      : output : 2.5 V             :         : 4         : N              
+displayOutput[9]             : AG22      : output : 2.5 V             :         : 4         : N              
+displayOutput[26]            : AG23      : output : 2.5 V             :         : 4         : N              
 GND                          : AG24      : gnd    :                   :         :           :                
-displayOutput[30]            : AG25      : output : 2.5 V             :         : 4         : N              
+displayOutput[17]            : AG25      : output : 2.5 V             :         : 4         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AG26      :        :                   :         : 4         :                
 GND                          : AG27      : gnd    :                   :         :           :                
 VCCIO5                       : AG28      : power  :                   : 2.5V    : 5         :                
@@ -310,10 +310,10 @@ seg5[0]                      : AH18      : output : 2.5 V             :         
 seg5[3]                      : AH19      : output : 2.5 V             :         : 4         : Y              
 VCCIO4                       : AH20      : power  :                   : 2.5V    : 4         :                
 seg4[3]                      : AH21      : output : 2.5 V             :         : 4         : Y              
-displayOutput[12]            : AH22      : output : 2.5 V             :         : 4         : N              
-displayOutput[7]             : AH23      : output : 2.5 V             :         : 4         : N              
+displayOutput[11]            : AH22      : output : 2.5 V             :         : 4         : N              
+displayOutput[10]            : AH23      : output : 2.5 V             :         : 4         : N              
 VCCIO4                       : AH24      : power  :                   : 2.5V    : 4         :                
-displayOutput[10]            : AH25      : output : 2.5 V             :         : 4         : N              
+displayOutput[30]            : AH25      : output : 2.5 V             :         : 4         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH26      :        :                   :         : 4         :                
 VCCIO4                       : AH27      : power  :                   : 2.5V    : 4         :                
 VCCIO1                       : B1        : power  :                   : 2.5V    : 1         :                
@@ -757,13 +757,13 @@ VCCINT                       : U18       : power  :                   : 1.2V    
 GND                          : U19       : gnd    :                   :         :           :                
 VCCINT                       : U20       : power  :                   : 1.2V    :           :                
 seg3[5]                      : U21       : output : 2.5 V             :         : 5         : Y              
-displayOutput[1]             : U22       : output : 2.5 V             :         : 5         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : U22       :        :                   :         : 5         :                
 seg1[1]                      : U23       : output : 2.5 V             :         : 5         : Y              
 seg1[0]                      : U24       : output : 2.5 V             :         : 5         : Y              
-displayOutput[20]            : U25       : output : 2.5 V             :         : 5         : N              
-displayOutput[26]            : U26       : output : 2.5 V             :         : 5         : N              
-displayOutput[25]            : U27       : output : 2.5 V             :         : 5         : N              
-displayOutput[22]            : U28       : output : 2.5 V             :         : 5         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : U25       :        :                   :         : 5         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : U26       :        :                   :         : 5         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : U27       :        :                   :         : 5         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : U28       :        :                   :         : 5         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : V1        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : V2        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : V3        :        :                   :         : 2         :                
@@ -785,13 +785,13 @@ GND                          : V18       : gnd    :                   :         
 VCCINT                       : V19       : power  :                   : 1.2V    :           :                
 GND                          : V20       : gnd    :                   :         :           :                
 seg3[6]                      : V21       : output : 2.5 V             :         : 5         : Y              
-displayOutput[28]            : V22       : output : 2.5 V             :         : 5         : N              
-displayOutput[29]            : V23       : output : 2.5 V             :         : 5         : N              
-displayOutput[16]            : V24       : output : 2.5 V             :         : 5         : N              
-displayOutput[5]             : V25       : output : 2.5 V             :         : 5         : N              
-displayOutput[4]             : V26       : output : 2.5 V             :         : 5         : N              
-displayOutput[18]            : V27       : output : 2.5 V             :         : 5         : N              
-displayOutput[21]            : V28       : output : 2.5 V             :         : 5         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : V22       :        :                   :         : 5         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V23       :        :                   :         : 5         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V24       :        :                   :         : 5         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V25       :        :                   :         : 5         :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : V26       :        :                   :         : 5         :                
+displayOutput[16]            : V27       : output : 2.5 V             :         : 5         : N              
+displayOutput[31]            : V28       : output : 2.5 V             :         : 5         : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : W1        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : W2        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : W3        :        :                   :         : 2         :                
@@ -833,10 +833,10 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : Y10       :        :                   :      
 GND                          : Y11       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : Y12       :        :                   :         : 3         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : Y13       :        :                   :         : 3         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : Y14       :        :                   :         : 3         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : Y15       :        :                   :         : 3         :                
-displayOutput[19]            : Y16       : output : 2.5 V             :         : 4         : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : Y17       :        :                   :         : 4         :                
+displayOutput[20]            : Y14       : output : 2.5 V             :         : 3         : N              
+displayOutput[21]            : Y15       : output : 2.5 V             :         : 3         : N              
+displayOutput[27]            : Y16       : output : 2.5 V             :         : 4         : N              
+displayOutput[5]             : Y17       : output : 2.5 V             :         : 4         : N              
 GND                          : Y18       : gnd    :                   :         :           :                
 seg3[0]                      : Y19       : output : 2.5 V             :         : 4         : Y              
 VCCD_PLL4                    : Y20       : power  :                   : 1.2V    :           :                

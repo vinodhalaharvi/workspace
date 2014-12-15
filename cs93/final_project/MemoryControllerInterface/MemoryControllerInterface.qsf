@@ -53,6 +53,17 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name VHDL_INPUT_VERSION VHDL_2008
 set_global_assignment -name VHDL_SHOW_LMF_MAPPING_MESSAGES OFF
+set_global_assignment -name EDA_DESIGN_ENTRY_SYNTHESIS_TOOL "Design Compiler FPGA" -entity mycpu.vhd
+set_global_assignment -name EDA_INPUT_GND_NAME GND -entity mycpu.vhd -section_id eda_design_synthesis
+set_global_assignment -name EDA_INPUT_VCC_NAME VDD -entity mycpu.vhd -section_id eda_design_synthesis
+set_global_assignment -name EDA_LMF_FILE dc_fpga.lmf -entity mycpu.vhd -section_id eda_design_synthesis
+set_global_assignment -name EDA_SHOW_LMF_MAPPING_MESSAGES OFF -entity mycpu.vhd -section_id eda_design_synthesis
+set_global_assignment -name EDA_RUN_TOOL_AUTOMATICALLY OFF -entity mycpu.vhd -section_id eda_design_synthesis
+set_global_assignment -name EDA_INPUT_DATA_FORMAT EDIF -entity mycpu.vhd -section_id eda_design_synthesis
+set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
+set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
+set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
+set_global_assignment -name VHDL_FILE multiplySim.vhd
 set_global_assignment -name VHDL_FILE aluSim.vhd
 set_global_assignment -name VHDL_FILE mycpu_defs.vhd
 set_global_assignment -name VHDL_FILE sevenSegTesting.vhd
@@ -83,14 +94,4 @@ set_global_assignment -name VHDL_FILE cscie93/char_out_fifo.vhd
 set_global_assignment -name SOURCE_FILE cscie93/char_out_fifo.cmp
 set_global_assignment -name VHDL_FILE cscie93/char_fifo.vhd
 set_global_assignment -name SOURCE_FILE cscie93/char_fifo.cmp
-set_global_assignment -name EDA_DESIGN_ENTRY_SYNTHESIS_TOOL "Design Compiler FPGA" -entity mycpu.vhd
-set_global_assignment -name EDA_INPUT_GND_NAME GND -entity mycpu.vhd -section_id eda_design_synthesis
-set_global_assignment -name EDA_INPUT_VCC_NAME VDD -entity mycpu.vhd -section_id eda_design_synthesis
-set_global_assignment -name EDA_LMF_FILE dc_fpga.lmf -entity mycpu.vhd -section_id eda_design_synthesis
-set_global_assignment -name EDA_SHOW_LMF_MAPPING_MESSAGES OFF -entity mycpu.vhd -section_id eda_design_synthesis
-set_global_assignment -name EDA_RUN_TOOL_AUTOMATICALLY OFF -entity mycpu.vhd -section_id eda_design_synthesis
-set_global_assignment -name EDA_INPUT_DATA_FORMAT EDIF -entity mycpu.vhd -section_id eda_design_synthesis
-set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
-set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
-set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

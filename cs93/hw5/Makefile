@@ -5,7 +5,7 @@ O=0
 emobjects=emcommand.o  emulator.o  simpleoutput.o
 asobjects=aslib.o ascommand.o assembler.o
 
-LDLIBS=-lncurses
+#LDLIBS=-lncurses
 
 all: $(objects)
 

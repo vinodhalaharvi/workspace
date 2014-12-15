@@ -12,6 +12,7 @@ architecture multiplySim_tb_arch of multiplySim_tb  is
 	signal A :  std_logic_vector(31 downto 0) :=  X"00000007";
 	signal B :  std_logic_vector(31 downto 0) :=  X"00000008";
 	signal done :  std_logic; 
+
 	signal result :  std_logic_vector(63 downto 0) :=  ( others => '0');
 	type states is (init_state, mul_state, done_state); 
 	signal currentState : states := init_state; 
