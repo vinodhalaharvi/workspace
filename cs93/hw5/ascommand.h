@@ -8,6 +8,7 @@ char * slt(char * tokens[]);
 char * sll(char * tokens[]);
 char * srl(char * tokens[]);
 char * sra(char * tokens[]);
+char * mult(char * tokens[]);
 char * sllv(char * tokens[]);
 char * srlv(char * tokens[]);
 char * srav(char * tokens[]);

@@ -193,6 +193,16 @@ char * andi(char * tokens[]){
         ); 
 }
 
+char * mult(char * tokens[]){
+	return type5(
+                getOpcodebits("mult"), 
+                getRegisterBits(tokens[2]), 
+                getRegisterBits(tokens[1]), 
+		"0000000000", 
+		getAluOpcodeBits("mult")
+        ); 
+}
+
 char * ori(char * tokens[]){
 	return type4(
                 getOpcodebits("ori"), 

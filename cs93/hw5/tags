@@ -134,6 +134,8 @@ main	emulator.c	/^int main(int argc, const char *argv[])$/;"	f
 memindex	emulator.c	/^unsigned int memindex = 0;$/;"	v
 memory	aslib.c	/^unsigned short  memory[MIF_FILE_SIZE];	$/;"	v
 memory	emcommand.c	/^unsigned short memory[MIF_FILE_SIZE]; $/;"	v
+mult	ascommand.c	/^char * mult(char * tokens[]){$/;"	f
+mult	emcommand.c	/^int mult(int rs, int rt){$/;"	f
 name	aslib.h	/^	char * name; $/;"	m	struct:_inst_info
 name	aslib.h	/^	char * name; $/;"	m	struct:_symbol_table
 name	aslib.h	/^	char * name;$/;"	m	struct:inst_table
@@ -156,6 +158,7 @@ pr_base_rt_offset	simpleoutput.c	/^void pr_base_rt_offset(const char * inst, int
 pr_inst_index	simpleoutput.c	/^void pr_inst_index(const char * inst, int inst_index){$/;"	f
 pr_nop	simpleoutput.c	/^void pr_nop(){$/;"	f
 pr_rs	simpleoutput.c	/^void pr_rs(const char * inst, int rs){$/;"	f
+pr_rs_rt	simpleoutput.c	/^void pr_rs_rt(const char * inst, int rs, int rt){$/;"	f
 pr_rs_rt_imm	simpleoutput.c	/^void pr_rs_rt_imm(const char * inst, int rs, int rt, int imm){$/;"	f
 pr_rs_rt_offset	simpleoutput.c	/^void pr_rs_rt_offset(const char * inst, int rs, int rt, int offset){$/;"	f
 pr_rs_rt_rd	simpleoutput.c	/^void pr_rs_rt_rd(const char * inst, int rs, int rt, int rd){$/;"	f

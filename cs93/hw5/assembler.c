@@ -34,6 +34,7 @@ struct inst_table insts[] = {
 	{"slt", &slt},
 	{"sll", &sll},
 	{"srl", &srl},
+	{"mult", &mult},
 	{"sra", &sra},
 	{"sllv", &sllv},
 	{"srlv", &srlv},

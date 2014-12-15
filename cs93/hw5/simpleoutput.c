@@ -65,6 +65,18 @@ void pr_rs_rt_imm(const char * inst, int rs, int rt, int imm){
 	free(printstr); 
 }
 
+void pr_rs_rt(const char * inst, int rs, int rt){
+	char * printstr = newstr(40);
+	sprintf(printstr, "                                       ");                   
+	sprintf(printstr, "%s %s, %s", inst, regmap[rt], regmap[rs]); 
+#ifdef DISASSEMBLY
+	printf("%40s ; ", printstr);
+#endif
+	memset(currInst, '\0', 100);
+	memcpy(currInst, printstr, strlen(printstr));
+	free(printstr); 
+}
+
 void pr_rt_rd_sa(const char * inst, int rt, int rd, int sa){
 	char * printstr = newstr(40);
 	sprintf(printstr, "                                       ");                   

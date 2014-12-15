@@ -58,7 +58,7 @@ typedef struct _register {
 
 static reg register_data[] =  {
 	{.registernumber="$0", .registername="$zero", .registerbits="00000"},
-	{.registernumber="$1", .registername="na", .registerbits="00001"},
+	{.registernumber="$1", .registername="$at", .registerbits="00001"},
 	{.registernumber="$2", .registername="$v0", .registerbits="00010"},
 	{.registernumber="$3", .registername="$v1", .registerbits="00011"},
 	{.registernumber="$4", .registername="$a0", .registerbits="00100"},
@@ -113,7 +113,6 @@ static inst inst_data[100] = {
 	{.instname="mthi", .opcodebits="000000", .aluopcodebits="010001"},
 	{.instname="mflo", .opcodebits="000000", .aluopcodebits="010010"},
 	{.instname="mtlo", .opcodebits="000000", .aluopcodebits="010011"},
-	{.instname="mult", .opcodebits="000000", .aluopcodebits="011000"},
 	{.instname="multu", .opcodebits="000000", .aluopcodebits="011001"},
 	{.instname="div", .opcodebits="000000", .aluopcodebits="011010"},
 	{.instname="divu", .opcodebits="000000", .aluopcodebits="011011"},
@@ -127,6 +126,7 @@ static inst inst_data[100] = {
 	{.instname="nor", .opcodebits="000000", .aluopcodebits="100111"},
 	{.instname="slt", .opcodebits="000000", .aluopcodebits="101010"},
 	{.instname="sltu", .opcodebits="000000", .aluopcodebits="101011"},
+	{.instname="mult", .opcodebits="000000", .aluopcodebits="011000"},
 	{.instname="regimm", .opcodebits="000001", .aluopcodebits="na"},
 	{.instname="j", .opcodebits="000010", .aluopcodebits=""},
 	{.instname="jal", .opcodebits="000011", .aluopcodebits=""},

@@ -315,6 +315,8 @@ int doinst(char * inst){
 		return bne(regint(rs), regint(rt), offsetint(offset)); 
 	if(sscanf(inst, "001000%5s%5s%16s%1s", rs, rt, imm, ig) ==4)
 		return addi(regint(rs), regint(rt), immint(imm));
+	if(sscanf(inst, "000000%5s%5s0000000000011000%1s", rs, rt) ==2)
+		return mult(regint(rs), regint(rt));
 	if(sscanf(inst, "001010%5s%5s%16s%1s", rs, rt, imm, ig) ==4)
 		return slti(regint(rs), regint(rt), immint(imm));
 	if(sscanf(inst, "001100%5s%5s%16s%1s", rs, rt, imm, ig) ==4)
@@ -549,6 +551,15 @@ int addi(int rs, int rt, int imm){
 	return 0;
 #endif
 	registers[rt] = registers[rs] +  imm; 
+	return 0;
+}
+
+int mult(int rs, int rt){
+	pr_rs_rt("mult", rs, rt);
+#ifdef DONTEMULATE
+	return 0;
+#endif
+	registers[1] = registers[rs] * registers[rs];
 	return 0;
 }
 
