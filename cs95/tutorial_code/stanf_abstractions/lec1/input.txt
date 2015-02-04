@@ -1,0 +1,10 @@
+a.out
+arrays
+arrays.cpp
+copy.cpp
+input.txt
+one
+one.cpp
+two
+two.cpp
+vector.h
