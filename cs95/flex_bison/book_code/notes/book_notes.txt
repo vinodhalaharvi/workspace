@@ -1,0 +1,5 @@
+token
+yylex()
+yytext
+anything with in quotes(") are scanned literally
+yyval
