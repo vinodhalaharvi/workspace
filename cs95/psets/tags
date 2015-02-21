@@ -1,0 +1,261 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BINOP_ADDITION	node.h	54;"	d
+BINOP_ASSIGN	node.h	56;"	d
+BINOP_DIVISION	node.h	53;"	d
+BINOP_MULTIPLICATION	node.h	52;"	d
+BINOP_SUBTRACTION	node.h	55;"	d
+CC	Makefile	/^CC = gcc$/;"	m
+EXECS	Makefile	/^EXECS = compiler$/;"	m
+FIRST_USABLE_REGISTER	mips.c	14;"	d	file:
+IR_ADD	ir.h	25;"	d
+IR_COPY	ir.h	28;"	d
+IR_DIVIDE	ir.h	24;"	d
+IR_LOAD_IMMEDIATE	ir.h	27;"	d
+IR_MULTIPLY	ir.h	23;"	d
+IR_NO_OPERATION	ir.h	22;"	d
+IR_PRINT_NUMBER	ir.h	29;"	d
+IR_SUBTRACT	ir.h	26;"	d
+LAST_USABLE_REGISTER	mips.c	15;"	d	file:
+LDFLAGS	Makefile	/^LDFLAGS =$/;"	m
+LEX	Makefile	/^LEX = flex$/;"	m
+MAX_IDENTIFIER_LENGTH	node.h	9;"	d
+NODE_BINARY_OPERATION	node.h	13;"	d
+NODE_EXPRESSION_STATEMENT	node.h	14;"	d
+NODE_IDENTIFIER	node.h	12;"	d
+NODE_NUMBER	node.h	11;"	d
+NODE_STATEMENT_LIST	node.h	15;"	d
+NUM_REGISTERS	mips.c	16;"	d	file:
+OPERAND_NUMBER	ir.h	11;"	d
+OPERAND_TEMPORARY	ir.h	12;"	d
+REG_EXHAUSTED	mips.c	12;"	d	file:
+TYPE_ARRAY	type.h	12;"	d
+TYPE_BASIC	type.h	9;"	d
+TYPE_FUNCTION	type.h	13;"	d
+TYPE_LABEL	type.h	14;"	d
+TYPE_POINTER	type.h	11;"	d
+TYPE_VOID	type.h	10;"	d
+TYPE_WIDTH_CHAR	type.h	16;"	d
+TYPE_WIDTH_INT	type.h	18;"	d
+TYPE_WIDTH_LONG	type.h	19;"	d
+TYPE_WIDTH_POINTER	type.h	20;"	d
+TYPE_WIDTH_SHORT	type.h	17;"	d
+YACC	Makefile	/^YACC = bison$/;"	m
+YYSTYPE	compiler.c	13;"	d	file:
+_IR_H	ir.h	2;"	d
+_MIPS_H	mips.h	2;"	d
+_NODE_H	node.h	2;"	d
+_PROBLEMSET1	tokens.h	7;"	d
+_SYMBOL_H	symbol.h	2;"	d
+_TYPE_H	type.h	2;"	d
+_token_to_string	tokens.h	/^typedef struct _token_to_string {$/;"	s
+_token_to_string::tok_string	tokens.h	/^	char * tok_string; $/;"	m	struct:_token_to_string	access:public
+_token_to_string::token	tokens.h	/^	yytokentype token; $/;"	m	struct:_token_to_string	access:public
+basic	type.h	/^    } basic;$/;"	m	union:type::__anon7	typeref:struct:type::__anon7::__anon8	access:public
+binary_operation	node.h	/^    } binary_operation;$/;"	m	union:node::__anon1	typeref:struct:node::__anon1::__anon4	access:public
+data	ir.h	/^  } data;$/;"	m	struct:ir_operand	typeref:union:ir_operand::__anon9	access:public
+data	node.h	/^  } data;$/;"	m	struct:node	typeref:union:node::__anon1	access:public
+data	type.h	/^  } data;$/;"	m	struct:type	typeref:union:type::__anon7	access:public
+expression	node.h	/^      struct node *expression;$/;"	m	struct:node::__anon1::__anon5	typeref:struct:node::__anon1::__anon5::node	access:public
+expression_statement	node.h	/^    } expression_statement;$/;"	m	union:node::__anon1	typeref:struct:node::__anon1::__anon5	access:public
+first	ir.h	/^  struct ir_instruction *first, *last;$/;"	m	struct:ir_section	typeref:struct:ir_section::ir_instruction	access:public
+identifier	node.h	/^    } identifier;$/;"	m	union:node::__anon1	typeref:struct:node::__anon1::__anon3	access:public
+init	node.h	/^      struct node *init;$/;"	m	struct:node::__anon1::__anon6	typeref:struct:node::__anon1::__anon6::node	access:public
+ir	node.h	/^  struct ir_section *ir;$/;"	m	struct:node	typeref:struct:node::ir_section	access:public
+ir_append	ir.c	/^static struct ir_section *ir_append(struct ir_section *section,$/;"	f	file:	signature:(struct ir_section *section, struct ir_instruction *instruction)
+ir_concatenate	ir.c	/^struct ir_section *ir_concatenate(struct ir_section *before, struct ir_section *after) {$/;"	f	signature:(struct ir_section *before, struct ir_section *after)
+ir_copy	ir.c	/^struct ir_section *ir_copy(struct ir_section *orig) {$/;"	f	signature:(struct ir_section *orig)
+ir_generate_for_arithmetic_binary_operation	ir.c	/^void ir_generate_for_arithmetic_binary_operation(int kind, struct node *binary_operation) {$/;"	f	signature:(int kind, struct node *binary_operation)
+ir_generate_for_binary_operation	ir.c	/^void ir_generate_for_binary_operation(struct node *binary_operation) {$/;"	f	signature:(struct node *binary_operation)
+ir_generate_for_expression	ir.c	/^void ir_generate_for_expression(struct node *expression) {$/;"	f	signature:(struct node *expression)
+ir_generate_for_expression	ir.c	/^void ir_generate_for_expression(struct node *expression);$/;"	p	file:	signature:(struct node *expression)
+ir_generate_for_expression_statement	ir.c	/^void ir_generate_for_expression_statement(struct node *expression_statement) {$/;"	f	signature:(struct node *expression_statement)
+ir_generate_for_identifier	ir.c	/^void ir_generate_for_identifier(struct node *identifier) {$/;"	f	signature:(struct node *identifier)
+ir_generate_for_number	ir.c	/^void ir_generate_for_number(struct node *number) {$/;"	f	signature:(struct node *number)
+ir_generate_for_simple_assignment	ir.c	/^void ir_generate_for_simple_assignment(struct node *binary_operation) {$/;"	f	signature:(struct node *binary_operation)
+ir_generate_for_statement_list	ir.c	/^void ir_generate_for_statement_list(struct node *statement_list) {$/;"	f	signature:(struct node *statement_list)
+ir_generate_for_statement_list	ir.h	/^void ir_generate_for_statement_list(struct node *statement_list);$/;"	p	signature:(struct node *statement_list)
+ir_generation_num_errors	ir.c	/^int ir_generation_num_errors;$/;"	v
+ir_instruction	ir.c	/^struct ir_instruction *ir_instruction(int kind) {$/;"	f	signature:(int kind)
+ir_instruction	ir.h	/^struct ir_instruction {$/;"	s
+ir_instruction::kind	ir.h	/^  int kind;$/;"	m	struct:ir_instruction	access:public
+ir_instruction::next	ir.h	/^  struct ir_instruction *prev, *next;$/;"	m	struct:ir_instruction	typeref:struct:ir_instruction::	access:public
+ir_instruction::operands	ir.h	/^  struct ir_operand operands[3];$/;"	m	struct:ir_instruction	typeref:struct:ir_instruction::ir_operand	access:public
+ir_instruction::prev	ir.h	/^  struct ir_instruction *prev, *next;$/;"	m	struct:ir_instruction	typeref:struct:ir_instruction::ir_instruction	access:public
+ir_operand	ir.h	/^struct ir_operand {$/;"	s
+ir_operand	node.h	/^  struct ir_operand *ir_operand;$/;"	m	struct:result	typeref:struct:result::ir_operand	access:public
+ir_operand::__anon9::number	ir.h	/^    unsigned long number;$/;"	m	union:ir_operand::__anon9	access:public
+ir_operand::__anon9::temporary	ir.h	/^    int temporary;$/;"	m	union:ir_operand::__anon9	access:public
+ir_operand::data	ir.h	/^  } data;$/;"	m	struct:ir_operand	typeref:union:ir_operand::__anon9	access:public
+ir_operand::kind	ir.h	/^  int kind;$/;"	m	struct:ir_operand	access:public
+ir_operand_copy	ir.c	/^static void ir_operand_copy(struct ir_instruction *instruction, int position, struct ir_operand *operand) {$/;"	f	file:	signature:(struct ir_instruction *instruction, int position, struct ir_operand *operand)
+ir_operand_number	ir.c	/^static void ir_operand_number(struct ir_instruction *instruction, int position, struct node *number) {$/;"	f	file:	signature:(struct ir_instruction *instruction, int position, struct node *number)
+ir_operand_temporary	ir.c	/^static void ir_operand_temporary(struct ir_instruction *instruction, int position) {$/;"	f	file:	signature:(struct ir_instruction *instruction, int position)
+ir_print_instruction	ir.c	/^void ir_print_instruction(FILE *output, struct ir_instruction *instruction) {$/;"	f	signature:(FILE *output, struct ir_instruction *instruction)
+ir_print_opcode	ir.c	/^static void ir_print_opcode(FILE *output, int kind) {$/;"	f	file:	signature:(FILE *output, int kind)
+ir_print_operand	ir.c	/^static void ir_print_operand(FILE *output, struct ir_operand *operand) {$/;"	f	file:	signature:(FILE *output, struct ir_operand *operand)
+ir_print_section	ir.c	/^void ir_print_section(FILE *output, struct ir_section *section) {$/;"	f	signature:(FILE *output, struct ir_section *section)
+ir_print_section	ir.h	/^void ir_print_section(FILE *output, struct ir_section *section);$/;"	p	signature:(FILE *output, struct ir_section *section)
+ir_section	ir.c	/^struct ir_section *ir_section(struct ir_instruction *first, struct ir_instruction *last) {$/;"	f	signature:(struct ir_instruction *first, struct ir_instruction *last)
+ir_section	ir.h	/^struct ir_section {$/;"	s
+ir_section::first	ir.h	/^  struct ir_instruction *first, *last;$/;"	m	struct:ir_section	typeref:struct:ir_section::ir_instruction	access:public
+ir_section::last	ir.h	/^  struct ir_instruction *first, *last;$/;"	m	struct:ir_section	typeref:struct:ir_section::	access:public
+is_unsigned	type.h	/^      bool is_unsigned;$/;"	m	struct:type::__anon7::__anon8	access:public
+kind	ir.h	/^  int kind;$/;"	m	struct:ir_instruction	access:public
+kind	ir.h	/^  int kind;$/;"	m	struct:ir_operand	access:public
+kind	node.h	/^  int kind;$/;"	m	struct:node	access:public
+kind	type.h	/^  int kind;$/;"	m	struct:type	access:public
+last	ir.h	/^  struct ir_instruction *first, *last;$/;"	m	struct:ir_section	typeref:struct:ir_section::	access:public
+left_operand	node.h	/^      struct node *left_operand;$/;"	m	struct:node::__anon1::__anon4	typeref:struct:node::__anon1::__anon4::node	access:public
+line_number	node.h	/^  int line_number;$/;"	m	struct:node	access:public
+main	compiler.c	/^int main(int argc, char **argv) {$/;"	f	signature:(int argc, char **argv)
+main	test.c	/^int main(int argc, const char *argv[])$/;"	f	signature:(int argc, const char *argv[])
+mips_print_arithmetic	mips.c	/^void mips_print_arithmetic(FILE *output, struct ir_instruction *instruction) {$/;"	f	signature:(FILE *output, struct ir_instruction *instruction)
+mips_print_copy	mips.c	/^void mips_print_copy(FILE *output, struct ir_instruction *instruction) {$/;"	f	signature:(FILE *output, struct ir_instruction *instruction)
+mips_print_instruction	mips.c	/^void mips_print_instruction(FILE *output, struct ir_instruction *instruction) {$/;"	f	signature:(FILE *output, struct ir_instruction *instruction)
+mips_print_load_immediate	mips.c	/^void mips_print_load_immediate(FILE *output, struct ir_instruction *instruction) {$/;"	f	signature:(FILE *output, struct ir_instruction *instruction)
+mips_print_number_operand	mips.c	/^void mips_print_number_operand(FILE *output, struct ir_operand *operand) {$/;"	f	signature:(FILE *output, struct ir_operand *operand)
+mips_print_print_number	mips.c	/^void mips_print_print_number(FILE *output, struct ir_instruction *instruction) {$/;"	f	signature:(FILE *output, struct ir_instruction *instruction)
+mips_print_program	mips.c	/^void mips_print_program(FILE *output, struct ir_section *section) {$/;"	f	signature:(FILE *output, struct ir_section *section)
+mips_print_program	mips.h	/^void mips_print_program(FILE *output, struct ir_section *section);$/;"	p	signature:(FILE *output, struct ir_section *section)
+mips_print_temporary_operand	mips.c	/^void mips_print_temporary_operand(FILE *output, struct ir_operand *operand) {$/;"	f	signature:(FILE *output, struct ir_operand *operand)
+mips_print_text_section	mips.c	/^void mips_print_text_section(FILE *output, struct ir_section *section) {$/;"	f	signature:(FILE *output, struct ir_section *section)
+name	node.h	/^      char name[MAX_IDENTIFIER_LENGTH + 1];$/;"	m	struct:node::__anon1::__anon3	access:public
+name	symbol.h	/^  char name[MAX_IDENTIFIER_LENGTH + 1];$/;"	m	struct:symbol	access:public
+next	ir.h	/^  struct ir_instruction *prev, *next;$/;"	m	struct:ir_instruction	typeref:struct:ir_instruction::	access:public
+next	symbol.h	/^  struct symbol_list *next;$/;"	m	struct:symbol_list	typeref:struct:symbol_list::symbol_list	access:public
+node	node.h	/^struct node {$/;"	s
+node::__anon1::__anon2::overflow	node.h	/^      bool overflow;$/;"	m	struct:node::__anon1::__anon2	access:public
+node::__anon1::__anon2::result	node.h	/^      struct result result;$/;"	m	struct:node::__anon1::__anon2	typeref:struct:node::__anon1::__anon2::result	access:public
+node::__anon1::__anon2::value	node.h	/^      unsigned long value;$/;"	m	struct:node::__anon1::__anon2	access:public
+node::__anon1::__anon3::name	node.h	/^      char name[MAX_IDENTIFIER_LENGTH + 1];$/;"	m	struct:node::__anon1::__anon3	access:public
+node::__anon1::__anon3::symbol	node.h	/^      struct symbol *symbol;$/;"	m	struct:node::__anon1::__anon3	typeref:struct:node::__anon1::__anon3::symbol	access:public
+node::__anon1::__anon4::left_operand	node.h	/^      struct node *left_operand;$/;"	m	struct:node::__anon1::__anon4	typeref:struct:node::__anon1::__anon4::node	access:public
+node::__anon1::__anon4::operation	node.h	/^      int operation;$/;"	m	struct:node::__anon1::__anon4	access:public
+node::__anon1::__anon4::result	node.h	/^      struct result result;$/;"	m	struct:node::__anon1::__anon4	typeref:struct:node::__anon1::__anon4::result	access:public
+node::__anon1::__anon4::right_operand	node.h	/^      struct node *right_operand;$/;"	m	struct:node::__anon1::__anon4	typeref:struct:node::__anon1::__anon4::node	access:public
+node::__anon1::__anon5::expression	node.h	/^      struct node *expression;$/;"	m	struct:node::__anon1::__anon5	typeref:struct:node::__anon1::__anon5::node	access:public
+node::__anon1::__anon6::init	node.h	/^      struct node *init;$/;"	m	struct:node::__anon1::__anon6	typeref:struct:node::__anon1::__anon6::node	access:public
+node::__anon1::__anon6::statement	node.h	/^      struct node *statement;$/;"	m	struct:node::__anon1::__anon6	typeref:struct:node::__anon1::__anon6::node	access:public
+node::__anon1::binary_operation	node.h	/^    } binary_operation;$/;"	m	union:node::__anon1	typeref:struct:node::__anon1::__anon4	access:public
+node::__anon1::expression_statement	node.h	/^    } expression_statement;$/;"	m	union:node::__anon1	typeref:struct:node::__anon1::__anon5	access:public
+node::__anon1::identifier	node.h	/^    } identifier;$/;"	m	union:node::__anon1	typeref:struct:node::__anon1::__anon3	access:public
+node::__anon1::number	node.h	/^    } number;$/;"	m	union:node::__anon1	typeref:struct:node::__anon1::__anon2	access:public
+node::__anon1::statement_list	node.h	/^    } statement_list;$/;"	m	union:node::__anon1	typeref:struct:node::__anon1::__anon6	access:public
+node::data	node.h	/^  } data;$/;"	m	struct:node	typeref:union:node::__anon1	access:public
+node::ir	node.h	/^  struct ir_section *ir;$/;"	m	struct:node	typeref:struct:node::ir_section	access:public
+node::kind	node.h	/^  int kind;$/;"	m	struct:node	access:public
+node::line_number	node.h	/^  int line_number;$/;"	m	struct:node	access:public
+node_binary_operation	node.c	/^struct node *node_binary_operation(int operation, struct node *left_operand,$/;"	f	signature:(int operation, struct node *left_operand, struct node *right_operand)
+node_binary_operation	node.h	/^struct node *node_binary_operation(int operation, struct node *left_operand, struct node *right_operand);$/;"	p	signature:(int operation, struct node *left_operand, struct node *right_operand)
+node_create	node.c	/^struct node *node_create(int node_kind) {$/;"	f	signature:(int node_kind)
+node_expression_statement	node.c	/^struct node *node_expression_statement(struct node *expression)$/;"	f	signature:(struct node *expression)
+node_expression_statement	node.h	/^struct node *node_expression_statement(struct node *expression);$/;"	p	signature:(struct node *expression)
+node_get_result	node.c	/^struct result *node_get_result(struct node *expression) {$/;"	f	signature:(struct node *expression)
+node_get_result	node.h	/^struct result *node_get_result(struct node *expression);$/;"	p	signature:(struct node *expression)
+node_identifier	node.c	/^struct node *node_identifier(char *text, int length)$/;"	f	signature:(char *text, int length)
+node_identifier	node.h	/^struct node *node_identifier(char *text, int length);$/;"	p	signature:(char *text, int length)
+node_is_lvalue	type.c	/^int node_is_lvalue(struct node *n) {$/;"	f	signature:(struct node *n)
+node_number	node.c	/^struct node *node_number(char *text)$/;"	f	signature:(char *text)
+node_number	node.h	/^struct node *node_number(char *text);$/;"	p	signature:(char *text)
+node_number_from_literal	node.c	/^struct node *node_number_from_literal(int num)$/;"	f	signature:(int num)
+node_number_from_literal	node.h	/^struct node *node_number_from_literal(int num); $/;"	p	signature:(int num)
+node_print_binary_operation	node.c	/^void node_print_binary_operation(FILE *output, struct node *binary_operation) {$/;"	f	signature:(FILE *output, struct node *binary_operation)
+node_print_expression	node.c	/^void node_print_expression(FILE *output, struct node *expression) {$/;"	f	signature:(FILE *output, struct node *expression)
+node_print_expression	node.c	/^void node_print_expression(FILE *output, struct node *expression);$/;"	p	file:	signature:(FILE *output, struct node *expression)
+node_print_expression_statement	node.c	/^void node_print_expression_statement(FILE *output, struct node *expression_statement) {$/;"	f	signature:(FILE *output, struct node *expression_statement)
+node_print_identifier	node.c	/^void node_print_identifier(FILE *output, struct node *identifier) {$/;"	f	signature:(FILE *output, struct node *identifier)
+node_print_number	node.c	/^void node_print_number(FILE *output, struct node *number) {$/;"	f	signature:(FILE *output, struct node *number)
+node_print_statement_list	node.c	/^void node_print_statement_list(FILE *output, struct node *statement_list) {$/;"	f	signature:(FILE *output, struct node *statement_list)
+node_print_statement_list	node.h	/^void node_print_statement_list(FILE *output, struct node *statement_list);$/;"	p	signature:(FILE *output, struct node *statement_list)
+node_statement_list	node.c	/^struct node *node_statement_list(struct node *init, struct node *statement) {$/;"	f	signature:(struct node *init, struct node *statement)
+node_statement_list	node.h	/^struct node *node_statement_list(struct node *init, struct node *statement);$/;"	p	signature:(struct node *init, struct node *statement)
+node_statement_list	node.h	/^struct node *node_statement_list(struct node *list, struct node *item);$/;"	p	signature:(struct node *list, struct node *item)
+number	ir.h	/^    unsigned long number;$/;"	m	union:ir_operand::__anon9	access:public
+number	node.h	/^    } number;$/;"	m	union:node::__anon1	typeref:struct:node::__anon1::__anon2	access:public
+operands	ir.h	/^  struct ir_operand operands[3];$/;"	m	struct:ir_instruction	typeref:struct:ir_instruction::ir_operand	access:public
+operation	node.h	/^      int operation;$/;"	m	struct:node::__anon1::__anon4	access:public
+overflow	node.h	/^      bool overflow;$/;"	m	struct:node::__anon1::__anon2	access:public
+prev	ir.h	/^  struct ir_instruction *prev, *next;$/;"	m	struct:ir_instruction	typeref:struct:ir_instruction::ir_instruction	access:public
+print_errors_from_pass	compiler.c	/^static void print_errors_from_pass(FILE *output, char *pass, int num_errors) {$/;"	f	file:	signature:(FILE *output, char *pass, int num_errors)
+print_token_info	tokens.h	/^void  print_token_info(yytokentype token){$/;"	f	signature:(yytokentype token)
+result	node.h	/^      struct result result;$/;"	m	struct:node::__anon1::__anon2	typeref:struct:node::__anon1::__anon2::result	access:public
+result	node.h	/^      struct result result;$/;"	m	struct:node::__anon1::__anon4	typeref:struct:node::__anon1::__anon4::result	access:public
+result	node.h	/^struct result {$/;"	s
+result	symbol.h	/^  struct result result;$/;"	m	struct:symbol	typeref:struct:symbol::result	access:public
+result::ir_operand	node.h	/^  struct ir_operand *ir_operand;$/;"	m	struct:result	typeref:struct:result::ir_operand	access:public
+result::type	node.h	/^  struct type *type;$/;"	m	struct:result	typeref:struct:result::type	access:public
+right_operand	node.h	/^      struct node *right_operand;$/;"	m	struct:node::__anon1::__anon4	typeref:struct:node::__anon1::__anon4::node	access:public
+root_node	compiler.c	/^struct node *root_node;$/;"	v	typeref:struct:node
+scan_only	compiler.c	/^int scan_only(FILE *output) {$/;"	f	signature:(FILE *output)
+statement	node.h	/^      struct node *statement;$/;"	m	struct:node::__anon1::__anon6	typeref:struct:node::__anon1::__anon6::node	access:public
+statement_list	node.h	/^    } statement_list;$/;"	m	union:node::__anon1	typeref:struct:node::__anon1::__anon6	access:public
+symbol	node.h	/^      struct symbol *symbol;$/;"	m	struct:node::__anon1::__anon3	typeref:struct:node::__anon1::__anon3::symbol	access:public
+symbol	symbol.h	/^  struct symbol symbol;$/;"	m	struct:symbol_list	typeref:struct:symbol_list::symbol	access:public
+symbol	symbol.h	/^struct symbol {$/;"	s
+symbol::name	symbol.h	/^  char name[MAX_IDENTIFIER_LENGTH + 1];$/;"	m	struct:symbol	access:public
+symbol::result	symbol.h	/^  struct result result;$/;"	m	struct:symbol	typeref:struct:symbol::result	access:public
+symbol_add_from_binary_operation	symbol.c	/^void symbol_add_from_binary_operation(struct symbol_table *table, struct node *binary_operation) {$/;"	f	signature:(struct symbol_table *table, struct node *binary_operation)
+symbol_add_from_expression	symbol.c	/^void symbol_add_from_expression(struct symbol_table *table, struct node *expression) {$/;"	f	signature:(struct symbol_table *table, struct node *expression)
+symbol_add_from_expression	symbol.c	/^void symbol_add_from_expression(struct symbol_table *table, struct node *expression);$/;"	p	file:	signature:(struct symbol_table *table, struct node *expression)
+symbol_add_from_expression_statement	symbol.c	/^void symbol_add_from_expression_statement(struct symbol_table *table, struct node *expression_statement) {$/;"	f	signature:(struct symbol_table *table, struct node *expression_statement)
+symbol_add_from_identifier	symbol.c	/^void symbol_add_from_identifier(struct symbol_table *table, struct node *identifier) {$/;"	f	signature:(struct symbol_table *table, struct node *identifier)
+symbol_add_from_statement_list	symbol.c	/^void symbol_add_from_statement_list(struct symbol_table *table, struct node *statement_list) {$/;"	f	signature:(struct symbol_table *table, struct node *statement_list)
+symbol_add_from_statement_list	symbol.h	/^void symbol_add_from_statement_list(struct symbol_table *table, struct node *statement_list);$/;"	p	signature:(struct symbol_table *table, struct node *statement_list)
+symbol_get	symbol.c	/^struct symbol *symbol_get(struct symbol_table *table, char name[]) {$/;"	f	signature:(struct symbol_table *table, char name[])
+symbol_initialize_table	symbol.c	/^void symbol_initialize_table(struct symbol_table *table) {$/;"	f	signature:(struct symbol_table *table)
+symbol_initialize_table	symbol.h	/^void symbol_initialize_table(struct symbol_table *table);$/;"	p	signature:(struct symbol_table *table)
+symbol_list	symbol.h	/^struct symbol_list {$/;"	s
+symbol_list::next	symbol.h	/^  struct symbol_list *next;$/;"	m	struct:symbol_list	typeref:struct:symbol_list::symbol_list	access:public
+symbol_list::symbol	symbol.h	/^  struct symbol symbol;$/;"	m	struct:symbol_list	typeref:struct:symbol_list::symbol	access:public
+symbol_print_table	symbol.c	/^void symbol_print_table(FILE *output, struct symbol_table *table) {$/;"	f	signature:(FILE *output, struct symbol_table *table)
+symbol_print_table	symbol.h	/^void symbol_print_table(FILE *output, struct symbol_table *table);$/;"	p	signature:(FILE *output, struct symbol_table *table)
+symbol_put	symbol.c	/^struct symbol *symbol_put(struct symbol_table *table, char name[]) {$/;"	f	signature:(struct symbol_table *table, char name[])
+symbol_table	symbol.h	/^struct symbol_table {$/;"	s
+symbol_table::variables	symbol.h	/^  struct symbol_list *variables;$/;"	m	struct:symbol_table	typeref:struct:symbol_table::symbol_list	access:public
+symbol_table_num_errors	symbol.c	/^int symbol_table_num_errors;$/;"	v
+temporary	ir.h	/^    int temporary;$/;"	m	union:ir_operand::__anon9	access:public
+tok_string	tokens.h	/^	char * tok_string; $/;"	m	struct:_token_to_string	access:public
+token	tokens.h	/^	yytokentype token; $/;"	m	struct:_token_to_string	access:public
+token_to_string	tokens.h	/^} token_to_string;$/;"	t	typeref:struct:_token_to_string
+token_to_strings	tokens.h	/^token_to_string token_to_strings[] = { $/;"	v
+type	node.h	/^  struct type *type;$/;"	m	struct:result	typeref:struct:result::type	access:public
+type	type.h	/^struct type {$/;"	s
+type::__anon7::__anon8::is_unsigned	type.h	/^      bool is_unsigned;$/;"	m	struct:type::__anon7::__anon8	access:public
+type::__anon7::__anon8::width	type.h	/^      int width;$/;"	m	struct:type::__anon7::__anon8	access:public
+type::__anon7::basic	type.h	/^    } basic;$/;"	m	union:type::__anon7	typeref:struct:type::__anon7::__anon8	access:public
+type::data	type.h	/^  } data;$/;"	m	struct:type	typeref:union:type::__anon7	access:public
+type::kind	type.h	/^  int kind;$/;"	m	struct:type	access:public
+type_assign_in_binary_operation	type.c	/^void type_assign_in_binary_operation(struct node *binary_operation) {$/;"	f	signature:(struct node *binary_operation)
+type_assign_in_expression	type.c	/^void type_assign_in_expression(struct node *expression) {$/;"	f	signature:(struct node *expression)
+type_assign_in_expression	type.c	/^void type_assign_in_expression(struct node *expression);$/;"	p	file:	signature:(struct node *expression)
+type_assign_in_expression_statement	type.c	/^void type_assign_in_expression_statement(struct node *expression_statement) {$/;"	f	signature:(struct node *expression_statement)
+type_assign_in_statement_list	type.c	/^void type_assign_in_statement_list(struct node *statement_list) {$/;"	f	signature:(struct node *statement_list)
+type_assign_in_statement_list	type.h	/^void type_assign_in_statement_list(struct node *statement_list);$/;"	p	signature:(struct node *statement_list)
+type_basic	type.c	/^struct type *type_basic(bool is_unsigned, int width) {$/;"	f	signature:(bool is_unsigned, int width)
+type_basic	type.h	/^struct type *type_basic(bool is_unsigned, int width);$/;"	p	signature:(bool is_unsigned, int width)
+type_checking_num_errors	type.c	/^int type_checking_num_errors;$/;"	v
+type_convert_assignment	type.c	/^void type_convert_assignment(struct node *binary_operation) {$/;"	f	signature:(struct node *binary_operation)
+type_convert_usual_binary	type.c	/^void type_convert_usual_binary(struct node *binary_operation) {$/;"	f	signature:(struct node *binary_operation)
+type_equal	type.h	/^int type_equal(struct type *left, struct type *right);$/;"	p	signature:(struct type *left, struct type *right)
+type_is_arithmetic	type.c	/^int type_is_arithmetic(struct type *t) {$/;"	f	signature:(struct type *t)
+type_is_arithmetic	type.h	/^int type_is_arithmetic(struct type *t);$/;"	p	signature:(struct type *t)
+type_is_equal	type.c	/^int type_is_equal(struct type *left, struct type *right) {$/;"	f	signature:(struct type *left, struct type *right)
+type_is_scalar	type.c	/^int type_is_scalar(struct type *t) {$/;"	f	signature:(struct type *t)
+type_is_unsigned	type.c	/^int type_is_unsigned(struct type *t) {$/;"	f	signature:(struct type *t)
+type_is_unsigned	type.h	/^int type_is_unsigned(struct type *t);$/;"	p	signature:(struct type *t)
+type_is_void	type.c	/^int type_is_void(struct type *t) {$/;"	f	signature:(struct type *t)
+type_print	type.c	/^void type_print(FILE *output, struct type *kind) {$/;"	f	signature:(FILE *output, struct type *kind)
+type_print	type.h	/^void type_print(FILE *output, struct type *type);$/;"	p	signature:(FILE *output, struct type *type)
+type_print_basic	type.c	/^void type_print_basic(FILE *output, struct type *basic) {$/;"	f	signature:(FILE *output, struct type *basic)
+type_size	type.c	/^int type_size(struct type *t) {$/;"	f	signature:(struct type *t)
+type_size	type.h	/^int type_size(struct type *t);$/;"	p	signature:(struct type *t)
+value	node.h	/^      unsigned long value;$/;"	m	struct:node::__anon1::__anon2	access:public
+variables	symbol.h	/^  struct symbol_list *variables;$/;"	m	struct:symbol_table	typeref:struct:symbol_table::symbol_list	access:public
+width	type.h	/^      int width;$/;"	m	struct:type::__anon7::__anon8	access:public
+yyparse	compiler.c	/^int yyparse();$/;"	p	file:
+yytokentype	tokens.h	/^typedef int yytokentype; $/;"	t
