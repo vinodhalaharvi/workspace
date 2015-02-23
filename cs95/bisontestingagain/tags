@@ -1,4 +1,27 @@
-YYSTYPE	bison.h	/^	YYSTYPE;$/
+Mbison	bison.c	/^int main(int argc, const char *argv[])$/
+Mtest.tab	test.tab.c	/^int main(int argc, const char *argv[])$/
+YYBACKUP	bison.c	/^#define YYBACKUP(Token, Value)					\\$/
+YYID	bison.c	/^YYID (i)$/
+YYPOPSTACK	bison.c	/^#define YYPOPSTACK(N)   (yyvsp -= (N), yyssp -= (N/
+YYRECOVERING	bison.c	/^#define YYRECOVERING()  (!!yyerrstatus)$/
+YYRHSLOC	bison.c	/^#define YYRHSLOC(Rhs, K) ((Rhs)[K])$/
+YYSTYPE	bison.c	/^typedef int YYSTYPE;$/
+YYTRANSLATE	bison.c	/^#define YYTRANSLATE(YYX)						\\$/
+YY_AT_BOL	lex.c	/^#define YY_AT_BOL() (YY_CURRENT_BUFFER_LVALUE->yy_/
+YY_BUFFER_STATE	lex.c	/^typedef struct yy_buffer_state *YY_BUFFER_STATE;$/
+YY_CHAR	lex.c	/^typedef unsigned char YY_CHAR;$/
+YY_FATAL_ERROR	lex.c	/^#define YY_FATAL_ERROR(msg) yy_fatal_error( msg )$/
+YY_INPUT	lex.c	/^#define YY_INPUT(buf,result,max_size) \\$/
+YY_LESS_LINENO	lex.c	/^    #define  YY_LESS_LINENO(n) \\$/
+YY_SC_TO_UI	lex.c	/^#define YY_SC_TO_UI(c) ((unsigned int) (unsigned c/
+YY_STATE_EOF	lex.c	/^#define YY_STATE_EOF(state) (YY_END_OF_BUFFER + st/
+flex_int16_t	lex.c	/^typedef int16_t flex_int16_t;$/
+flex_int32_t	lex.c	/^typedef int32_t flex_int32_t;$/
+flex_int8_t	lex.c	/^typedef int8_t flex_int8_t;$/
+flex_uint16_t	lex.c	/^typedef uint16_t flex_uint16_t;$/
+flex_uint32_t	lex.c	/^typedef uint32_t flex_uint32_t;$/
+flex_uint64_t	lex.c	/^typedef uint64_t flex_uint64_t;$/
+flex_uint8_t	lex.c	/^typedef uint8_t flex_uint8_t;$/
 node	node.h	/^struct node {$/
 node_binary_operation	node.c	/^struct node *node_binary_operation(int operation, /
 node_create	node.c	/^struct node *node_create(int node_kind) {$/
@@ -27,4 +50,48 @@ symbol_list	symbol.h	/^struct symbol_list {$/
 symbol_print_table	symbol.c	/^void symbol_print_table(FILE *output, struct symbo/
 symbol_put	symbol.c	/^struct symbol *symbol_put(struct symbol_table *tab/
 symbol_table	symbol.h	/^struct symbol_table {$/
-yytokentype	bison.h	/^   enum yytokentype {$/
+tokens	lex.c	/^enum tokens {IGNORE, CHAR_LITERAL}; $/
+unput	lex.c	/^#define unput(c) yyunput( c, (yytext_ptr)  )$/
+yy_buffer_state	lex.c	/^struct yy_buffer_state$/
+yy_delete_buffer	lex.c	/^    void yy_delete_buffer (YY_BUFFER_STATE  b )$/
+yy_fatal_error	lex.c	/^static void yy_fatal_error (yyconst char* msg )$/
+yy_flex_strlen	lex.c	/^static int yy_flex_strlen (yyconst char * s )$/
+yy_flex_strncpy	lex.c	/^static void yy_flex_strncpy (char* s1, yyconst cha/
+yy_flush_buffer	lex.c	/^    void yy_flush_buffer (YY_BUFFER_STATE  b )$/
+yy_get_next_buffer	lex.c	/^static int yy_get_next_buffer (void)$/
+yy_get_previous_state	lex.c	/^    static yy_state_type yy_get_previous_state (vo/
+yy_init_globals	lex.c	/^static int yy_init_globals (void)$/
+yy_reduce_print	bison.c	/^yy_reduce_print (yyvsp, yyrule)$/
+yy_scan_string	lex.c	/^YY_BUFFER_STATE yy_scan_string (yyconst char * yys/
+yy_set_bol	lex.c	/^#define yy_set_bol(at_bol) \\$/
+yy_set_interactive	lex.c	/^#define yy_set_interactive(is_interactive) \\$/
+yy_size_t	lex.c	/^typedef size_t yy_size_t;$/
+yy_stack_print	bison.c	/^yy_stack_print (bottom, top)$/
+yy_state_type	lex.c	/^typedef int yy_state_type;$/
+yy_symbol_print	bison.c	/^yy_symbol_print (yyoutput, yytype, yyvaluep)$/
+yy_symbol_value_print	bison.c	/^yy_symbol_value_print (yyoutput, yytype, yyvaluep)/
+yy_trans_info	lex.c	/^struct yy_trans_info$/
+yyalloc	lex.c	/^void *yyalloc (yy_size_t  size )$/
+yydestruct	bison.c	/^yydestruct (yymsg, yytype, yyvaluep)$/
+yyensure_buffer_stack	lex.c	/^static void yyensure_buffer_stack (void)$/
+yyerror	bison.c	/^void yyerror(char *s) {$/
+yyfree	lex.c	/^void yyfree (void * ptr )$/
+yyless	lex.c	/^#define yyless(n) \\$/
+yymore	lex.c	/^#define yymore() yymore_used_but_not_detected$/
+yyparse	bison.c	/^yyparse (YYPARSE_PARAM)$/
+yypop_buffer_state	lex.c	/^void yypop_buffer_state (void)$/
+yypush_buffer_state	lex.c	/^void yypush_buffer_state (YY_BUFFER_STATE new_buff/
+yyset_debug	lex.c	/^void yyset_debug (int  bdebug )$/
+yyset_in	lex.c	/^void yyset_in (FILE *  in_str )$/
+yyset_lineno	lex.c	/^void yyset_lineno (int  line_number )$/
+yyset_out	lex.c	/^void yyset_out (FILE *  out_str )$/
+yystpcpy	bison.c	/^yystpcpy (yydest, yysrc)$/
+yystrlen	bison.c	/^yystrlen (yystr)$/
+yysyntax_error	bison.c	/^yysyntax_error (char *yyresult, int yystate, int y/
+yyterminate	lex.c	/^#define yyterminate() return YY_NULL$/
+yytnamerr	bison.c	/^yytnamerr (char *yyres, const char *yystr)$/
+yytokentype	bison.c	/^   enum yytokentype {$/
+yytype_int16	bison.c	/^typedef YYTYPE_INT16 yytype_int16;$/
+yytype_int8	bison.c	/^typedef YYTYPE_INT8 yytype_int8;$/
+yytype_uint16	bison.c	/^typedef YYTYPE_UINT16 yytype_uint16;$/
+yytype_uint8	bison.c	/^typedef YYTYPE_UINT8 yytype_uint8;$/

@@ -7,9 +7,11 @@
 
 int yylex();
 extern int yylineno;
-void yyerror(char const *s);
+void yyerror(char *s);
 #define YYSTYPE struct node *
 #define YYERROR_VERBOSE
+void print_node(struct node * node);
+void print_tree(struct node * node);
 extern struct node *root_node;
 
 %}
@@ -25,58 +27,53 @@ extern struct node *root_node;
 %token GREATER_GREATER_EQUAL LESS_EQUAL LESS_LESS LESS_LESS_EQUAL
 %token MINUS_EQUAL MINUS_MINUS PERCENT_EQUAL PLUS_EQUAL PLUS_PLUS
 %token SLASH_EQUAL VBAR_EQUAL VBAR_VBAR
-%union {
-	 union { 
-		 int kind;
-		  int line_number;
-		  struct ir_section *ir;
-		  union {
-		    struct {
-		      unsigned long value;
-		      bool overflow;
-		      struct result result;
-		    } number;
-		    struct {
-		      char name[MAX_IDENTIFIER_LENGTH + 1];
-		      struct symbol *symbol;
-		    } identifier;
-		    struct {
-		      int operation;
-		      struct node *left_operand;
-		      struct node *right_operand;
-		      struct result result;
-		    } binary_operation;
-		    struct {
-		      struct node *expression;
-		    } expression_statement;
-		    struct {
-		      struct node *init;
-		      struct node *statement;
-		    } statement_list;
-		  } data;
-		} node; 
-	}
 
-%type <node> programstart expr
-%token <node> NUMBER 
 %start programstart
+%token NUMBER
+%left PLUS MINUS
+%left SLASH ASTERISK
+
 %%
 programstart:  
 	| programstart LEFT_CURLY expr RIGHT_CURLY 
-		{ $$ = $3; }
-		/*print_node($3); printf(">> "); } */
+		{ print_tree($3); printf(">> "); }
 	;
+
 expr: 
-    | NUMBER PLUS NUMBER
-		{ $$ = node_binary_operation(PLUS, $1, $3);}
-    | NUMBER MINUS NUMBER
-		{ $$ = node_binary_operation(MINUS, $1, $3);}
-    | NUMBER SLASH NUMBER
-		{ $$ = node_binary_operation(SLASH, $1, $3);}
-    | NUMBER ASTERISK NUMBER
-		{ $$ = node_binary_operation(ASTERISK, $1, $3);}
+	| expr PLUS NUMBER
+		{ $$ = node_binary_operation($2, $1, $3);}
+	| NUMBER
 	;
 %%
+void print_node(struct node *node){
+	assert(node != NULL); 
+	if (node->kind == NODE_BINARY_OPERATION) { 
+		printf("Node at 0x%p left_operand: 0x%p, right_operand:0x%p\n", 
+			node, node->data.binary_operation.left_operand, 
+				node->data.binary_operation.right_operand); 
+	} else {
+		printf("Node at 0x%p has value %lu\n" , node, node->data.number.value); 
+	}
+}
+
+void print_tree(struct node * node){
+	if (node == NULL)
+		return; 
+	if (node->kind == NODE_BINARY_OPERATION)
+	{ 
+		print_node(node); 
+		print_node(node->data.binary_operation.left_operand); 
+		print_node(node->data.binary_operation.right_operand); 
+	} else { 
+		print_node(node); 
+	}
+	return; 
+}
+
+void yyerror(char *s) {
+  fprintf(stderr, "%s\n", s);
+}
+
 int main(int argc, const char *argv[])
 {
 	printf(">> "); 
@@ -84,6 +81,3 @@ int main(int argc, const char *argv[])
 	return 0;
 }
 
-void yyerror(char * s){
-	fprintf(stderr, "Error %s\n", s); 
-}

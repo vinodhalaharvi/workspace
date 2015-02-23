@@ -3,11 +3,14 @@
 %option nounput
 
 %{
+#define YYSTYPE struct node *
+
 #include "bison.h"
 #include "node.h"
 #include <assert.h>
 #define YY_NO_INPUT
 #define MAX_STR_CONST 32667
+
 enum tokens {IGNORE, CHAR_LITERAL}; 
 char *store, *yystring; 
 int yystringlen = 0;
@@ -143,7 +146,6 @@ a valid number not starting with '0' */
 {id}        { yylval = node_identifier(yytext, yyleng); return IDENTIFIER; } 
  /* newline and white space */
 {newline}   {}
-{ws}        {}
  /*everything else is an error */
 .           return -1;
 %%
