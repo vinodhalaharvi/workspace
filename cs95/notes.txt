@@ -1,0 +1,38 @@
+git://code.seas.harvard.edu/csci-e-95/csci-e-95-project.git
+git remote add git://code.seas.harvard.edu/csci-e-95/csci-e-95-project.git
+
+if you have accidently added some file to commit but didn't mean to then you can reset it. 
+git reset HEAD scanner.l
+git diff (this only shows if you have not staged the changes yet .. ) 
+git diff --cache (wil show changes after it's commited)
+Piazza notes .. 
+The most significant test programs will probably be C snippets, as you suggest.  You want to have enough test programs to ensure to you that your code is working.  One area that requires more testing is the type determination for integer constants.  Another may be ensuring that the longest matching token is returned.  I would certainly test the edge conditions for all tokens: which characters are allowed in which positions of identifiers, are the escape characters correctly implemented within character constants and string constants, etc.
+
+
+Problem Set 1 cs95
+###################
+You are welcome to modify the makefile as needed.  You do not have to build, compile, and run the later compiler phases for earlier problem sets. 
+
+As the student stated above, characters constants should be treated as another way to express an integer constant.  You should not define a new token class for character constants.  After your compiler's lexer, the character literal 'b' will be indistinguishable from the integer constant 98.
+
+ So, nodes do *not* need to be created for reserved words, operators, and separators.  Although keywords are identifiers, I wouldn't create nodes for them.  They should be identified as specific keywords and a specific value should be returned for each keyword.
+
+Do we need to support string concatenation in the tokenizer? In particular: "a" "b" -> "ab"
+
+You should add a node type to represent a string literal for this assignment; the only nodes that correspond directly to single tokens are literals and identifiers. In Problem Set 2, you will add more node types to represent more complex structures, which often comprise multiple tokens.
+The type of yylval is YYSTYPE, which is not necessarily long int. In fact, in the sample code, we define it to be a pointer to a struct node[1].
+You do not need to do anything besides print the values of the fields of the nodes for this assignment.
+
+$ git remote remove course
+$ git remote add course git@code.seas.harvard.edu:csci-e-95/csci-e-95-project.git
+$ git fetch course
+$ git merge course/master
+
+
+how to select a work in vim and  then upper case it
+% s/\(\<[a-z_]\+_t\>\)/\U\1/g
+
+
+from GNU bison documentation 
+token type and 
+semantic value

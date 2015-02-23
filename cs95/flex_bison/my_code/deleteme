@@ -1,0 +1,6 @@
+a.out
+deleteme
+lex.yy.c
+Makefile
+scanner
+scanner.l

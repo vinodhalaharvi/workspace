@@ -1,0 +1,100 @@
+Udacity parser implementation
+C++ tree implementations using Wiess book
+Coursera Parsers lectures
+Dragon book first three chapters
+flex & bison book 
+The accepted input character set is composed of the 52 upper case and
+lower case alphabetic characters; the 10 decimal digits; the space,
+horizontal tab, vertical tab, and form feed characters; the 29
+graphic characters below; the new line character; the 3 extra graphic
+characters dollar sign, at-sign, and accent grave.
+Graphic characters:
+	exclamation point	plus			double quote
+	number sign		equal			left brace
+	percent			tilde			right brace
+	cicumflex		left bracket		comma
+	ampersand		right bracket		period
+	asterisk		backslash		less than
+	left parenthesis	vertical bar		greater than
+	right parenthesis	semicolon		slash
+	hyphen or minus		colon			question mark
+	underscore		apostrophe
+
+The reserved words are:
+             do		for	return
+    break       		short
+             else	goto	signed		unsigned
+    char		if			void
+                 	int
+    continue    	long			while
+The operators and separators are:
+    simple operators:	           !   %   ^   &   *   -   +   =
+			           ~   |       <   >   /   ?
+    compound assignment operators: +=  -=  *=  /=  %=
+				   <<= >>= &=  ^=  |=
+    other compound operators:	       ++  --  <<  >>
+				   <=  >=  ==  !=  &&  ||
+    other separator characters:	   (   )   [   ]   {   }   ,   ;   :
+
+
+
+
+ { return DO; }
+ { return FOR; }
+ { return RETURN; }
+ { return BREAK; }
+ { return SHORT; }
+ { return ELSE; }
+ { return GOTO; }
+ { return SIGNED; }
+ { return UNSIGNED; }
+ { return CHAR; }
+ { return IF; }
+ { return VOID; }
+ { return INT; }
+ { return CONST; }
+ { return LONG; }
+ { return WHILE; }
+ { return PLUS_EQUAL; }
+ { return MINUS_EQUAL; }
+ { return START_EQUAL; }
+ { return SLASH_EQUAL; }
+ { return PERCENT_EQUAL; }
+ { return LESSTHAN_LESSTHAN_EQUAL; }
+ { return GREATERTHAN_GREATERTHAN_EQUAL; }
+ { return AMPERSAND_EQUAL; }
+ { return CARET_EQUAL; }
+ { return PIPE_EQUAL; }
+ { return PLUS_PLUS; }
+ { return MINUS_MINUS; }
+ { return LESSTHAN_LESSTHAN; }
+ { return GREATHERTHAN_GREATERTHAN; }
+ { return LESSTHAN_EQUAL; }
+ { return GREATERTHAN_EQUAL; }
+ { return EQUAL_EQUAL; }
+ { return EXCLAMATION_EQUAL; }
+ { return AMPERSAND_AMPERSAND; }
+ { return PIPE_PIPE; }
+ { return EXCLAMATION; }
+ { return PERCENT; }
+ { return CARET; }
+ { return AMPERSAND; }
+ { return MULTIPLICATION; }
+ { return MINUS; }
+ { return PLUS; }
+ { return EQUAL; }
+ { return TILDA; }
+ { return PIPE; }
+ { return LESSTHAN; }
+ { return GREATERTHAN; }
+ { return SLASH; }
+ { return QUESTIONMARK; }
+ { return OPENPAREN; }
+ { return CLOSEDPAREN; }
+ { return CLOSEDSQUAREBRACKET; }
+ { return OPENSQUAREBRACKET; }
+ { return OPENBRACE; }
+ { return CLOSEDBRACE; }
+ { return COMMA; }
+ { return SEMICOLON; }
+ { return COLON; }

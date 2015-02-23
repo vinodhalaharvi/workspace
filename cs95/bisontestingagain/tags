@@ -1,0 +1,30 @@
+YYSTYPE	bison.h	/^	YYSTYPE;$/
+node	node.h	/^struct node {$/
+node_binary_operation	node.c	/^struct node *node_binary_operation(int operation, /
+node_create	node.c	/^struct node *node_create(int node_kind) {$/
+node_expression_statement	node.c	/^struct node *node_expression_statement(struct node/
+node_get_result	node.c	/^struct result *node_get_result(struct node *expres/
+node_identifier	node.c	/^struct node *node_identifier(char *text, int lengt/
+node_number	node.c	/^struct node *node_number(char *text)$/
+node_number_from_literal	node.c	/^struct node *node_number_from_literal(int num)$/
+node_print_binary_operation	node.c	/^void node_print_binary_operation(FILE *output, str/
+node_print_expression	node.c	/^void node_print_expression(FILE *output, struct no/
+node_print_expression_statement	node.c	/^void node_print_expression_statement(FILE *output,/
+node_print_identifier	node.c	/^void node_print_identifier(FILE *output, struct no/
+node_print_number	node.c	/^void node_print_number(FILE *output, struct node */
+node_print_statement_list	node.c	/^void node_print_statement_list(FILE *output, struc/
+node_statement_list	node.c	/^struct node *node_statement_list(struct node *init/
+result	node.h	/^struct result {$/
+symbol	symbol.h	/^struct node;$/
+symbol_add_from_binary_operation	symbol.c	/^void symbol_add_from_binary_operation(struct symbo/
+symbol_add_from_expression	symbol.c	/^void symbol_add_from_expression(struct symbol_tabl/
+symbol_add_from_expression_statement	symbol.c	/^void symbol_add_from_expression_statement(struct s/
+symbol_add_from_identifier	symbol.c	/^void symbol_add_from_identifier(struct symbol_tabl/
+symbol_add_from_statement_list	symbol.c	/^void symbol_add_from_statement_list(struct symbol_/
+symbol_get	symbol.c	/^struct symbol *symbol_get(struct symbol_table *tab/
+symbol_initialize_table	symbol.c	/^void symbol_initialize_table(struct symbol_table */
+symbol_list	symbol.h	/^struct symbol_list {$/
+symbol_print_table	symbol.c	/^void symbol_print_table(FILE *output, struct symbo/
+symbol_put	symbol.c	/^struct symbol *symbol_put(struct symbol_table *tab/
+symbol_table	symbol.h	/^struct symbol_table {$/
+yytokentype	bison.h	/^   enum yytokentype {$/
