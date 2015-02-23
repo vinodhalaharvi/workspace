@@ -45,7 +45,6 @@ newline         (\r\n|\n)
 letter          [[:alpha:]]
 id              [a-zA-Z][a-zA-Z_0-9]*
 %%
-
  /* reserved keywords*/
 "do"	{ return DO;}
 "for"	{ return FOR;}
@@ -193,23 +192,23 @@ id              [a-zA-Z][a-zA-Z_0-9]*
 (\'\\v\')	{yylval = node_number_from_literal('\v'); return NUMBER; }
 (\'\\f\')	{yylval = node_number_from_literal('\f'); return NUMBER; }
 (\'\\r\')	{yylval = node_number_from_literal('\r'); return NUMBER; }
-
  /* Decimal number which could either be a single digit '0' or
  	a valid number not starting with '0' */
 {number}	{ yylval = node_number(yytext); return NUMBER; }
 {zero}*{number} { return -1; }
 {zero}	{yylval = node_number(yytext); return NUMBER; }
   /* constants end */
-
   /* identifiers */
 {id}        { yylval = node_identifier(yytext, yyleng); return IDENTIFIER; } 
-
  /* newline and white space */
 {newline}   {}
 {ws}        {}
-
   /*everything else is an error */
 .           return -1;
+
+
+
+
 %%
  /*
 	int main()
