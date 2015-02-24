@@ -154,8 +154,6 @@ continue_statement
 	: CONTINUE SEMICOLON  
 	;
 
-
-
 decl 
 	: declaration_specifiers initialized_declarator_list SEMICOLON  
 	;
@@ -336,9 +334,6 @@ parameter_decl
 
 
  /* not sure if this is right */
-CONSTANT
-	: constant
-	;
 abstract_declarator_opt:
 	| abstract_declarator
 	;
@@ -369,7 +364,8 @@ initial_clause_opt:
 int_t_opt:
 	| INT
 	;
-integer_constant: NUMBER
+integer_constant
+	: NUMBER
 	;
 pointer_opt:
 	| pointer
@@ -431,7 +427,7 @@ preincrement_expr
 
 primary_expr 
 	: IDENTIFIER 
-	| CONSTANT 
+	| constant 
 	| parenthesized_expr 
 	;
 

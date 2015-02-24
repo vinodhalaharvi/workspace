@@ -47,6 +47,7 @@ typedef int16_t flex_int16_t;
 typedef uint16_t flex_uint16_t;
 typedef int32_t flex_int32_t;
 typedef uint32_t flex_uint32_t;
+typedef uint64_t flex_uint64_t;
 #else
 typedef signed char flex_int8_t;
 typedef short int flex_int16_t;
@@ -54,6 +55,7 @@ typedef int flex_int32_t;
 typedef unsigned char flex_uint8_t; 
 typedef unsigned short int flex_uint16_t;
 typedef unsigned int flex_uint32_t;
+#endif /* ! C99 */
 
 /* Limits of integral types. */
 #ifndef INT8_MIN
@@ -83,8 +85,6 @@ typedef unsigned int flex_uint32_t;
 #ifndef UINT32_MAX
 #define UINT32_MAX             (4294967295U)
 #endif
-
-#endif /* ! C99 */
 
 #endif /* ! FLEXINT_H */
 
@@ -142,15 +142,7 @@ typedef unsigned int flex_uint32_t;
 
 /* Size of default input buffer. */
 #ifndef YY_BUF_SIZE
-#ifdef __ia64__
-/* On IA-64, the buffer size is 16k, not 8k.
- * Moreover, YY_BUF_SIZE is 2*YY_READ_BUF_SIZE in the general case.
- * Ditto for the __ia64__ case accordingly.
- */
-#define YY_BUF_SIZE 32768
-#else
 #define YY_BUF_SIZE 16384
-#endif /* __ia64__ */
 #endif
 
 /* The state buf must be large enough to hold one state per character in the main buffer.
@@ -162,7 +154,12 @@ typedef unsigned int flex_uint32_t;
 typedef struct yy_buffer_state *YY_BUFFER_STATE;
 #endif
 
-extern int yyleng;
+#ifndef YY_TYPEDEF_YY_SIZE_T
+#define YY_TYPEDEF_YY_SIZE_T
+typedef size_t yy_size_t;
+#endif
+
+extern yy_size_t yyleng;
 
 extern FILE *yyin, *yyout;
 
@@ -179,7 +176,7 @@ extern FILE *yyin, *yyout;
      */
     #define  YY_LESS_LINENO(n) \
             do { \
-                int yyl;\
+                yy_size_t yyl;\
                 for ( yyl = n; yyl < yyleng; ++yyl )\
                     if ( yytext[yyl] == '\n' )\
                         --yylineno;\
@@ -201,11 +198,6 @@ extern FILE *yyin, *yyout;
 
 #define unput(c) yyunput( c, (yytext_ptr)  )
 
-#ifndef YY_TYPEDEF_YY_SIZE_T
-#define YY_TYPEDEF_YY_SIZE_T
-typedef size_t yy_size_t;
-#endif
-
 #ifndef YY_STRUCT_YY_BUFFER_STATE
 #define YY_STRUCT_YY_BUFFER_STATE
 struct yy_buffer_state
@@ -223,7 +215,7 @@ struct yy_buffer_state
 	/* Number of characters read into yy_ch_buf, not including EOB
 	 * characters.
 	 */
-	int yy_n_chars;
+	yy_size_t yy_n_chars;
 
 	/* Whether we "own" the buffer - i.e., we know we created it,
 	 * and can realloc() it to grow it, and should free() it to
@@ -293,8 +285,8 @@ static YY_BUFFER_STATE * yy_buffer_stack = 0; /**< Stack as an array. */
 
 /* yy_hold_char holds the character lost when yytext is formed. */
 static char yy_hold_char;
-static int yy_n_chars;		/* number of characters read into yy_ch_buf */
-int yyleng;
+static yy_size_t yy_n_chars;		/* number of characters read into yy_ch_buf */
+yy_size_t yyleng;
 
 /* Points to current character in buffer. */
 static char *yy_c_buf_p = (char *) 0;
@@ -322,7 +314,7 @@ static void yy_init_buffer (YY_BUFFER_STATE b,FILE *file  );
 
 YY_BUFFER_STATE yy_scan_buffer (char *base,yy_size_t size  );
 YY_BUFFER_STATE yy_scan_string (yyconst char *yy_str  );
-YY_BUFFER_STATE yy_scan_bytes (yyconst char *bytes,int len  );
+YY_BUFFER_STATE yy_scan_bytes (yyconst char *bytes,yy_size_t len  );
 
 void *yyalloc (yy_size_t  );
 void *yyrealloc (void *,yy_size_t  );
@@ -377,13 +369,13 @@ static void yy_fatal_error (yyconst char msg[]  );
  */
 #define YY_DO_BEFORE_ACTION \
 	(yytext_ptr) = yy_bp; \
-	yyleng = (size_t) (yy_cp - yy_bp); \
+	yyleng = (yy_size_t) (yy_cp - yy_bp); \
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 101
-#define YY_END_OF_BUFFER 102
+#define YY_NUM_RULES 99
+#define YY_END_OF_BUFFER 100
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -393,26 +385,26 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[190] =
     {   0,
-       19,   19,   80,   80,   64,   64,    0,    0,  102,  100,
-       19,   99,  100,   40,   68,   41,   43,  100,   54,   55,
-       44,   46,   60,   45,   52,   97,   95,   62,   61,   50,
-       47,   51,   53,   98,   56,   57,   42,   98,   98,   98,
-       98,   98,   98,   98,   98,   98,   98,   98,   98,   98,
-       17,   49,   18,   48,   70,   69,   85,   80,   64,   66,
-       65,  101,   19,   99,   37,   24,   38,   27,    0,    0,
-       22,   30,   20,   31,   21,   63,   23,    0,   96,   95,
-       32,   34,   36,   35,   33,   98,   28,   98,   98,   98,
-        1,   98,   98,   98,   11,   98,   98,   98,   98,   98,
+       17,   17,   78,   78,   62,   62,    0,    0,  100,   98,
+       17,   97,   98,   38,   66,   39,   41,   98,   52,   53,
+       42,   44,   58,   43,   50,   95,   93,   60,   59,   48,
+       45,   49,   51,   96,   54,   55,   40,   96,   96,   96,
+       96,   96,   96,   96,   96,   96,   96,   96,   96,   96,
+       56,   47,   57,   46,   68,   67,   83,   78,   62,   64,
+       63,   99,   17,   97,   35,   22,   36,   25,    0,    0,
+       20,   28,   18,   29,   19,   61,   21,    0,   94,   93,
+       30,   32,   34,   33,   31,   96,   26,   96,   96,   96,
+        1,   96,   96,   96,   11,   96,   96,   96,   96,   96,
 
-       98,   98,   98,   29,   39,   84,   83,   82,   71,   72,
-       81,   79,   75,   77,   73,   76,   74,   78,   64,   65,
-       65,   67,   87,    0,    0,    0,    0,    0,    0,    0,
-        0,   96,   25,   26,   98,   98,   98,   98,    2,   98,
-       13,   98,   98,   98,   98,   98,   98,   98,   71,   72,
-       86,    0,   88,   89,   93,   91,   94,   90,   92,   98,
-       10,   98,    6,    7,   15,   98,   98,   98,   98,   12,
-       98,   71,    0,    4,   98,   98,    5,   98,   98,   16,
-       98,    3,    8,   98,   98,   98,   14,    9,    0
+       96,   96,   96,   27,   37,   82,   81,   80,   69,   70,
+       79,   77,   73,   75,   71,   74,   72,   76,   62,   63,
+       63,   65,   85,    0,    0,    0,    0,    0,    0,    0,
+        0,   94,   23,   24,   96,   96,   96,   96,    2,   96,
+       13,   96,   96,   96,   96,   96,   96,   96,   69,   70,
+       84,    0,   86,   87,   91,   89,   92,   88,   90,   96,
+       10,   96,    6,    7,   15,   96,   96,   96,   96,   12,
+       96,   69,    0,    4,   96,   96,    5,   96,   96,   16,
+       96,    3,    8,   96,   96,   96,   14,    9,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -586,14 +578,14 @@ static yyconst flex_int16_t yy_chk[311] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static yyconst flex_int32_t yy_rule_can_match_eol[102] =
+static yyconst flex_int32_t yy_rule_can_match_eol[100] =
     {   0,
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 
-    0, 0,     };
+    0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 
+        };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -624,7 +616,7 @@ char *store, *yystring;
 int yystringlen = 0;
 unsigned int literal_int = 0;
 
-#line 628 "lex.c"
+#line 620 "lex.c"
 
 #define INITIAL 0
 #define string 1
@@ -666,7 +658,7 @@ FILE *yyget_out (void );
 
 void yyset_out  (FILE * out_str  );
 
-int yyget_leng (void );
+yy_size_t yyget_leng (void );
 
 char *yyget_text (void );
 
@@ -706,12 +698,7 @@ static int input (void );
 
 /* Amount of stuff to slurp up with each read. */
 #ifndef YY_READ_BUF_SIZE
-#ifdef __ia64__
-/* On IA-64, the buffer size is 16k, not 8k */
-#define YY_READ_BUF_SIZE 16384
-#else
 #define YY_READ_BUF_SIZE 8192
-#endif /* __ia64__ */
 #endif
 
 /* Copy whatever the last rule matched to the standard output. */
@@ -719,7 +706,7 @@ static int input (void );
 /* This used to be an fputs(), but since the string might contain NUL's,
  * we now use fwrite().
  */
-#define ECHO do { if (fwrite( yytext, yyleng, 1, yyout )) {} } while (0)
+#define ECHO fwrite( yytext, yyleng, 1, yyout )
 #endif
 
 /* Gets input and stuffs it into "buf".  number of characters read, or YY_NULL,
@@ -730,7 +717,7 @@ static int input (void );
 	if ( YY_CURRENT_BUFFER_LVALUE->yy_is_interactive ) \
 		{ \
 		int c = '*'; \
-		size_t n; \
+		yy_size_t n; \
 		for ( n = 0; n < max_size && \
 			     (c = getc( yyin )) != EOF && c != '\n'; ++n ) \
 			buf[n] = (char) c; \
@@ -815,7 +802,7 @@ YY_DECL
 #line 30 "test.l"
 
  /* reserved keywords*/
-#line 819 "lex.c"
+#line 806 "lex.c"
 
 	if ( !(yy_init) )
 		{
@@ -889,7 +876,7 @@ yy_find_action:
 
 		if ( yy_act != YY_END_OF_BUFFER && yy_rule_can_match_eol[yy_act] )
 			{
-			int yyl;
+			yy_size_t yyl;
 			for ( yyl = 0; yyl < yyleng; ++yyl )
 				if ( yytext[yyl] == '\n' )
 					   
@@ -991,244 +978,245 @@ YY_RULE_SETUP
 case 17:
 YY_RULE_SETUP
 #line 48 "test.l"
-{ return LEFT_CURLY; }
-	YY_BREAK
-case 18:
-YY_RULE_SETUP
-#line 49 "test.l"
-{ return RIGHT_CURLY; }
-	YY_BREAK
-case 19:
-YY_RULE_SETUP
-#line 50 "test.l"
 /* eat up a space */
 	YY_BREAK
 /* operators begin */
+case 18:
+YY_RULE_SETUP
+#line 51 "test.l"
+{ return PLUS_EQUAL;}
+	YY_BREAK
+case 19:
+YY_RULE_SETUP
+#line 52 "test.l"
+{ return MINUS_EQUAL;}
+	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 53 "test.l"
-{ return PLUS_EQUAL;}
+{ return ASTERISK_EQUAL	;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 54 "test.l"
-{ return MINUS_EQUAL;}
+{ return SLASH_EQUAL;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 55 "test.l"
-{ return ASTERISK_EQUAL	;}
+{ return PERCENT_EQUAL;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 56 "test.l"
-{ return SLASH_EQUAL;}
+{ return LESS_LESS_EQUAL;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 57 "test.l"
-{ return PERCENT_EQUAL;}
+{ return GREATER_GREATER_EQUAL;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 58 "test.l"
-{ return LESS_LESS_EQUAL;}
+{ return AMPERSAND_EQUAL;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 59 "test.l"
-{ return GREATER_GREATER_EQUAL;}
+{ return CARET_EQUAL;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 60 "test.l"
-{ return AMPERSAND_EQUAL;}
+{ return VBAR_EQUAL;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 61 "test.l"
-{ return CARET_EQUAL;}
+{ return PLUS_PLUS;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 62 "test.l"
-{ return VBAR_EQUAL;}
+{ return MINUS_MINUS;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 63 "test.l"
-{ return PLUS_PLUS;}
+{ return LESS_LESS;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 64 "test.l"
-{ return MINUS_MINUS;}
+{ return GREATER_GREATER;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 65 "test.l"
-{ return LESS_LESS;}
+{ return LESS_EQUAL;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 66 "test.l"
-{ return GREATER_GREATER;}
+{ return GREATER_EQUAL;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 67 "test.l"
-{ return LESS_EQUAL;}
+{ return EQUAL_EQUAL;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 68 "test.l"
-{ return GREATER_EQUAL;}
+{ return EXCLAMATION_EQUAL;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 69 "test.l"
-{ return EQUAL_EQUAL;}
+{ return AMPERSAND_AMPERSAND;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 70 "test.l"
-{ return EXCLAMATION_EQUAL;}
+{ return VBAR_VBAR;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 71 "test.l"
-{ return AMPERSAND_AMPERSAND;}
+{ return EXCLAMATION;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 72 "test.l"
-{ return VBAR_VBAR;}
+{ return PERCENT;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 73 "test.l"
-{ return EXCLAMATION;}
+{ return CARET;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 74 "test.l"
-{ return PERCENT;}
+{ return AMPERSAND;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 75 "test.l"
-{ return CARET;}
+{ return ASTERISK;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
 #line 76 "test.l"
-{ return AMPERSAND;}
+{ return MINUS;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
 #line 77 "test.l"
-{ return ASTERISK;}
+{ return PLUS;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
 #line 78 "test.l"
-{ return MINUS;}
+{ return EQUAL;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
 #line 79 "test.l"
-{ return PLUS;}
+{ return TILDE;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
 #line 80 "test.l"
-{ return EQUAL;}
+{ return VBAR;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
 #line 81 "test.l"
-{ return TILDE;}
+{ return LESS;}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
 #line 82 "test.l"
-{ return VBAR;}
+{ return GREATER;}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
 #line 83 "test.l"
-{ return LESS;}
+{ return SLASH;}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
 #line 84 "test.l"
-{ return GREATER;}
+{ return QUESTION;}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
 #line 85 "test.l"
-{ return SLASH;}
+{ return LEFT_PAREN;}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
 #line 86 "test.l"
-{ return QUESTION;}
+{ return RIGHT_PAREN;}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
 #line 87 "test.l"
-{ return LEFT_PAREN;}
+{ return RIGHT_SQUARE;}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
 #line 88 "test.l"
-{ return RIGHT_PAREN;}
+{ return LEFT_SQUARE;}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
 #line 89 "test.l"
-{ return RIGHT_SQUARE;}
+{ return LEFT_CURLY;}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
 #line 90 "test.l"
-{ return LEFT_SQUARE;}
+{ return RIGHT_CURLY;}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
 #line 91 "test.l"
-{ return LEFT_CURLY;}
+{ return COMMA;}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
 #line 92 "test.l"
-{ return RIGHT_CURLY;}
+{ return SEMICOLON;}
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
 #line 93 "test.l"
-{ return COMMA;}
-	YY_BREAK
-case 61:
-YY_RULE_SETUP
-#line 94 "test.l"
-{ return SEMICOLON;}
-	YY_BREAK
-case 62:
-YY_RULE_SETUP
-#line 95 "test.l"
 { return COLON;}
 	YY_BREAK
 /* operators end */
 /* handle comments */
 /* REFERENCE: flex office manual */
 /* http://flex.sourceforge.net/manual/Start-Conditions.html#Start-Conditions */
+case 61:
+YY_RULE_SETUP
+#line 102 "test.l"
+{BEGIN(comment);}
+	YY_BREAK
+case 62:
+YY_RULE_SETUP
+#line 103 "test.l"
+
+	YY_BREAK
 case 63:
 YY_RULE_SETUP
 #line 104 "test.l"
-{BEGIN(comment);}
+
 	YY_BREAK
 case 64:
+/* rule 64 can match eol */
 YY_RULE_SETUP
 #line 105 "test.l"
 
@@ -1236,26 +1224,15 @@ YY_RULE_SETUP
 case 65:
 YY_RULE_SETUP
 #line 106 "test.l"
-
-	YY_BREAK
-case 66:
-/* rule 66 can match eol */
-YY_RULE_SETUP
-#line 107 "test.l"
-
-	YY_BREAK
-case 67:
-YY_RULE_SETUP
-#line 108 "test.l"
 {BEGIN(INITIAL);}
 	YY_BREAK
 /* handle comments */
 /* REFERENCE: flex office manual */
 /* http://flex.sourceforge.net/manual/Start-Conditions.html#Start-Conditions */
 /* handle double quotes */
-case 68:
+case 66:
 YY_RULE_SETUP
-#line 114 "test.l"
+#line 112 "test.l"
 {
 BEGIN(string); 
 store = (char *) malloc(sizeof(char) * MAX_STR_CONST); 
@@ -1263,28 +1240,28 @@ memset(store, '\0', MAX_STR_CONST );
 yystring = store; 
 }
 	YY_BREAK
-case 69:
-/* rule 69 can match eol */
+case 67:
+/* rule 67 can match eol */
 YY_RULE_SETUP
-#line 120 "test.l"
+#line 118 "test.l"
 {
 /* yyerror("Quoted string not terminated properly.");  */
 	return -1; 
 }
 	YY_BREAK
 /* if not a double quote, not a slash or newline */
-case 70:
+case 68:
 YY_RULE_SETUP
-#line 125 "test.l"
+#line 123 "test.l"
 {
 *store++ = *yytext; 
 assert(++yystringlen < MAX_STR_CONST ); 
 }
 	YY_BREAK
 /* Case for valid octal escape code */
-case 71:
+case 69:
 YY_RULE_SETUP
-#line 130 "test.l"
+#line 128 "test.l"
 {
 unsigned int result; 
 (void)sscanf(yytext + 1, "%o", &result); 
@@ -1296,82 +1273,82 @@ assert(++yystringlen < MAX_STR_CONST);
 }
 	YY_BREAK
 /* If you get here, it's an invalid octal escape code */
-case 72:
+case 70:
 YY_RULE_SETUP
-#line 140 "test.l"
+#line 138 "test.l"
 {
 return -1; 
 /* yyerror("Invalid octal code inside the string.. ");  */
 }
 	YY_BREAK
 /* change the escape literals to their true encoding */
+case 71:
+YY_RULE_SETUP
+#line 143 "test.l"
+{ *store++ = '\n'; assert(++yystringlen < MAX_STR_CONST); }
+	YY_BREAK
+case 72:
+YY_RULE_SETUP
+#line 144 "test.l"
+{ *store++ = '\t'; assert(++yystringlen < MAX_STR_CONST); }
+	YY_BREAK
 case 73:
 YY_RULE_SETUP
 #line 145 "test.l"
-{ *store++ = '\n'; assert(++yystringlen < MAX_STR_CONST); }
+{ *store++ = '\b'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
 #line 146 "test.l"
-{ *store++ = '\t'; assert(++yystringlen < MAX_STR_CONST); }
+{ *store++ = '\r'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
 #line 147 "test.l"
-{ *store++ = '\b'; assert(++yystringlen < MAX_STR_CONST); }
+{ *store++ = '\f'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
 #line 148 "test.l"
-{ *store++ = '\r'; assert(++yystringlen < MAX_STR_CONST); }
+{ *store++ = '\v'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
 #line 149 "test.l"
-{ *store++ = '\f'; assert(++yystringlen < MAX_STR_CONST); }
+{ *store++ = '\a'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
 #line 150 "test.l"
-{ *store++ = '\v'; assert(++yystringlen < MAX_STR_CONST); }
+{ *store++ = '\?'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
 #line 151 "test.l"
-{ *store++ = '\a'; assert(++yystringlen < MAX_STR_CONST); }
+{ *store++ = '\\'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
 #line 152 "test.l"
-{ *store++ = '\?'; assert(++yystringlen < MAX_STR_CONST); }
-	YY_BREAK
-case 81:
-YY_RULE_SETUP
-#line 153 "test.l"
-{ *store++ = '\\'; assert(++yystringlen < MAX_STR_CONST); }
-	YY_BREAK
-case 82:
-YY_RULE_SETUP
-#line 154 "test.l"
 { *store++ = '\''; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 /*<string>\\\0 { *store++ = '\0'; assert(++yystringlen < MAX_STR_CONST); } */
-case 83:
+case 81:
 YY_RULE_SETUP
-#line 156 "test.l"
+#line 154 "test.l"
 { *store++ = '"'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 /* if this is not a escape character then ignore leading '\' */
-case 84:
-/* rule 84 can match eol */
+case 82:
+/* rule 82 can match eol */
 YY_RULE_SETUP
-#line 158 "test.l"
+#line 156 "test.l"
 {*store++ = yytext[1]; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 /* wrap up the string if we see a closing quote*/
-case 85:
+case 83:
 YY_RULE_SETUP
-#line 160 "test.l"
+#line 158 "test.l"
 {
 *store = '\0'; 
 assert(++yystringlen < MAX_STR_CONST); 
@@ -1381,100 +1358,100 @@ return STRING;
 }
 	YY_BREAK
 /*Rules for character literals */
-case 86:
+case 84:
 YY_RULE_SETUP
-#line 169 "test.l"
+#line 167 "test.l"
 {
 			(void) sscanf(yytext+2, "%o", &literal_int); 
 			yylval = node_number_from_literal(literal_int); 
 			return NUMBER; 
 		}
 	YY_BREAK
+case 85:
+/* rule 85 can match eol */
+YY_RULE_SETUP
+#line 172 "test.l"
+{yylval = node_number_from_literal((int)yytext[1]); return NUMBER; }
+	YY_BREAK
+case 86:
+YY_RULE_SETUP
+#line 173 "test.l"
+{yylval = node_number_from_literal('\a'); return NUMBER; }
+	YY_BREAK
 case 87:
-/* rule 87 can match eol */
 YY_RULE_SETUP
 #line 174 "test.l"
-{yylval = node_number_from_literal((int)yytext[1]); return NUMBER; }
+{yylval = node_number_from_literal('\b'); return NUMBER; }
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
 #line 175 "test.l"
-{yylval = node_number_from_literal('\a'); return NUMBER; }
+{yylval = node_number_from_literal('\t'); return NUMBER; }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
 #line 176 "test.l"
-{yylval = node_number_from_literal('\b'); return NUMBER; }
+{yylval = node_number_from_literal('\n'); return NUMBER; }
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
 #line 177 "test.l"
-{yylval = node_number_from_literal('\t'); return NUMBER; }
+{yylval = node_number_from_literal('\v'); return NUMBER; }
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
 #line 178 "test.l"
-{yylval = node_number_from_literal('\n'); return NUMBER; }
+{yylval = node_number_from_literal('\f'); return NUMBER; }
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
 #line 179 "test.l"
-{yylval = node_number_from_literal('\v'); return NUMBER; }
-	YY_BREAK
-case 93:
-YY_RULE_SETUP
-#line 180 "test.l"
-{yylval = node_number_from_literal('\f'); return NUMBER; }
-	YY_BREAK
-case 94:
-YY_RULE_SETUP
-#line 181 "test.l"
 {yylval = node_number_from_literal('\r'); return NUMBER; }
 	YY_BREAK
 /* Decimal number which could either be a single digit '0' or
 a valid number not starting with '0' */
 /* {number}  { yylval.d = atoi(yytext); return NUMBER; } */
+case 93:
+YY_RULE_SETUP
+#line 183 "test.l"
+{ yylval = node_number(yytext); return NUMBER; }
+	YY_BREAK
+case 94:
+YY_RULE_SETUP
+#line 184 "test.l"
+{ return -1; }
+	YY_BREAK
 case 95:
 YY_RULE_SETUP
 #line 185 "test.l"
-{ yylval = node_number(yytext); return NUMBER; }
-	YY_BREAK
-case 96:
-YY_RULE_SETUP
-#line 186 "test.l"
-{ return -1; }
-	YY_BREAK
-case 97:
-YY_RULE_SETUP
-#line 187 "test.l"
 {yylval = node_number(yytext); return NUMBER; }
 	YY_BREAK
 /* constants end */
 /* identifiers */
-case 98:
+case 96:
 YY_RULE_SETUP
-#line 190 "test.l"
+#line 188 "test.l"
 { yylval = node_identifier(yytext, yyleng); return IDENTIFIER; } 
 	YY_BREAK
 /* newline and white space */
-case 99:
-/* rule 99 can match eol */
+case 97:
+/* rule 97 can match eol */
 YY_RULE_SETUP
-#line 192 "test.l"
+#line 190 "test.l"
 {}
 	YY_BREAK
 /*everything else is an error */
-case 100:
+case 98:
 YY_RULE_SETUP
-#line 194 "test.l"
+#line 192 "test.l"
 return -1;
 	YY_BREAK
-case 101:
+case 99:
 YY_RULE_SETUP
-#line 195 "test.l"
+#line 193 "test.l"
 ECHO;
 	YY_BREAK
-#line 1478 "lex.c"
+#line 1455 "lex.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(string):
 case YY_STATE_EOF(comment):
@@ -1663,7 +1640,7 @@ static int yy_get_next_buffer (void)
 
 	else
 		{
-			int num_to_read =
+			yy_size_t num_to_read =
 			YY_CURRENT_BUFFER_LVALUE->yy_buf_size - number_to_move - 1;
 
 		while ( num_to_read <= 0 )
@@ -1677,7 +1654,7 @@ static int yy_get_next_buffer (void)
 
 			if ( b->yy_is_our_buffer )
 				{
-				int new_size = b->yy_buf_size * 2;
+				yy_size_t new_size = b->yy_buf_size * 2;
 
 				if ( new_size <= 0 )
 					b->yy_buf_size += b->yy_buf_size / 8;
@@ -1708,7 +1685,7 @@ static int yy_get_next_buffer (void)
 
 		/* Read in more data. */
 		YY_INPUT( (&YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[number_to_move]),
-			(yy_n_chars), (size_t) num_to_read );
+			(yy_n_chars), num_to_read );
 
 		YY_CURRENT_BUFFER_LVALUE->yy_n_chars = (yy_n_chars);
 		}
@@ -1830,7 +1807,7 @@ static int yy_get_next_buffer (void)
 
 		else
 			{ /* need more input */
-			int offset = (yy_c_buf_p) - (yytext_ptr);
+			yy_size_t offset = (yy_c_buf_p) - (yytext_ptr);
 			++(yy_c_buf_p);
 
 			switch ( yy_get_next_buffer(  ) )
@@ -1854,7 +1831,7 @@ static int yy_get_next_buffer (void)
 				case EOB_ACT_END_OF_FILE:
 					{
 					if ( yywrap( ) )
-						return EOF;
+						return 0;
 
 					if ( ! (yy_did_buffer_switch_on_eof) )
 						YY_NEW_FILE;
@@ -2111,7 +2088,7 @@ void yypop_buffer_state (void)
  */
 static void yyensure_buffer_stack (void)
 {
-	int num_to_alloc;
+	yy_size_t num_to_alloc;
     
 	if (!(yy_buffer_stack)) {
 
@@ -2203,17 +2180,16 @@ YY_BUFFER_STATE yy_scan_string (yyconst char * yystr )
 
 /** Setup the input buffer state to scan the given bytes. The next call to yylex() will
  * scan from a @e copy of @a bytes.
- * @param yybytes the byte buffer to scan
- * @param _yybytes_len the number of bytes in the buffer pointed to by @a bytes.
+ * @param bytes the byte buffer to scan
+ * @param len the number of bytes in the buffer pointed to by @a bytes.
  * 
  * @return the newly allocated buffer state object.
  */
-YY_BUFFER_STATE yy_scan_bytes  (yyconst char * yybytes, int  _yybytes_len )
+YY_BUFFER_STATE yy_scan_bytes  (yyconst char * yybytes, yy_size_t  _yybytes_len )
 {
 	YY_BUFFER_STATE b;
 	char *buf;
-	yy_size_t n;
-	int i;
+	yy_size_t n, i;
     
 	/* Get memory for full buffer, including space for trailing EOB's. */
 	n = _yybytes_len + 2;
@@ -2295,7 +2271,7 @@ FILE *yyget_out  (void)
 /** Get the length of the current token.
  * 
  */
-int yyget_leng  (void)
+yy_size_t yyget_leng  (void)
 {
         return yyleng;
 }
@@ -2446,7 +2422,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 195 "test.l"
+#line 193 "test.l"
 
 
 

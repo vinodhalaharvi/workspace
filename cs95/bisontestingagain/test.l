@@ -45,8 +45,6 @@ id              [a-zA-Z][a-zA-Z_0-9]*
 "continue"	{ return CONTINUE;}
 "long"	{ return LONG;}
 "while"	{ return WHILE;}
-"{"	{ return LEFT_CURLY; }
-"}"	{ return RIGHT_CURLY; }
 {ws}*   /* eat up a space */
 
   /* operators begin */
