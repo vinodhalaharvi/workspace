@@ -30,7 +30,6 @@ extern struct node *root_node;
 
 %start translation_unit
 %token NUMBER
-
 %left  COMMA
 %right  EQUAL PLUS_EQUAL MINUS_EQUAL ASTERISK_EQUAL SLASH_EQUAL LESS_LESS_EQUAL GREATER_GREATER_EQUAL PERCENT_EQUAL AMPERSAND_EQUAL CARET_EQUAL VBAR_EQUAL
 %left VBAR_VBAR
@@ -43,7 +42,6 @@ extern struct node *root_node;
 %left LESS_LESS GREATER_GREATER
 %left PLUS MINUS 
 %left SLASH ASTERISK PERCENT
-
 %%
 abstract_declarator 
 	: pointer 

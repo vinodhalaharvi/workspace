@@ -1,0 +1,5738 @@
+Terminals unused in grammar
+
+   GREATER_GREATER_EQUAL
+   LESS_LESS_EQUAL
+
+
+Rules useless in parser due to conflicts
+
+  114 declaration_specifiers_opt: declaration_specifiers
+
+  125 integer_constant: NUMBER
+
+
+State 10 conflicts: 3 shift/reduce
+State 44 conflicts: 8 shift/reduce
+State 56 conflicts: 7 shift/reduce, 1 reduce/reduce
+State 64 conflicts: 8 shift/reduce
+State 68 conflicts: 7 shift/reduce, 1 reduce/reduce
+State 70 conflicts: 7 shift/reduce
+State 71 conflicts: 7 shift/reduce
+State 72 conflicts: 7 shift/reduce
+State 73 conflicts: 7 shift/reduce
+State 74 conflicts: 7 shift/reduce
+State 75 conflicts: 7 shift/reduce
+State 77 conflicts: 7 shift/reduce
+State 78 conflicts: 7 shift/reduce
+State 79 conflicts: 7 shift/reduce
+State 80 conflicts: 37 reduce/reduce
+State 98 conflicts: 8 shift/reduce
+State 135 conflicts: 2 shift/reduce
+State 140 conflicts: 1 shift/reduce
+State 153 conflicts: 7 shift/reduce, 1 reduce/reduce
+State 154 conflicts: 8 shift/reduce
+State 157 conflicts: 7 shift/reduce
+State 160 conflicts: 7 shift/reduce
+State 170 conflicts: 7 shift/reduce
+State 175 conflicts: 7 shift/reduce
+State 176 conflicts: 7 shift/reduce
+State 177 conflicts: 7 shift/reduce
+State 178 conflicts: 7 shift/reduce
+State 179 conflicts: 7 shift/reduce
+State 183 conflicts: 7 shift/reduce
+State 185 conflicts: 8 shift/reduce
+State 186 conflicts: 7 shift/reduce
+State 187 conflicts: 7 shift/reduce
+State 188 conflicts: 7 shift/reduce
+State 192 conflicts: 7 shift/reduce
+State 194 conflicts: 7 shift/reduce, 1 reduce/reduce
+State 195 conflicts: 7 shift/reduce
+State 202 conflicts: 7 shift/reduce
+State 205 conflicts: 7 shift/reduce
+State 217 conflicts: 7 shift/reduce
+State 222 conflicts: 1 shift/reduce
+State 238 conflicts: 7 shift/reduce
+State 261 conflicts: 7 shift/reduce
+State 262 conflicts: 7 shift/reduce, 1 reduce/reduce
+State 263 conflicts: 8 shift/reduce
+State 264 conflicts: 8 shift/reduce
+State 266 conflicts: 7 shift/reduce
+State 267 conflicts: 7 shift/reduce
+State 271 conflicts: 7 shift/reduce, 1 reduce/reduce
+State 274 conflicts: 1 shift/reduce
+State 281 conflicts: 7 shift/reduce, 1 reduce/reduce
+State 282 conflicts: 8 shift/reduce
+
+
+Grammar
+
+    0 $accept: translation_unit $end
+
+    1 abstract_declarator: pointer
+    2                    | pointer_opt direct_abstract_declarator
+
+    3 additive_expr: multiplicative_expr
+    4              | additive_expr add_op multiplicative_expr
+
+    5 add_op: PLUS
+    6       | MINUS
+
+    7 address_expr: AMPERSAND cast_expr
+
+    8 array_declarator: direct_declarator LEFT_SQUARE constant_expr_opt RIGHT_SQUARE
+
+    9 assignment_expr: conditional_expr
+   10                | unary_expr assignment_op assignment_expr
+
+   11 assignment_op: EQUAL
+   12              | PLUS_EQUAL
+   13              | MINUS_EQUAL
+   14              | ASTERISK_EQUAL
+   15              | SLASH_EQUAL
+   16              | PERCENT_EQUAL
+   17              | LESS_EQUAL
+   18              | GREATER_EQUAL
+   19              | AMPERSAND_EQUAL
+   20              | CARET_EQUAL
+   21              | VBAR_EQUAL
+
+   22 bitwise_and_expr: equality_expr
+   23                 | bitwise_and_expr AMPERSAND equality_expr
+
+   24 bitwise_negation_expr: TILDE cast_expr
+
+   25 bitwise_or_expr: bitwise_xor_expr
+   26                | bitwise_or_expr VBAR bitwise_xor_expr
+
+   27 bitwise_xor_expr: bitwise_and_expr
+   28                 | bitwise_xor_expr CARET bitwise_and_expr
+
+   29 break_statement: BREAK SEMICOLON
+
+   30 cast_expr: unary_expr
+   31          | LEFT_PAREN type_name RIGHT_PAREN cast_expr
+
+   32 character_type_specifier: CHAR
+   33                         | SIGNED CHAR
+   34                         | UNSIGNED CHAR
+
+   35 comma_expr: assignment_expr
+   36           | comma_expr COMMA assignment_expr
+
+   37 compound_statement: LEFT_CURLY declaration_or_statement_list_opt RIGHT_CURLY
+
+   38 conditional_expr: logical_or_expr
+   39                 | logical_or_expr QUESTION expr COLON conditional_expr
+
+   40 conditional_statement: if_statement
+   41                      | if_else_statement
+
+   42 constant: integer_constant
+   43         | character_constant
+   44         | string_constant
+
+   45 constant_expr: conditional_expr
+
+   46 continue_statement: CONTINUE SEMICOLON
+
+   47 decl: declaration_specifiers initialized_declarator_list SEMICOLON
+
+   48 declaration_or_statement: decl
+   49                         | statement
+
+   50 declaration_or_statement_list: declaration_or_statement
+   51                              | declaration_or_statement_list declaration_or_statement
+
+   52 declaration_specifiers: type_specifier
+
+   53 declarator: pointer_declarator
+   54           | direct_declarator
+
+   55 direct_abstract_declarator: LEFT_PAREN abstract_declarator RIGHT_PAREN
+   56                           | direct_abstract_declarator_opt LEFT_SQUARE constant_expr_opt RIGHT_SQUARE
+
+   57 direct_declarator: simple_declarator
+   58                  | LEFT_PAREN declarator RIGHT_PAREN
+   59                  | function_declarator
+   60                  | array_declarator
+
+   61 do_statement: DO statement WHILE LEFT_PAREN expr RIGHT_PAREN SEMICOLON
+
+   62 equality_expr: relational_expr
+   63              | equality_expr equality_op relational_expr
+
+   64 equality_op: EQUAL_EQUAL
+   65            | EXCLAMATION_EQUAL
+
+   66 expr: comma_expr
+
+   67 expression_list: assignment_expr
+   68                | expression_list COMMA assignment_expr
+
+   69 expression_statement: expr SEMICOLON
+
+   70 for_expr: LEFT_PAREN initial_clause_opt SEMICOLON expr_opt SEMICOLON expr_opt RIGHT_PAREN
+
+   71 for_statement: FOR for_expr statement
+
+   72 function_call: postfix_expr LEFT_PAREN expression_list_opt RIGHT_PAREN
+
+   73 function_declarator: direct_declarator LEFT_PAREN parameter_type_list RIGHT_PAREN
+
+   74 function_definition: function_def_specifier compound_statement
+
+   75 function_def_specifier: declaration_specifiers_opt declarator
+
+   76 goto_statement: GOTO named_label SEMICOLON
+
+   77 if_else_statement: IF LEFT_PAREN expr RIGHT_PAREN statement ELSE statement
+
+   78 if_statement: IF LEFT_PAREN expr RIGHT_PAREN statement
+
+   79 indirection_expr: ASTERISK cast_expr
+
+   80 initial_clause: expr
+
+   81 initialized_declarator: declarator
+
+   82 initialized_declarator_list: initialized_declarator
+   83                            | initialized_declarator_list COMMA initialized_declarator
+
+   84 integer_type_specifier: signed_type_specifier
+   85                       | unsigned_type_specifier
+   86                       | character_type_specifier
+
+   87 iterative_statement: while_statement
+   88                    | do_statement
+   89                    | for_statement
+
+   90 label: named_label
+
+   91 labeled_statement: label COLON statement
+
+   92 logical_and_expr: bitwise_or_expr
+   93                 | logical_and_expr AMPERSAND_AMPERSAND bitwise_or_expr
+
+   94 logical_negation_expr: EXCLAMATION cast_expr
+
+   95 logical_or_expr: logical_and_expr
+   96                | logical_or_expr VBAR_VBAR logical_and_expr
+
+   97 multiplicative_expr: cast_expr
+   98                    | multiplicative_expr mult_op cast_expr
+
+   99 mult_op: ASTERISK
+  100        | SLASH
+  101        | PERCENT
+
+  102 named_label: IDENTIFIER
+
+  103 null_statement: SEMICOLON
+
+  104 parameter_decl: declaration_specifiers declarator
+  105               | declaration_specifiers abstract_declarator_opt
+
+  106 abstract_declarator_opt: /* empty */
+  107                        | abstract_declarator
+
+  108 character_constant: NUMBER
+
+  109 constant_expr_opt: /* empty */
+  110                  | constant_expr
+
+  111 declaration_or_statement_list_opt: /* empty */
+  112                                  | declaration_or_statement_list
+
+  113 declaration_specifiers_opt: /* empty */
+  114                           | declaration_specifiers
+
+  115 direct_abstract_declarator_opt: /* empty */
+  116                               | direct_abstract_declarator
+
+  117 expr_opt: /* empty */
+  118         | expr
+
+  119 expression_list_opt: /* empty */
+  120                    | expression_list
+
+  121 initial_clause_opt: /* empty */
+  122                   | initial_clause
+
+  123 int_t_opt: /* empty */
+  124          | INT
+
+  125 integer_constant: NUMBER
+
+  126 pointer_opt: /* empty */
+  127            | pointer
+
+  128 string_constant: /* empty */
+  129                | STRING
+
+  130 parameter_list: parameter_decl
+  131               | parameter_list COMMA parameter_decl
+
+  132 parameter_type_list: parameter_list
+
+  133 parenthesized_expr: LEFT_PAREN expr RIGHT_PAREN
+
+  134 pointer: ASTERISK
+  135        | ASTERISK pointer
+
+  136 pointer_declarator: pointer direct_declarator
+
+  137 postdecrement_expr: postfix_expr MINUS_MINUS
+
+  138 postfix_expr: primary_expr
+  139             | subscript_expr
+  140             | function_call
+  141             | postincrement_expr
+  142             | postdecrement_expr
+
+  143 postincrement_expr: postfix_expr PLUS_PLUS
+
+  144 predecrement_expr: MINUS_MINUS unary_expr
+
+  145 preincrement_expr: PLUS_PLUS unary_expr
+
+  146 primary_expr: IDENTIFIER
+  147             | constant
+  148             | parenthesized_expr
+
+  149 relational_expr: shift_expr
+  150                | relational_expr relational_op shift_expr
+
+  151 relational_op: LESS
+  152              | LESS_EQUAL
+  153              | GREATER
+  154              | GREATER_EQUAL
+
+  155 return_statement: RETURN expr_opt SEMICOLON
+
+  156 shift_expr: additive_expr
+  157           | shift_expr shift_op additive_expr
+
+  158 shift_op: LESS_LESS
+  159         | GREATER_GREATER
+
+  160 signed_type_specifier: SHORT
+  161                      | SHORT INT
+  162                      | SIGNED SHORT
+  163                      | SIGNED SHORT INT
+  164                      | INT
+  165                      | SIGNED INT
+  166                      | SIGNED
+  167                      | LONG
+  168                      | LONG INT
+  169                      | SIGNED LONG
+  170                      | SIGNED LONG INT
+
+  171 simple_declarator: IDENTIFIER
+
+  172 statement: expression_statement
+  173          | labeled_statement
+  174          | compound_statement
+  175          | conditional_statement
+  176          | iterative_statement
+  177          | break_statement
+  178          | continue_statement
+  179          | return_statement
+  180          | goto_statement
+  181          | null_statement
+
+  182 subscript_expr: postfix_expr LEFT_SQUARE expr RIGHT_SQUARE
+
+  183 top_level_decl: decl
+  184               | function_definition
+
+  185 translation_unit: top_level_decl
+  186                 | translation_unit top_level_decl
+
+  187 type_name: declaration_specifiers abstract_declarator_opt
+
+  188 type_specifier: integer_type_specifier
+  189               | void_type_specifier
+
+  190 unary_expr: postfix_expr
+  191           | unary_minus_expr
+  192           | unary_plus_expr
+  193           | logical_negation_expr
+  194           | bitwise_negation_expr
+  195           | address_expr
+  196           | indirection_expr
+  197           | preincrement_expr
+  198           | predecrement_expr
+
+  199 unary_minus_expr: MINUS cast_expr
+
+  200 unary_plus_expr: PLUS cast_expr
+
+  201 unsigned_type_specifier: UNSIGNED SHORT int_t_opt
+  202                        | UNSIGNED int_t_opt
+  203                        | UNSIGNED LONG int_t_opt
+
+  204 void_type_specifier: VOID
+
+  205 while_statement: WHILE LEFT_PAREN expr RIGHT_PAREN statement
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+IDENTIFIER (258) 102 146 171
+STRING (259) 129
+BREAK (260) 29
+CHAR (261) 32 33 34
+CONTINUE (262) 46
+DO (263) 61
+ELSE (264) 77
+FOR (265) 71
+GOTO (266) 76
+IF (267) 77 78
+INT (268) 124 161 163 164 165 168 170
+LONG (269) 167 168 169 170 203
+RETURN (270) 155
+SHORT (271) 160 161 162 163 201
+SIGNED (272) 33 162 163 165 166 169 170
+UNSIGNED (273) 34 201 202 203
+VOID (274) 204
+WHILE (275) 61 205
+LEFT_PAREN (276) 31 55 58 61 70 72 73 77 78 133 205
+RIGHT_PAREN (277) 31 55 58 61 70 72 73 77 78 133 205
+LEFT_SQUARE (278) 8 56 182
+RIGHT_SQUARE (279) 8 56 182
+LEFT_CURLY (280) 37
+RIGHT_CURLY (281) 37
+AMPERSAND (282) 7 23
+ASTERISK (283) 79 99 134 135
+CARET (284) 28
+COLON (285) 39 91
+COMMA (286) 36 68 83 131
+EQUAL (287) 11
+EXCLAMATION (288) 94
+GREATER (289) 153
+LESS (290) 151
+MINUS (291) 6 199
+PERCENT (292) 101
+PLUS (293) 5 200
+SEMICOLON (294) 29 46 47 61 69 70 76 103 155
+SLASH (295) 100
+QUESTION (296) 39
+TILDE (297) 24
+VBAR (298) 26
+AMPERSAND_AMPERSAND (299) 93
+AMPERSAND_EQUAL (300) 19
+ASTERISK_EQUAL (301) 14
+CARET_EQUAL (302) 20
+EQUAL_EQUAL (303) 64
+EXCLAMATION_EQUAL (304) 65
+GREATER_EQUAL (305) 18 154
+GREATER_GREATER (306) 159
+GREATER_GREATER_EQUAL (307)
+LESS_EQUAL (308) 17 152
+LESS_LESS (309) 158
+LESS_LESS_EQUAL (310)
+MINUS_EQUAL (311) 13
+MINUS_MINUS (312) 137 144
+PERCENT_EQUAL (313) 16
+PLUS_EQUAL (314) 12
+PLUS_PLUS (315) 143 145
+SLASH_EQUAL (316) 15
+VBAR_EQUAL (317) 21
+VBAR_VBAR (318) 96
+NUMBER (319) 108 125
+
+
+Nonterminals, with rules where they appear
+
+$accept (65)
+    on left: 0
+abstract_declarator (66)
+    on left: 1 2, on right: 55 107
+additive_expr (67)
+    on left: 3 4, on right: 4 156 157
+add_op (68)
+    on left: 5 6, on right: 4
+address_expr (69)
+    on left: 7, on right: 195
+array_declarator (70)
+    on left: 8, on right: 60
+assignment_expr (71)
+    on left: 9 10, on right: 10 35 36 67 68
+assignment_op (72)
+    on left: 11 12 13 14 15 16 17 18 19 20 21, on right: 10
+bitwise_and_expr (73)
+    on left: 22 23, on right: 23 27 28
+bitwise_negation_expr (74)
+    on left: 24, on right: 194
+bitwise_or_expr (75)
+    on left: 25 26, on right: 26 92 93
+bitwise_xor_expr (76)
+    on left: 27 28, on right: 25 26 28
+break_statement (77)
+    on left: 29, on right: 177
+cast_expr (78)
+    on left: 30 31, on right: 7 24 31 79 94 97 98 199 200
+character_type_specifier (79)
+    on left: 32 33 34, on right: 86
+comma_expr (80)
+    on left: 35 36, on right: 36 66
+compound_statement (81)
+    on left: 37, on right: 74 174
+conditional_expr (82)
+    on left: 38 39, on right: 9 39 45
+conditional_statement (83)
+    on left: 40 41, on right: 175
+constant (84)
+    on left: 42 43 44, on right: 147
+constant_expr (85)
+    on left: 45, on right: 110
+continue_statement (86)
+    on left: 46, on right: 178
+decl (87)
+    on left: 47, on right: 48 183
+declaration_or_statement (88)
+    on left: 48 49, on right: 50 51
+declaration_or_statement_list (89)
+    on left: 50 51, on right: 51 112
+declaration_specifiers (90)
+    on left: 52, on right: 47 104 105 114 187
+declarator (91)
+    on left: 53 54, on right: 58 75 81 104
+direct_abstract_declarator (92)
+    on left: 55 56, on right: 2 116
+direct_declarator (93)
+    on left: 57 58 59 60, on right: 8 54 73 136
+do_statement (94)
+    on left: 61, on right: 88
+equality_expr (95)
+    on left: 62 63, on right: 22 23 63
+equality_op (96)
+    on left: 64 65, on right: 63
+expr (97)
+    on left: 66, on right: 39 61 69 77 78 80 118 133 182 205
+expression_list (98)
+    on left: 67 68, on right: 68 120
+expression_statement (99)
+    on left: 69, on right: 172
+for_expr (100)
+    on left: 70, on right: 71
+for_statement (101)
+    on left: 71, on right: 89
+function_call (102)
+    on left: 72, on right: 140
+function_declarator (103)
+    on left: 73, on right: 59
+function_definition (104)
+    on left: 74, on right: 184
+function_def_specifier (105)
+    on left: 75, on right: 74
+goto_statement (106)
+    on left: 76, on right: 180
+if_else_statement (107)
+    on left: 77, on right: 41
+if_statement (108)
+    on left: 78, on right: 40
+indirection_expr (109)
+    on left: 79, on right: 196
+initial_clause (110)
+    on left: 80, on right: 122
+initialized_declarator (111)
+    on left: 81, on right: 82 83
+initialized_declarator_list (112)
+    on left: 82 83, on right: 47 83
+integer_type_specifier (113)
+    on left: 84 85 86, on right: 188
+iterative_statement (114)
+    on left: 87 88 89, on right: 176
+label (115)
+    on left: 90, on right: 91
+labeled_statement (116)
+    on left: 91, on right: 173
+logical_and_expr (117)
+    on left: 92 93, on right: 93 95 96
+logical_negation_expr (118)
+    on left: 94, on right: 193
+logical_or_expr (119)
+    on left: 95 96, on right: 38 39 96
+multiplicative_expr (120)
+    on left: 97 98, on right: 3 4 98
+mult_op (121)
+    on left: 99 100 101, on right: 98
+named_label (122)
+    on left: 102, on right: 76 90
+null_statement (123)
+    on left: 103, on right: 181
+parameter_decl (124)
+    on left: 104 105, on right: 130 131
+abstract_declarator_opt (125)
+    on left: 106 107, on right: 105 187
+character_constant (126)
+    on left: 108, on right: 43
+constant_expr_opt (127)
+    on left: 109 110, on right: 8 56
+declaration_or_statement_list_opt (128)
+    on left: 111 112, on right: 37
+declaration_specifiers_opt (129)
+    on left: 113 114, on right: 75
+direct_abstract_declarator_opt (130)
+    on left: 115 116, on right: 56
+expr_opt (131)
+    on left: 117 118, on right: 70 155
+expression_list_opt (132)
+    on left: 119 120, on right: 72
+initial_clause_opt (133)
+    on left: 121 122, on right: 70
+int_t_opt (134)
+    on left: 123 124, on right: 201 202 203
+integer_constant (135)
+    on left: 125, on right: 42
+pointer_opt (136)
+    on left: 126 127, on right: 2
+string_constant (137)
+    on left: 128 129, on right: 44
+parameter_list (138)
+    on left: 130 131, on right: 131 132
+parameter_type_list (139)
+    on left: 132, on right: 73
+parenthesized_expr (140)
+    on left: 133, on right: 148
+pointer (141)
+    on left: 134 135, on right: 1 127 135 136
+pointer_declarator (142)
+    on left: 136, on right: 53
+postdecrement_expr (143)
+    on left: 137, on right: 142
+postfix_expr (144)
+    on left: 138 139 140 141 142, on right: 72 137 143 182 190
+postincrement_expr (145)
+    on left: 143, on right: 141
+predecrement_expr (146)
+    on left: 144, on right: 198
+preincrement_expr (147)
+    on left: 145, on right: 197
+primary_expr (148)
+    on left: 146 147 148, on right: 138
+relational_expr (149)
+    on left: 149 150, on right: 62 63 150
+relational_op (150)
+    on left: 151 152 153 154, on right: 150
+return_statement (151)
+    on left: 155, on right: 179
+shift_expr (152)
+    on left: 156 157, on right: 149 150 157
+shift_op (153)
+    on left: 158 159, on right: 157
+signed_type_specifier (154)
+    on left: 160 161 162 163 164 165 166 167 168 169 170, on right:
+    84
+simple_declarator (155)
+    on left: 171, on right: 57
+statement (156)
+    on left: 172 173 174 175 176 177 178 179 180 181, on right: 49
+    61 71 77 78 91 205
+subscript_expr (157)
+    on left: 182, on right: 139
+top_level_decl (158)
+    on left: 183 184, on right: 185 186
+translation_unit (159)
+    on left: 185 186, on right: 0 186
+type_name (160)
+    on left: 187, on right: 31
+type_specifier (161)
+    on left: 188 189, on right: 52
+unary_expr (162)
+    on left: 190 191 192 193 194 195 196 197 198, on right: 10 30 144
+    145
+unary_minus_expr (163)
+    on left: 199, on right: 191
+unary_plus_expr (164)
+    on left: 200, on right: 192
+unsigned_type_specifier (165)
+    on left: 201 202 203, on right: 85
+void_type_specifier (166)
+    on left: 204, on right: 189
+while_statement (167)
+    on left: 205, on right: 87
+
+
+state 0
+
+    0 $accept: . translation_unit $end
+
+    CHAR      shift, and go to state 1
+    INT       shift, and go to state 2
+    LONG      shift, and go to state 3
+    SHORT     shift, and go to state 4
+    SIGNED    shift, and go to state 5
+    UNSIGNED  shift, and go to state 6
+    VOID      shift, and go to state 7
+
+    $default  reduce using rule 113 (declaration_specifiers_opt)
+
+    character_type_specifier    go to state 8
+    decl                        go to state 9
+    declaration_specifiers      go to state 10
+    function_definition         go to state 11
+    function_def_specifier      go to state 12
+    integer_type_specifier      go to state 13
+    declaration_specifiers_opt  go to state 14
+    signed_type_specifier       go to state 15
+    top_level_decl              go to state 16
+    translation_unit            go to state 17
+    type_specifier              go to state 18
+    unsigned_type_specifier     go to state 19
+    void_type_specifier         go to state 20
+
+
+state 1
+
+   32 character_type_specifier: CHAR .
+
+    $default  reduce using rule 32 (character_type_specifier)
+
+
+state 2
+
+  164 signed_type_specifier: INT .
+
+    $default  reduce using rule 164 (signed_type_specifier)
+
+
+state 3
+
+  167 signed_type_specifier: LONG .
+  168                      | LONG . INT
+
+    INT  shift, and go to state 21
+
+    $default  reduce using rule 167 (signed_type_specifier)
+
+
+state 4
+
+  160 signed_type_specifier: SHORT .
+  161                      | SHORT . INT
+
+    INT  shift, and go to state 22
+
+    $default  reduce using rule 160 (signed_type_specifier)
+
+
+state 5
+
+   33 character_type_specifier: SIGNED . CHAR
+  162 signed_type_specifier: SIGNED . SHORT
+  163                      | SIGNED . SHORT INT
+  165                      | SIGNED . INT
+  166                      | SIGNED .
+  169                      | SIGNED . LONG
+  170                      | SIGNED . LONG INT
+
+    CHAR   shift, and go to state 23
+    INT    shift, and go to state 24
+    LONG   shift, and go to state 25
+    SHORT  shift, and go to state 26
+
+    $default  reduce using rule 166 (signed_type_specifier)
+
+
+state 6
+
+   34 character_type_specifier: UNSIGNED . CHAR
+  201 unsigned_type_specifier: UNSIGNED . SHORT int_t_opt
+  202                        | UNSIGNED . int_t_opt
+  203                        | UNSIGNED . LONG int_t_opt
+
+    CHAR   shift, and go to state 27
+    INT    shift, and go to state 28
+    LONG   shift, and go to state 29
+    SHORT  shift, and go to state 30
+
+    $default  reduce using rule 123 (int_t_opt)
+
+    int_t_opt  go to state 31
+
+
+state 7
+
+  204 void_type_specifier: VOID .
+
+    $default  reduce using rule 204 (void_type_specifier)
+
+
+state 8
+
+   86 integer_type_specifier: character_type_specifier .
+
+    $default  reduce using rule 86 (integer_type_specifier)
+
+
+state 9
+
+  183 top_level_decl: decl .
+
+    $default  reduce using rule 183 (top_level_decl)
+
+
+state 10
+
+   47 decl: declaration_specifiers . initialized_declarator_list SEMICOLON
+  114 declaration_specifiers_opt: declaration_specifiers .
+
+    IDENTIFIER  shift, and go to state 32
+    LEFT_PAREN  shift, and go to state 33
+    ASTERISK    shift, and go to state 34
+
+    IDENTIFIER  [reduce using rule 114 (declaration_specifiers_opt)]
+    LEFT_PAREN  [reduce using rule 114 (declaration_specifiers_opt)]
+    ASTERISK    [reduce using rule 114 (declaration_specifiers_opt)]
+
+    array_declarator             go to state 35
+    declarator                   go to state 36
+    direct_declarator            go to state 37
+    function_declarator          go to state 38
+    initialized_declarator       go to state 39
+    initialized_declarator_list  go to state 40
+    pointer                      go to state 41
+    pointer_declarator           go to state 42
+    simple_declarator            go to state 43
+
+
+state 11
+
+  184 top_level_decl: function_definition .
+
+    $default  reduce using rule 184 (top_level_decl)
+
+
+state 12
+
+   74 function_definition: function_def_specifier . compound_statement
+
+    LEFT_CURLY  shift, and go to state 44
+
+    compound_statement  go to state 45
+
+
+state 13
+
+  188 type_specifier: integer_type_specifier .
+
+    $default  reduce using rule 188 (type_specifier)
+
+
+state 14
+
+   75 function_def_specifier: declaration_specifiers_opt . declarator
+
+    IDENTIFIER  shift, and go to state 32
+    LEFT_PAREN  shift, and go to state 33
+    ASTERISK    shift, and go to state 34
+
+    array_declarator     go to state 35
+    declarator           go to state 46
+    direct_declarator    go to state 37
+    function_declarator  go to state 38
+    pointer              go to state 41
+    pointer_declarator   go to state 42
+    simple_declarator    go to state 43
+
+
+state 15
+
+   84 integer_type_specifier: signed_type_specifier .
+
+    $default  reduce using rule 84 (integer_type_specifier)
+
+
+state 16
+
+  185 translation_unit: top_level_decl .
+
+    $default  reduce using rule 185 (translation_unit)
+
+
+state 17
+
+    0 $accept: translation_unit . $end
+  186 translation_unit: translation_unit . top_level_decl
+
+    $end      shift, and go to state 47
+    CHAR      shift, and go to state 1
+    INT       shift, and go to state 2
+    LONG      shift, and go to state 3
+    SHORT     shift, and go to state 4
+    SIGNED    shift, and go to state 5
+    UNSIGNED  shift, and go to state 6
+    VOID      shift, and go to state 7
+
+    $default  reduce using rule 113 (declaration_specifiers_opt)
+
+    character_type_specifier    go to state 8
+    decl                        go to state 9
+    declaration_specifiers      go to state 10
+    function_definition         go to state 11
+    function_def_specifier      go to state 12
+    integer_type_specifier      go to state 13
+    declaration_specifiers_opt  go to state 14
+    signed_type_specifier       go to state 15
+    top_level_decl              go to state 48
+    type_specifier              go to state 18
+    unsigned_type_specifier     go to state 19
+    void_type_specifier         go to state 20
+
+
+state 18
+
+   52 declaration_specifiers: type_specifier .
+
+    $default  reduce using rule 52 (declaration_specifiers)
+
+
+state 19
+
+   85 integer_type_specifier: unsigned_type_specifier .
+
+    $default  reduce using rule 85 (integer_type_specifier)
+
+
+state 20
+
+  189 type_specifier: void_type_specifier .
+
+    $default  reduce using rule 189 (type_specifier)
+
+
+state 21
+
+  168 signed_type_specifier: LONG INT .
+
+    $default  reduce using rule 168 (signed_type_specifier)
+
+
+state 22
+
+  161 signed_type_specifier: SHORT INT .
+
+    $default  reduce using rule 161 (signed_type_specifier)
+
+
+state 23
+
+   33 character_type_specifier: SIGNED CHAR .
+
+    $default  reduce using rule 33 (character_type_specifier)
+
+
+state 24
+
+  165 signed_type_specifier: SIGNED INT .
+
+    $default  reduce using rule 165 (signed_type_specifier)
+
+
+state 25
+
+  169 signed_type_specifier: SIGNED LONG .
+  170                      | SIGNED LONG . INT
+
+    INT  shift, and go to state 49
+
+    $default  reduce using rule 169 (signed_type_specifier)
+
+
+state 26
+
+  162 signed_type_specifier: SIGNED SHORT .
+  163                      | SIGNED SHORT . INT
+
+    INT  shift, and go to state 50
+
+    $default  reduce using rule 162 (signed_type_specifier)
+
+
+state 27
+
+   34 character_type_specifier: UNSIGNED CHAR .
+
+    $default  reduce using rule 34 (character_type_specifier)
+
+
+state 28
+
+  124 int_t_opt: INT .
+
+    $default  reduce using rule 124 (int_t_opt)
+
+
+state 29
+
+  203 unsigned_type_specifier: UNSIGNED LONG . int_t_opt
+
+    INT  shift, and go to state 28
+
+    $default  reduce using rule 123 (int_t_opt)
+
+    int_t_opt  go to state 51
+
+
+state 30
+
+  201 unsigned_type_specifier: UNSIGNED SHORT . int_t_opt
+
+    INT  shift, and go to state 28
+
+    $default  reduce using rule 123 (int_t_opt)
+
+    int_t_opt  go to state 52
+
+
+state 31
+
+  202 unsigned_type_specifier: UNSIGNED int_t_opt .
+
+    $default  reduce using rule 202 (unsigned_type_specifier)
+
+
+state 32
+
+  171 simple_declarator: IDENTIFIER .
+
+    $default  reduce using rule 171 (simple_declarator)
+
+
+state 33
+
+   58 direct_declarator: LEFT_PAREN . declarator RIGHT_PAREN
+
+    IDENTIFIER  shift, and go to state 32
+    LEFT_PAREN  shift, and go to state 33
+    ASTERISK    shift, and go to state 34
+
+    array_declarator     go to state 35
+    declarator           go to state 53
+    direct_declarator    go to state 37
+    function_declarator  go to state 38
+    pointer              go to state 41
+    pointer_declarator   go to state 42
+    simple_declarator    go to state 43
+
+
+state 34
+
+  134 pointer: ASTERISK .
+  135        | ASTERISK . pointer
+
+    ASTERISK  shift, and go to state 34
+
+    $default  reduce using rule 134 (pointer)
+
+    pointer  go to state 54
+
+
+state 35
+
+   60 direct_declarator: array_declarator .
+
+    $default  reduce using rule 60 (direct_declarator)
+
+
+state 36
+
+   81 initialized_declarator: declarator .
+
+    $default  reduce using rule 81 (initialized_declarator)
+
+
+state 37
+
+    8 array_declarator: direct_declarator . LEFT_SQUARE constant_expr_opt RIGHT_SQUARE
+   54 declarator: direct_declarator .
+   73 function_declarator: direct_declarator . LEFT_PAREN parameter_type_list RIGHT_PAREN
+
+    LEFT_PAREN   shift, and go to state 55
+    LEFT_SQUARE  shift, and go to state 56
+
+    $default  reduce using rule 54 (declarator)
+
+
+state 38
+
+   59 direct_declarator: function_declarator .
+
+    $default  reduce using rule 59 (direct_declarator)
+
+
+state 39
+
+   82 initialized_declarator_list: initialized_declarator .
+
+    $default  reduce using rule 82 (initialized_declarator_list)
+
+
+state 40
+
+   47 decl: declaration_specifiers initialized_declarator_list . SEMICOLON
+   83 initialized_declarator_list: initialized_declarator_list . COMMA initialized_declarator
+
+    COMMA      shift, and go to state 57
+    SEMICOLON  shift, and go to state 58
+
+
+state 41
+
+  136 pointer_declarator: pointer . direct_declarator
+
+    IDENTIFIER  shift, and go to state 32
+    LEFT_PAREN  shift, and go to state 33
+
+    array_declarator     go to state 35
+    direct_declarator    go to state 59
+    function_declarator  go to state 38
+    simple_declarator    go to state 43
+
+
+state 42
+
+   53 declarator: pointer_declarator .
+
+    $default  reduce using rule 53 (declarator)
+
+
+state 43
+
+   57 direct_declarator: simple_declarator .
+
+    $default  reduce using rule 57 (direct_declarator)
+
+
+state 44
+
+   37 compound_statement: LEFT_CURLY . declaration_or_statement_list_opt RIGHT_CURLY
+
+    IDENTIFIER   shift, and go to state 60
+    STRING       shift, and go to state 61
+    BREAK        shift, and go to state 62
+    CHAR         shift, and go to state 1
+    CONTINUE     shift, and go to state 63
+    DO           shift, and go to state 64
+    FOR          shift, and go to state 65
+    GOTO         shift, and go to state 66
+    IF           shift, and go to state 67
+    INT          shift, and go to state 2
+    LONG         shift, and go to state 3
+    RETURN       shift, and go to state 68
+    SHORT        shift, and go to state 4
+    SIGNED       shift, and go to state 5
+    UNSIGNED     shift, and go to state 6
+    VOID         shift, and go to state 7
+    WHILE        shift, and go to state 69
+    LEFT_PAREN   shift, and go to state 70
+    LEFT_CURLY   shift, and go to state 44
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    SEMICOLON    shift, and go to state 76
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    RIGHT_CURLY  reduce using rule 111 (declaration_or_statement_list_opt)
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    SEMICOLON    [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr                      go to state 81
+    address_expr                       go to state 82
+    assignment_expr                    go to state 83
+    bitwise_and_expr                   go to state 84
+    bitwise_negation_expr              go to state 85
+    bitwise_or_expr                    go to state 86
+    bitwise_xor_expr                   go to state 87
+    break_statement                    go to state 88
+    cast_expr                          go to state 89
+    character_type_specifier           go to state 8
+    comma_expr                         go to state 90
+    compound_statement                 go to state 91
+    conditional_expr                   go to state 92
+    conditional_statement              go to state 93
+    constant                           go to state 94
+    continue_statement                 go to state 95
+    decl                               go to state 96
+    declaration_or_statement           go to state 97
+    declaration_or_statement_list      go to state 98
+    declaration_specifiers             go to state 99
+    do_statement                       go to state 100
+    equality_expr                      go to state 101
+    expr                               go to state 102
+    expression_statement               go to state 103
+    for_statement                      go to state 104
+    function_call                      go to state 105
+    goto_statement                     go to state 106
+    if_else_statement                  go to state 107
+    if_statement                       go to state 108
+    indirection_expr                   go to state 109
+    integer_type_specifier             go to state 13
+    iterative_statement                go to state 110
+    label                              go to state 111
+    labeled_statement                  go to state 112
+    logical_and_expr                   go to state 113
+    logical_negation_expr              go to state 114
+    logical_or_expr                    go to state 115
+    multiplicative_expr                go to state 116
+    named_label                        go to state 117
+    null_statement                     go to state 118
+    character_constant                 go to state 119
+    declaration_or_statement_list_opt  go to state 120
+    integer_constant                   go to state 121
+    string_constant                    go to state 122
+    parenthesized_expr                 go to state 123
+    postdecrement_expr                 go to state 124
+    postfix_expr                       go to state 125
+    postincrement_expr                 go to state 126
+    predecrement_expr                  go to state 127
+    preincrement_expr                  go to state 128
+    primary_expr                       go to state 129
+    relational_expr                    go to state 130
+    return_statement                   go to state 131
+    shift_expr                         go to state 132
+    signed_type_specifier              go to state 15
+    statement                          go to state 133
+    subscript_expr                     go to state 134
+    type_specifier                     go to state 18
+    unary_expr                         go to state 135
+    unary_minus_expr                   go to state 136
+    unary_plus_expr                    go to state 137
+    unsigned_type_specifier            go to state 19
+    void_type_specifier                go to state 20
+    while_statement                    go to state 138
+
+
+state 45
+
+   74 function_definition: function_def_specifier compound_statement .
+
+    $default  reduce using rule 74 (function_definition)
+
+
+state 46
+
+   75 function_def_specifier: declaration_specifiers_opt declarator .
+
+    $default  reduce using rule 75 (function_def_specifier)
+
+
+state 47
+
+    0 $accept: translation_unit $end .
+
+    $default  accept
+
+
+state 48
+
+  186 translation_unit: translation_unit top_level_decl .
+
+    $default  reduce using rule 186 (translation_unit)
+
+
+state 49
+
+  170 signed_type_specifier: SIGNED LONG INT .
+
+    $default  reduce using rule 170 (signed_type_specifier)
+
+
+state 50
+
+  163 signed_type_specifier: SIGNED SHORT INT .
+
+    $default  reduce using rule 163 (signed_type_specifier)
+
+
+state 51
+
+  203 unsigned_type_specifier: UNSIGNED LONG int_t_opt .
+
+    $default  reduce using rule 203 (unsigned_type_specifier)
+
+
+state 52
+
+  201 unsigned_type_specifier: UNSIGNED SHORT int_t_opt .
+
+    $default  reduce using rule 201 (unsigned_type_specifier)
+
+
+state 53
+
+   58 direct_declarator: LEFT_PAREN declarator . RIGHT_PAREN
+
+    RIGHT_PAREN  shift, and go to state 139
+
+
+state 54
+
+  135 pointer: ASTERISK pointer .
+
+    $default  reduce using rule 135 (pointer)
+
+
+state 55
+
+   73 function_declarator: direct_declarator LEFT_PAREN . parameter_type_list RIGHT_PAREN
+
+    CHAR      shift, and go to state 1
+    INT       shift, and go to state 2
+    LONG      shift, and go to state 3
+    SHORT     shift, and go to state 4
+    SIGNED    shift, and go to state 5
+    UNSIGNED  shift, and go to state 6
+    VOID      shift, and go to state 7
+
+    character_type_specifier  go to state 8
+    declaration_specifiers    go to state 140
+    integer_type_specifier    go to state 13
+    parameter_decl            go to state 141
+    parameter_list            go to state 142
+    parameter_type_list       go to state 143
+    signed_type_specifier     go to state 15
+    type_specifier            go to state 18
+    unsigned_type_specifier   go to state 19
+    void_type_specifier       go to state 20
+
+
+state 56
+
+    8 array_declarator: direct_declarator LEFT_SQUARE . constant_expr_opt RIGHT_SQUARE
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN    [reduce using rule 128 (string_constant)]
+    RIGHT_SQUARE  reduce using rule 109 (constant_expr_opt)
+    RIGHT_SQUARE  [reduce using rule 128 (string_constant)]
+    AMPERSAND     [reduce using rule 128 (string_constant)]
+    ASTERISK      [reduce using rule 128 (string_constant)]
+    MINUS         [reduce using rule 128 (string_constant)]
+    PLUS          [reduce using rule 128 (string_constant)]
+    MINUS_MINUS   [reduce using rule 128 (string_constant)]
+    PLUS_PLUS     [reduce using rule 128 (string_constant)]
+    $default      reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    conditional_expr       go to state 145
+    constant               go to state 94
+    constant_expr          go to state 146
+    equality_expr          go to state 101
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    constant_expr_opt      go to state 147
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 57
+
+   83 initialized_declarator_list: initialized_declarator_list COMMA . initialized_declarator
+
+    IDENTIFIER  shift, and go to state 32
+    LEFT_PAREN  shift, and go to state 33
+    ASTERISK    shift, and go to state 34
+
+    array_declarator        go to state 35
+    declarator              go to state 36
+    direct_declarator       go to state 37
+    function_declarator     go to state 38
+    initialized_declarator  go to state 149
+    pointer                 go to state 41
+    pointer_declarator      go to state 42
+    simple_declarator       go to state 43
+
+
+state 58
+
+   47 decl: declaration_specifiers initialized_declarator_list SEMICOLON .
+
+    $default  reduce using rule 47 (decl)
+
+
+state 59
+
+    8 array_declarator: direct_declarator . LEFT_SQUARE constant_expr_opt RIGHT_SQUARE
+   73 function_declarator: direct_declarator . LEFT_PAREN parameter_type_list RIGHT_PAREN
+  136 pointer_declarator: pointer direct_declarator .
+
+    LEFT_PAREN   shift, and go to state 55
+    LEFT_SQUARE  shift, and go to state 56
+
+    $default  reduce using rule 136 (pointer_declarator)
+
+
+state 60
+
+  102 named_label: IDENTIFIER .
+  146 primary_expr: IDENTIFIER .
+
+    COLON     reduce using rule 102 (named_label)
+    $default  reduce using rule 146 (primary_expr)
+
+
+state 61
+
+  129 string_constant: STRING .
+
+    $default  reduce using rule 129 (string_constant)
+
+
+state 62
+
+   29 break_statement: BREAK . SEMICOLON
+
+    SEMICOLON  shift, and go to state 150
+
+
+state 63
+
+   46 continue_statement: CONTINUE . SEMICOLON
+
+    SEMICOLON  shift, and go to state 151
+
+
+state 64
+
+   61 do_statement: DO . statement WHILE LEFT_PAREN expr RIGHT_PAREN SEMICOLON
+
+    IDENTIFIER   shift, and go to state 60
+    STRING       shift, and go to state 61
+    BREAK        shift, and go to state 62
+    CONTINUE     shift, and go to state 63
+    DO           shift, and go to state 64
+    FOR          shift, and go to state 65
+    GOTO         shift, and go to state 66
+    IF           shift, and go to state 67
+    RETURN       shift, and go to state 68
+    WHILE        shift, and go to state 69
+    LEFT_PAREN   shift, and go to state 70
+    LEFT_CURLY   shift, and go to state 44
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    SEMICOLON    shift, and go to state 76
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    SEMICOLON    [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    break_statement        go to state 88
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    compound_statement     go to state 91
+    conditional_expr       go to state 92
+    conditional_statement  go to state 93
+    constant               go to state 94
+    continue_statement     go to state 95
+    do_statement           go to state 100
+    equality_expr          go to state 101
+    expr                   go to state 102
+    expression_statement   go to state 103
+    for_statement          go to state 104
+    function_call          go to state 105
+    goto_statement         go to state 106
+    if_else_statement      go to state 107
+    if_statement           go to state 108
+    indirection_expr       go to state 109
+    iterative_statement    go to state 110
+    label                  go to state 111
+    labeled_statement      go to state 112
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    named_label            go to state 117
+    null_statement         go to state 118
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    return_statement       go to state 131
+    shift_expr             go to state 132
+    statement              go to state 152
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+    while_statement        go to state 138
+
+
+state 65
+
+   71 for_statement: FOR . for_expr statement
+
+    LEFT_PAREN  shift, and go to state 153
+
+    for_expr  go to state 154
+
+
+state 66
+
+   76 goto_statement: GOTO . named_label SEMICOLON
+
+    IDENTIFIER  shift, and go to state 155
+
+    named_label  go to state 156
+
+
+state 67
+
+   77 if_else_statement: IF . LEFT_PAREN expr RIGHT_PAREN statement ELSE statement
+   78 if_statement: IF . LEFT_PAREN expr RIGHT_PAREN statement
+
+    LEFT_PAREN  shift, and go to state 157
+
+
+state 68
+
+  155 return_statement: RETURN . expr_opt SEMICOLON
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    SEMICOLON    reduce using rule 117 (expr_opt)
+    SEMICOLON    [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    expr                   go to state 158
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    expr_opt               go to state 159
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 69
+
+  205 while_statement: WHILE . LEFT_PAREN expr RIGHT_PAREN statement
+
+    LEFT_PAREN  shift, and go to state 160
+
+
+state 70
+
+   31 cast_expr: LEFT_PAREN . type_name RIGHT_PAREN cast_expr
+  133 parenthesized_expr: LEFT_PAREN . expr RIGHT_PAREN
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    CHAR         shift, and go to state 1
+    INT          shift, and go to state 2
+    LONG         shift, and go to state 3
+    SHORT        shift, and go to state 4
+    SIGNED       shift, and go to state 5
+    UNSIGNED     shift, and go to state 6
+    VOID         shift, and go to state 7
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr             go to state 81
+    address_expr              go to state 82
+    assignment_expr           go to state 83
+    bitwise_and_expr          go to state 84
+    bitwise_negation_expr     go to state 85
+    bitwise_or_expr           go to state 86
+    bitwise_xor_expr          go to state 87
+    cast_expr                 go to state 89
+    character_type_specifier  go to state 8
+    comma_expr                go to state 90
+    conditional_expr          go to state 92
+    constant                  go to state 94
+    declaration_specifiers    go to state 161
+    equality_expr             go to state 101
+    expr                      go to state 162
+    function_call             go to state 105
+    indirection_expr          go to state 109
+    integer_type_specifier    go to state 13
+    logical_and_expr          go to state 113
+    logical_negation_expr     go to state 114
+    logical_or_expr           go to state 115
+    multiplicative_expr       go to state 116
+    character_constant        go to state 119
+    integer_constant          go to state 121
+    string_constant           go to state 122
+    parenthesized_expr        go to state 123
+    postdecrement_expr        go to state 124
+    postfix_expr              go to state 125
+    postincrement_expr        go to state 126
+    predecrement_expr         go to state 127
+    preincrement_expr         go to state 128
+    primary_expr              go to state 129
+    relational_expr           go to state 130
+    shift_expr                go to state 132
+    signed_type_specifier     go to state 15
+    subscript_expr            go to state 134
+    type_name                 go to state 163
+    type_specifier            go to state 18
+    unary_expr                go to state 135
+    unary_minus_expr          go to state 136
+    unary_plus_expr           go to state 137
+    unsigned_type_specifier   go to state 19
+    void_type_specifier       go to state 20
+
+
+state 71
+
+    7 address_expr: AMPERSAND . cast_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 164
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 72
+
+   79 indirection_expr: ASTERISK . cast_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 165
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 73
+
+   94 logical_negation_expr: EXCLAMATION . cast_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 166
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 74
+
+  199 unary_minus_expr: MINUS . cast_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 167
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 75
+
+  200 unary_plus_expr: PLUS . cast_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 168
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 76
+
+  103 null_statement: SEMICOLON .
+
+    $default  reduce using rule 103 (null_statement)
+
+
+state 77
+
+   24 bitwise_negation_expr: TILDE . cast_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 169
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 78
+
+  144 predecrement_expr: MINUS_MINUS . unary_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 170
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    subscript_expr         go to state 134
+    unary_expr             go to state 171
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 79
+
+  145 preincrement_expr: PLUS_PLUS . unary_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 170
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    subscript_expr         go to state 134
+    unary_expr             go to state 172
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 80
+
+  108 character_constant: NUMBER .
+  125 integer_constant: NUMBER .
+
+    LEFT_PAREN           reduce using rule 108 (character_constant)
+    LEFT_PAREN           [reduce using rule 125 (integer_constant)]
+    RIGHT_PAREN          reduce using rule 108 (character_constant)
+    RIGHT_PAREN          [reduce using rule 125 (integer_constant)]
+    LEFT_SQUARE          reduce using rule 108 (character_constant)
+    LEFT_SQUARE          [reduce using rule 125 (integer_constant)]
+    RIGHT_SQUARE         reduce using rule 108 (character_constant)
+    RIGHT_SQUARE         [reduce using rule 125 (integer_constant)]
+    AMPERSAND            reduce using rule 108 (character_constant)
+    AMPERSAND            [reduce using rule 125 (integer_constant)]
+    ASTERISK             reduce using rule 108 (character_constant)
+    ASTERISK             [reduce using rule 125 (integer_constant)]
+    CARET                reduce using rule 108 (character_constant)
+    CARET                [reduce using rule 125 (integer_constant)]
+    COLON                reduce using rule 108 (character_constant)
+    COLON                [reduce using rule 125 (integer_constant)]
+    COMMA                reduce using rule 108 (character_constant)
+    COMMA                [reduce using rule 125 (integer_constant)]
+    EQUAL                reduce using rule 108 (character_constant)
+    EQUAL                [reduce using rule 125 (integer_constant)]
+    GREATER              reduce using rule 108 (character_constant)
+    GREATER              [reduce using rule 125 (integer_constant)]
+    LESS                 reduce using rule 108 (character_constant)
+    LESS                 [reduce using rule 125 (integer_constant)]
+    MINUS                reduce using rule 108 (character_constant)
+    MINUS                [reduce using rule 125 (integer_constant)]
+    PERCENT              reduce using rule 108 (character_constant)
+    PERCENT              [reduce using rule 125 (integer_constant)]
+    PLUS                 reduce using rule 108 (character_constant)
+    PLUS                 [reduce using rule 125 (integer_constant)]
+    SEMICOLON            reduce using rule 108 (character_constant)
+    SEMICOLON            [reduce using rule 125 (integer_constant)]
+    SLASH                reduce using rule 108 (character_constant)
+    SLASH                [reduce using rule 125 (integer_constant)]
+    QUESTION             reduce using rule 108 (character_constant)
+    QUESTION             [reduce using rule 125 (integer_constant)]
+    VBAR                 reduce using rule 108 (character_constant)
+    VBAR                 [reduce using rule 125 (integer_constant)]
+    AMPERSAND_AMPERSAND  reduce using rule 108 (character_constant)
+    AMPERSAND_AMPERSAND  [reduce using rule 125 (integer_constant)]
+    AMPERSAND_EQUAL      reduce using rule 108 (character_constant)
+    AMPERSAND_EQUAL      [reduce using rule 125 (integer_constant)]
+    ASTERISK_EQUAL       reduce using rule 108 (character_constant)
+    ASTERISK_EQUAL       [reduce using rule 125 (integer_constant)]
+    CARET_EQUAL          reduce using rule 108 (character_constant)
+    CARET_EQUAL          [reduce using rule 125 (integer_constant)]
+    EQUAL_EQUAL          reduce using rule 108 (character_constant)
+    EQUAL_EQUAL          [reduce using rule 125 (integer_constant)]
+    EXCLAMATION_EQUAL    reduce using rule 108 (character_constant)
+    EXCLAMATION_EQUAL    [reduce using rule 125 (integer_constant)]
+    GREATER_EQUAL        reduce using rule 108 (character_constant)
+    GREATER_EQUAL        [reduce using rule 125 (integer_constant)]
+    GREATER_GREATER      reduce using rule 108 (character_constant)
+    GREATER_GREATER      [reduce using rule 125 (integer_constant)]
+    LESS_EQUAL           reduce using rule 108 (character_constant)
+    LESS_EQUAL           [reduce using rule 125 (integer_constant)]
+    LESS_LESS            reduce using rule 108 (character_constant)
+    LESS_LESS            [reduce using rule 125 (integer_constant)]
+    MINUS_EQUAL          reduce using rule 108 (character_constant)
+    MINUS_EQUAL          [reduce using rule 125 (integer_constant)]
+    MINUS_MINUS          reduce using rule 108 (character_constant)
+    MINUS_MINUS          [reduce using rule 125 (integer_constant)]
+    PERCENT_EQUAL        reduce using rule 108 (character_constant)
+    PERCENT_EQUAL        [reduce using rule 125 (integer_constant)]
+    PLUS_EQUAL           reduce using rule 108 (character_constant)
+    PLUS_EQUAL           [reduce using rule 125 (integer_constant)]
+    PLUS_PLUS            reduce using rule 108 (character_constant)
+    PLUS_PLUS            [reduce using rule 125 (integer_constant)]
+    SLASH_EQUAL          reduce using rule 108 (character_constant)
+    SLASH_EQUAL          [reduce using rule 125 (integer_constant)]
+    VBAR_EQUAL           reduce using rule 108 (character_constant)
+    VBAR_EQUAL           [reduce using rule 125 (integer_constant)]
+    VBAR_VBAR            reduce using rule 108 (character_constant)
+    VBAR_VBAR            [reduce using rule 125 (integer_constant)]
+    $default             reduce using rule 108 (character_constant)
+
+
+state 81
+
+    4 additive_expr: additive_expr . add_op multiplicative_expr
+  156 shift_expr: additive_expr .
+
+    MINUS  shift, and go to state 173
+    PLUS   shift, and go to state 174
+
+    $default  reduce using rule 156 (shift_expr)
+
+    add_op  go to state 175
+
+
+state 82
+
+  195 unary_expr: address_expr .
+
+    $default  reduce using rule 195 (unary_expr)
+
+
+state 83
+
+   35 comma_expr: assignment_expr .
+
+    $default  reduce using rule 35 (comma_expr)
+
+
+state 84
+
+   23 bitwise_and_expr: bitwise_and_expr . AMPERSAND equality_expr
+   27 bitwise_xor_expr: bitwise_and_expr .
+
+    AMPERSAND  shift, and go to state 176
+
+    $default  reduce using rule 27 (bitwise_xor_expr)
+
+
+state 85
+
+  194 unary_expr: bitwise_negation_expr .
+
+    $default  reduce using rule 194 (unary_expr)
+
+
+state 86
+
+   26 bitwise_or_expr: bitwise_or_expr . VBAR bitwise_xor_expr
+   92 logical_and_expr: bitwise_or_expr .
+
+    VBAR  shift, and go to state 177
+
+    $default  reduce using rule 92 (logical_and_expr)
+
+
+state 87
+
+   25 bitwise_or_expr: bitwise_xor_expr .
+   28 bitwise_xor_expr: bitwise_xor_expr . CARET bitwise_and_expr
+
+    CARET  shift, and go to state 178
+
+    $default  reduce using rule 25 (bitwise_or_expr)
+
+
+state 88
+
+  177 statement: break_statement .
+
+    $default  reduce using rule 177 (statement)
+
+
+state 89
+
+   97 multiplicative_expr: cast_expr .
+
+    $default  reduce using rule 97 (multiplicative_expr)
+
+
+state 90
+
+   36 comma_expr: comma_expr . COMMA assignment_expr
+   66 expr: comma_expr .
+
+    COMMA  shift, and go to state 179
+
+    $default  reduce using rule 66 (expr)
+
+
+state 91
+
+  174 statement: compound_statement .
+
+    $default  reduce using rule 174 (statement)
+
+
+state 92
+
+    9 assignment_expr: conditional_expr .
+
+    $default  reduce using rule 9 (assignment_expr)
+
+
+state 93
+
+  175 statement: conditional_statement .
+
+    $default  reduce using rule 175 (statement)
+
+
+state 94
+
+  147 primary_expr: constant .
+
+    $default  reduce using rule 147 (primary_expr)
+
+
+state 95
+
+  178 statement: continue_statement .
+
+    $default  reduce using rule 178 (statement)
+
+
+state 96
+
+   48 declaration_or_statement: decl .
+
+    $default  reduce using rule 48 (declaration_or_statement)
+
+
+state 97
+
+   50 declaration_or_statement_list: declaration_or_statement .
+
+    $default  reduce using rule 50 (declaration_or_statement_list)
+
+
+state 98
+
+   51 declaration_or_statement_list: declaration_or_statement_list . declaration_or_statement
+  112 declaration_or_statement_list_opt: declaration_or_statement_list .
+
+    IDENTIFIER   shift, and go to state 60
+    STRING       shift, and go to state 61
+    BREAK        shift, and go to state 62
+    CHAR         shift, and go to state 1
+    CONTINUE     shift, and go to state 63
+    DO           shift, and go to state 64
+    FOR          shift, and go to state 65
+    GOTO         shift, and go to state 66
+    IF           shift, and go to state 67
+    INT          shift, and go to state 2
+    LONG         shift, and go to state 3
+    RETURN       shift, and go to state 68
+    SHORT        shift, and go to state 4
+    SIGNED       shift, and go to state 5
+    UNSIGNED     shift, and go to state 6
+    VOID         shift, and go to state 7
+    WHILE        shift, and go to state 69
+    LEFT_PAREN   shift, and go to state 70
+    LEFT_CURLY   shift, and go to state 44
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    SEMICOLON    shift, and go to state 76
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    RIGHT_CURLY  reduce using rule 112 (declaration_or_statement_list_opt)
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    SEMICOLON    [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr             go to state 81
+    address_expr              go to state 82
+    assignment_expr           go to state 83
+    bitwise_and_expr          go to state 84
+    bitwise_negation_expr     go to state 85
+    bitwise_or_expr           go to state 86
+    bitwise_xor_expr          go to state 87
+    break_statement           go to state 88
+    cast_expr                 go to state 89
+    character_type_specifier  go to state 8
+    comma_expr                go to state 90
+    compound_statement        go to state 91
+    conditional_expr          go to state 92
+    conditional_statement     go to state 93
+    constant                  go to state 94
+    continue_statement        go to state 95
+    decl                      go to state 96
+    declaration_or_statement  go to state 180
+    declaration_specifiers    go to state 99
+    do_statement              go to state 100
+    equality_expr             go to state 101
+    expr                      go to state 102
+    expression_statement      go to state 103
+    for_statement             go to state 104
+    function_call             go to state 105
+    goto_statement            go to state 106
+    if_else_statement         go to state 107
+    if_statement              go to state 108
+    indirection_expr          go to state 109
+    integer_type_specifier    go to state 13
+    iterative_statement       go to state 110
+    label                     go to state 111
+    labeled_statement         go to state 112
+    logical_and_expr          go to state 113
+    logical_negation_expr     go to state 114
+    logical_or_expr           go to state 115
+    multiplicative_expr       go to state 116
+    named_label               go to state 117
+    null_statement            go to state 118
+    character_constant        go to state 119
+    integer_constant          go to state 121
+    string_constant           go to state 122
+    parenthesized_expr        go to state 123
+    postdecrement_expr        go to state 124
+    postfix_expr              go to state 125
+    postincrement_expr        go to state 126
+    predecrement_expr         go to state 127
+    preincrement_expr         go to state 128
+    primary_expr              go to state 129
+    relational_expr           go to state 130
+    return_statement          go to state 131
+    shift_expr                go to state 132
+    signed_type_specifier     go to state 15
+    statement                 go to state 133
+    subscript_expr            go to state 134
+    type_specifier            go to state 18
+    unary_expr                go to state 135
+    unary_minus_expr          go to state 136
+    unary_plus_expr           go to state 137
+    unsigned_type_specifier   go to state 19
+    void_type_specifier       go to state 20
+    while_statement           go to state 138
+
+
+state 99
+
+   47 decl: declaration_specifiers . initialized_declarator_list SEMICOLON
+
+    IDENTIFIER  shift, and go to state 32
+    LEFT_PAREN  shift, and go to state 33
+    ASTERISK    shift, and go to state 34
+
+    array_declarator             go to state 35
+    declarator                   go to state 36
+    direct_declarator            go to state 37
+    function_declarator          go to state 38
+    initialized_declarator       go to state 39
+    initialized_declarator_list  go to state 40
+    pointer                      go to state 41
+    pointer_declarator           go to state 42
+    simple_declarator            go to state 43
+
+
+state 100
+
+   88 iterative_statement: do_statement .
+
+    $default  reduce using rule 88 (iterative_statement)
+
+
+state 101
+
+   22 bitwise_and_expr: equality_expr .
+   63 equality_expr: equality_expr . equality_op relational_expr
+
+    EQUAL_EQUAL        shift, and go to state 181
+    EXCLAMATION_EQUAL  shift, and go to state 182
+
+    $default  reduce using rule 22 (bitwise_and_expr)
+
+    equality_op  go to state 183
+
+
+state 102
+
+   69 expression_statement: expr . SEMICOLON
+
+    SEMICOLON  shift, and go to state 184
+
+
+state 103
+
+  172 statement: expression_statement .
+
+    $default  reduce using rule 172 (statement)
+
+
+state 104
+
+   89 iterative_statement: for_statement .
+
+    $default  reduce using rule 89 (iterative_statement)
+
+
+state 105
+
+  140 postfix_expr: function_call .
+
+    $default  reduce using rule 140 (postfix_expr)
+
+
+state 106
+
+  180 statement: goto_statement .
+
+    $default  reduce using rule 180 (statement)
+
+
+state 107
+
+   41 conditional_statement: if_else_statement .
+
+    $default  reduce using rule 41 (conditional_statement)
+
+
+state 108
+
+   40 conditional_statement: if_statement .
+
+    $default  reduce using rule 40 (conditional_statement)
+
+
+state 109
+
+  196 unary_expr: indirection_expr .
+
+    $default  reduce using rule 196 (unary_expr)
+
+
+state 110
+
+  176 statement: iterative_statement .
+
+    $default  reduce using rule 176 (statement)
+
+
+state 111
+
+   91 labeled_statement: label . COLON statement
+
+    COLON  shift, and go to state 185
+
+
+state 112
+
+  173 statement: labeled_statement .
+
+    $default  reduce using rule 173 (statement)
+
+
+state 113
+
+   93 logical_and_expr: logical_and_expr . AMPERSAND_AMPERSAND bitwise_or_expr
+   95 logical_or_expr: logical_and_expr .
+
+    AMPERSAND_AMPERSAND  shift, and go to state 186
+
+    $default  reduce using rule 95 (logical_or_expr)
+
+
+state 114
+
+  193 unary_expr: logical_negation_expr .
+
+    $default  reduce using rule 193 (unary_expr)
+
+
+state 115
+
+   38 conditional_expr: logical_or_expr .
+   39                 | logical_or_expr . QUESTION expr COLON conditional_expr
+   96 logical_or_expr: logical_or_expr . VBAR_VBAR logical_and_expr
+
+    QUESTION   shift, and go to state 187
+    VBAR_VBAR  shift, and go to state 188
+
+    $default  reduce using rule 38 (conditional_expr)
+
+
+state 116
+
+    3 additive_expr: multiplicative_expr .
+   98 multiplicative_expr: multiplicative_expr . mult_op cast_expr
+
+    ASTERISK  shift, and go to state 189
+    PERCENT   shift, and go to state 190
+    SLASH     shift, and go to state 191
+
+    $default  reduce using rule 3 (additive_expr)
+
+    mult_op  go to state 192
+
+
+state 117
+
+   90 label: named_label .
+
+    $default  reduce using rule 90 (label)
+
+
+state 118
+
+  181 statement: null_statement .
+
+    $default  reduce using rule 181 (statement)
+
+
+state 119
+
+   43 constant: character_constant .
+
+    $default  reduce using rule 43 (constant)
+
+
+state 120
+
+   37 compound_statement: LEFT_CURLY declaration_or_statement_list_opt . RIGHT_CURLY
+
+    RIGHT_CURLY  shift, and go to state 193
+
+
+state 121
+
+   42 constant: integer_constant .
+
+    $default  reduce using rule 42 (constant)
+
+
+state 122
+
+   44 constant: string_constant .
+
+    $default  reduce using rule 44 (constant)
+
+
+state 123
+
+  148 primary_expr: parenthesized_expr .
+
+    $default  reduce using rule 148 (primary_expr)
+
+
+state 124
+
+  142 postfix_expr: postdecrement_expr .
+
+    $default  reduce using rule 142 (postfix_expr)
+
+
+state 125
+
+   72 function_call: postfix_expr . LEFT_PAREN expression_list_opt RIGHT_PAREN
+  137 postdecrement_expr: postfix_expr . MINUS_MINUS
+  143 postincrement_expr: postfix_expr . PLUS_PLUS
+  182 subscript_expr: postfix_expr . LEFT_SQUARE expr RIGHT_SQUARE
+  190 unary_expr: postfix_expr .
+
+    LEFT_PAREN   shift, and go to state 194
+    LEFT_SQUARE  shift, and go to state 195
+    MINUS_MINUS  shift, and go to state 196
+    PLUS_PLUS    shift, and go to state 197
+
+    $default  reduce using rule 190 (unary_expr)
+
+
+state 126
+
+  141 postfix_expr: postincrement_expr .
+
+    $default  reduce using rule 141 (postfix_expr)
+
+
+state 127
+
+  198 unary_expr: predecrement_expr .
+
+    $default  reduce using rule 198 (unary_expr)
+
+
+state 128
+
+  197 unary_expr: preincrement_expr .
+
+    $default  reduce using rule 197 (unary_expr)
+
+
+state 129
+
+  138 postfix_expr: primary_expr .
+
+    $default  reduce using rule 138 (postfix_expr)
+
+
+state 130
+
+   62 equality_expr: relational_expr .
+  150 relational_expr: relational_expr . relational_op shift_expr
+
+    GREATER        shift, and go to state 198
+    LESS           shift, and go to state 199
+    GREATER_EQUAL  shift, and go to state 200
+    LESS_EQUAL     shift, and go to state 201
+
+    $default  reduce using rule 62 (equality_expr)
+
+    relational_op  go to state 202
+
+
+state 131
+
+  179 statement: return_statement .
+
+    $default  reduce using rule 179 (statement)
+
+
+state 132
+
+  149 relational_expr: shift_expr .
+  157 shift_expr: shift_expr . shift_op additive_expr
+
+    GREATER_GREATER  shift, and go to state 203
+    LESS_LESS        shift, and go to state 204
+
+    $default  reduce using rule 149 (relational_expr)
+
+    shift_op  go to state 205
+
+
+state 133
+
+   49 declaration_or_statement: statement .
+
+    $default  reduce using rule 49 (declaration_or_statement)
+
+
+state 134
+
+  139 postfix_expr: subscript_expr .
+
+    $default  reduce using rule 139 (postfix_expr)
+
+
+state 135
+
+   10 assignment_expr: unary_expr . assignment_op assignment_expr
+   30 cast_expr: unary_expr .
+
+    EQUAL            shift, and go to state 206
+    AMPERSAND_EQUAL  shift, and go to state 207
+    ASTERISK_EQUAL   shift, and go to state 208
+    CARET_EQUAL      shift, and go to state 209
+    GREATER_EQUAL    shift, and go to state 210
+    LESS_EQUAL       shift, and go to state 211
+    MINUS_EQUAL      shift, and go to state 212
+    PERCENT_EQUAL    shift, and go to state 213
+    PLUS_EQUAL       shift, and go to state 214
+    SLASH_EQUAL      shift, and go to state 215
+    VBAR_EQUAL       shift, and go to state 216
+
+    GREATER_EQUAL  [reduce using rule 30 (cast_expr)]
+    LESS_EQUAL     [reduce using rule 30 (cast_expr)]
+    $default       reduce using rule 30 (cast_expr)
+
+    assignment_op  go to state 217
+
+
+state 136
+
+  191 unary_expr: unary_minus_expr .
+
+    $default  reduce using rule 191 (unary_expr)
+
+
+state 137
+
+  192 unary_expr: unary_plus_expr .
+
+    $default  reduce using rule 192 (unary_expr)
+
+
+state 138
+
+   87 iterative_statement: while_statement .
+
+    $default  reduce using rule 87 (iterative_statement)
+
+
+state 139
+
+   58 direct_declarator: LEFT_PAREN declarator RIGHT_PAREN .
+
+    $default  reduce using rule 58 (direct_declarator)
+
+
+state 140
+
+  104 parameter_decl: declaration_specifiers . declarator
+  105               | declaration_specifiers . abstract_declarator_opt
+
+    IDENTIFIER  shift, and go to state 32
+    LEFT_PAREN  shift, and go to state 33
+    ASTERISK    shift, and go to state 34
+
+    LEFT_PAREN   [reduce using rule 126 (pointer_opt)]
+    LEFT_SQUARE  reduce using rule 126 (pointer_opt)
+    $default     reduce using rule 106 (abstract_declarator_opt)
+
+    abstract_declarator      go to state 218
+    array_declarator         go to state 35
+    declarator               go to state 219
+    direct_declarator        go to state 37
+    function_declarator      go to state 38
+    abstract_declarator_opt  go to state 220
+    pointer_opt              go to state 221
+    pointer                  go to state 222
+    pointer_declarator       go to state 42
+    simple_declarator        go to state 43
+
+
+state 141
+
+  130 parameter_list: parameter_decl .
+
+    $default  reduce using rule 130 (parameter_list)
+
+
+state 142
+
+  131 parameter_list: parameter_list . COMMA parameter_decl
+  132 parameter_type_list: parameter_list .
+
+    COMMA  shift, and go to state 223
+
+    $default  reduce using rule 132 (parameter_type_list)
+
+
+state 143
+
+   73 function_declarator: direct_declarator LEFT_PAREN parameter_type_list . RIGHT_PAREN
+
+    RIGHT_PAREN  shift, and go to state 224
+
+
+state 144
+
+  146 primary_expr: IDENTIFIER .
+
+    $default  reduce using rule 146 (primary_expr)
+
+
+state 145
+
+   45 constant_expr: conditional_expr .
+
+    $default  reduce using rule 45 (constant_expr)
+
+
+state 146
+
+  110 constant_expr_opt: constant_expr .
+
+    $default  reduce using rule 110 (constant_expr_opt)
+
+
+state 147
+
+    8 array_declarator: direct_declarator LEFT_SQUARE constant_expr_opt . RIGHT_SQUARE
+
+    RIGHT_SQUARE  shift, and go to state 225
+
+
+state 148
+
+   30 cast_expr: unary_expr .
+
+    $default  reduce using rule 30 (cast_expr)
+
+
+state 149
+
+   83 initialized_declarator_list: initialized_declarator_list COMMA initialized_declarator .
+
+    $default  reduce using rule 83 (initialized_declarator_list)
+
+
+state 150
+
+   29 break_statement: BREAK SEMICOLON .
+
+    $default  reduce using rule 29 (break_statement)
+
+
+state 151
+
+   46 continue_statement: CONTINUE SEMICOLON .
+
+    $default  reduce using rule 46 (continue_statement)
+
+
+state 152
+
+   61 do_statement: DO statement . WHILE LEFT_PAREN expr RIGHT_PAREN SEMICOLON
+
+    WHILE  shift, and go to state 226
+
+
+state 153
+
+   70 for_expr: LEFT_PAREN . initial_clause_opt SEMICOLON expr_opt SEMICOLON expr_opt RIGHT_PAREN
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    SEMICOLON    reduce using rule 121 (initial_clause_opt)
+    SEMICOLON    [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    expr                   go to state 227
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    initial_clause         go to state 228
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    initial_clause_opt     go to state 229
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 154
+
+   71 for_statement: FOR for_expr . statement
+
+    IDENTIFIER   shift, and go to state 60
+    STRING       shift, and go to state 61
+    BREAK        shift, and go to state 62
+    CONTINUE     shift, and go to state 63
+    DO           shift, and go to state 64
+    FOR          shift, and go to state 65
+    GOTO         shift, and go to state 66
+    IF           shift, and go to state 67
+    RETURN       shift, and go to state 68
+    WHILE        shift, and go to state 69
+    LEFT_PAREN   shift, and go to state 70
+    LEFT_CURLY   shift, and go to state 44
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    SEMICOLON    shift, and go to state 76
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    SEMICOLON    [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    break_statement        go to state 88
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    compound_statement     go to state 91
+    conditional_expr       go to state 92
+    conditional_statement  go to state 93
+    constant               go to state 94
+    continue_statement     go to state 95
+    do_statement           go to state 100
+    equality_expr          go to state 101
+    expr                   go to state 102
+    expression_statement   go to state 103
+    for_statement          go to state 104
+    function_call          go to state 105
+    goto_statement         go to state 106
+    if_else_statement      go to state 107
+    if_statement           go to state 108
+    indirection_expr       go to state 109
+    iterative_statement    go to state 110
+    label                  go to state 111
+    labeled_statement      go to state 112
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    named_label            go to state 117
+    null_statement         go to state 118
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    return_statement       go to state 131
+    shift_expr             go to state 132
+    statement              go to state 230
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+    while_statement        go to state 138
+
+
+state 155
+
+  102 named_label: IDENTIFIER .
+
+    $default  reduce using rule 102 (named_label)
+
+
+state 156
+
+   76 goto_statement: GOTO named_label . SEMICOLON
+
+    SEMICOLON  shift, and go to state 231
+
+
+state 157
+
+   77 if_else_statement: IF LEFT_PAREN . expr RIGHT_PAREN statement ELSE statement
+   78 if_statement: IF LEFT_PAREN . expr RIGHT_PAREN statement
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    expr                   go to state 232
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 158
+
+  118 expr_opt: expr .
+
+    $default  reduce using rule 118 (expr_opt)
+
+
+state 159
+
+  155 return_statement: RETURN expr_opt . SEMICOLON
+
+    SEMICOLON  shift, and go to state 233
+
+
+state 160
+
+  205 while_statement: WHILE LEFT_PAREN . expr RIGHT_PAREN statement
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    expr                   go to state 234
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 161
+
+  187 type_name: declaration_specifiers . abstract_declarator_opt
+
+    ASTERISK  shift, and go to state 34
+
+    RIGHT_PAREN  reduce using rule 106 (abstract_declarator_opt)
+    $default     reduce using rule 126 (pointer_opt)
+
+    abstract_declarator      go to state 218
+    abstract_declarator_opt  go to state 235
+    pointer_opt              go to state 221
+    pointer                  go to state 236
+
+
+state 162
+
+  133 parenthesized_expr: LEFT_PAREN expr . RIGHT_PAREN
+
+    RIGHT_PAREN  shift, and go to state 237
+
+
+state 163
+
+   31 cast_expr: LEFT_PAREN type_name . RIGHT_PAREN cast_expr
+
+    RIGHT_PAREN  shift, and go to state 238
+
+
+state 164
+
+    7 address_expr: AMPERSAND cast_expr .
+
+    $default  reduce using rule 7 (address_expr)
+
+
+state 165
+
+   79 indirection_expr: ASTERISK cast_expr .
+
+    $default  reduce using rule 79 (indirection_expr)
+
+
+state 166
+
+   94 logical_negation_expr: EXCLAMATION cast_expr .
+
+    $default  reduce using rule 94 (logical_negation_expr)
+
+
+state 167
+
+  199 unary_minus_expr: MINUS cast_expr .
+
+    $default  reduce using rule 199 (unary_minus_expr)
+
+
+state 168
+
+  200 unary_plus_expr: PLUS cast_expr .
+
+    $default  reduce using rule 200 (unary_plus_expr)
+
+
+state 169
+
+   24 bitwise_negation_expr: TILDE cast_expr .
+
+    $default  reduce using rule 24 (bitwise_negation_expr)
+
+
+state 170
+
+  133 parenthesized_expr: LEFT_PAREN . expr RIGHT_PAREN
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    expr                   go to state 162
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 171
+
+  144 predecrement_expr: MINUS_MINUS unary_expr .
+
+    $default  reduce using rule 144 (predecrement_expr)
+
+
+state 172
+
+  145 preincrement_expr: PLUS_PLUS unary_expr .
+
+    $default  reduce using rule 145 (preincrement_expr)
+
+
+state 173
+
+    6 add_op: MINUS .
+
+    $default  reduce using rule 6 (add_op)
+
+
+state 174
+
+    5 add_op: PLUS .
+
+    $default  reduce using rule 5 (add_op)
+
+
+state 175
+
+    4 additive_expr: additive_expr add_op . multiplicative_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 89
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    multiplicative_expr    go to state 239
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 176
+
+   23 bitwise_and_expr: bitwise_and_expr AMPERSAND . equality_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 89
+    constant               go to state 94
+    equality_expr          go to state 240
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 177
+
+   26 bitwise_or_expr: bitwise_or_expr VBAR . bitwise_xor_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_xor_expr       go to state 241
+    cast_expr              go to state 89
+    constant               go to state 94
+    equality_expr          go to state 101
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 178
+
+   28 bitwise_xor_expr: bitwise_xor_expr CARET . bitwise_and_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    bitwise_and_expr       go to state 242
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 89
+    constant               go to state 94
+    equality_expr          go to state 101
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 179
+
+   36 comma_expr: comma_expr COMMA . assignment_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 243
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 180
+
+   51 declaration_or_statement_list: declaration_or_statement_list declaration_or_statement .
+
+    $default  reduce using rule 51 (declaration_or_statement_list)
+
+
+state 181
+
+   64 equality_op: EQUAL_EQUAL .
+
+    $default  reduce using rule 64 (equality_op)
+
+
+state 182
+
+   65 equality_op: EXCLAMATION_EQUAL .
+
+    $default  reduce using rule 65 (equality_op)
+
+
+state 183
+
+   63 equality_expr: equality_expr equality_op . relational_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 89
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 244
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 184
+
+   69 expression_statement: expr SEMICOLON .
+
+    $default  reduce using rule 69 (expression_statement)
+
+
+state 185
+
+   91 labeled_statement: label COLON . statement
+
+    IDENTIFIER   shift, and go to state 60
+    STRING       shift, and go to state 61
+    BREAK        shift, and go to state 62
+    CONTINUE     shift, and go to state 63
+    DO           shift, and go to state 64
+    FOR          shift, and go to state 65
+    GOTO         shift, and go to state 66
+    IF           shift, and go to state 67
+    RETURN       shift, and go to state 68
+    WHILE        shift, and go to state 69
+    LEFT_PAREN   shift, and go to state 70
+    LEFT_CURLY   shift, and go to state 44
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    SEMICOLON    shift, and go to state 76
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    SEMICOLON    [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    break_statement        go to state 88
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    compound_statement     go to state 91
+    conditional_expr       go to state 92
+    conditional_statement  go to state 93
+    constant               go to state 94
+    continue_statement     go to state 95
+    do_statement           go to state 100
+    equality_expr          go to state 101
+    expr                   go to state 102
+    expression_statement   go to state 103
+    for_statement          go to state 104
+    function_call          go to state 105
+    goto_statement         go to state 106
+    if_else_statement      go to state 107
+    if_statement           go to state 108
+    indirection_expr       go to state 109
+    iterative_statement    go to state 110
+    label                  go to state 111
+    labeled_statement      go to state 112
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    named_label            go to state 117
+    null_statement         go to state 118
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    return_statement       go to state 131
+    shift_expr             go to state 132
+    statement              go to state 245
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+    while_statement        go to state 138
+
+
+state 186
+
+   93 logical_and_expr: logical_and_expr AMPERSAND_AMPERSAND . bitwise_or_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 246
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    constant               go to state 94
+    equality_expr          go to state 101
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 187
+
+   39 conditional_expr: logical_or_expr QUESTION . expr COLON conditional_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    expr                   go to state 247
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 188
+
+   96 logical_or_expr: logical_or_expr VBAR_VBAR . logical_and_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    constant               go to state 94
+    equality_expr          go to state 101
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 248
+    logical_negation_expr  go to state 114
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 189
+
+   99 mult_op: ASTERISK .
+
+    $default  reduce using rule 99 (mult_op)
+
+
+state 190
+
+  101 mult_op: PERCENT .
+
+    $default  reduce using rule 101 (mult_op)
+
+
+state 191
+
+  100 mult_op: SLASH .
+
+    $default  reduce using rule 100 (mult_op)
+
+
+state 192
+
+   98 multiplicative_expr: multiplicative_expr mult_op . cast_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 249
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 193
+
+   37 compound_statement: LEFT_CURLY declaration_or_statement_list_opt RIGHT_CURLY .
+
+    $default  reduce using rule 37 (compound_statement)
+
+
+state 194
+
+   72 function_call: postfix_expr LEFT_PAREN . expression_list_opt RIGHT_PAREN
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    RIGHT_PAREN  reduce using rule 119 (expression_list_opt)
+    RIGHT_PAREN  [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 250
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    expression_list        go to state 251
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    expression_list_opt    go to state 252
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 195
+
+  182 subscript_expr: postfix_expr LEFT_SQUARE . expr RIGHT_SQUARE
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    expr                   go to state 253
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 196
+
+  137 postdecrement_expr: postfix_expr MINUS_MINUS .
+
+    $default  reduce using rule 137 (postdecrement_expr)
+
+
+state 197
+
+  143 postincrement_expr: postfix_expr PLUS_PLUS .
+
+    $default  reduce using rule 143 (postincrement_expr)
+
+
+state 198
+
+  153 relational_op: GREATER .
+
+    $default  reduce using rule 153 (relational_op)
+
+
+state 199
+
+  151 relational_op: LESS .
+
+    $default  reduce using rule 151 (relational_op)
+
+
+state 200
+
+  154 relational_op: GREATER_EQUAL .
+
+    $default  reduce using rule 154 (relational_op)
+
+
+state 201
+
+  152 relational_op: LESS_EQUAL .
+
+    $default  reduce using rule 152 (relational_op)
+
+
+state 202
+
+  150 relational_expr: relational_expr relational_op . shift_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 89
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    shift_expr             go to state 254
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 203
+
+  159 shift_op: GREATER_GREATER .
+
+    $default  reduce using rule 159 (shift_op)
+
+
+state 204
+
+  158 shift_op: LESS_LESS .
+
+    $default  reduce using rule 158 (shift_op)
+
+
+state 205
+
+  157 shift_expr: shift_expr shift_op . additive_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 255
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 89
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 206
+
+   11 assignment_op: EQUAL .
+
+    $default  reduce using rule 11 (assignment_op)
+
+
+state 207
+
+   19 assignment_op: AMPERSAND_EQUAL .
+
+    $default  reduce using rule 19 (assignment_op)
+
+
+state 208
+
+   14 assignment_op: ASTERISK_EQUAL .
+
+    $default  reduce using rule 14 (assignment_op)
+
+
+state 209
+
+   20 assignment_op: CARET_EQUAL .
+
+    $default  reduce using rule 20 (assignment_op)
+
+
+state 210
+
+   18 assignment_op: GREATER_EQUAL .
+
+    $default  reduce using rule 18 (assignment_op)
+
+
+state 211
+
+   17 assignment_op: LESS_EQUAL .
+
+    $default  reduce using rule 17 (assignment_op)
+
+
+state 212
+
+   13 assignment_op: MINUS_EQUAL .
+
+    $default  reduce using rule 13 (assignment_op)
+
+
+state 213
+
+   16 assignment_op: PERCENT_EQUAL .
+
+    $default  reduce using rule 16 (assignment_op)
+
+
+state 214
+
+   12 assignment_op: PLUS_EQUAL .
+
+    $default  reduce using rule 12 (assignment_op)
+
+
+state 215
+
+   15 assignment_op: SLASH_EQUAL .
+
+    $default  reduce using rule 15 (assignment_op)
+
+
+state 216
+
+   21 assignment_op: VBAR_EQUAL .
+
+    $default  reduce using rule 21 (assignment_op)
+
+
+state 217
+
+   10 assignment_expr: unary_expr assignment_op . assignment_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 256
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 218
+
+  107 abstract_declarator_opt: abstract_declarator .
+
+    $default  reduce using rule 107 (abstract_declarator_opt)
+
+
+state 219
+
+  104 parameter_decl: declaration_specifiers declarator .
+
+    $default  reduce using rule 104 (parameter_decl)
+
+
+state 220
+
+  105 parameter_decl: declaration_specifiers abstract_declarator_opt .
+
+    $default  reduce using rule 105 (parameter_decl)
+
+
+state 221
+
+    2 abstract_declarator: pointer_opt . direct_abstract_declarator
+
+    LEFT_PAREN  shift, and go to state 257
+
+    $default  reduce using rule 115 (direct_abstract_declarator_opt)
+
+    direct_abstract_declarator      go to state 258
+    direct_abstract_declarator_opt  go to state 259
+
+
+state 222
+
+    1 abstract_declarator: pointer .
+  127 pointer_opt: pointer .
+  136 pointer_declarator: pointer . direct_declarator
+
+    IDENTIFIER  shift, and go to state 32
+    LEFT_PAREN  shift, and go to state 33
+
+    LEFT_PAREN   [reduce using rule 127 (pointer_opt)]
+    LEFT_SQUARE  reduce using rule 127 (pointer_opt)
+    $default     reduce using rule 1 (abstract_declarator)
+
+    array_declarator     go to state 35
+    direct_declarator    go to state 59
+    function_declarator  go to state 38
+    simple_declarator    go to state 43
+
+
+state 223
+
+  131 parameter_list: parameter_list COMMA . parameter_decl
+
+    CHAR      shift, and go to state 1
+    INT       shift, and go to state 2
+    LONG      shift, and go to state 3
+    SHORT     shift, and go to state 4
+    SIGNED    shift, and go to state 5
+    UNSIGNED  shift, and go to state 6
+    VOID      shift, and go to state 7
+
+    character_type_specifier  go to state 8
+    declaration_specifiers    go to state 140
+    integer_type_specifier    go to state 13
+    parameter_decl            go to state 260
+    signed_type_specifier     go to state 15
+    type_specifier            go to state 18
+    unsigned_type_specifier   go to state 19
+    void_type_specifier       go to state 20
+
+
+state 224
+
+   73 function_declarator: direct_declarator LEFT_PAREN parameter_type_list RIGHT_PAREN .
+
+    $default  reduce using rule 73 (function_declarator)
+
+
+state 225
+
+    8 array_declarator: direct_declarator LEFT_SQUARE constant_expr_opt RIGHT_SQUARE .
+
+    $default  reduce using rule 8 (array_declarator)
+
+
+state 226
+
+   61 do_statement: DO statement WHILE . LEFT_PAREN expr RIGHT_PAREN SEMICOLON
+
+    LEFT_PAREN  shift, and go to state 261
+
+
+state 227
+
+   80 initial_clause: expr .
+
+    $default  reduce using rule 80 (initial_clause)
+
+
+state 228
+
+  122 initial_clause_opt: initial_clause .
+
+    $default  reduce using rule 122 (initial_clause_opt)
+
+
+state 229
+
+   70 for_expr: LEFT_PAREN initial_clause_opt . SEMICOLON expr_opt SEMICOLON expr_opt RIGHT_PAREN
+
+    SEMICOLON  shift, and go to state 262
+
+
+state 230
+
+   71 for_statement: FOR for_expr statement .
+
+    $default  reduce using rule 71 (for_statement)
+
+
+state 231
+
+   76 goto_statement: GOTO named_label SEMICOLON .
+
+    $default  reduce using rule 76 (goto_statement)
+
+
+state 232
+
+   77 if_else_statement: IF LEFT_PAREN expr . RIGHT_PAREN statement ELSE statement
+   78 if_statement: IF LEFT_PAREN expr . RIGHT_PAREN statement
+
+    RIGHT_PAREN  shift, and go to state 263
+
+
+state 233
+
+  155 return_statement: RETURN expr_opt SEMICOLON .
+
+    $default  reduce using rule 155 (return_statement)
+
+
+state 234
+
+  205 while_statement: WHILE LEFT_PAREN expr . RIGHT_PAREN statement
+
+    RIGHT_PAREN  shift, and go to state 264
+
+
+state 235
+
+  187 type_name: declaration_specifiers abstract_declarator_opt .
+
+    $default  reduce using rule 187 (type_name)
+
+
+state 236
+
+    1 abstract_declarator: pointer .
+  127 pointer_opt: pointer .
+
+    RIGHT_PAREN  reduce using rule 1 (abstract_declarator)
+    $default     reduce using rule 127 (pointer_opt)
+
+
+state 237
+
+  133 parenthesized_expr: LEFT_PAREN expr RIGHT_PAREN .
+
+    $default  reduce using rule 133 (parenthesized_expr)
+
+
+state 238
+
+   31 cast_expr: LEFT_PAREN type_name RIGHT_PAREN . cast_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    address_expr           go to state 82
+    bitwise_negation_expr  go to state 85
+    cast_expr              go to state 265
+    constant               go to state 94
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_negation_expr  go to state 114
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 239
+
+    4 additive_expr: additive_expr add_op multiplicative_expr .
+   98 multiplicative_expr: multiplicative_expr . mult_op cast_expr
+
+    ASTERISK  shift, and go to state 189
+    PERCENT   shift, and go to state 190
+    SLASH     shift, and go to state 191
+
+    $default  reduce using rule 4 (additive_expr)
+
+    mult_op  go to state 192
+
+
+state 240
+
+   23 bitwise_and_expr: bitwise_and_expr AMPERSAND equality_expr .
+   63 equality_expr: equality_expr . equality_op relational_expr
+
+    EQUAL_EQUAL        shift, and go to state 181
+    EXCLAMATION_EQUAL  shift, and go to state 182
+
+    $default  reduce using rule 23 (bitwise_and_expr)
+
+    equality_op  go to state 183
+
+
+state 241
+
+   26 bitwise_or_expr: bitwise_or_expr VBAR bitwise_xor_expr .
+   28 bitwise_xor_expr: bitwise_xor_expr . CARET bitwise_and_expr
+
+    CARET  shift, and go to state 178
+
+    $default  reduce using rule 26 (bitwise_or_expr)
+
+
+state 242
+
+   23 bitwise_and_expr: bitwise_and_expr . AMPERSAND equality_expr
+   28 bitwise_xor_expr: bitwise_xor_expr CARET bitwise_and_expr .
+
+    AMPERSAND  shift, and go to state 176
+
+    $default  reduce using rule 28 (bitwise_xor_expr)
+
+
+state 243
+
+   36 comma_expr: comma_expr COMMA assignment_expr .
+
+    $default  reduce using rule 36 (comma_expr)
+
+
+state 244
+
+   63 equality_expr: equality_expr equality_op relational_expr .
+  150 relational_expr: relational_expr . relational_op shift_expr
+
+    GREATER        shift, and go to state 198
+    LESS           shift, and go to state 199
+    GREATER_EQUAL  shift, and go to state 200
+    LESS_EQUAL     shift, and go to state 201
+
+    $default  reduce using rule 63 (equality_expr)
+
+    relational_op  go to state 202
+
+
+state 245
+
+   91 labeled_statement: label COLON statement .
+
+    $default  reduce using rule 91 (labeled_statement)
+
+
+state 246
+
+   26 bitwise_or_expr: bitwise_or_expr . VBAR bitwise_xor_expr
+   93 logical_and_expr: logical_and_expr AMPERSAND_AMPERSAND bitwise_or_expr .
+
+    VBAR  shift, and go to state 177
+
+    $default  reduce using rule 93 (logical_and_expr)
+
+
+state 247
+
+   39 conditional_expr: logical_or_expr QUESTION expr . COLON conditional_expr
+
+    COLON  shift, and go to state 266
+
+
+state 248
+
+   93 logical_and_expr: logical_and_expr . AMPERSAND_AMPERSAND bitwise_or_expr
+   96 logical_or_expr: logical_or_expr VBAR_VBAR logical_and_expr .
+
+    AMPERSAND_AMPERSAND  shift, and go to state 186
+
+    $default  reduce using rule 96 (logical_or_expr)
+
+
+state 249
+
+   98 multiplicative_expr: multiplicative_expr mult_op cast_expr .
+
+    $default  reduce using rule 98 (multiplicative_expr)
+
+
+state 250
+
+   67 expression_list: assignment_expr .
+
+    $default  reduce using rule 67 (expression_list)
+
+
+state 251
+
+   68 expression_list: expression_list . COMMA assignment_expr
+  120 expression_list_opt: expression_list .
+
+    COMMA  shift, and go to state 267
+
+    $default  reduce using rule 120 (expression_list_opt)
+
+
+state 252
+
+   72 function_call: postfix_expr LEFT_PAREN expression_list_opt . RIGHT_PAREN
+
+    RIGHT_PAREN  shift, and go to state 268
+
+
+state 253
+
+  182 subscript_expr: postfix_expr LEFT_SQUARE expr . RIGHT_SQUARE
+
+    RIGHT_SQUARE  shift, and go to state 269
+
+
+state 254
+
+  150 relational_expr: relational_expr relational_op shift_expr .
+  157 shift_expr: shift_expr . shift_op additive_expr
+
+    GREATER_GREATER  shift, and go to state 203
+    LESS_LESS        shift, and go to state 204
+
+    $default  reduce using rule 150 (relational_expr)
+
+    shift_op  go to state 205
+
+
+state 255
+
+    4 additive_expr: additive_expr . add_op multiplicative_expr
+  157 shift_expr: shift_expr shift_op additive_expr .
+
+    MINUS  shift, and go to state 173
+    PLUS   shift, and go to state 174
+
+    $default  reduce using rule 157 (shift_expr)
+
+    add_op  go to state 175
+
+
+state 256
+
+   10 assignment_expr: unary_expr assignment_op assignment_expr .
+
+    $default  reduce using rule 10 (assignment_expr)
+
+
+state 257
+
+   55 direct_abstract_declarator: LEFT_PAREN . abstract_declarator RIGHT_PAREN
+
+    ASTERISK  shift, and go to state 34
+
+    $default  reduce using rule 126 (pointer_opt)
+
+    abstract_declarator  go to state 270
+    pointer_opt          go to state 221
+    pointer              go to state 236
+
+
+state 258
+
+    2 abstract_declarator: pointer_opt direct_abstract_declarator .
+  116 direct_abstract_declarator_opt: direct_abstract_declarator .
+
+    LEFT_SQUARE  reduce using rule 116 (direct_abstract_declarator_opt)
+    $default     reduce using rule 2 (abstract_declarator)
+
+
+state 259
+
+   56 direct_abstract_declarator: direct_abstract_declarator_opt . LEFT_SQUARE constant_expr_opt RIGHT_SQUARE
+
+    LEFT_SQUARE  shift, and go to state 271
+
+
+state 260
+
+  131 parameter_list: parameter_list COMMA parameter_decl .
+
+    $default  reduce using rule 131 (parameter_list)
+
+
+state 261
+
+   61 do_statement: DO statement WHILE LEFT_PAREN . expr RIGHT_PAREN SEMICOLON
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    expr                   go to state 272
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 262
+
+   70 for_expr: LEFT_PAREN initial_clause_opt SEMICOLON . expr_opt SEMICOLON expr_opt RIGHT_PAREN
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    SEMICOLON    reduce using rule 117 (expr_opt)
+    SEMICOLON    [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    expr                   go to state 158
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    expr_opt               go to state 273
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 263
+
+   77 if_else_statement: IF LEFT_PAREN expr RIGHT_PAREN . statement ELSE statement
+   78 if_statement: IF LEFT_PAREN expr RIGHT_PAREN . statement
+
+    IDENTIFIER   shift, and go to state 60
+    STRING       shift, and go to state 61
+    BREAK        shift, and go to state 62
+    CONTINUE     shift, and go to state 63
+    DO           shift, and go to state 64
+    FOR          shift, and go to state 65
+    GOTO         shift, and go to state 66
+    IF           shift, and go to state 67
+    RETURN       shift, and go to state 68
+    WHILE        shift, and go to state 69
+    LEFT_PAREN   shift, and go to state 70
+    LEFT_CURLY   shift, and go to state 44
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    SEMICOLON    shift, and go to state 76
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    SEMICOLON    [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    break_statement        go to state 88
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    compound_statement     go to state 91
+    conditional_expr       go to state 92
+    conditional_statement  go to state 93
+    constant               go to state 94
+    continue_statement     go to state 95
+    do_statement           go to state 100
+    equality_expr          go to state 101
+    expr                   go to state 102
+    expression_statement   go to state 103
+    for_statement          go to state 104
+    function_call          go to state 105
+    goto_statement         go to state 106
+    if_else_statement      go to state 107
+    if_statement           go to state 108
+    indirection_expr       go to state 109
+    iterative_statement    go to state 110
+    label                  go to state 111
+    labeled_statement      go to state 112
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    named_label            go to state 117
+    null_statement         go to state 118
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    return_statement       go to state 131
+    shift_expr             go to state 132
+    statement              go to state 274
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+    while_statement        go to state 138
+
+
+state 264
+
+  205 while_statement: WHILE LEFT_PAREN expr RIGHT_PAREN . statement
+
+    IDENTIFIER   shift, and go to state 60
+    STRING       shift, and go to state 61
+    BREAK        shift, and go to state 62
+    CONTINUE     shift, and go to state 63
+    DO           shift, and go to state 64
+    FOR          shift, and go to state 65
+    GOTO         shift, and go to state 66
+    IF           shift, and go to state 67
+    RETURN       shift, and go to state 68
+    WHILE        shift, and go to state 69
+    LEFT_PAREN   shift, and go to state 70
+    LEFT_CURLY   shift, and go to state 44
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    SEMICOLON    shift, and go to state 76
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    SEMICOLON    [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    break_statement        go to state 88
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    compound_statement     go to state 91
+    conditional_expr       go to state 92
+    conditional_statement  go to state 93
+    constant               go to state 94
+    continue_statement     go to state 95
+    do_statement           go to state 100
+    equality_expr          go to state 101
+    expr                   go to state 102
+    expression_statement   go to state 103
+    for_statement          go to state 104
+    function_call          go to state 105
+    goto_statement         go to state 106
+    if_else_statement      go to state 107
+    if_statement           go to state 108
+    indirection_expr       go to state 109
+    iterative_statement    go to state 110
+    label                  go to state 111
+    labeled_statement      go to state 112
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    named_label            go to state 117
+    null_statement         go to state 118
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    return_statement       go to state 131
+    shift_expr             go to state 132
+    statement              go to state 275
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+    while_statement        go to state 138
+
+
+state 265
+
+   31 cast_expr: LEFT_PAREN type_name RIGHT_PAREN cast_expr .
+
+    $default  reduce using rule 31 (cast_expr)
+
+
+state 266
+
+   39 conditional_expr: logical_or_expr QUESTION expr COLON . conditional_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    conditional_expr       go to state 276
+    constant               go to state 94
+    equality_expr          go to state 101
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 267
+
+   68 expression_list: expression_list COMMA . assignment_expr
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 277
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 268
+
+   72 function_call: postfix_expr LEFT_PAREN expression_list_opt RIGHT_PAREN .
+
+    $default  reduce using rule 72 (function_call)
+
+
+state 269
+
+  182 subscript_expr: postfix_expr LEFT_SQUARE expr RIGHT_SQUARE .
+
+    $default  reduce using rule 182 (subscript_expr)
+
+
+state 270
+
+   55 direct_abstract_declarator: LEFT_PAREN abstract_declarator . RIGHT_PAREN
+
+    RIGHT_PAREN  shift, and go to state 278
+
+
+state 271
+
+   56 direct_abstract_declarator: direct_abstract_declarator_opt LEFT_SQUARE . constant_expr_opt RIGHT_SQUARE
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN    [reduce using rule 128 (string_constant)]
+    RIGHT_SQUARE  reduce using rule 109 (constant_expr_opt)
+    RIGHT_SQUARE  [reduce using rule 128 (string_constant)]
+    AMPERSAND     [reduce using rule 128 (string_constant)]
+    ASTERISK      [reduce using rule 128 (string_constant)]
+    MINUS         [reduce using rule 128 (string_constant)]
+    PLUS          [reduce using rule 128 (string_constant)]
+    MINUS_MINUS   [reduce using rule 128 (string_constant)]
+    PLUS_PLUS     [reduce using rule 128 (string_constant)]
+    $default      reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    conditional_expr       go to state 145
+    constant               go to state 94
+    constant_expr          go to state 146
+    equality_expr          go to state 101
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    constant_expr_opt      go to state 279
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 148
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 272
+
+   61 do_statement: DO statement WHILE LEFT_PAREN expr . RIGHT_PAREN SEMICOLON
+
+    RIGHT_PAREN  shift, and go to state 280
+
+
+state 273
+
+   70 for_expr: LEFT_PAREN initial_clause_opt SEMICOLON expr_opt . SEMICOLON expr_opt RIGHT_PAREN
+
+    SEMICOLON  shift, and go to state 281
+
+
+state 274
+
+   77 if_else_statement: IF LEFT_PAREN expr RIGHT_PAREN statement . ELSE statement
+   78 if_statement: IF LEFT_PAREN expr RIGHT_PAREN statement .
+
+    ELSE  shift, and go to state 282
+
+    ELSE      [reduce using rule 78 (if_statement)]
+    $default  reduce using rule 78 (if_statement)
+
+
+state 275
+
+  205 while_statement: WHILE LEFT_PAREN expr RIGHT_PAREN statement .
+
+    $default  reduce using rule 205 (while_statement)
+
+
+state 276
+
+   39 conditional_expr: logical_or_expr QUESTION expr COLON conditional_expr .
+
+    $default  reduce using rule 39 (conditional_expr)
+
+
+state 277
+
+   68 expression_list: expression_list COMMA assignment_expr .
+
+    $default  reduce using rule 68 (expression_list)
+
+
+state 278
+
+   55 direct_abstract_declarator: LEFT_PAREN abstract_declarator RIGHT_PAREN .
+
+    $default  reduce using rule 55 (direct_abstract_declarator)
+
+
+state 279
+
+   56 direct_abstract_declarator: direct_abstract_declarator_opt LEFT_SQUARE constant_expr_opt . RIGHT_SQUARE
+
+    RIGHT_SQUARE  shift, and go to state 283
+
+
+state 280
+
+   61 do_statement: DO statement WHILE LEFT_PAREN expr RIGHT_PAREN . SEMICOLON
+
+    SEMICOLON  shift, and go to state 284
+
+
+state 281
+
+   70 for_expr: LEFT_PAREN initial_clause_opt SEMICOLON expr_opt SEMICOLON . expr_opt RIGHT_PAREN
+
+    IDENTIFIER   shift, and go to state 144
+    STRING       shift, and go to state 61
+    LEFT_PAREN   shift, and go to state 70
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    RIGHT_PAREN  reduce using rule 117 (expr_opt)
+    RIGHT_PAREN  [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    conditional_expr       go to state 92
+    constant               go to state 94
+    equality_expr          go to state 101
+    expr                   go to state 158
+    function_call          go to state 105
+    indirection_expr       go to state 109
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    character_constant     go to state 119
+    expr_opt               go to state 285
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    shift_expr             go to state 132
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+
+
+state 282
+
+   77 if_else_statement: IF LEFT_PAREN expr RIGHT_PAREN statement ELSE . statement
+
+    IDENTIFIER   shift, and go to state 60
+    STRING       shift, and go to state 61
+    BREAK        shift, and go to state 62
+    CONTINUE     shift, and go to state 63
+    DO           shift, and go to state 64
+    FOR          shift, and go to state 65
+    GOTO         shift, and go to state 66
+    IF           shift, and go to state 67
+    RETURN       shift, and go to state 68
+    WHILE        shift, and go to state 69
+    LEFT_PAREN   shift, and go to state 70
+    LEFT_CURLY   shift, and go to state 44
+    AMPERSAND    shift, and go to state 71
+    ASTERISK     shift, and go to state 72
+    EXCLAMATION  shift, and go to state 73
+    MINUS        shift, and go to state 74
+    PLUS         shift, and go to state 75
+    SEMICOLON    shift, and go to state 76
+    TILDE        shift, and go to state 77
+    MINUS_MINUS  shift, and go to state 78
+    PLUS_PLUS    shift, and go to state 79
+    NUMBER       shift, and go to state 80
+
+    LEFT_PAREN   [reduce using rule 128 (string_constant)]
+    AMPERSAND    [reduce using rule 128 (string_constant)]
+    ASTERISK     [reduce using rule 128 (string_constant)]
+    MINUS        [reduce using rule 128 (string_constant)]
+    PLUS         [reduce using rule 128 (string_constant)]
+    SEMICOLON    [reduce using rule 128 (string_constant)]
+    MINUS_MINUS  [reduce using rule 128 (string_constant)]
+    PLUS_PLUS    [reduce using rule 128 (string_constant)]
+    $default     reduce using rule 128 (string_constant)
+
+    additive_expr          go to state 81
+    address_expr           go to state 82
+    assignment_expr        go to state 83
+    bitwise_and_expr       go to state 84
+    bitwise_negation_expr  go to state 85
+    bitwise_or_expr        go to state 86
+    bitwise_xor_expr       go to state 87
+    break_statement        go to state 88
+    cast_expr              go to state 89
+    comma_expr             go to state 90
+    compound_statement     go to state 91
+    conditional_expr       go to state 92
+    conditional_statement  go to state 93
+    constant               go to state 94
+    continue_statement     go to state 95
+    do_statement           go to state 100
+    equality_expr          go to state 101
+    expr                   go to state 102
+    expression_statement   go to state 103
+    for_statement          go to state 104
+    function_call          go to state 105
+    goto_statement         go to state 106
+    if_else_statement      go to state 107
+    if_statement           go to state 108
+    indirection_expr       go to state 109
+    iterative_statement    go to state 110
+    label                  go to state 111
+    labeled_statement      go to state 112
+    logical_and_expr       go to state 113
+    logical_negation_expr  go to state 114
+    logical_or_expr        go to state 115
+    multiplicative_expr    go to state 116
+    named_label            go to state 117
+    null_statement         go to state 118
+    character_constant     go to state 119
+    integer_constant       go to state 121
+    string_constant        go to state 122
+    parenthesized_expr     go to state 123
+    postdecrement_expr     go to state 124
+    postfix_expr           go to state 125
+    postincrement_expr     go to state 126
+    predecrement_expr      go to state 127
+    preincrement_expr      go to state 128
+    primary_expr           go to state 129
+    relational_expr        go to state 130
+    return_statement       go to state 131
+    shift_expr             go to state 132
+    statement              go to state 286
+    subscript_expr         go to state 134
+    unary_expr             go to state 135
+    unary_minus_expr       go to state 136
+    unary_plus_expr        go to state 137
+    while_statement        go to state 138
+
+
+state 283
+
+   56 direct_abstract_declarator: direct_abstract_declarator_opt LEFT_SQUARE constant_expr_opt RIGHT_SQUARE .
+
+    $default  reduce using rule 56 (direct_abstract_declarator)
+
+
+state 284
+
+   61 do_statement: DO statement WHILE LEFT_PAREN expr RIGHT_PAREN SEMICOLON .
+
+    $default  reduce using rule 61 (do_statement)
+
+
+state 285
+
+   70 for_expr: LEFT_PAREN initial_clause_opt SEMICOLON expr_opt SEMICOLON expr_opt . RIGHT_PAREN
+
+    RIGHT_PAREN  shift, and go to state 287
+
+
+state 286
+
+   77 if_else_statement: IF LEFT_PAREN expr RIGHT_PAREN statement ELSE statement .
+
+    $default  reduce using rule 77 (if_else_statement)
+
+
+state 287
+
+   70 for_expr: LEFT_PAREN initial_clause_opt SEMICOLON expr_opt SEMICOLON expr_opt RIGHT_PAREN .
+
+    $default  reduce using rule 70 (for_expr)

@@ -1,5 +1,5 @@
 all: clean
-	bison -d test.y -o bison.c
+	bison --verbose -d test.y -o bison.c
 	flex -o lex.c test.l 
 	clang -c node.c
 	clang -c lex.c
