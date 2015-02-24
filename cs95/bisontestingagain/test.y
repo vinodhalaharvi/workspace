@@ -30,8 +30,19 @@ extern struct node *root_node;
 
 %start translation_unit
 %token NUMBER
-%left PLUS MINUS
-%left SLASH ASTERISK
+
+%left  COMMA
+%right  EQUAL PLUS_EQUAL MINUS_EQUAL ASTERISK_EQUAL SLASH_EQUAL LESS_LESS_EQUAL GREATER_GREATER_EQUAL PERCENT_EQUAL AMPERSAND_EQUAL CARET_EQUAL VBAR_EQUAL
+%left VBAR_VBAR
+%left AMPERSAND_AMPERSAND
+%left VBAR
+%left CARET
+%left AMPERSAND
+%left EQUAL_EQUAL EXCLAMATION_EQUAL
+%left LESS GREATER LESS_EQUAL GREATER_EQUAL
+%left LESS_LESS GREATER_GREATER
+%left PLUS MINUS 
+%left SLASH ASTERISK PERCENT
 
 %%
 abstract_declarator 
@@ -325,16 +336,17 @@ parameter_decl
 
 
  /* not sure if this is right */
-CONSTANT:
+CONSTANT
+	: constant
 	;
 abstract_declarator_opt:
 	| abstract_declarator
 	;
-character_constant:
-	| character_constant
+character_constant
+	: NUMBER
 	;
 constant_expr_opt:
-	| conditional_expr
+	| constant_expr
 	;
 declaration_or_statement_list_opt:
 	| declaration_or_statement_list	
@@ -355,14 +367,15 @@ initial_clause_opt:
 	| initial_clause
 	;
 int_t_opt:
+	| INT
 	;
-integer_constant:
-	| NUMBER
+integer_constant: NUMBER
 	;
 pointer_opt:
 	| pointer
 	;
 string_constant:
+	| STRING
 	;
  /* not sure if this is right */
 

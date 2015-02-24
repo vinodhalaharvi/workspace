@@ -620,12 +620,11 @@ char *yytext;
 #define YY_NO_INPUT
 #define MAX_STR_CONST 32667
 
-enum tokens {IGNORE, CHAR_LITERAL}; 
 char *store, *yystring; 
 int yystringlen = 0;
 unsigned int literal_int = 0;
 
-#line 629 "lex.c"
+#line 628 "lex.c"
 
 #define INITIAL 0
 #define string 1
@@ -813,10 +812,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 31 "test.l"
+#line 30 "test.l"
 
  /* reserved keywords*/
-#line 820 "lex.c"
+#line 819 "lex.c"
 
 	if ( !(yy_init) )
 		{
@@ -911,313 +910,313 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 33 "test.l"
+#line 32 "test.l"
 { return DO;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 34 "test.l"
+#line 33 "test.l"
 { return FOR;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 35 "test.l"
+#line 34 "test.l"
 { return RETURN;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 36 "test.l"
+#line 35 "test.l"
 { return BREAK;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 37 "test.l"
+#line 36 "test.l"
 { return SHORT;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 38 "test.l"
+#line 37 "test.l"
 { return ELSE;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 39 "test.l"
+#line 38 "test.l"
 { return GOTO;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 40 "test.l"
+#line 39 "test.l"
 { return SIGNED;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 41 "test.l"
+#line 40 "test.l"
 { return UNSIGNED;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 42 "test.l"
+#line 41 "test.l"
 { return CHAR;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 43 "test.l"
+#line 42 "test.l"
 { return IF;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 44 "test.l"
+#line 43 "test.l"
 { return VOID;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 45 "test.l"
+#line 44 "test.l"
 { return INT;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 46 "test.l"
+#line 45 "test.l"
 { return CONTINUE;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 47 "test.l"
+#line 46 "test.l"
 { return LONG;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 48 "test.l"
+#line 47 "test.l"
 { return WHILE;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 49 "test.l"
+#line 48 "test.l"
 { return LEFT_CURLY; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 50 "test.l"
+#line 49 "test.l"
 { return RIGHT_CURLY; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 51 "test.l"
+#line 50 "test.l"
 /* eat up a space */
 	YY_BREAK
 /* operators begin */
 case 20:
 YY_RULE_SETUP
-#line 54 "test.l"
+#line 53 "test.l"
 { return PLUS_EQUAL;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 55 "test.l"
+#line 54 "test.l"
 { return MINUS_EQUAL;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 56 "test.l"
+#line 55 "test.l"
 { return ASTERISK_EQUAL	;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 57 "test.l"
+#line 56 "test.l"
 { return SLASH_EQUAL;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 58 "test.l"
+#line 57 "test.l"
 { return PERCENT_EQUAL;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 59 "test.l"
+#line 58 "test.l"
 { return LESS_LESS_EQUAL;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 60 "test.l"
+#line 59 "test.l"
 { return GREATER_GREATER_EQUAL;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 61 "test.l"
+#line 60 "test.l"
 { return AMPERSAND_EQUAL;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 62 "test.l"
+#line 61 "test.l"
 { return CARET_EQUAL;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 63 "test.l"
+#line 62 "test.l"
 { return VBAR_EQUAL;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 64 "test.l"
+#line 63 "test.l"
 { return PLUS_PLUS;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 65 "test.l"
+#line 64 "test.l"
 { return MINUS_MINUS;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 66 "test.l"
+#line 65 "test.l"
 { return LESS_LESS;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 67 "test.l"
+#line 66 "test.l"
 { return GREATER_GREATER;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 68 "test.l"
+#line 67 "test.l"
 { return LESS_EQUAL;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 69 "test.l"
+#line 68 "test.l"
 { return GREATER_EQUAL;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 70 "test.l"
+#line 69 "test.l"
 { return EQUAL_EQUAL;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 71 "test.l"
+#line 70 "test.l"
 { return EXCLAMATION_EQUAL;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 72 "test.l"
+#line 71 "test.l"
 { return AMPERSAND_AMPERSAND;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 73 "test.l"
+#line 72 "test.l"
 { return VBAR_VBAR;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 74 "test.l"
+#line 73 "test.l"
 { return EXCLAMATION;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 75 "test.l"
+#line 74 "test.l"
 { return PERCENT;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 76 "test.l"
+#line 75 "test.l"
 { return CARET;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 77 "test.l"
+#line 76 "test.l"
 { return AMPERSAND;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 78 "test.l"
+#line 77 "test.l"
 { return ASTERISK;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 79 "test.l"
+#line 78 "test.l"
 { return MINUS;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 80 "test.l"
+#line 79 "test.l"
 { return PLUS;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 81 "test.l"
+#line 80 "test.l"
 { return EQUAL;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 82 "test.l"
+#line 81 "test.l"
 { return TILDE;}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 83 "test.l"
+#line 82 "test.l"
 { return VBAR;}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 84 "test.l"
+#line 83 "test.l"
 { return LESS;}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 85 "test.l"
+#line 84 "test.l"
 { return GREATER;}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 86 "test.l"
+#line 85 "test.l"
 { return SLASH;}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 87 "test.l"
+#line 86 "test.l"
 { return QUESTION;}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 88 "test.l"
+#line 87 "test.l"
 { return LEFT_PAREN;}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 89 "test.l"
+#line 88 "test.l"
 { return RIGHT_PAREN;}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 90 "test.l"
+#line 89 "test.l"
 { return RIGHT_SQUARE;}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 91 "test.l"
+#line 90 "test.l"
 { return LEFT_SQUARE;}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 92 "test.l"
+#line 91 "test.l"
 { return LEFT_CURLY;}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 93 "test.l"
+#line 92 "test.l"
 { return RIGHT_CURLY;}
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 94 "test.l"
+#line 93 "test.l"
 { return COMMA;}
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 95 "test.l"
+#line 94 "test.l"
 { return SEMICOLON;}
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 96 "test.l"
+#line 95 "test.l"
 { return COLON;}
 	YY_BREAK
 /* operators end */
@@ -1226,28 +1225,28 @@ YY_RULE_SETUP
 /* http://flex.sourceforge.net/manual/Start-Conditions.html#Start-Conditions */
 case 63:
 YY_RULE_SETUP
-#line 105 "test.l"
+#line 104 "test.l"
 {BEGIN(comment);}
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 106 "test.l"
+#line 105 "test.l"
 
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 107 "test.l"
+#line 106 "test.l"
 
 	YY_BREAK
 case 66:
 /* rule 66 can match eol */
 YY_RULE_SETUP
-#line 108 "test.l"
+#line 107 "test.l"
 
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 109 "test.l"
+#line 108 "test.l"
 {BEGIN(INITIAL);}
 	YY_BREAK
 /* handle comments */
@@ -1256,7 +1255,7 @@ YY_RULE_SETUP
 /* handle double quotes */
 case 68:
 YY_RULE_SETUP
-#line 115 "test.l"
+#line 114 "test.l"
 {
 BEGIN(string); 
 store = (char *) malloc(sizeof(char) * MAX_STR_CONST); 
@@ -1267,7 +1266,7 @@ yystring = store;
 case 69:
 /* rule 69 can match eol */
 YY_RULE_SETUP
-#line 121 "test.l"
+#line 120 "test.l"
 {
 /* yyerror("Quoted string not terminated properly.");  */
 	return -1; 
@@ -1276,7 +1275,7 @@ YY_RULE_SETUP
 /* if not a double quote, not a slash or newline */
 case 70:
 YY_RULE_SETUP
-#line 126 "test.l"
+#line 125 "test.l"
 {
 *store++ = *yytext; 
 assert(++yystringlen < MAX_STR_CONST ); 
@@ -1285,7 +1284,7 @@ assert(++yystringlen < MAX_STR_CONST );
 /* Case for valid octal escape code */
 case 71:
 YY_RULE_SETUP
-#line 131 "test.l"
+#line 130 "test.l"
 {
 unsigned int result; 
 (void)sscanf(yytext + 1, "%o", &result); 
@@ -1299,7 +1298,7 @@ assert(++yystringlen < MAX_STR_CONST);
 /* If you get here, it's an invalid octal escape code */
 case 72:
 YY_RULE_SETUP
-#line 141 "test.l"
+#line 140 "test.l"
 {
 return -1; 
 /* yyerror("Invalid octal code inside the string.. ");  */
@@ -1308,71 +1307,71 @@ return -1;
 /* change the escape literals to their true encoding */
 case 73:
 YY_RULE_SETUP
-#line 146 "test.l"
+#line 145 "test.l"
 { *store++ = '\n'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 147 "test.l"
+#line 146 "test.l"
 { *store++ = '\t'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 148 "test.l"
+#line 147 "test.l"
 { *store++ = '\b'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 149 "test.l"
+#line 148 "test.l"
 { *store++ = '\r'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 150 "test.l"
+#line 149 "test.l"
 { *store++ = '\f'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 151 "test.l"
+#line 150 "test.l"
 { *store++ = '\v'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 152 "test.l"
+#line 151 "test.l"
 { *store++ = '\a'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 153 "test.l"
+#line 152 "test.l"
 { *store++ = '\?'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 154 "test.l"
+#line 153 "test.l"
 { *store++ = '\\'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 155 "test.l"
+#line 154 "test.l"
 { *store++ = '\''; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 /*<string>\\\0 { *store++ = '\0'; assert(++yystringlen < MAX_STR_CONST); } */
 case 83:
 YY_RULE_SETUP
-#line 157 "test.l"
+#line 156 "test.l"
 { *store++ = '"'; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 /* if this is not a escape character then ignore leading '\' */
 case 84:
 /* rule 84 can match eol */
 YY_RULE_SETUP
-#line 159 "test.l"
+#line 158 "test.l"
 {*store++ = yytext[1]; assert(++yystringlen < MAX_STR_CONST); }
 	YY_BREAK
 /* wrap up the string if we see a closing quote*/
 case 85:
 YY_RULE_SETUP
-#line 161 "test.l"
+#line 160 "test.l"
 {
 *store = '\0'; 
 assert(++yystringlen < MAX_STR_CONST); 
@@ -1384,7 +1383,7 @@ return STRING;
 /*Rules for character literals */
 case 86:
 YY_RULE_SETUP
-#line 170 "test.l"
+#line 169 "test.l"
 {
 			(void) sscanf(yytext+2, "%o", &literal_int); 
 			yylval = node_number_from_literal(literal_int); 
@@ -1394,42 +1393,42 @@ YY_RULE_SETUP
 case 87:
 /* rule 87 can match eol */
 YY_RULE_SETUP
-#line 175 "test.l"
+#line 174 "test.l"
 {yylval = node_number_from_literal((int)yytext[1]); return NUMBER; }
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 176 "test.l"
+#line 175 "test.l"
 {yylval = node_number_from_literal('\a'); return NUMBER; }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 177 "test.l"
+#line 176 "test.l"
 {yylval = node_number_from_literal('\b'); return NUMBER; }
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 178 "test.l"
+#line 177 "test.l"
 {yylval = node_number_from_literal('\t'); return NUMBER; }
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 179 "test.l"
+#line 178 "test.l"
 {yylval = node_number_from_literal('\n'); return NUMBER; }
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
-#line 180 "test.l"
+#line 179 "test.l"
 {yylval = node_number_from_literal('\v'); return NUMBER; }
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 181 "test.l"
+#line 180 "test.l"
 {yylval = node_number_from_literal('\f'); return NUMBER; }
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 182 "test.l"
+#line 181 "test.l"
 {yylval = node_number_from_literal('\r'); return NUMBER; }
 	YY_BREAK
 /* Decimal number which could either be a single digit '0' or
@@ -1437,45 +1436,45 @@ a valid number not starting with '0' */
 /* {number}  { yylval.d = atoi(yytext); return NUMBER; } */
 case 95:
 YY_RULE_SETUP
-#line 186 "test.l"
+#line 185 "test.l"
 { yylval = node_number(yytext); return NUMBER; }
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
-#line 187 "test.l"
+#line 186 "test.l"
 { return -1; }
 	YY_BREAK
 case 97:
 YY_RULE_SETUP
-#line 188 "test.l"
+#line 187 "test.l"
 {yylval = node_number(yytext); return NUMBER; }
 	YY_BREAK
 /* constants end */
 /* identifiers */
 case 98:
 YY_RULE_SETUP
-#line 191 "test.l"
+#line 190 "test.l"
 { yylval = node_identifier(yytext, yyleng); return IDENTIFIER; } 
 	YY_BREAK
 /* newline and white space */
 case 99:
 /* rule 99 can match eol */
 YY_RULE_SETUP
-#line 193 "test.l"
+#line 192 "test.l"
 {}
 	YY_BREAK
 /*everything else is an error */
 case 100:
 YY_RULE_SETUP
-#line 195 "test.l"
+#line 194 "test.l"
 return -1;
 	YY_BREAK
 case 101:
 YY_RULE_SETUP
-#line 196 "test.l"
+#line 195 "test.l"
 ECHO;
 	YY_BREAK
-#line 1479 "lex.c"
+#line 1478 "lex.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(string):
 case YY_STATE_EOF(comment):
@@ -2447,7 +2446,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 196 "test.l"
+#line 195 "test.l"
 
 
 

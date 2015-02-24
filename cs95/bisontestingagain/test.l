@@ -11,7 +11,6 @@
 #define YY_NO_INPUT
 #define MAX_STR_CONST 32667
 
-enum tokens {IGNORE, CHAR_LITERAL}; 
 char *store, *yystring; 
 int yystringlen = 0;
 unsigned int literal_int = 0;
